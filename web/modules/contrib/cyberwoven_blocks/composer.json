@@ -1,0 +1,25 @@
+{
+  "name": "cyberwoven/cyberwoven_blocks",
+  "type": "drupal-module",
+  "description": "Provides a few basic blocks for Cyberwoven projects.",
+  "keywords": ["Drupal"],
+  "homepage": "https://bitbucket.org/cyberwoven/cyberwoven_blocks",
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "extra": {
+    "branch-alias": {
+      "8.x-1.x": "1.x-dev"
+    }
+  },
+  "support": {
+    "source": "https://bitbucket.org/cyberwoven/cyberwoven_blocks.git"
+  },
+  "authors": [
+    {
+      "name": "Aaron Crosman (acrosman)",
+      "homepage": "https://www.drupal.org/u/acrosman",
+      "role": "Maintainer"
+    }
+  ],
+  "require": { }
+}

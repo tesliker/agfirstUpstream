@@ -1,0 +1,28 @@
+/* moving right column in admin below left column content area */
+.layout-region-node-main {
+  float: none;
+  width: auto;
+  padding: 0;
+}
+
+.layout-region-node-secondary,
+.layout-region-node-footer {
+  float: none;
+  width: auto;
+}
+
+[dir="rtl"] .layout-region-node-main,
+[dir="rtl"] .layout-region-node-footer {
+  float: none;
+  width: auto;
+}
+
+/* Fix input field spacing on form items in paragraphs. */
+.form-item {
+  margin: 0 0 0.75em !important;
+}
+
+/* Exceptions */
+.field--type-text-with-summary > div .form-item {
+  margin-bottom: 0px !important;
+}

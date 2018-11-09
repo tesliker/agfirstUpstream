@@ -1,0 +1,19 @@
+{
+    "name": "cyberwoven/cyberwoven_theme_suggestions",
+    "description": "This module provides a few theme suggestions that we tend to want during themeing of Drupal 8 sites.",
+    "type": "drupal-module",
+    "homepage": "https://bitbucket.org/cyberwoven/cyberwoven_theme_suggestions",
+    "authors": [
+        {
+          "name": "Danny Cooper",
+          "role": "Maintainer"
+        }
+    ],
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev",
+    "extra": {
+      "branch-alias": {
+        "8.x-1.x": "1.x-dev"
+      }
+    }
+}

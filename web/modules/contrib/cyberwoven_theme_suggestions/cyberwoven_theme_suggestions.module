@@ -1,0 +1,292 @@
+<?php
+
+/**
+ * @file
+ * Contains cyberwoven_theme_suggestions.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\block_content\BlockContentInterface;
+
+/**
+ * Implements hook_help().
+ */
+function cyberwoven_theme_suggestions_help($route_name,
+                                           RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the cyberwoven_theme_suggestions module.
+    case 'help.page.cyberwoven_theme_suggestions':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t(
+          'Provides extra theme suggestions to easy site theme creation.') .
+        '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for image_style().
+ *
+ * Add image style suggestions detailed image formatter theme suggestions.
+ */
+function cyberwoven_theme_suggestions_theme_suggestions_image_style_alter(array &$suggestions,
+                                                                          array $variables) {
+  $sanitized_style = strtr($variables['style_name'], '.', '_');
+  $suggestions[] = 'image_style__' . $sanitized_style;
+
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function cyberwoven_theme_suggestions_theme_suggestions_taxonomy_term_alter(array &$suggestions,
+                                                                            array $variables) {
+  if (empty($variables['elements']['#taxonomy_term'])) {
+    return;
+  }
+  $term = $variables['elements']['#taxonomy_term'];
+  if (empty($term)) {
+    return;
+  }
+
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+  $suggestions = array_merge($suggestions, [
+    'taxonomy_term__' . $term->bundle() . '__' . $sanitized_view_mode,
+    'taxonomy_term__' . $term->id() . '__' . $sanitized_view_mode,
+  ]);
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for views_view_field().
+ *
+ * Add more detailed views field theme suggestions.
+ */
+function cyberwoven_theme_suggestions_theme_suggestions_views_view_fields_alter(array &$suggestions,
+                                                                                array $variables) {
+
+  if (empty($variables['field']) || empty(($variables['view']))) {
+    return;
+  }
+
+  $view = $variables['view'];
+  $display = isset($view->display_handler) ? $view->display_handler->display : NULL;
+  $field = $variables['field'];
+
+  $stem = 'views-view-fields--' . $view->id();
+  $stem .= empty($display) ? '' : '--' . $display['id'];
+
+  $suggestions = array_merge(
+    $suggestions, [
+    $stem . '--' . str_replace('_', '-', $field->field),
+  ]);
+
+}
+
+/**
+ * Implements hook_theme_suggestions_block_alter().
+ *
+ * Adds an additional theme suggestion for the custom block types that are less
+ * specific than the suggestion for the block id but more than all blocks.
+ *
+ */
+function cyberwoven_theme_suggestions_theme_suggestions_block_alter(&$suggestions,
+                                                                    $variables) {
+
+  $content = $variables['elements']['content'];
+  $id = $variables['elements']['#id'];
+  if (isset($content['#block_content']) && $content['#block_content'] instanceof BlockContentInterface
+  ) {
+    $key = array_search('block__' . $id, $suggestions);
+    if ($key === FALSE) {
+      $suggestions[] = 'block__custom_type__' .
+        $content['#block_content']->bundle();
+    }
+    else {
+      array_splice(
+        $suggestions, $key, 0, [
+        'block__custom_type__' . $content['#block_content']->bundle(),
+      ]);
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_page_title_alter().
+ *
+ * Adds an additional theme suggestion for the custom title handling in code
+ * and templates.
+ */
+function cyberwoven_theme_suggestions_theme_suggestions_page_title_alter(&$suggestions,
+                                                                         $variables) {
+  // Are we looking at a node?
+  $node = \Drupal::routeMatch()->getParameter('node');
+  // Object check required, sometimes it's a string, yes, really. Who knew?
+  if (!empty($node) && is_object($node)) {
+    array_splice($suggestions, 1, 0, 'page_title__' . $node->getType());
+  }
+
+  $term = \Drupal::routeMatch()->getParameter('taxonomy_term');
+  if (!empty($term) && is_object($term)) {
+    $suggestions[] = 'page_title__terms';
+    $suggestions[] = 'page_title__' . $term->getVocabularyId();
+    $suggestions[] = 'page_title__' . $term->id();
+  }
+
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for page().
+ *
+ * @see https://www.drupal.org/node/2363987
+ */
+function cyberwoven_theme_suggestions_theme_suggestions_page_alter(array &$suggestions,
+                                                                   array $variables) {
+  $http_error_suggestions = [
+    'system.401' => 'page__system__401',
+    'system.403' => 'page__system__403',
+    'system.404' => 'page__system__404',
+  ];
+  $route_name = Drupal::routeMatch()->getRouteName();
+  if (isset($http_error_suggestions[$route_name])) {
+    $suggestions[] = $http_error_suggestions[$route_name];
+  }
+
+  // Add a theme hook suggestion for the bundle's page.
+  if ($parameter = \Drupal::routeMatch()->getParameter('node')) {
+
+    if (is_numeric($parameter)) {
+      $node = Drupal\node\Entity\Node::load($parameter);
+    }else{
+      $node = $parameter;
+    }
+
+    if (!empty($node) && $node instanceof \Drupal\node\NodeInterface) {
+
+      if (in_array('page__node', $suggestions)) {
+        foreach ($suggestions as $key => $suggestion) {
+          if ($suggestion == 'page__node') {
+            array_splice($suggestions, $key + 1, 0, 'page__' . $node->bundle());
+            break;
+          }
+        }
+      }
+      else {
+        $suggestions[] = 'page__' . $node->bundle();
+      }
+
+    }
+  } elseif ($parameter = \Drupal::routeMatch()->getParameter('taxonomy_term')) {
+
+    if (is_numeric($parameter)) {
+      $term = \Drupal\taxonomy\Entity\Term::load($parameter);
+    }else{
+      $term = $parameter;
+    }
+
+    if (!empty($term) && $term instanceof \Drupal\taxonomy\TermInterface) {
+      if (in_array('page__taxonomy__term', $suggestions)) {
+        foreach ($suggestions as $key => $suggestion) {
+          if ($suggestion == 'page__taxonomy__term') {
+            array_splice($suggestions, $key + 1, 0, 'page__taxonomy__term__' . $term->bundle());
+            break;
+          }
+        }
+      }
+      else {
+        $suggestions[] = 'page__taxonomy__term__' . $term->bundle();
+      }
+    }
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * @param $variables
+ */
+function cyberwoven_theme_suggestions_preprocess_html(&$variables) {
+  _cyberwoven_theme_suggestions_get_current_path_and_alias($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * @param $variables
+ */
+function cyberwoven_theme_suggestions_preprocess_page(&$variables) {
+  _cyberwoven_theme_suggestions_get_current_path_and_alias($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * @param $variables
+ */
+function cyberwoven_theme_suggestions_preprocess_region(&$variables) {
+  _cyberwoven_theme_suggestions_get_current_path_and_alias($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * @param $variables
+ */
+function cyberwoven_theme_suggestions_preprocess_node(&$variables) {
+  _cyberwoven_theme_suggestions_get_current_path_and_alias($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * @param $variables
+ */
+function cyberwoven_theme_suggestions_preprocess_taxonomy_term(&$variables) {
+  _cyberwoven_theme_suggestions_get_current_path_and_alias($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Fix to poor handling for custom block cache settings:
+ *  https://drupal.stackexchange.com/a/225569/210
+ */
+function cyberwoven_theme_suggestions_preprocess_block(&$variables) {
+
+  _cyberwoven_theme_suggestions_get_current_path_and_alias($variables);
+
+  if ($variables['base_plugin_id'] == 'block_content') {
+    $renderer = \Drupal::service('renderer');
+    $renderer->addCacheableDependency($variables, $variables['content']['#block_content']);
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ *
+ * @param $variables
+ */
+function cyberwoven_theme_suggestions_preprocess_views_view(&$variables) {
+  _cyberwoven_theme_suggestions_get_current_path_and_alias($variables);
+}
+
+/**
+ * Helper function. Call from preprocess functions to make the current path and alias
+ * available as twig variables.
+ *
+ * @param $variables
+ */
+function _cyberwoven_theme_suggestions_get_current_path_and_alias(&$variables) {
+
+  $current_path = \Drupal::service('path.current')->getPath();
+  $current_alias = \Drupal::service('path.alias_manager')
+    ->getAliasByPath($current_path);
+
+  $variables['current_path'] = $current_path;
+  $variables['current_alias'] = $current_alias;
+
+}
+

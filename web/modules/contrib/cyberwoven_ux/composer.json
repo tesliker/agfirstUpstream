@@ -1,0 +1,25 @@
+{
+  "name": "cyberwoven/cyberwoven_ux",
+  "type": "drupal-module",
+  "description": "Provides Cyberwoven preferred updates to the admin UX.",
+  "keywords": ["Drupal"],
+  "homepage": "https://bitbucket.org/cyberwoven/cyberwoven_ux",
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "extra": {
+    "branch-alias": {
+      "8.x-1.x": "1.x-dev"
+    }
+  },
+  "support": {
+    "source": "https://bitbucket.org/cyberwoven/cyberwoven_ux.git"
+  },
+  "authors": [
+    {
+      "name": "Aaron Crosman (acrosman)",
+      "homepage": "https://www.drupal.org/u/acrosman",
+      "role": "Maintainer"
+    }
+  ],
+  "require": { }
+}

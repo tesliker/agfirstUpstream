@@ -1,0 +1,8 @@
+url-field-fix:
+  version: 0.0
+  js:
+    js/url_field_fix.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

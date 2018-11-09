@@ -1,0 +1,89 @@
+<?php
+
+/**
+ * @file
+ * Contains cyberwoven_ux.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_help().
+ */
+function cyberwoven_ux_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the cyberwoven_ux module.
+    case 'help.page.cyberwoven_ux':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Form alters and other code to support a better admin and editor UX.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Update URL fields to have JS handlers to provide default protocols.
+ */
+function cyberwoven_ux_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+
+  // Add URL helper library.
+  $link_field_list = _cyberwoven_ux_get_link_fields();
+  $used_fields = [];
+
+  foreach ($form as $key => $value) {
+    if (in_array($key, $link_field_list)) {
+      $used_fields[] = $key;
+    }
+  }
+
+  if (!empty($used_fields)) {
+    $form['#attached']['library'][] = 'cyberwoven_ux/url-field-fix';
+  }
+}
+
+/**
+ * Get a list of link fields for all requested entities, or a pre-set list.
+ */
+function _cyberwoven_ux_get_link_fields($entity_type = NULL) {
+  // List of entity types where we want to override the behavior of URI fields.
+  $type_list = [
+    'node',
+    'paragraph',
+    'taxonomy_term',
+    'block_content',
+  ];
+
+  if (!empty($entity_type)) {
+    $type_list = [$type_list[$entity_type]];
+  }
+
+  $fields = [];
+
+  $field_map = \Drupal::service('entity_field.manager')->getFieldMap();
+
+  foreach ($type_list as $entity) {
+    if (empty($field_map[$entity])) {
+      continue;
+    }
+
+    foreach ($field_map[$entity] as $name => $field) {
+      if ($field['type'] == 'link') {
+        $fields[] = $name;
+      }
+    }
+  }
+
+  return $fields;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function cyberwoven_ux_form_linkit_editor_dialog_form_alter(&$form, FormStateInterface $form_state) {
+  $form['attributes']['href']['#description'] = t('Start typing to find content or paste a URL. Note: Links to external sites MUST start with http:// or https://');
+}

@@ -1,0 +1,5 @@
+name: Cyberwoven Theme Suggestions
+type: module
+description: Provides extra theme suggestions to easy site theme creation.
+core: 8.x
+package: Cyberwoven

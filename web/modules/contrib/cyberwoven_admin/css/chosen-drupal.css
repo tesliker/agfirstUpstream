@@ -1,0 +1,52 @@
+/**
+ * @file
+ * Drupal-specific CSS fixes for the Chosen module
+ */
+
+.js-form-item div.chosen-container.error .js-form-item div.chosen-single,
+.js-form-item div.chosen-container.error .js-form-item div.chosen-single span {
+  line-height: inherit;
+}
+
+.js-form-item div.chosen-container-single .js-form-item div.chosen-search {
+  display: block;
+}
+
+.js-form-item div.chosen-container-multi .js-form-item div.chosen-choices li.search-field input[type="text"] {
+  height: auto;
+}
+
+.js-form-item div.chosen-container {
+  display: inline-block !important;
+}
+.container-inline div.js-form-item div.chosen-container div {
+  display: block;
+}
+
+/* Error handling. */
+.js-form-item div.chosen-container.error .js-form-item div.chosen-choices,
+.js-form-item div.chosen-container.error .js-form-item div.chosen-single {
+  border: 2px solid red;
+}
+
+.filter-wrapper {
+  overflow: visible !important;
+}
+
+.filter-wrapper:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.js-form-item div.chosen-container {
+  max-width: 500px;
+}
+
+.vertical-tabs {
+  overflow: visible !important;
+}
+
+.vertical-tabs__menu-item {
+  list-style-type: none;
+}
