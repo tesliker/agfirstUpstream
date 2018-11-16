@@ -60,6 +60,33 @@ function cyberwoven_theme_suggestions_theme_suggestions_taxonomy_term_alter(arra
 }
 
 /**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * @param array $suggestions
+ * @param array $variables
+ */
+function cyberwoven_theme_suggestions_theme_suggestions_field_alter(array &$suggestions, array $variables) {
+
+
+  // Add suggestions based on the view mode of the entity.
+  $element = $variables['element'];
+
+  $base_suggestions = array(
+    'field__' . $element['#field_name'],
+    'field__' . $element['#entity_type'] . '__' . $element['#field_name'],
+    'field__' . $element['#entity_type'] . '__' . $element['#field_name'] . '__' . $element['#bundle'],
+  );
+
+  foreach ($base_suggestions as $base_suggestion) {
+    $position = array_search($base_suggestion, $suggestions);
+    if ($position) {
+      $new_suggestion = $base_suggestion . '__' . $element['#view_mode'];
+      array_splice( $suggestions, $position + 1, 0, $new_suggestion ); // splice in at position 3
+    }
+  }
+}
+
+/**
  * Implements hook_theme_suggestions_HOOK_alter() for views_view_field().
  *
  * Add more detailed views field theme suggestions.
@@ -262,6 +289,41 @@ function cyberwoven_theme_suggestions_preprocess_block(&$variables) {
     $renderer = \Drupal::service('renderer');
     $renderer->addCacheableDependency($variables, $variables['content']['#block_content']);
   }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * @param $variables
+ */
+function cyberwoven_theme_suggestions_preprocess_breadcrumb(&$variables) {
+
+  _cyberwoven_theme_suggestions_get_current_path_and_alias($variables);
+
+  // Add current page to breadcrumb.
+  $request = \Drupal::request();
+  $route_match = \Drupal::routeMatch();
+  $page_title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+
+  //  $node = $route_match->getParameter('node');
+  //
+  //  if (!empty($node)) {
+  //    $entity = $node;
+  //    if ($node->hasField('field_main_marketing_area')) {
+  //      $entity = $node->get('field_main_marketing_area')->entity;
+  //    }
+  //    if ($entity->hasField('field_headline')) {
+  //      $field_headline = $entity->get('field_headline')->getValue();
+  //      $page_title = $field_headline[0]['value'];
+  //    }
+  //  }
+
+  $variables['breadcrumb'][] = array(
+    'text' => $page_title
+  );
+
+  $variables['#cache']['contexts'][] = 'url';
+
 }
 
 /**

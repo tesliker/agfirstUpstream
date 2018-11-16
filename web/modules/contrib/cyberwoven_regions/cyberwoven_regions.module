@@ -1,0 +1,120 @@
+<?php
+
+/**
+ * @file
+ * Contains cyberwoven_regions.module.
+ */
+
+use Drupal\block\BlockRepositoryInterface;
+
+/**
+ * @param array $vars
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function cyberwoven_regions_preprocess_node(array &$vars) {
+
+  _cyberwoven_regions_get_all_regions();
+
+  // $vars['theme_path'] = base_path() . $vars['directory'];
+
+  // Limit adding regions to specific view mode(s).
+  $view_mode = $vars['elements']['#view_mode']; // Retrieve view mode
+  $allowed_view_modes = ['default', 'full']; // Array of allowed view modes
+
+  // If view mode is in allowed view modes list, pass to THEME_add_regions_to_entity()
+  if(in_array($view_mode, $allowed_view_modes)) {
+    // Allowed regions (for performance so as to not execute for unneeded region)
+    $allowed_regions = $allowed_regions = array_keys(_cyberwoven_regions_get_all_regions()); // ['admin_controls', 'content_top','content_bottom', 'sub_header'];
+    _cyberwoven_regions_add_regions_to_entity($allowed_regions, $vars);
+  }
+
+}
+
+/**
+ * @param $vars
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function cyberwoven_regions_preprocess_paragraph(&$vars) {
+
+  // $vars['theme_path'] = base_path() . $vars['directory'];
+
+
+  // Limit adding regions to specific view mode(s).
+  $view_mode = $vars['elements']['#view_mode']; // Retrieve view mode
+  $allowed_view_modes = ['default', 'full']; // Array of allowed view modes
+
+  // If view mode is in allowed view modes list, pass to THEME_add_regions_to_entity()
+  if(in_array($view_mode, $allowed_view_modes)) {
+    // Allowed regions (for performance so as to not execute for unneeded region)
+    $allowed_regions = array_keys(_cyberwoven_regions_get_all_regions()); // ['page_header_launchpad'];
+    _cyberwoven_regions_add_regions_to_entity($allowed_regions, $vars);
+  }
+
+}
+
+/**
+ * @param $allowed_regions
+ * @param $vars
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function _cyberwoven_regions_add_regions_to_entity($allowed_regions, &$vars) {
+  // Retrieve active theme
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+
+  // Retrieve theme regions
+  $available_regions = system_region_list(
+    \Drupal::service('theme.manager')->getActiveTheme()->getName(),
+    BlockRepositoryInterface::REGIONS_ALL
+  );
+
+  // Validate allowed regions with available regions
+  $regions = array_intersect(array_keys($available_regions), $allowed_regions);
+
+  // For each region
+  foreach ($regions as $key => $region) {
+
+    // Load region blocks
+    $blocks = \Drupal::entityTypeManager()
+      ->getStorage('block')
+      ->loadByProperties([
+        'theme' => $theme,
+        'region' => $region,
+      ]);
+
+    // Sort ‘em
+    uasort($blocks, 'Drupal\block\Entity\Block::sort');
+
+    // Capture viewable blocks and their settings to $build
+    $build = array();
+    foreach ($blocks as $key => $block) {
+      if ($block->access('view')) {
+        $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block');
+        $build[$key] = $view_builder->view($block);
+      }
+    }
+
+    // Add build to region
+    $vars['region'][$region] = $build;
+
+  }
+
+}
+
+/**
+ * @return mixed
+ */
+function _cyberwoven_regions_get_all_regions() {
+
+  $theme_region_list = system_region_list(\Drupal::service('theme.manager')->getActiveTheme()->getName(), BlockRepositoryInterface::REGIONS_ALL);
+
+  unset($theme_region_list['content']);
+
+  return $theme_region_list;
+
+}

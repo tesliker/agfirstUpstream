@@ -1,0 +1,5 @@
+name: Cyberwoven Regions
+type: module
+description: Makes regions available outside of the page template.
+core: 8.x
+package: Cyberwoven
