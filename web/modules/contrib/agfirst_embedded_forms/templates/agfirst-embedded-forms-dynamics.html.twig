@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Default template for the Click Dymanics embedded formatter.
+ *
+ * Available variables:
+ *   - form_id: The form ID entered into the field.
+ *   - clickdimensions_link: link to the dynamics instance provided as a module setting.
+ *
+ *
+ * @ingroup themeable
+ */
+#}
+
+<!--Embed Code for the Contact Form -->
+<div{{attributes}}>
+  <script type="text/javascript">var loc = "{{- clickdimensions_link -}}"</script>
+  <script type="text/javascript" src="https://az124611.vo.msecnd.net/web/v10/CDWidget.js"></script>
+  <div pageID="{{- form_id -}}"></div>
+</div>

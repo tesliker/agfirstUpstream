@@ -1,0 +1,75 @@
+<?php
+
+/**
+ * @file
+ * Contains agfirst_embedded_forms.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use \Drupal\image\Entity\ImageStyle;
+
+/**
+ * Implements hook_help().
+ */
+function agfirst_embedded_forms_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the agfirst_embedded_forms module.
+    case 'help.page.agfirst_embedded_forms':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides embedded form handling for AgFirst sites.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function agfirst_embedded_forms_theme() {
+  return [
+    'agfirst_embedded_forms_dynamics' => [
+      'variables' => [
+        'attributes' => [],
+        'form_id' => '',
+        'clickdimensions_link' => '',
+        'form_vendor' => 'dynamics'
+      ],
+    ],
+    'agfirst_embedded_forms_jot' => [
+      'variables' => [
+        'attributes' => [],
+        'jot_id' => '',
+        'form_vendor' => 'jot'
+      ],
+    ],
+    'agfirst_embedded_forms_shortstack' => [
+      'variables' => [
+        'attributes' => [],
+        'frame_id' => '',
+        'shortstack_location' => '',
+        'form_vendor' => 'shortstack'
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function agfirst_embedded_forms_preprocess_paragraph(array &$vars) {
+  $p = $vars['paragraph'];
+  if ($p->getType() != 'embedded_form') {
+    return;
+  }
+
+  $vars['image_url'] = '';
+  if (!empty($p->field_image->entity) && isset($vars['elements']['field_image'][0]['#image_style'])) {
+    $style = ImageStyle::load($vars['elements']['field_image'][0]['#image_style']);
+    if (!empty($style)) {
+      $image_uri = $p->field_image->entity->getFileUri();
+      $vars['image_url'] = $style->buildUrl($image_uri);
+    }
+  }
+}

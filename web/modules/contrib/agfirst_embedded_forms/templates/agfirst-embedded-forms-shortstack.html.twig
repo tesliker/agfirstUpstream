@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Default template for the ShortStack embedded formatter.
+ *
+ * Available variables:
+ *   - frame_id: The ID entered into the field.
+ *   - shortstack_location: link to the Shortstack source location provided as a module setting.
+ *
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{attributes}}>
+  <iframe class='embed_frame' src='https://a.pgtb.me/{{- frame_id -}}?embed=1&vOffset=0&autoscroll_p=1' seamless='seamless' frameBorder='0' scrolling=no style='display: none' allowFullScreen></iframe>
+  <script src='{{- shortstack_location -}}' type='text/javascript'></script>
+</div>
