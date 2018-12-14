@@ -1,0 +1,10 @@
+diff --git a/imce.links.task.yml b/imce.links.task.yml
+new file mode 100644
+index 0000000..c0edb4f
+--- /dev/null
++++ b/imce.links.task.yml
+@@ -0,0 +1,4 @@
++imce.page:
++  route_name: imce.page
++  base_route: entity.user.canonical
++  title: File Browser

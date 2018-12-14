@@ -159,7 +159,7 @@ class SmartTrimFormatter extends FormatterBase {
         'text' => $this->t('Strip HTML'),
         'trim_zero' => t('Honor a zero trim length'),
       ),
-      '#default_value' => empty($trim_options_value) ? array() : $trim_options_value,
+      '#default_value' => empty($trim_options_value) ? array() : array_keys(array_filter($trim_options_value)),
     );
 
     return $element;

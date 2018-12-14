@@ -1,0 +1,15 @@
+diff --git a/pub/modules/contrib/scheduler/scheduler.module b/pub/modules/contrib/scheduler/scheduler.module
+index 9f86b4d..ba79e8f 100644
+--- a/scheduler.module
++++ b/scheduler.module
+@@ -178,8 +178,8 @@ function scheduler_form_node_form_alter(&$form, FormStateInterface $form_state)
+   $pluginDefinitions = $storage_form_display->get('pluginManager')->getDefinitions();
+   $correct_widget_id = 'datetime_timestamp_no_default';
+   foreach (['publish_on' => $publishing_enabled, 'unpublish_on' => $unpublishing_enabled] as $field => $enabled) {
+-    $actual_widget_id = $content[$field]['type'];
+-    if ($enabled && $actual_widget_id != $correct_widget_id) {
++    $actual_widget_id = (isset($content[$field]['type'])) ? $content[$field]['type'] : NULL;
++    if ($enabled && !empty($actual_widget_id) && $actual_widget_id != $correct_widget_id) {
+       drupal_set_message(t('The widget for field %field is incorrectly set to %wrong. This should be changed to %correct by an admin user via Field UI <a href="@link">content type form display</a> :not_available', [
+         '%field' => (string) $form[$field]['widget']['#title'],
+         '%correct' => (string) $pluginDefinitions[$correct_widget_id]['label'],

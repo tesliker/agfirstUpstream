@@ -1,7 +1,7 @@
 <?php
 
 $databases['default']['default'] = array (
-  'database' => 'cyberwoven-upstream',
+  'database' => 'agfirst-upstream',
   'username' => 'vagrant',
   'password' => '',
   'prefix' => '',
@@ -13,7 +13,7 @@ $databases['default']['default'] = array (
 
 // Names and colors for EI in Sandbox.
 $config['environment_indicator.indicator']['name'] = 'Sandbox';
-$config['environment_indicator.indicator']['bg_color'] = '#48484a';
+$config['environment_indicator.indicator']['bg_color'] = '#888888';
 $config['environment_indicator.indicator']['fg_color'] = '#ffffff';
 
 //$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/development.services.yml';

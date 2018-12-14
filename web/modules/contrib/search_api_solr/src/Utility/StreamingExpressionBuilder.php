@@ -47,6 +47,11 @@ class StreamingExpressionBuilder extends Expression {
   /**
    * @var string[]
    */
+  protected $all_doc_value_fields_mapped;
+
+  /**
+   * @var string[]
+   */
   protected $sort_fields;
 
   /**
@@ -103,6 +108,17 @@ class StreamingExpressionBuilder extends Expression {
       }
       elseif (preg_match('/^([a-z]+)m(_.*)/', $solr_field, $matches) && strpos($solr_field, 'random_') !== 0) {
         $this->sort_fields['sort' . Utility::decodeSolrName($matches[2])] = $matches[1] . 's' . $matches[2];
+      }
+
+      if (
+        strpos($solr_field, 'sd') === 0 ||
+        strpos($solr_field, 'i') === 0 ||
+        strpos($solr_field, 'f') === 0 ||
+        strpos($solr_field, 'p') === 0 ||
+        strpos($solr_field, 'b') === 0 ||
+        strpos($solr_field, 'h') === 0
+      ) {
+        $this->all_doc_value_fields_mapped[$search_api_field] = $solr_field;
       }
     }
 
@@ -174,8 +190,26 @@ class StreamingExpressionBuilder extends Expression {
    */
   public function _all_fields_list(string $delimiter = ',', bool $include_sorts = TRUE, array $blacklist = []) {
     return implode($delimiter, array_diff_key(
-        ($include_sorts ? array_merge($this->all_fields_mapped, $this->sort_fields) : $this->all_fields_mapped),
-        array_flip($blacklist))
+      ($include_sorts ? array_merge($this->all_fields_mapped, $this->sort_fields) : $this->all_fields_mapped),
+      array_flip($blacklist))
+    );
+  }
+
+  /**
+   * Formats the list of all Search API fields as a string of Solr field names.
+   *
+   * @param string $delimiter
+   * @param bool $include_sorts
+   * @param array $blacklist
+   *
+   * @return string
+   *   A list of all Solr field names for the index.
+   */
+  public function _all_doc_value_fields_list(string $delimiter = ',', bool $include_sorts = TRUE, array $blacklist = []) {
+    return implode($delimiter, array_diff_key(
+      // All sort fields have docValues.
+      ($include_sorts ? array_merge($this->all_doc_value_fields_mapped, $this->sort_fields) : $this->all_doc_value_fields_mapped),
+      array_flip($blacklist))
     );
   }
 
@@ -367,11 +401,18 @@ class StreamingExpressionBuilder extends Expression {
    * @throws \Drupal\search_api\SearchApiException
    */
   public function _search_all() {
+    static $rows = 0;
+
+    if (!$rows) {
+      $rows = \Drupal::state()
+        ->get('search_api_solr.' . $this->index->id() . '.search_all_rows', 0);
+    }
+
     return
       $this->search(
         $this->_collection(),
         implode(', ', func_get_args()),
-        'rows=' . ($this->index->getTrackerInstance()->getTotalItemsCount() * 10)
+        'rows=' . $rows
       );
   }
 

@@ -35,6 +35,10 @@
         {
             "type": "vcs",
             "url": "git@bitbucket.org:cyberwoven/agfirst_embedded_forms.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:cyberwoven/markdown_formatter.git"
         }
     ],
     "require": {
@@ -48,6 +52,7 @@
         "cyberwoven/cyberwoven_regions": "dev-8.x-1.x",
         "cyberwoven/cyberwoven_theme_suggestions": "dev-8.x-1.x",
         "cyberwoven/cyberwoven_ux": "dev-8.x-1.x",
+        "cyberwoven/markdown_formatter": "dev-8.x-1.x",
         "drupal-composer/drupal-scaffold": "^2.0.1",
         "drupal/address": "^1.4",
         "drupal/admin_toolbar": "^1.24",
@@ -88,8 +93,8 @@
         "drupal/tvi": "^1.0@beta",
         "drupal/twig_field_value": "^1.1",
         "drupal/twig_tweak": "^2.1",
-        "drupal/views_bulk_operations": "^2.4",
         "drupal/video_embed_field": "^2.0",
+        "drupal/views_bulk_operations": "^2.4",
         "drupal/webform": "^5.0@RC",
         "drupal/xmlsitemap": "^1.0@alpha",
         "drush-ops/behat-drush-endpoint": "^0.0.5",
@@ -159,6 +164,31 @@
                 ".htaccess",
                 "web.config"
             ]
+        },
+        "patches": {
+            "drupal/menu_block": {
+                "Menu parent as block title": "patches/2809699-27.patch"
+            },
+            "drupal/field_group": {
+                "HTML5 validation for fields which are currently not part of the visible group": "patches/field_group-validation-2787179-9.patch",
+                "Fields with errors are not visible": "patches/fields_with_errors_are-2894213-3.patch"
+            },
+            "drupal/imce": {
+                "File Browser on User Page": "patches/imce_no_browser_tab-2858430-4.patch"
+            },
+            "drupal/scheduler": {
+                "Scheduler integration with core Content moderation": "https://www.drupal.org/files/issues/2018-04-25/scheduler-content-moderation-integration-2798689-59.patch",
+                "Scheduler fix for Undefined Index error": "patches/scheduler_undefined_index_fix-tw11941113.patch"
+            },
+            "drupal/smart_trim": {
+                "Additional options checkbox do not appear to save": "https://www.drupal.org/files/issues/2018-05-04/2941492-4.patch"
+            },
+            "drupal/views_bulk_edit": {
+                "Better handling for paragraphs module: 'Only variable references should be returned by reference' error": "https://www.drupal.org/files/issues/2018-04-22/views_bulk_edit_8_2_1_0_fix_php_error_01.patch"
+            },
+            "drupal/sharethis": {
+                "Node Preview functionality break before node save": "https://www.drupal.org/files/issues/2018-04-07/sharethis-node_preview-2767165-26.patch"
+            }
         }
     },
     "config": {

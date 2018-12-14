@@ -558,6 +558,28 @@ abstract class OptionsBase extends WebformElementBase {
   /**
    * {@inheritdoc}
    */
+  public function getElementSelectorSourceValues(array $element) {
+    if ($this->hasMultipleValues($element) && $this->hasMultipleWrapper()) {
+      return [];
+    }
+
+    $plugin_id = $this->getPluginId();
+    $name = $element['#webform_key'];
+    $options = OptGroup::flattenOptions($element['#options']);
+    if ($inputs = $this->getElementSelectorInputsOptions($element)) {
+      $other_type = $this->getOptionsOtherType();
+      $multiple = ($this->hasMultipleValues($element) && $other_type === 'select') ? '[]' : '';
+      return [":input[name=\"{$name}[$other_type]$multiple\"]" => $options];
+    }
+    else {
+      $multiple = ($this->hasMultipleValues($element) && strpos($plugin_id, 'select') !== FALSE) ? '[]' : '';
+      return [":input[name=\"$name$multiple\"]" => $options];
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getElementSelectorInputValue($selector, $trigger, array $element, WebformSubmissionInterface $webform_submission) {
     if ($this->isOptionsOther()) {
       $input_name = WebformSubmissionConditionsValidator::getSelectorInputName($selector);
@@ -786,7 +808,7 @@ abstract class OptionsBase extends WebformElementBase {
     $form['options_other']['other__number_container'] = $this->getFormInlineContainer();
     $form['options_other']['other__number_container']['other__min'] = [
       '#type' => 'number',
-      '#title' => $this->t('Other min'),
+      '#title' => $this->t('Other minimum'),
       '#description' => $this->t('Specifies the minimum value.'),
       '#step' => 'any',
       '#size' => 4,
@@ -794,7 +816,7 @@ abstract class OptionsBase extends WebformElementBase {
     ];
     $form['options_other']['other__number_container']['other__max'] = [
       '#type' => 'number',
-      '#title' => $this->t('Other max'),
+      '#title' => $this->t('Other maximum'),
       '#description' => $this->t('Specifies the maximum value.'),
       '#step' => 'any',
       '#size' => 4,
