@@ -1,16 +1,26 @@
 <?php
 
-namespace Drupal\webform\Tests;
+namespace Drupal\webform_submission_log\Tests;
 
 use Drupal\webform\Entity\Webform;
 use Drupal\webform\Entity\WebformSubmission;
+use Drupal\webform\Tests\WebformTestBase;
 
 /**
- * Tests for webform storage tests.
+ * Tests for webform submission log.
  *
- * @group Webform
+ * @group WebformSubmissionLog
  */
 class WebformSubmissionLogTest extends WebformTestBase {
+
+  use WebformSubmissionLogTrait;
+
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = ['webform', 'webform_submission_log'];
 
   /**
    * Webforms to load.
@@ -42,7 +52,8 @@ class WebformSubmissionLogTest extends WebformTestBase {
     $this->assertEqual($log->uid, 0);
     $this->assertEqual($log->handler_id, '');
     $this->assertEqual($log->operation, 'submission created');
-    $this->assertEqual($log->message, 'Test: Submission: Logging: Submission #1 created.');
+    $this->assertEqual($log->message, '@title created.');
+    $this->assertEqual($log->variables, ['@title' => 'Test: Submission: Logging: Submission #1']);
     $this->assertEqual($log->webform_id, 'test_submission_log');
     $this->assertNull($log->entity_type);
     $this->assertNull($log->entity_id);
@@ -55,7 +66,8 @@ class WebformSubmissionLogTest extends WebformTestBase {
     $this->assertEqual($log->uid, 0);
     $this->assertEqual($log->handler_id, '');
     $this->assertEqual($log->operation, 'draft created');
-    $this->assertEqual($log->message, 'Test: Submission: Logging: Submission #2 draft created.');
+    $this->assertEqual($log->message, '@title draft created.');
+    $this->assertEqual($log->variables, ['@title' => 'Test: Submission: Logging: Submission #2']);
     $this->assertEqual($log->webform_id, 'test_submission_log');
     $this->assertNull($log->entity_type);
     $this->assertNull($log->entity_id);
@@ -68,7 +80,8 @@ class WebformSubmissionLogTest extends WebformTestBase {
     $this->assertEqual($log->uid, 0);
     $this->assertEqual($log->handler_id, '');
     $this->assertEqual($log->operation, 'draft updated');
-    $this->assertEqual($log->message, 'Test: Submission: Logging: Submission #2 draft updated.');
+    $this->assertEqual($log->message, '@title draft updated.');
+    $this->assertEqual($log->variables, ['@title' => 'Test: Submission: Logging: Submission #2']);
     $this->assertEqual($log->webform_id, 'test_submission_log');
     $this->assertNull($log->entity_type);
     $this->assertNull($log->entity_id);
@@ -81,7 +94,8 @@ class WebformSubmissionLogTest extends WebformTestBase {
     $this->assertEqual($log->uid, 0);
     $this->assertEqual($log->handler_id, '');
     $this->assertEqual($log->operation, 'submission completed');
-    $this->assertEqual($log->message, 'Test: Submission: Logging: Submission #2 completed using saved draft.');
+    $this->assertEqual($log->message, '@title completed using saved draft.');
+    $this->assertEqual($log->variables, ['@title' => 'Test: Submission: Logging: Submission #2']);
     $this->assertEqual($log->webform_id, 'test_submission_log');
     $this->assertNull($log->entity_type);
     $this->assertNull($log->entity_id);
@@ -97,7 +111,8 @@ class WebformSubmissionLogTest extends WebformTestBase {
     $this->assertEqual($log->uid, $admin_user->id());
     $this->assertEqual($log->sid, 2);
     $this->assertEqual($log->operation, 'submission converted');
-    $this->assertEqual($log->message, 'Test: Submission: Logging: Submission #2 converted from anonymous to ' . $admin_user->label() . '.');
+    $this->assertEqual($log->message, '@title converted from anonymous to @user.');
+    $this->assertEqual($log->variables, ['@title' => 'Test: Submission: Logging: Submission #2', '@user' => $admin_user->label()]);
 
     // Check submission #1 converted.
     $log = $submission_log[1];
@@ -105,7 +120,8 @@ class WebformSubmissionLogTest extends WebformTestBase {
     $this->assertEqual($log->uid, $admin_user->id());
     $this->assertEqual($log->sid, 1);
     $this->assertEqual($log->operation, 'submission converted');
-    $this->assertEqual($log->message, 'Test: Submission: Logging: Submission #1 converted from anonymous to ' . $admin_user->label() . '.');
+    $this->assertEqual($log->message, '@title converted from anonymous to @user.');
+    $this->assertEqual($log->variables, ['@title' => 'Test: Submission: Logging: Submission #1', '@user' => $admin_user->label()]);
 
     // Check submission updated.
     $this->drupalPostForm("admin/structure/webform/manage/test_submission_log/submission/$sid_2/edit", [], t('Save'));
