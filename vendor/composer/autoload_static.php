@@ -58,6 +58,7 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
         'T' => 
         array (
             'Twig\\' => 5,
+            'TYPO3\\PharStreamWrapper\\' => 24,
         ),
         'S' => 
         array (
@@ -187,6 +188,10 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'TYPO3\\PharStreamWrapper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/typo3/phar-stream-wrapper/src',
         ),
         'Symfony\\Polyfill\\Php70\\' => 
         array (
@@ -2783,6 +2788,7 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
         'Drupal\\Core\\Routing\\UrlGeneratorInterface' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Routing/UrlGeneratorInterface.php',
         'Drupal\\Core\\Routing\\UrlGeneratorTrait' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Routing/UrlGeneratorTrait.php',
         'Drupal\\Core\\Routing\\UrlMatcher' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Routing/UrlMatcher.php',
+        'Drupal\\Core\\Security\\PharExtensionInterceptor' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Security/PharExtensionInterceptor.php',
         'Drupal\\Core\\Security\\RequestSanitizer' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Security/RequestSanitizer.php',
         'Drupal\\Core\\Serialization\\Yaml' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Serialization/Yaml.php',
         'Drupal\\Core\\Session\\AccountInterface' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Session/AccountInterface.php',
@@ -5065,6 +5071,13 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
         'Symfony\\Polyfill\\Iconv\\Iconv' => __DIR__ . '/..' . '/symfony/polyfill-iconv/Iconv.php',
         'Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
         'Symfony\\Polyfill\\Php70\\Php70' => __DIR__ . '/..' . '/symfony/polyfill-php70/Php70.php',
+        'TYPO3\\PharStreamWrapper\\Assertable' => __DIR__ . '/..' . '/typo3/phar-stream-wrapper/src/Assertable.php',
+        'TYPO3\\PharStreamWrapper\\Behavior' => __DIR__ . '/..' . '/typo3/phar-stream-wrapper/src/Behavior.php',
+        'TYPO3\\PharStreamWrapper\\Exception' => __DIR__ . '/..' . '/typo3/phar-stream-wrapper/src/Exception.php',
+        'TYPO3\\PharStreamWrapper\\Helper' => __DIR__ . '/..' . '/typo3/phar-stream-wrapper/src/Helper.php',
+        'TYPO3\\PharStreamWrapper\\Interceptor\\PharExtensionInterceptor' => __DIR__ . '/..' . '/typo3/phar-stream-wrapper/src/Interceptor/PharExtensionInterceptor.php',
+        'TYPO3\\PharStreamWrapper\\Manager' => __DIR__ . '/..' . '/typo3/phar-stream-wrapper/src/Manager.php',
+        'TYPO3\\PharStreamWrapper\\PharStreamWrapper' => __DIR__ . '/..' . '/typo3/phar-stream-wrapper/src/PharStreamWrapper.php',
         'Twig\\Cache\\CacheInterface' => __DIR__ . '/..' . '/twig/twig/src/Cache/CacheInterface.php',
         'Twig\\Cache\\FilesystemCache' => __DIR__ . '/..' . '/twig/twig/src/Cache/FilesystemCache.php',
         'Twig\\Cache\\NullCache' => __DIR__ . '/..' . '/twig/twig/src/Cache/NullCache.php',
@@ -5109,6 +5122,7 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
         'Twig\\Node\\BlockReferenceNode' => __DIR__ . '/..' . '/twig/twig/src/Node/BlockReferenceNode.php',
         'Twig\\Node\\BodyNode' => __DIR__ . '/..' . '/twig/twig/src/Node/BodyNode.php',
         'Twig\\Node\\CheckSecurityNode' => __DIR__ . '/..' . '/twig/twig/src/Node/CheckSecurityNode.php',
+        'Twig\\Node\\DeprecatedNode' => __DIR__ . '/..' . '/twig/twig/src/Node/DeprecatedNode.php',
         'Twig\\Node\\DoNode' => __DIR__ . '/..' . '/twig/twig/src/Node/DoNode.php',
         'Twig\\Node\\EmbedNode' => __DIR__ . '/..' . '/twig/twig/src/Node/EmbedNode.php',
         'Twig\\Node\\Expression\\AbstractExpression' => __DIR__ . '/..' . '/twig/twig/src/Node/Expression/AbstractExpression.php',
@@ -5213,6 +5227,7 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
         'Twig\\TokenParser\\AbstractTokenParser' => __DIR__ . '/..' . '/twig/twig/src/TokenParser/AbstractTokenParser.php',
         'Twig\\TokenParser\\AutoEscapeTokenParser' => __DIR__ . '/..' . '/twig/twig/src/TokenParser/AutoEscapeTokenParser.php',
         'Twig\\TokenParser\\BlockTokenParser' => __DIR__ . '/..' . '/twig/twig/src/TokenParser/BlockTokenParser.php',
+        'Twig\\TokenParser\\DeprecatedTokenParser' => __DIR__ . '/..' . '/twig/twig/src/TokenParser/DeprecatedTokenParser.php',
         'Twig\\TokenParser\\DoTokenParser' => __DIR__ . '/..' . '/twig/twig/src/TokenParser/DoTokenParser.php',
         'Twig\\TokenParser\\EmbedTokenParser' => __DIR__ . '/..' . '/twig/twig/src/TokenParser/EmbedTokenParser.php',
         'Twig\\TokenParser\\ExtendsTokenParser' => __DIR__ . '/..' . '/twig/twig/src/TokenParser/ExtendsTokenParser.php',
@@ -5300,6 +5315,7 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
         'Twig_Node_BlockReference' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Node/BlockReference.php',
         'Twig_Node_Body' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Node/Body.php',
         'Twig_Node_CheckSecurity' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Node/CheckSecurity.php',
+        'Twig_Node_Deprecated' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Node/Deprecated.php',
         'Twig_Node_Do' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Node/Do.php',
         'Twig_Node_Embed' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Node/Embed.php',
         'Twig_Node_Expression' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Node/Expression.php',
@@ -5415,6 +5431,7 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
         'Twig_TokenParserInterface' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TokenParserInterface.php',
         'Twig_TokenParser_AutoEscape' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TokenParser/AutoEscape.php',
         'Twig_TokenParser_Block' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TokenParser/Block.php',
+        'Twig_TokenParser_Deprecated' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TokenParser/Deprecated.php',
         'Twig_TokenParser_Do' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TokenParser/Do.php',
         'Twig_TokenParser_Embed' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TokenParser/Embed.php',
         'Twig_TokenParser_Extends' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TokenParser/Extends.php',

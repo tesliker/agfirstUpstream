@@ -1,0 +1,13 @@
+field.formatter.settings.markdown_formatter:
+  type: mapping
+  label: 'Markdown Formatter text length'
+  mapping:
+    allowed_tags:
+      type: string
+      label: 'Allowed HTML tags'
+    trim_length:
+      type: string
+      label: 'Length of trimmed content'
+    trim_suffix:
+      type: string
+      label: 'Suffix of trimmed content'
