@@ -11,6 +11,7 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'cf97c57bfe0f23854afd2f3818abb7a0' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/create_uploaded_file.php',
         '9bf37a3d0dad93e29cb4e1b1bfab04e9' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/marshal_headers_from_sapi.php',
         'ce70dccb4bcc2efc6e94d2ee526e6972' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/marshal_method_from_sapi.php',
@@ -19,7 +20,6 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
         '0b0974a5566a1077e4f2e111341112c1' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/normalize_server.php',
         '1ca3bc274755662169f9629d5412a1da' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/normalize_uploaded_files.php',
         '40360c0b9b437e69bcbb7f1349ce029e' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/parse_cookie_header.php',
-        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
@@ -125,6 +125,7 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
             'Drupal\\Component\\' => 17,
             'DrupalComposer\\DrupalScaffold\\' => 30,
             'Doctrine\\Common\\Inflector\\' => 26,
+            'Doctrine\\Common\\Collections\\' => 28,
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
             'Doctrine\\Common\\' => 16,
@@ -389,6 +390,10 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
+        'Doctrine\\Common\\Collections\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections',
+        ),
         'Doctrine\\Common\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
@@ -487,10 +492,6 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
             'Doctrine\\Common\\Lexer\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
-            ),
-            'Doctrine\\Common\\Collections\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/collections/lib',
             ),
             'Dflydev\\PlaceholderResolver' => 
             array (
@@ -2453,6 +2454,8 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
         'Drupal\\Core\\Language\\LanguageManager' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Language/LanguageManager.php',
         'Drupal\\Core\\Language\\LanguageManagerInterface' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Language/LanguageManagerInterface.php',
         'Drupal\\Core\\Layout\\Annotation\\Layout' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/Annotation/Layout.php',
+        'Drupal\\Core\\Layout\\Icon\\IconBuilderInterface' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/Icon/IconBuilderInterface.php',
+        'Drupal\\Core\\Layout\\Icon\\SvgIconBuilder' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/Icon/SvgIconBuilder.php',
         'Drupal\\Core\\Layout\\LayoutDefault' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/LayoutDefault.php',
         'Drupal\\Core\\Layout\\LayoutDefinition' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/LayoutDefinition.php',
         'Drupal\\Core\\Layout\\LayoutInterface' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/LayoutInterface.php',
@@ -5001,6 +5004,7 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
         'Symfony\\Component\\Validator\\ObjectInitializerInterface' => __DIR__ . '/..' . '/symfony/validator/ObjectInitializerInterface.php',
         'Symfony\\Component\\Validator\\Test\\ConstraintValidatorTestCase' => __DIR__ . '/..' . '/symfony/validator/Test/ConstraintValidatorTestCase.php',
         'Symfony\\Component\\Validator\\Test\\ConstraintViolationAssertion' => __DIR__ . '/..' . '/symfony/validator/Test/ConstraintValidatorTestCase.php',
+        'Symfony\\Component\\Validator\\Test\\TestCaseSetUpTearDownTrait' => __DIR__ . '/..' . '/symfony/validator/Test/TestCaseSetUpTearDownTrait.php',
         'Symfony\\Component\\Validator\\Util\\PropertyPath' => __DIR__ . '/..' . '/symfony/validator/Util/PropertyPath.php',
         'Symfony\\Component\\Validator\\Validation' => __DIR__ . '/..' . '/symfony/validator/Validation.php',
         'Symfony\\Component\\Validator\\ValidatorBuilder' => __DIR__ . '/..' . '/symfony/validator/ValidatorBuilder.php',
@@ -5173,6 +5177,7 @@ class ComposerStaticInit68ef93b3e8a17d4883a2732ce1fb5edc
         'Twig\\Node\\Expression\\Filter\\DefaultFilter' => __DIR__ . '/..' . '/twig/twig/src/Node/Expression/Filter/DefaultFilter.php',
         'Twig\\Node\\Expression\\FunctionExpression' => __DIR__ . '/..' . '/twig/twig/src/Node/Expression/FunctionExpression.php',
         'Twig\\Node\\Expression\\GetAttrExpression' => __DIR__ . '/..' . '/twig/twig/src/Node/Expression/GetAttrExpression.php',
+        'Twig\\Node\\Expression\\InlinePrint' => __DIR__ . '/..' . '/twig/twig/src/Node/Expression/InlinePrint.php',
         'Twig\\Node\\Expression\\MethodCallExpression' => __DIR__ . '/..' . '/twig/twig/src/Node/Expression/MethodCallExpression.php',
         'Twig\\Node\\Expression\\NameExpression' => __DIR__ . '/..' . '/twig/twig/src/Node/Expression/NameExpression.php',
         'Twig\\Node\\Expression\\NullCoalesceExpression' => __DIR__ . '/..' . '/twig/twig/src/Node/Expression/NullCoalesceExpression.php',
