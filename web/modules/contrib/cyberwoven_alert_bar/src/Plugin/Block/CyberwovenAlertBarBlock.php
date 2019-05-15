@@ -43,8 +43,10 @@ class CyberwovenAlertBarBlock extends BlockBase implements BlockPluginInterface 
       '#more_link_label' => $config->get('more_link_label'),
       '#more_link_url' => $config->get('more_link_url'),
       '#more_link_external' => $config->get('more_link_external'),
+      '#alert_color_scheme' => $config->get('alert_color_scheme'),
+      '#additional_classes' => $config->get('additional_classes'),
       '#cache' => [
-        'tags' => ['config:cyberwoven_alert_bar.settings']
+        'tags' => ['config:cyberwoven_alert_bar.settings'],
       ]
     ];
 
@@ -71,7 +73,9 @@ class CyberwovenAlertBarBlock extends BlockBase implements BlockPluginInterface 
 
     // If disabled, or expired, don't show the block.
     if (($enabled == 0) || (strtotime($today) > strtotime($expires))) {
-      return AccessResult::forbidden();
+      // Must add cache tag here or block will not show up immediately if admin enables it after the user has already visited the page.
+      // Apparently not a problem when access is granted (see below)...but there is when forbidden.
+      return AccessResult::forbidden()->addCacheTags(['config:cyberwoven_alert_bar.settings']);
     } else {
       return parent::blockAccess($account);
     }

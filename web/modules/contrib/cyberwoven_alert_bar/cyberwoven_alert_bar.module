@@ -40,6 +40,8 @@ function cyberwoven_alert_bar_theme($existing, $type, $theme, $path) {
         'more_link_label' => null,
         'more_link_url' => null,
         'more_link_external' => null,
+        'alert_color_scheme' => null,
+        'additional_classes' => null,
       ],
     ],
   ];
@@ -51,4 +53,23 @@ function cyberwoven_alert_bar_theme($existing, $type, $theme, $path) {
  */
 function cyberwoven_alert_bar_preprocess_block__cyberwoven_alert_bar(&$variables) {
   $variables['#attached']['library'][] =  'cyberwoven_alert_bar/cyberwoven_alert_bar_functions';
+
+  $config = \Drupal::config('cyberwoven_alert_bar.settings');
+
+  // Get the UNIX timestamp of the expiration date,
+  // and add one day to make it the last day the alert shows.
+  $expires_date = date(strtotime($config->get('expires') . ' + 1 days'));
+
+  $variables['#attached']['drupalSettings']['alertSettings'] = [
+    'enabled' => $config->get('enabled'),
+    'expires' => $expires_date,
+    'severity' => $config->get('severity'),
+    'message' => $config->get('message'),
+    'more_link_label' => $config->get('more_link_label'),
+    'more_link_url' => $config->get('more_link_url'),
+    'more_link_external' => $config->get('more_link_external'),
+    'alert_color_scheme' => $config->get('alert_color_scheme'),
+    'additional_classes' => $config->get('additional_classes'),
+  ];
+
 }

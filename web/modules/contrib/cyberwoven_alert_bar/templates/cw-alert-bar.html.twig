@@ -15,12 +15,14 @@
  * - more_link_label: The label of the "more" link.
  * - more_link_url: The URL of the "more" link.
  * - more_link_external: Determines whether the more link should open in a new browser.
+ * - alert_color_scheme: Select between "Default" or "Alternate" color schemes.
+ * - additional_classes: Additional CSS classes provided in the alert's configuration.
  *
  * @ingroup themeable
  */
 #}
 
-<div{{ attributes.addClass(severity) }}>
+<div{{ attributes.addClass(severity).addClass(additional_classes).addClass(alert_color_scheme) }}>
     <a href="{{ url('<current>') }}" class="alert-bar-close">Close</a>
 
     {% if message %}

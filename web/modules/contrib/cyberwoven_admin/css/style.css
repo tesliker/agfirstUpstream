@@ -26,3 +26,9 @@
 .field--type-text-with-summary > div .form-item {
   margin-bottom: 0px !important;
 }
+
+.image-preview {
+  background-color: rgba(0,0,0,0.25);
+  padding: 0 !important;
+  margin: 0 10px 10px 0;
+}

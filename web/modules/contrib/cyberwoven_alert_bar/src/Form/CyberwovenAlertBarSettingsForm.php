@@ -30,7 +30,7 @@ class CyberwovenAlertBarSettingsForm extends ConfigFormBase {
             'cyberwoven_alert_bar.settings',
         ];
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -97,11 +97,36 @@ class CyberwovenAlertBarSettingsForm extends ConfigFormBase {
         '#default_value' => $config->get('more_link_url'),
       ];
 
-
       $form['cyberwoven_alert_bar_more_link']['cyberwoven_alert_bar_more_link_external'] = [
         '#type' => 'checkbox',
         '#title' => $this->t('Open link in a new browser.'),
         '#default_value' => $config->get('more_link_external'),
+      ];
+
+      $form['cyberwoven_alert_bar_alert_settings'] = [
+        '#type' => 'details',
+        '#title' => $this->t('Settings'),
+        '#open' => TRUE,
+      ];
+
+      $color_scheme = $config->get('alert_color_scheme');
+      $form['cyberwoven_alert_bar_alert_settings']['cyberwoven_alert_bar_alert_color_scheme'] = [
+        '#type' => 'select',
+        '#title' => $this->t('Color scheme'),
+        '#required' => true,
+        '#options' => [
+          'scheme-default' => $this->t('Default'),
+          'scheme-alternate' => $this->t('Alternate'),
+        ],
+        '#description' => $this->t('Select between "Default" and "Alternate" color schemes for the alert.'),
+        '#default_value' => (($color_scheme) ? $color_scheme : 'alternate'),
+      ];
+
+      $form['cyberwoven_alert_bar_alert_settings']['cyberwoven_alert_bar_additional_classes'] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Additional classes'),
+        '#description' => $this->t('Provide additional CSS classes to the alert. Separate multiple classes with spaces.'),
+        '#default_value' => $config->get('additional_classes'),
       ];
 
       return parent::buildForm($form, $form_state);
@@ -130,6 +155,8 @@ class CyberwovenAlertBarSettingsForm extends ConfigFormBase {
         ->set('more_link_label', $form_state->getValue('cyberwoven_alert_bar_more_link_label'))
         ->set('more_link_url', $form_state->getValue('cyberwoven_alert_bar_more_link_url'))
         ->set('more_link_external', $form_state->getValue('cyberwoven_alert_bar_more_link_external'))
+        ->set('alert_color_scheme', $form_state->getValue('cyberwoven_alert_bar_alert_color_scheme'))
+        ->set('additional_classes', $form_state->getValue('cyberwoven_alert_bar_additional_classes'))
         ->save();
 
       Cache::invalidateTags(array('config:cyberwoven_alert_bar.settings'));

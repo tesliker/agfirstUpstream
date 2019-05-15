@@ -4,7 +4,10 @@
 
       var cyberwoven_alert_bar_closed = $.cookie('cyberwoven_alert_bar_closed', Number);
       if (!cyberwoven_alert_bar_closed) {
-        $('#cw-alert-bar').addClass('show-alert');
+        var current_time = Math.round(new Date().getTime()/1000);
+        if (current_time < drupalSettings.alertSettings.expires) {
+          $('#cw-alert-bar').addClass('show-alert');
+        }
       }
 
       $('.alert-bar-close', context).on('click', function (e) {
