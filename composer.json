@@ -69,7 +69,12 @@
         "drupal/draggableviews": "^1.2",
         "drupal/editor_advanced_link": "^1.4",
         "drupal/environment_indicator": "^3.3",
-        "drupal/field_group": "^1.0",
+        "drupal/field_group": "^3.0@rc",
+        "drupal/fontyourface": "^3.2",
+        "drupal/geolocation": "^1.11",
+        "drupal/geocoder": "^2.2",
+        "drupal/geofield": "^1.3",
+        "drupal/google_analytics": "^2.4",
         "drupal/honeypot": "^1.29",
         "drupal/image_url_formatter": "^1.0@beta",
         "drupal/image_widget_crop": "^2.2",
@@ -177,8 +182,7 @@
                 "Menu parent as block title": "patches/2809699-27.patch"
             },
             "drupal/field_group": {
-                "HTML5 validation for fields which are currently not part of the visible group": "patches/field_group-validation-2787179-9.patch",
-                "Fields with errors are not visible": "patches/fields_with_errors_are-2894213-3.patch"
+                "Fields with errors are not visible": "patches/field_group-open-groups-with-errors-server-side-2894213-11.patch"
             },
             "drupal/imce": {
                 "File Browser on User Page": "patches/imce_no_browser_tab-2858430-4.patch"
