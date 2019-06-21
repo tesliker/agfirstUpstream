@@ -75,7 +75,7 @@ class MarkdownFormatter extends FormatterBase {
 
       // Parse the markdown.
       $parsedown = new Parsedown();
-      $parsed_value = $parsedown->line($value);
+      $parsed_value = $parsedown->text($value);
 
       $trim_length = $this->getSetting('trim_length');
       if (is_numeric(trim($trim_length))) {

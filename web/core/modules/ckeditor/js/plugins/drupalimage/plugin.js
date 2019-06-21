@@ -88,8 +88,8 @@
         widgetDefinition.allowedContent.img.attributes['!data-entity-uuid'] = true;
 
         widgetDefinition.downcast = function (element) {
-          element.attributes['data-entity-type'] = this.data['data-entity-type'];
-          element.attributes['data-entity-uuid'] = this.data['data-entity-uuid'];
+          element.attributes['data-entity-type'] = this.data['data-entity-type'] ? this.data['data-entity-type'] : 'image';
+          element.attributes['data-entity-uuid'] = this.data['data-entity-uuid'] ? this.data['data-entity-uuid'] : 0;
         };
 
         widgetDefinition.upcast = function (element, data) {

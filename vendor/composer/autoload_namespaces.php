@@ -14,7 +14,6 @@ return array(
     'Geocoder' => array($vendorDir . '/willdurand/geocoder/src'),
     'EasyRdf_' => array($vendorDir . '/easyrdf/easyrdf/lib'),
     'Drush' => array($vendorDir . '/drush/drush/lib'),
-    'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
     'Dflydev\\PlaceholderResolver' => array($vendorDir . '/dflydev/placeholder-resolver/src'),
     'Dflydev\\DotAccessData' => array($vendorDir . '/dflydev/dot-access-data/src'),
     'Dflydev\\DotAccessConfiguration' => array($vendorDir . '/dflydev/dot-access-configuration/src'),

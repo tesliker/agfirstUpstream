@@ -22,6 +22,10 @@
   margin: 0 0 0.75em !important;
 }
 
+.text-format-wrapper .form-type-textarea {
+  margin-bottom: 0 !important;
+}
+
 /* Exceptions */
 .field--type-text-with-summary > div .form-item {
   margin-bottom: 0px !important;

@@ -69,7 +69,7 @@
         "drupal/draggableviews": "^1.2",
         "drupal/editor_advanced_link": "^1.4",
         "drupal/environment_indicator": "^3.3",
-        "drupal/field_group": "^3.0@rc",
+        "drupal/field_group": "^1.0",
         "drupal/fontyourface": "^3.2",
         "drupal/geolocation": "^1.11",
         "drupal/geocoder": "^2.2",
@@ -178,6 +178,9 @@
             ]
         },
         "patches": {
+            "drupal/core": {
+                "CKEditor Image Patch": "patches/drupalimage_ckeditor-2771837-34.patch"
+            },
             "drupal/menu_block": {
                 "Menu parent as block title": "patches/2809699-27.patch"
             },

@@ -33,3 +33,9 @@ function cyberwoven_admin_form_node_form_alter(&$form, \Drupal\Core\Form\FormSta
   $form['#attached']['library'][] = 'cyberwoven_admin/global_styling';
   return $form;
 }
+
+function cyberwoven_admin_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'editor_image_dialog' ) {
+    $form['attributes']['alt']['#required'] = FALSE;
+  }
+}
