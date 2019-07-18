@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da741e7d7b3e0d37a358f3a579930117",
+    "content-hash": "dbd957a164df11ab2532c574f48eaba7",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2704,7 +2704,9 @@
                     "replace": false,
                     "merge-extra": false
                 },
-                "patches_applied": []
+                "patches_applied": {
+                    "CKEditor Image Patch": "patches/drupalimage_ckeditor-2771837-34.patch"
+                }
             },
             "autoload": {
                 "psr-4": {
@@ -3803,6 +3805,61 @@
                 "source": "https://www.drupal.org/project/image_widget_crop",
                 "issues": "https://www.drupal.org/project/issues/image_widget_crop",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
+            }
+        },
+        {
+            "name": "drupal/imageapi_optimize",
+            "version": "2.0.0-alpha4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/imageapi_optimize.git",
+                "reference": "8.x-2.0-alpha4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/imageapi_optimize-8.x-2.0-alpha4.zip",
+                "reference": "8.x-2.0-alpha4",
+                "shasum": "2e5525f8b1f58b9ef505fece615beae256c62b0c"
+            },
+            "require": {
+                "drupal/core": "^8.2"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-2.0-alpha4",
+                    "datestamp": "1535477197",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Deciphered",
+                    "homepage": "https://www.drupal.org/user/103796"
+                },
+                {
+                    "name": "Steven Jones",
+                    "homepage": "https://www.drupal.org/user/99644"
+                },
+                {
+                    "name": "jcisio",
+                    "homepage": "https://www.drupal.org/user/210762"
+                }
+            ],
+            "description": "Define pipelines for image optimization and provide integration with core image styles.",
+            "homepage": "https://www.drupal.org/project/imageapi_optimize",
+            "support": {
+                "source": "https://git.drupalcode.org/project/imageapi_optimize"
             }
         },
         {
@@ -9785,6 +9842,7 @@
         "cyberwoven/markdown_formatter": 20,
         "drupal/better_exposed_filters": 15,
         "drupal/image_url_formatter": 10,
+        "drupal/imageapi_optimize": 15,
         "drupal/inline_entity_form": 5,
         "drupal/masquerade": 10,
         "drupal/rabbit_hole": 10,
