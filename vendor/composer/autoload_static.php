@@ -34,6 +34,10 @@ class ComposerStaticInite434fd7fc45ec56cbc72d611782dc9fa
         array (
             'rvtraveller\\QuicksilverComposerInstaller\\' => 41,
         ),
+        'l' => 
+        array (
+            'lsolesen\\pel\\' => 13,
+        ),
         'c' => 
         array (
             'cweagans\\Composer\\' => 18,
@@ -119,6 +123,11 @@ class ComposerStaticInite434fd7fc45ec56cbc72d611782dc9fa
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
         ),
+        'F' => 
+        array (
+            'FontLib\\' => 8,
+            'FileEye\\MimeMap\\' => 16,
+        ),
         'E' => 
         array (
             'Egulias\\EmailValidator\\' => 23,
@@ -163,6 +172,10 @@ class ComposerStaticInite434fd7fc45ec56cbc72d611782dc9fa
         'rvtraveller\\QuicksilverComposerInstaller\\' => 
         array (
             0 => __DIR__ . '/..' . '/rvtraveller/qs-composer-installer/src',
+        ),
+        'lsolesen\\pel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lsolesen/pel/src',
         ),
         'cweagans\\Composer\\' => 
         array (
@@ -371,6 +384,14 @@ class ComposerStaticInite434fd7fc45ec56cbc72d611782dc9fa
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'FontLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
+        ),
+        'FileEye\\MimeMap\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fileeye/mimemap/src',
         ),
         'Egulias\\EmailValidator\\' => 
         array (
@@ -3298,6 +3319,56 @@ class ComposerStaticInite434fd7fc45ec56cbc72d611782dc9fa
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/Warning.php',
         'Error' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/Error.php',
+        'FileEye\\MimeMap\\Command\\UpdateCommand' => __DIR__ . '/..' . '/fileeye/mimemap/src/Command/UpdateCommand.php',
+        'FileEye\\MimeMap\\Extension' => __DIR__ . '/..' . '/fileeye/mimemap/src/Extension.php',
+        'FileEye\\MimeMap\\MalformedTypeException' => __DIR__ . '/..' . '/fileeye/mimemap/src/MalformedTypeException.php',
+        'FileEye\\MimeMap\\MapHandler' => __DIR__ . '/..' . '/fileeye/mimemap/src/MapHandler.php',
+        'FileEye\\MimeMap\\MapUpdater' => __DIR__ . '/..' . '/fileeye/mimemap/src/MapUpdater.php',
+        'FileEye\\MimeMap\\Map\\AbstractMap' => __DIR__ . '/..' . '/fileeye/mimemap/src/Map/AbstractMap.php',
+        'FileEye\\MimeMap\\Map\\BaseMap' => __DIR__ . '/..' . '/fileeye/mimemap/src/Map/BaseMap.php',
+        'FileEye\\MimeMap\\Map\\DefaultMap' => __DIR__ . '/..' . '/fileeye/mimemap/src/Map/DefaultMap.php',
+        'FileEye\\MimeMap\\Map\\EmptyMap' => __DIR__ . '/..' . '/fileeye/mimemap/src/Map/EmptyMap.php',
+        'FileEye\\MimeMap\\MappingException' => __DIR__ . '/..' . '/fileeye/mimemap/src/MappingException.php',
+        'FileEye\\MimeMap\\Type' => __DIR__ . '/..' . '/fileeye/mimemap/src/Type.php',
+        'FileEye\\MimeMap\\TypeParameter' => __DIR__ . '/..' . '/fileeye/mimemap/src/TypeParameter.php',
+        'FileEye\\MimeMap\\TypeParser' => __DIR__ . '/..' . '/fileeye/mimemap/src/TypeParser.php',
+        'FileEye\\MimeMap\\Version' => __DIR__ . '/..' . '/fileeye/mimemap/src/Version.php',
+        'FontLib\\AdobeFontMetrics' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/AdobeFontMetrics.php',
+        'FontLib\\Autoloader' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Autoloader.php',
+        'FontLib\\BinaryStream' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/BinaryStream.php',
+        'FontLib\\EOT\\File' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/EOT/File.php',
+        'FontLib\\EOT\\Header' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/EOT/Header.php',
+        'FontLib\\EncodingMap' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/EncodingMap.php',
+        'FontLib\\Exception\\FontNotFoundException' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Exception/FontNotFoundException.php',
+        'FontLib\\Font' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Font.php',
+        'FontLib\\Glyph\\Outline' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Glyph/Outline.php',
+        'FontLib\\Glyph\\OutlineComponent' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Glyph/OutlineComponent.php',
+        'FontLib\\Glyph\\OutlineComposite' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Glyph/OutlineComposite.php',
+        'FontLib\\Glyph\\OutlineSimple' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Glyph/OutlineSimple.php',
+        'FontLib\\Header' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Header.php',
+        'FontLib\\OpenType\\File' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/OpenType/File.php',
+        'FontLib\\OpenType\\TableDirectoryEntry' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/OpenType/TableDirectoryEntry.php',
+        'FontLib\\Table\\DirectoryEntry' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/DirectoryEntry.php',
+        'FontLib\\Table\\Table' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Table.php',
+        'FontLib\\Table\\Type\\cmap' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/cmap.php',
+        'FontLib\\Table\\Type\\glyf' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/glyf.php',
+        'FontLib\\Table\\Type\\head' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/head.php',
+        'FontLib\\Table\\Type\\hhea' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/hhea.php',
+        'FontLib\\Table\\Type\\hmtx' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/hmtx.php',
+        'FontLib\\Table\\Type\\kern' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/kern.php',
+        'FontLib\\Table\\Type\\loca' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/loca.php',
+        'FontLib\\Table\\Type\\maxp' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/maxp.php',
+        'FontLib\\Table\\Type\\name' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/name.php',
+        'FontLib\\Table\\Type\\nameRecord' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/nameRecord.php',
+        'FontLib\\Table\\Type\\os2' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/os2.php',
+        'FontLib\\Table\\Type\\post' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/post.php',
+        'FontLib\\TrueType\\Collection' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/TrueType/Collection.php',
+        'FontLib\\TrueType\\File' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/TrueType/File.php',
+        'FontLib\\TrueType\\Header' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/TrueType/Header.php',
+        'FontLib\\TrueType\\TableDirectoryEntry' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/TrueType/TableDirectoryEntry.php',
+        'FontLib\\WOFF\\File' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/WOFF/File.php',
+        'FontLib\\WOFF\\Header' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/WOFF/Header.php',
+        'FontLib\\WOFF\\TableDirectoryEntry' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/WOFF/TableDirectoryEntry.php',
         'Geocoder\\Adapter\\GeoIP2Adapter' => __DIR__ . '/..' . '/willdurand/geocoder/src/Geocoder/Adapter/GeoIP2Adapter.php',
         'Geocoder\\Dumper\\Dumper' => __DIR__ . '/..' . '/willdurand/geocoder/src/Geocoder/Dumper/Dumper.php',
         'Geocoder\\Dumper\\GeoJson' => __DIR__ . '/..' . '/willdurand/geocoder/src/Geocoder/Dumper/GeoJson.php',
@@ -6024,6 +6095,46 @@ class ComposerStaticInite434fd7fc45ec56cbc72d611782dc9fa
         'cweagans\\Composer\\PatchEvents' => __DIR__ . '/..' . '/cweagans/composer-patches/src/PatchEvents.php',
         'cweagans\\Composer\\Patches' => __DIR__ . '/..' . '/cweagans/composer-patches/src/Patches.php',
         'geoPHP' => __DIR__ . '/..' . '/phayes/geophp/geoPHP.inc',
+        'lsolesen\\pel\\Pel' => __DIR__ . '/..' . '/lsolesen/pel/src/Pel.php',
+        'lsolesen\\pel\\PelConvert' => __DIR__ . '/..' . '/lsolesen/pel/src/PelConvert.php',
+        'lsolesen\\pel\\PelDataWindow' => __DIR__ . '/..' . '/lsolesen/pel/src/PelDataWindow.php',
+        'lsolesen\\pel\\PelDataWindowOffsetException' => __DIR__ . '/..' . '/lsolesen/pel/src/PelDataWindowOffsetException.php',
+        'lsolesen\\pel\\PelDataWindowWindowException' => __DIR__ . '/..' . '/lsolesen/pel/src/PelDataWindowWindowException.php',
+        'lsolesen\\pel\\PelEntry' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntry.php',
+        'lsolesen\\pel\\PelEntryAscii' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntryAscii.php',
+        'lsolesen\\pel\\PelEntryByte' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntryByte.php',
+        'lsolesen\\pel\\PelEntryCopyright' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntryCopyright.php',
+        'lsolesen\\pel\\PelEntryException' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntryException.php',
+        'lsolesen\\pel\\PelEntryLong' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntryLong.php',
+        'lsolesen\\pel\\PelEntryNumber' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntryNumber.php',
+        'lsolesen\\pel\\PelEntryRational' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntryRational.php',
+        'lsolesen\\pel\\PelEntrySByte' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntrySByte.php',
+        'lsolesen\\pel\\PelEntrySLong' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntrySLong.php',
+        'lsolesen\\pel\\PelEntrySRational' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntrySRational.php',
+        'lsolesen\\pel\\PelEntrySShort' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntrySShort.php',
+        'lsolesen\\pel\\PelEntryShort' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntryShort.php',
+        'lsolesen\\pel\\PelEntryTime' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntryTime.php',
+        'lsolesen\\pel\\PelEntryUndefined' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntryUndefined.php',
+        'lsolesen\\pel\\PelEntryUserComment' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntryUserComment.php',
+        'lsolesen\\pel\\PelEntryVersion' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntryVersion.php',
+        'lsolesen\\pel\\PelEntryWindowsString' => __DIR__ . '/..' . '/lsolesen/pel/src/PelEntryWindowsString.php',
+        'lsolesen\\pel\\PelException' => __DIR__ . '/..' . '/lsolesen/pel/src/PelException.php',
+        'lsolesen\\pel\\PelExif' => __DIR__ . '/..' . '/lsolesen/pel/src/PelExif.php',
+        'lsolesen\\pel\\PelFormat' => __DIR__ . '/..' . '/lsolesen/pel/src/PelFormat.php',
+        'lsolesen\\pel\\PelIfd' => __DIR__ . '/..' . '/lsolesen/pel/src/PelIfd.php',
+        'lsolesen\\pel\\PelIfdException' => __DIR__ . '/..' . '/lsolesen/pel/src/PelIfdException.php',
+        'lsolesen\\pel\\PelInvalidArgumentException' => __DIR__ . '/..' . '/lsolesen/pel/src/PelInvalidArgumentException.php',
+        'lsolesen\\pel\\PelInvalidDataException' => __DIR__ . '/..' . '/lsolesen/pel/src/PelInvalidDataException.php',
+        'lsolesen\\pel\\PelJpeg' => __DIR__ . '/..' . '/lsolesen/pel/src/PelJpeg.php',
+        'lsolesen\\pel\\PelJpegComment' => __DIR__ . '/..' . '/lsolesen/pel/src/PelJpegComment.php',
+        'lsolesen\\pel\\PelJpegContent' => __DIR__ . '/..' . '/lsolesen/pel/src/PelJpegContent.php',
+        'lsolesen\\pel\\PelJpegInvalidMarkerException' => __DIR__ . '/..' . '/lsolesen/pel/src/PelJpegInvalidMarkerException.php',
+        'lsolesen\\pel\\PelJpegMarker' => __DIR__ . '/..' . '/lsolesen/pel/src/PelJpegMarker.php',
+        'lsolesen\\pel\\PelOverflowException' => __DIR__ . '/..' . '/lsolesen/pel/src/PelOverflowException.php',
+        'lsolesen\\pel\\PelTag' => __DIR__ . '/..' . '/lsolesen/pel/src/PelTag.php',
+        'lsolesen\\pel\\PelTiff' => __DIR__ . '/..' . '/lsolesen/pel/src/PelTiff.php',
+        'lsolesen\\pel\\PelUnexpectedFormatException' => __DIR__ . '/..' . '/lsolesen/pel/src/PelUnexpectedFormatException.php',
+        'lsolesen\\pel\\PelWrongComponentCountException' => __DIR__ . '/..' . '/lsolesen/pel/src/PelWrongComponentCountException.php',
         'rvtraveller\\QuicksilverComposerInstaller\\QuicksilverComposerInstaller' => __DIR__ . '/..' . '/rvtraveller/qs-composer-installer/src/QuicksilverComposerInstaller.php',
         'rvtraveller\\QuicksilverComposerInstaller\\QuicksilverComposerInstallerPlugin' => __DIR__ . '/..' . '/rvtraveller/qs-composer-installer/src/QuicksilverComposerInstallerPlugin.php',
     );
