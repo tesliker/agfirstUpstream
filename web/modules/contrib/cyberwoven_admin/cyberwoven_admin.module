@@ -39,3 +39,16 @@ function cyberwoven_admin_form_alter(&$form, &$form_state, $form_id) {
     $form['attributes']['alt']['#required'] = FALSE;
   }
 }
+
+/**
+ * Implements hook_editor_js_settings_alter().
+ */
+function cyberwoven_admin_editor_js_settings_alter(array &$settings) {
+  // Remove H1 from all formats, if they exist.
+  foreach($settings['editor']['formats'] as $key => &$format) {
+    if (isset($format['editorSettings']['format_tags'])) {
+      $format_tags = explode(';', $format['editorSettings']['format_tags']);
+      $format['editorSettings']['format_tags'] = implode(';', array_diff($format_tags, ['h1']));
+    }
+  }
+}

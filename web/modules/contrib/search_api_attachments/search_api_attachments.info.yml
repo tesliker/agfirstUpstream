@@ -5,10 +5,10 @@ description: 'Extract and index file fields content.'
 package: Search
 configure: search_api_attachments.admin_form
 dependencies:
- - search_api:search_api
+  - search_api:search_api
 
-# Information added by Drupal.org packaging script on 2019-05-13
-version: '8.x-1.0-beta13'
+# Information added by Drupal.org packaging script on 2019-07-04
+version: '8.x-1.0-beta14'
 core: '8.x'
 project: 'search_api_attachments'
-datestamp: 1557763694
+datestamp: 1562252288

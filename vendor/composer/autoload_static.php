@@ -1327,6 +1327,7 @@ class ComposerStaticInite434fd7fc45ec56cbc72d611782dc9fa
         'Drupal\\Console\\Command\\Debug\\ThemeCommand' => __DIR__ . '/..' . '/drupal/console/src/Command/Debug/ThemeCommand.php',
         'Drupal\\Console\\Command\\Debug\\ThemeKeysCommand' => __DIR__ . '/..' . '/drupal/console/src/Command/Debug/ThemeKeysCommand.php',
         'Drupal\\Console\\Command\\Debug\\UpdateCommand' => __DIR__ . '/..' . '/drupal/console/src/Command/Debug/UpdateCommand.php',
+        'Drupal\\Console\\Command\\Debug\\UpdateComposerCommand' => __DIR__ . '/..' . '/drupal/console/src/Command/Debug/UpdateComposerCommand.php',
         'Drupal\\Console\\Command\\Debug\\UserCommand' => __DIR__ . '/..' . '/drupal/console/src/Command/Debug/UserCommand.php',
         'Drupal\\Console\\Command\\Debug\\ViewsCommand' => __DIR__ . '/..' . '/drupal/console/src/Command/Debug/ViewsCommand.php',
         'Drupal\\Console\\Command\\Debug\\ViewsPluginsCommand' => __DIR__ . '/..' . '/drupal/console/src/Command/Debug/ViewsPluginsCommand.php',
