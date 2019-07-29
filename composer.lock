@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "79846aabd7e7d7be540a61f1baa2657c",
+    "content-hash": "81e8e23ec98d513ef32245c4529324d0",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -10282,7 +10282,6 @@
         "cyberwoven/cyberwoven_ux": 20,
         "cyberwoven/markdown_formatter": 20,
         "drupal/better_exposed_filters": 15,
-        "drupal/geocoder": 10,
         "drupal/image_url_formatter": 10,
         "drupal/imageapi_optimize": 15,
         "drupal/inline_entity_form": 5,
