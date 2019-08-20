@@ -182,7 +182,8 @@
         },
         "patches": {
             "drupal/core": {
-                "CKEditor Image Patch": "patches/drupalimage_ckeditor-2771837-34.patch"
+                "CKEditor Image Patch": "patches/drupalimage_ckeditor-2771837-34.patch",
+                "#states not affecting visibility/requirement of managed_file": "https://www.drupal.org/files/issues/2019-04-17/states_not_affecting-2847425-37.patch"
             },
             "drupal/menu_block": {
                 "Menu parent as block title": "patches/2809699-27.patch"
