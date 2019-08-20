@@ -2502,6 +2502,7 @@ return array(
     'Drupal\\Core\\TypedData\\Validation\\RecursiveValidator' => $baseDir . '/web/core/lib/Drupal/Core/TypedData/Validation/RecursiveValidator.php',
     'Drupal\\Core\\TypedData\\Validation\\TypedDataAwareValidatorTrait' => $baseDir . '/web/core/lib/Drupal/Core/TypedData/Validation/TypedDataAwareValidatorTrait.php',
     'Drupal\\Core\\TypedData\\Validation\\TypedDataMetadata' => $baseDir . '/web/core/lib/Drupal/Core/TypedData/Validation/TypedDataMetadata.php',
+    'Drupal\\Core\\Update\\UpdateCompilerPass' => $baseDir . '/web/core/lib/Drupal/Core/Update/UpdateCompilerPass.php',
     'Drupal\\Core\\Update\\UpdateKernel' => $baseDir . '/web/core/lib/Drupal/Core/Update/UpdateKernel.php',
     'Drupal\\Core\\Update\\UpdateRegistry' => $baseDir . '/web/core/lib/Drupal/Core/Update/UpdateRegistry.php',
     'Drupal\\Core\\Update\\UpdateRegistryFactory' => $baseDir . '/web/core/lib/Drupal/Core/Update/UpdateRegistryFactory.php',
