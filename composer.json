@@ -58,6 +58,7 @@
         "drupal/admin_toolbar": "^1.24",
         "drupal/allowed_formats": "^1.1",
         "drupal/anchor_link": "^1.6",
+        "drupal/auto_entitylabel": "^3.0@beta",
         "drupal/better_exposed_filters": "^3.0@alpha",
         "drupal/bg_image_formatter": "^1.11",
         "drupal/ckeditor_accordion": "^1.1",
