@@ -89,6 +89,7 @@
         "drupal/link_attributes": "^1.5",
         "drupal/linkit": "^4.3",
         "drupal/mailchimp": "^1.7",
+        "drupal/markup": "^1.0@beta",
         "drupal/masquerade": "^2.0@beta",
         "drupal/menu_block": "^1.5",
         "drupal/menu_breadcrumb": "^1.11",
