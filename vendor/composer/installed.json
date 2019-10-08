@@ -4704,6 +4704,9 @@
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
                 }
+            },
+            "patches_applied": {
+                "Linkit 8.x doesn't work with images": "https://www.drupal.org/files/issues/linkit_8_x_doesn_t_work-2691879-3.patch"
             }
         },
         "installation-source": "dist",
@@ -5001,7 +5004,8 @@
                 }
             },
             "patches_applied": {
-                "Menu parent as block title": "patches/2809699-27.patch"
+                "Menu parent as block title": "patches/2809699-27.patch",
+                "Add option to make the starting level follow the active menu item": "https://www.drupal.org/files/issues/2018-08-08/menu_block-follow-2756675-55.patch"
             }
         },
         "installation-source": "dist",

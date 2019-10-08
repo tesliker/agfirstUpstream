@@ -15,6 +15,32 @@
   //  settings.width = 700;
   // });
 
+  function parseAttributes(element) {
+    var parsedAttributes = {};
+
+    var domElement = element.$;
+    var attribute = null;
+    var attributeName;
+    for (var attrIndex = 0; attrIndex < domElement.attributes.length; attrIndex++) {
+      attribute = domElement.attributes.item(attrIndex);
+      attributeName = attribute.nodeName.toLowerCase();
+      // Ignore data-cke-* attributes; they're CKEditor internals.
+      if (attributeName.indexOf('data-cke-') === 0) {
+        continue;
+      }
+      // Store the value for this attribute, unless there's a data-cke-saved-
+      // alternative for it, which will contain the quirk-free, original value.
+      parsedAttributes[attributeName] = element.data('cke-saved-' + attributeName) || attribute.nodeValue;
+    }
+
+    // Remove any cke_* classes.
+    if (parsedAttributes.class) {
+      parsedAttributes.class = CKEDITOR.tools.trim(parsedAttributes.class.replace(/cke_\S+/, ''));
+    }
+
+    return parsedAttributes;
+  }
+
   CKEDITOR.plugins.add('linkit', {
     init: function (editor) {
       // Add the commands for link and unlink.
@@ -40,34 +66,31 @@
         modes: {wysiwyg: 1},
         canUndo: true,
         exec: function (editor) {
+          var drupalImageUtils = CKEDITOR.plugins.drupalimage;
+          var focusedImageWidget = drupalImageUtils && drupalImageUtils.getFocusedWidget(editor);
           var linkElement = getSelectedLink(editor);
-          var linkDOMElement = null;
 
           // Set existing values based on selected element.
           var existingValues = {};
           if (linkElement && linkElement.$) {
-            linkDOMElement = linkElement.$;
-
-            // Populate an array with the link's current attributes.
-            var attribute = null;
-            var attributeName;
-            for (var attrIndex = 0; attrIndex < linkDOMElement.attributes.length; attrIndex++) {
-              attribute = linkDOMElement.attributes.item(attrIndex);
-              attributeName = attribute.nodeName.toLowerCase();
-              // Don't consider data-cke-saved- attributes; they're just there
-              // to work around browser quirks.
-              if (attributeName.substring(0, 15) === 'data-cke-saved-') {
-                continue;
-              }
-              // Store the value for this attribute, unless there's a
-              // data-cke-saved- alternative for it, which will contain the
-              // quirk-free, original value.
-              existingValues[attributeName] = linkElement.data('cke-saved-' + attributeName) || attribute.nodeValue;
-            }
+            existingValues = parseAttributes(linkElement);
+          }
+          // Or, if an image widget is focused, we're editing a link wrapping
+          // an image widget.
+          else if (focusedImageWidget && focusedImageWidget.data.link) {
+            existingValues = CKEDITOR.tools.clone(focusedImageWidget.data.link);
           }
 
           // Prepare a save callback to be used upon saving the dialog.
           var saveCallback = function (returnValues) {
+            // If an image widget is focused, we're not editing an independent
+            // link, but we're wrapping an image widget in a link.
+            if (focusedImageWidget) {
+              focusedImageWidget.setData('link', CKEDITOR.tools.extend(returnValues.attributes, focusedImageWidget.data.link));
+              editor.fire('saveSnapshot');
+              return;
+            }
+
             editor.fire('saveSnapshot');
 
             // Create a new link element if needed.

@@ -5,3 +5,7 @@ Menu parent as block title
 Source: patches/2809699-27.patch
 
 
+Add option to make the starting level follow the active menu item
+Source: https://www.drupal.org/files/issues/2018-08-08/menu_block-follow-2756675-55.patch
+
+
