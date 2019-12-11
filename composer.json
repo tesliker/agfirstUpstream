@@ -208,9 +208,6 @@
                 "Scheduler integration with core Content moderation": "https://www.drupal.org/files/issues/2018-04-25/scheduler-content-moderation-integration-2798689-59.patch",
                 "Scheduler fix for Undefined Index error": "patches/scheduler_undefined_index_fix-tw11941113.patch"
             },
-            "drupal/smart_trim": {
-                "Additional options checkbox do not appear to save": "https://www.drupal.org/files/issues/2018-05-04/2941492-4.patch"
-            },
             "drupal/views_bulk_edit": {
                 "Better handling for paragraphs module: 'Only variable references should be returned by reference' error": "https://www.drupal.org/files/issues/2018-04-22/views_bulk_edit_8_2_1_0_fix_php_error_01.patch"
             },

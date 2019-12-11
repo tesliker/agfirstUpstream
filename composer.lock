@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3edcecbb8fd643db735fd111cb544859",
+    "content-hash": "bc4f811a4b89cbf7ed1b3948bcbf7c3e",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4568,6 +4568,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "Linkit 8.x doesn't work with images": "https://www.drupal.org/files/issues/linkit_8_x_doesn_t_work-2691879-3.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4857,7 +4860,8 @@
                     }
                 },
                 "patches_applied": {
-                    "Menu parent as block title": "patches/2809699-27.patch"
+                    "Menu parent as block title": "patches/2809699-27.patch",
+                    "Add option to make the starting level follow the active menu item": "https://www.drupal.org/files/issues/2018-08-08/menu_block-follow-2756675-55.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5854,17 +5858,17 @@
         },
         {
             "name": "drupal/smart_trim",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/smart_trim.git",
-                "reference": "8.x-1.1"
+                "reference": "8.x-1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/smart_trim-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "5f1c0f15914208e0ad2ec5cce1d6419040596fc0"
+                "url": "https://ftp.drupal.org/files/projects/smart_trim-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "4f23b41cc5e09231640d53f0c405f999b81f17b9"
             },
             "require": {
                 "drupal/core": "*"
@@ -5875,16 +5879,14 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1516301286",
+                    "version": "8.x-1.2",
+                    "datestamp": "1576094525",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
                 },
-                "patches_applied": {
-                    "Additional options checkbox do not appear to save": "https://www.drupal.org/files/issues/2018-05-04/2941492-4.patch"
-                }
+                "patches_applied": []
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
@@ -10262,6 +10264,7 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Locked core dependencies",
+            "abandoned": "drupal/core-recommended",
             "time": "2018-01-30T18:48:19+00:00"
         },
         {
