@@ -1,0 +1,19 @@
+{
+  "name": "cyberwoven/agfirst_extlink_override",
+  "description": "This module provides JS overrides to improve the appearance of external link messages.",
+  "type": "drupal-module",
+  "homepage": "https://bitbucket.org/cyberwoven/agfirst_extlink_override",
+  "authors": [
+    {
+      "name": "Danny Cooper",
+      "role": "Maintainer"
+    }
+  ],
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "extra": {
+    "branch-alias": {
+      "8.x-1.x": "1.x-dev"
+    }
+  }
+}
