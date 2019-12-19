@@ -89,8 +89,7 @@ function findTranslationFiles($originalFilePath, $localeToAnalyze)
     $originalFileName = basename($originalFilePath);
     $translationFileNamePattern = str_replace('.en.', '.*.', $originalFileName);
 
-    $translationFiles = glob($translationsDir.'/'.$translationFileNamePattern, GLOB_NOSORT);
-    sort($translationFiles);
+    $translationFiles = glob($translationsDir.'/'.$translationFileNamePattern);
     foreach ($translationFiles as $filePath) {
         $locale = extractLocaleFromFilePath($filePath);
 
@@ -168,9 +167,8 @@ function printTable($translations, $verboseOutput)
     $longestLocaleNameLength = max(array_map('strlen', array_keys($translations)));
 
     foreach ($translations as $locale => $translation) {
-        if ($translation['translated'] > $translation['total']) {
-            textColorRed();
-        } elseif ($translation['translated'] === $translation['total']) {
+        $isTranslationCompleted = $translation['translated'] === $translation['total'];
+        if ($isTranslationCompleted) {
             textColorGreen();
         }
 
@@ -194,11 +192,6 @@ function printTable($translations, $verboseOutput)
 function textColorGreen()
 {
     echo "\033[32m";
-}
-
-function textColorRed()
-{
-    echo "\033[31m";
 }
 
 function textColorNormal()

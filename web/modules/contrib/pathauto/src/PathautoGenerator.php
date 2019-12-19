@@ -5,8 +5,6 @@ namespace Drupal\pathauto;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityMalformedException;
-use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Language\LanguageInterface;
@@ -136,7 +134,7 @@ class PathautoGenerator implements PathautoGeneratorInterface {
    * @param \Drupal\pathauto\AliasTypeManager $alias_type_manager
    *   Manages pathauto alias type plugins.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, ModuleHandlerInterface $module_handler, Token $token, AliasCleanerInterface $alias_cleaner, AliasStorageHelperInterface $alias_storage_helper, AliasUniquifierInterface $alias_uniquifier, MessengerInterface $pathauto_messenger, TranslationInterface $string_translation, TokenEntityMapperInterface $token_entity_mapper, EntityTypeManagerInterface $entity_type_manager, AliasTypeManager $alias_type_manager = NULL) {
+  public function __construct(ConfigFactoryInterface $config_factory, ModuleHandlerInterface $module_handler, Token $token, AliasCleanerInterface $alias_cleaner, AliasStorageHelperInterface $alias_storage_helper, AliasUniquifierInterface $alias_uniquifier, MessengerInterface $pathauto_messenger, TranslationInterface $string_translation, TokenEntityMapperInterface $token_entity_mapper, EntityTypeManagerInterface $entity_type_manager, AliasTypeManager $alias_type_manager) {
     $this->configFactory = $config_factory;
     $this->moduleHandler = $module_handler;
     $this->token = $token;
@@ -147,7 +145,7 @@ class PathautoGenerator implements PathautoGeneratorInterface {
     $this->stringTranslation = $string_translation;
     $this->tokenEntityMapper = $token_entity_mapper;
     $this->entityTypeManager = $entity_type_manager;
-    $this->aliasTypeManager = $alias_type_manager ?: \Drupal::service('plugin.manager.alias_type');
+    $this->aliasTypeManager = $alias_type_manager;
   }
 
   /**
@@ -161,21 +159,7 @@ class PathautoGenerator implements PathautoGeneratorInterface {
       return NULL;
     }
 
-    try {
-      $internalPath = $entity->toUrl()->getInternalPath();
-    }
-    // @todo convert to multi-exception handling in PHP 7.1.
-    catch (EntityMalformedException $exception) {
-      return NULL;
-    }
-    catch (UndefinedLinkTemplateException $exception) {
-      return NULL;
-    }
-    catch (\UnexpectedValueException $exception) {
-      return NULL;
-    }
-
-    $source = '/' . $internalPath;
+    $source = '/' . $entity->toUrl()->getInternalPath();
     $config = $this->configFactory->get('pathauto.settings');
     $langcode = $entity->language()->getId();
 

@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Storage\Handler;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler;
 
@@ -23,7 +22,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandl
 class MongoDbSessionHandlerTest extends TestCase
 {
     /**
-     * @var MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     private $mongo;
     private $storage;
@@ -63,15 +62,19 @@ class MongoDbSessionHandlerTest extends TestCase
         $this->storage = new MongoDbSessionHandler($this->mongo, $this->options);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testConstructorShouldThrowExceptionForInvalidMongo()
     {
-        $this->expectException('InvalidArgumentException');
         new MongoDbSessionHandler(new \stdClass(), $this->options);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testConstructorShouldThrowExceptionForMissingOptions()
     {
-        $this->expectException('InvalidArgumentException');
         new MongoDbSessionHandler($this->mongo, []);
     }
 

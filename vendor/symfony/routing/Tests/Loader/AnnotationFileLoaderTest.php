@@ -35,6 +35,9 @@ class AnnotationFileLoaderTest extends AbstractAnnotationLoaderTest
         $this->loader->load(__DIR__.'/../Fixtures/AnnotatedClasses/FooClass.php');
     }
 
+    /**
+     * @requires PHP 5.4
+     */
     public function testLoadTraitWithClassConstant()
     {
         $this->reader->expects($this->never())->method('getClassAnnotation');
@@ -42,10 +45,12 @@ class AnnotationFileLoaderTest extends AbstractAnnotationLoaderTest
         $this->loader->load(__DIR__.'/../Fixtures/AnnotatedClasses/FooTrait.php');
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Did you forgot to add the "<?php" start tag at the beginning of the file?
+     */
     public function testLoadFileWithoutStartTag()
     {
-        $this->expectException('InvalidArgumentException');
-        $this->expectExceptionMessage('Did you forgot to add the "<?php" start tag at the beginning of the file?');
         $this->loader->load(__DIR__.'/../Fixtures/OtherAnnotatedClasses/NoStartTagClass.php');
     }
 

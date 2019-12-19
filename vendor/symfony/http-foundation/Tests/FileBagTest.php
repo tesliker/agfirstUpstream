@@ -23,9 +23,11 @@ use Symfony\Component\HttpFoundation\FileBag;
  */
 class FileBagTest extends TestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testFileMustBeAnArrayOrUploadedFile()
     {
-        $this->expectException('InvalidArgumentException');
         new FileBag(['file' => 'foo']);
     }
 

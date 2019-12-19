@@ -790,7 +790,7 @@ function twig_join_filter($value, $glue = '', $and = null)
  */
 function twig_split_filter(Environment $env, $value, $delimiter, $limit = null)
 {
-    if (\strlen($delimiter) > 0) {
+    if (!empty($delimiter)) {
         return null === $limit ? explode($delimiter, $value) : explode($delimiter, $value, $limit);
     }
 
@@ -1505,10 +1505,6 @@ function twig_test_empty($value)
 {
     if ($value instanceof \Countable) {
         return 0 == \count($value);
-    }
-
-    if ($value instanceof \Traversable) {
-        return !iterator_count($value);
     }
 
     if (\is_object($value) && method_exists($value, '__toString')) {

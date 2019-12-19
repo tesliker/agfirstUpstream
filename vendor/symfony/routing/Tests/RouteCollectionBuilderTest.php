@@ -75,9 +75,11 @@ class RouteCollectionBuilderTest extends TestCase
         $this->assertCount(1, $routeCollection->getResources());
     }
 
+    /**
+     * @expectedException \BadMethodCallException
+     */
     public function testImportWithoutLoaderThrowsException()
     {
-        $this->expectException('BadMethodCallException');
         $collectionBuilder = new RouteCollectionBuilder();
         $collectionBuilder->import('routing.yml');
     }

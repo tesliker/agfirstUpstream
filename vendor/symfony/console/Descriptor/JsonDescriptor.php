@@ -92,6 +92,8 @@ class JsonDescriptor extends Descriptor
 
     /**
      * Writes data as json.
+     *
+     * @return array|string
      */
     private function writeData(array $data, array $options)
     {

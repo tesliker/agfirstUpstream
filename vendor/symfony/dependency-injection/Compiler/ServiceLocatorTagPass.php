@@ -41,8 +41,6 @@ final class ServiceLocatorTagPass extends AbstractRecursivePass
             throw new InvalidArgumentException(sprintf('Invalid definition for service "%s": an array of references is expected as first argument when the "container.service_locator" tag is set.', $this->currentId));
         }
 
-        $i = 0;
-
         foreach ($arguments[0] as $k => $v) {
             if ($v instanceof ServiceClosureArgument) {
                 continue;
@@ -51,13 +49,10 @@ final class ServiceLocatorTagPass extends AbstractRecursivePass
                 throw new InvalidArgumentException(sprintf('Invalid definition for service "%s": an array of references is expected as first argument when the "container.service_locator" tag is set, "%s" found for key "%s".', $this->currentId, \is_object($v) ? \get_class($v) : \gettype($v), $k));
             }
 
-            if ($i === $k) {
+            if (\is_int($k)) {
                 unset($arguments[0][$k]);
 
                 $k = (string) $v;
-                ++$i;
-            } elseif (\is_int($k)) {
-                $i = null;
             }
             $arguments[0][$k] = new ServiceClosureArgument($v);
         }
@@ -81,8 +76,9 @@ final class ServiceLocatorTagPass extends AbstractRecursivePass
     }
 
     /**
-     * @param Reference[] $refMap
-     * @param string|null $callerId
+     * @param ContainerBuilder $container
+     * @param Reference[]      $refMap
+     * @param string|null      $callerId
      *
      * @return Reference
      */

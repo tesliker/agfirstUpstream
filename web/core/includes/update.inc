@@ -48,7 +48,7 @@ function update_check_incompatibility($name, $type = 'module') {
     // code changes that were made in the filesystem before the update script
     // was initiated.
     $themes = \Drupal::service('theme_handler')->rebuildThemeData();
-    $modules = \Drupal::service('extension.list.module')->reset()->getList();
+    $modules = system_rebuild_module_data();
   }
 
   if ($type == 'module' && isset($modules[$name])) {
@@ -58,7 +58,8 @@ function update_check_incompatibility($name, $type = 'module') {
     $file = $themes[$name];
   }
   if (!isset($file)
-      || $file->info['core_incompatible']
+      || !isset($file->info['core'])
+      || $file->info['core'] != \Drupal::CORE_COMPATIBILITY
       || version_compare(phpversion(), $file->info['php']) < 0) {
     return TRUE;
   }

@@ -25,6 +25,7 @@ class AcceptHeaderItem
 
     /**
      * @param string $value
+     * @param array  $attributes
      */
     public function __construct($value, array $attributes = [])
     {

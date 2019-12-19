@@ -15,6 +15,7 @@ use GuzzleHttp\RequestOptions;
  * Tests JSON:API multilingual support.
  *
  * @group jsonapi
+ * @group legacy
  *
  * @internal
  */
@@ -25,13 +26,7 @@ class JsonApiFunctionalMultilingualTest extends JsonApiFunctionalTestBase {
    */
   public static $modules = [
     'language',
-    'content_translation',
   ];
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
 
   /**
    * {@inheritdoc}
@@ -49,13 +44,6 @@ class JsonApiFunctionalMultilingualTest extends JsonApiFunctionalTestBase {
     \Drupal::configFactory()->getEditable('language.negotiation')
       ->set('url.prefixes.ca', 'ca')
       ->set('url.prefixes.ca-fr', 'ca-fr')
-      ->save();
-
-    ContentLanguageSettings::create([
-      'target_entity_type_id' => 'node',
-      'target_bundle' => 'article',
-    ])
-      ->setThirdPartySetting('content_translation', 'enabled', TRUE)
       ->save();
 
     $this->createDefaultContent(5, 5, TRUE, TRUE, static::IS_MULTILINGUAL, FALSE);
@@ -151,8 +139,10 @@ class JsonApiFunctionalMultilingualTest extends JsonApiFunctionalTestBase {
 
     // Specifying a langcode is allowed once configured to be alterable. But
     // modifying the language of a non-default translation is still not allowed.
-    ContentLanguageSettings::loadByEntityTypeBundle('node', 'article')
-      ->setLanguageAlterable(TRUE)
+    ContentLanguageSettings::create([
+      'target_entity_type_id' => 'node',
+      'target_bundle' => 'article',
+    ])->setLanguageAlterable(TRUE)
       ->save();
     $response = $this->request('PATCH', Url::fromUri('base:/ca/jsonapi/node/article/' . $this->nodes[0]->uuid()), $request_options);
     $this->assertSame(500, $response->getStatusCode());
@@ -277,8 +267,10 @@ class JsonApiFunctionalMultilingualTest extends JsonApiFunctionalTestBase {
 
     // Specifying a langcode is allowed once configured to be alterable. Now an
     // entity can be created with the specified langcode.
-    ContentLanguageSettings::loadByEntityTypeBundle('node', 'article')
-      ->setLanguageAlterable(TRUE)
+    ContentLanguageSettings::create([
+      'target_entity_type_id' => 'node',
+      'target_bundle' => 'article',
+    ])->setLanguageAlterable(TRUE)
       ->save();
     $request_document['data']['attributes']['langcode'] = 'ca';
     $request_options[RequestOptions::BODY] = Json::encode($request_document);
@@ -319,7 +311,7 @@ class JsonApiFunctionalMultilingualTest extends JsonApiFunctionalTestBase {
 
     $response = $this->request('DELETE', Url::fromUri('base:/jsonapi/node/article/' . $this->nodes[0]->uuid()), []);
     $this->assertSame(204, $response->getStatusCode());
-    $this->assertNull(Node::load($this->nodes[0]->id()));
+    $this->assertFalse(Node::load($this->nodes[0]->id()));
   }
 
 }

@@ -9,6 +9,7 @@ return array(
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Stack' => array($vendorDir . '/stack/builder/src'),
     'Parsedown' => array($vendorDir . '/erusev/parsedown'),
+    'PEAR' => array($vendorDir . '/pear/pear_exception'),
     'Mailchimp' => array($baseDir . '/web/modules/contrib/mailchimp/src'),
     'Geocoder' => array($vendorDir . '/willdurand/geocoder/src'),
     'EasyRdf_' => array($vendorDir . '/easyrdf/easyrdf/lib'),

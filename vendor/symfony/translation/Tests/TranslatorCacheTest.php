@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Translation\Tests;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Resource\SelfCheckingResourceInterface;
 use Symfony\Component\Translation\Loader\ArrayLoader;
@@ -96,7 +95,7 @@ class TranslatorCacheTest extends TestCase
         $catalogue = new MessageCatalogue($locale, []);
         $catalogue->addResource(new StaleResource()); // better use a helper class than a mock, because it gets serialized in the cache and re-loaded
 
-        /** @var LoaderInterface|MockObject $loader */
+        /** @var LoaderInterface|\PHPUnit_Framework_MockObject_MockObject $loader */
         $loader = $this->getMockBuilder('Symfony\Component\Translation\Loader\LoaderInterface')->getMock();
         $loader
             ->expects($this->exactly(2))

@@ -20,19 +20,26 @@ class RedirectResponseTest extends TestCase
     {
         $response = new RedirectResponse('foo.bar');
 
-        $this->assertRegExp('#<meta http-equiv="refresh" content="\d+;url=\'foo\.bar\'" />#', preg_replace('/\s+/', ' ', $response->getContent()));
+        $this->assertEquals(1, preg_match(
+            '#<meta http-equiv="refresh" content="\d+;url=foo\.bar" />#',
+            preg_replace(['/\s+/', '/\'/'], [' ', '"'], $response->getContent())
+        ));
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testRedirectResponseConstructorNullUrl()
     {
-        $this->expectException('InvalidArgumentException');
-        new RedirectResponse(null);
+        $response = new RedirectResponse(null);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testRedirectResponseConstructorWrongStatusCode()
     {
-        $this->expectException('InvalidArgumentException');
-        new RedirectResponse('foo.bar', 404);
+        $response = new RedirectResponse('foo.bar', 404);
     }
 
     public function testGenerateLocationHeader()
@@ -58,9 +65,11 @@ class RedirectResponseTest extends TestCase
         $this->assertEquals('baz.beep', $response->getTargetUrl());
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testSetTargetUrlNull()
     {
-        $this->expectException('InvalidArgumentException');
         $response = new RedirectResponse('foo.bar');
         $response->setTargetUrl(null);
     }

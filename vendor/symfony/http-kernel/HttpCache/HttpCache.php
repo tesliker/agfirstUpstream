@@ -352,9 +352,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
         }
 
         // add our cached last-modified validator
-        if ($entry->headers->has('Last-Modified')) {
-            $subRequest->headers->set('if_modified_since', $entry->headers->get('Last-Modified'));
-        }
+        $subRequest->headers->set('if_modified_since', $entry->headers->get('Last-Modified'));
 
         // Add our cached etag validator to the environment.
         // We keep the etags from the client to handle the case when the client
@@ -434,8 +432,9 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      * All backend requests (cache passes, fetches, cache validations)
      * run through this method.
      *
-     * @param bool          $catch Whether to catch exceptions or not
-     * @param Response|null $entry A Response instance (the stale entry if present, null otherwise)
+     * @param Request  $request A Request instance
+     * @param bool     $catch   Whether to catch exceptions or not
+     * @param Response $entry   A Response instance (the stale entry if present, null otherwise)
      *
      * @return Response A Response instance
      */
@@ -647,6 +646,8 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     /**
      * Calculates the key we use in the "trace" array for a given request.
      *
+     * @param Request $request
+     *
      * @return string
      */
     private function getTraceKey(Request $request)
@@ -662,6 +663,8 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     /**
      * Checks whether the given (cached) response may be served as "stale" when a revalidation
      * is currently in progress.
+     *
+     * @param Response $entry
      *
      * @return bool true when the stale response may be served, false otherwise
      */
