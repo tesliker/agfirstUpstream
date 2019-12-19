@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\Tests\metatag_facebook\Functional;
+namespace Drupal\metatag_facebook\Tests;
 
-use Drupal\Tests\metatag\Functional\MetatagTagsTestBase;
+use Drupal\metatag\Tests\MetatagTagsTestBase;
 
 /**
  * Tests that each of the Metatag Facebook tags work correctly.

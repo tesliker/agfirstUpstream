@@ -48,12 +48,6 @@ class UpdateCommand extends Command
                 InputOption::VALUE_NONE,
                 'Report updates.'
             )
-            ->addOption(
-                'fail-on-diff',
-                null,
-                InputOption::VALUE_NONE,
-                'Exit with an error when a difference is found. Map will not be updated.'
-            )
         ;
     }
 
@@ -78,7 +72,7 @@ class UpdateCommand extends Command
                 }
             } catch (\Exception $e) {
                 $output->writeln('<error>' . $e->getMessage() . '</error>');
-                return(1);
+                exit(2);
             }
         }
 
@@ -87,7 +81,6 @@ class UpdateCommand extends Command
         $current_map = MapHandler::map();
 
         // Check if anything got changed.
-        $write = true;
         if ($input->getOption('diff')) {
             $write = false;
             foreach ([
@@ -104,11 +97,8 @@ class UpdateCommand extends Command
                     $write = true;
                 }
             }
-        }
-
-        // Fail on diff if required.
-        if ($write && $input->getOption('diff') && $input->getOption('fail-on-diff')) {
-            throw new \RuntimeException('Changes to mapping detected, aborting.');
+        } else {
+            $write = true;
         }
 
         // If changed, save the new map to the PHP file.
@@ -121,8 +111,6 @@ class UpdateCommand extends Command
 
         // Reset the new map's map array.
         $updater->getMap()->reset();
-
-        return(0);
     }
 
     /**

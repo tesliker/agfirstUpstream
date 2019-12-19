@@ -7,7 +7,6 @@ use Drupal\Core\Mail\MailFormatHelper;
 use Drupal\webform\Element\WebformComputedTwig as WebformComputedTwigElement;
 use Drupal\webform\Element\WebformComputedBase as WebformComputedBaseElement;
 use Drupal\webform\Plugin\WebformElementBase;
-use Drupal\webform\Plugin\WebformElementComputedInterface;
 use Drupal\webform\Plugin\WebformElementDisplayOnInterface;
 use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformSubmissionInterface;
@@ -15,7 +14,7 @@ use Drupal\webform\WebformSubmissionInterface;
 /**
  * Provides a base class for 'webform_computed' elements.
  */
-abstract class WebformComputedBase extends WebformElementBase implements WebformElementDisplayOnInterface, WebformElementComputedInterface {
+abstract class WebformComputedBase extends WebformElementBase implements WebformElementDisplayOnInterface {
 
   use WebformDisplayOnTrait;
 
@@ -95,13 +94,15 @@ abstract class WebformComputedBase extends WebformElementBase implements Webform
    * {@inheritdoc}
    */
   public function getValue(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
-    // Get stored value if it is set.
-    $value = $webform_submission->getElementData($element['#webform_key']);
-    if (isset($value)) {
-      return $value;
+    if (!empty($element['#store'])) {
+      // Get stored value if it is set.
+      $value = $webform_submission->getElementData($element['#webform_key']);
+      if (isset($value)) {
+        return $value;
+      }
     }
 
-    return $this->computeValue($element, $webform_submission);
+    return $this->processValue($element, $webform_submission);
   }
 
   /**
@@ -232,6 +233,22 @@ abstract class WebformComputedBase extends WebformElementBase implements Webform
   /**
    * {@inheritdoc}
    */
+  public function preSave(array &$element, WebformSubmissionInterface $webform_submission) {
+    $key = $element['#webform_key'];
+    $data = $webform_submission->getData();
+    if (!empty($element['#store'])) {
+      $data[$key] = (string) $this->processValue($element, $webform_submission);
+    }
+    else {
+      // Always unset the value.
+      unset($data[$key]);
+    }
+    $webform_submission->setData($data);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function postSave(array &$element, WebformSubmissionInterface $webform_submission, $update = TRUE) {
     if ($update || empty($element['#store']) || $webform_submission->getWebform()->getSetting('results_disabled')) {
       return;
@@ -240,7 +257,7 @@ abstract class WebformComputedBase extends WebformElementBase implements Webform
     // Recalculate the stored computed value to account new a submission's
     // generated sid and serial.
     $key = $element['#webform_key'];
-    $value = (string) $this->computeValue($element, $webform_submission);
+    $value = (string) $this->processValue($element, $webform_submission);
 
     // Update the submission's value.
     $webform_submission->setElementData($key, $value);
@@ -279,11 +296,19 @@ abstract class WebformComputedBase extends WebformElementBase implements Webform
   }
 
   /**
-   * {@inheritdoc}
+   * Process computed element value.
+   *
+   * @param array $element
+   *   An element.
+   * @param \Drupal\webform\WebformSubmissionInterface $webform_submission
+   *   A webform submission.
+   *
+   * @return string
+   *   Processed markup.
    */
-  public function computeValue(array $element, WebformSubmissionInterface $webform_submission) {
+  protected function processValue(array $element, WebformSubmissionInterface $webform_submission) {
     $class = $this->getFormElementClassDefinition();
-    return $class::computeValue($element, $webform_submission);
+    return $class::processValue($element, $webform_submission);
   }
 
   /**
@@ -298,7 +323,7 @@ abstract class WebformComputedBase extends WebformElementBase implements Webform
    * {@inheritdoc}
    */
   public function getElementSelectorInputValue($selector, $trigger, array $element, WebformSubmissionInterface $webform_submission) {
-    return (string) $this->computeValue($element, $webform_submission);
+    return (string) $this->processValue($element, $webform_submission);
   }
 
 }

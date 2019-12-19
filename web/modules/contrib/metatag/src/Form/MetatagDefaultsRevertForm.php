@@ -38,7 +38,7 @@ class MetatagDefaultsRevertForm extends EntityConfirmFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->revert();
 
-    $this->messenger()->addMessage(
+    drupal_set_message(
       $this->t('Reverted @label defaults.',
         [
           '@label' => $this->entity->label(),

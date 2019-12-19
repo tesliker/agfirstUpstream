@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\Tests\metatag_app_links\Functional;
+namespace Drupal\metatag_app_links\Tests;
 
-use Drupal\Tests\metatag\Functional\MetatagTagsTestBase;
+use Drupal\metatag\Tests\MetatagTagsTestBase;
 
 /**
  * Tests that each of the App Links tags work correctly.

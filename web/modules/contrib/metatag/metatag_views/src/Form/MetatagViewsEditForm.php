@@ -185,7 +185,7 @@ class MetatagViewsEditForm extends FormBase {
     // Redirect back to the views list.
     $form_state->setRedirect('metatag_views.metatags.list');
 
-    $this->messenger()->addMessage($this->t('Metatags for @view : @display have been saved.', [
+    drupal_set_message($this->t('Metatags for @view : @display have been saved.', [
       '@view' => $view->label(),
       '@display' => $view->getDisplay($display_id)['display_title'],
     ]));

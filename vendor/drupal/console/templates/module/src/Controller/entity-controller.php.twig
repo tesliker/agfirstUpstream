@@ -11,7 +11,9 @@ namespace Drupal\{{ module }}\Controller;
 {% block use_class %}
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Render\Renderer;
 use Drupal\Core\Url;
 use Drupal\{{ module }}\Entity\{{ entity_class }}Interface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -24,6 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class {{ entity_class }}Controller extends ControllerBase implements ContainerInjectionInterface {% endblock %}
 {% block class_methods %}
+
   /**
    * The date formatter.
    *
@@ -39,13 +42,26 @@ class {{ entity_class }}Controller extends ControllerBase implements ContainerIn
   protected $renderer;
 
   /**
+   * Constructs a new {{ entity_class }}Controller.
+   *
+   * @param \Drupal\Core\Datetime\DateFormatter $date_formatter
+   *   The date formatter.
+   * @param \Drupal\Core\Render\Renderer $renderer
+   *   The renderer.
+   */
+  public function __construct(DateFormatter $date_formatter, Renderer $renderer) {
+    $this->dateFormatter = $date_formatter;
+    $this->renderer = $renderer;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    $instance = parent::create($container);
-    $instance->dateFormatter = $container->get('date.formatter');
-    $instance->renderer = $container->get('renderer');
-    return $instance;
+    return new static(
+      $container->get('date.formatter'),
+      $container->get('renderer')
+    );
   }
 
   /**

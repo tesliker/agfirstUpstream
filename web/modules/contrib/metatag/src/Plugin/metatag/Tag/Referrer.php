@@ -29,12 +29,9 @@ class Referrer extends MetaNameBase {
       '#description' => $this->description(),
       '#options' => [
         'no-referrer' => t('No Referrer'),
-        'no-referrer-when-downgrade' => t('No Referrer When Downgrade'),
         'origin' => t('Origin'),
+        'no-referrer-when-downgrade' => t('No Referrer When Downgrade'),
         'origin-when-cross-origin' => t('Origin When Cross-Origin'),
-        'same-origin' => t('Same Origin'),
-        'strict-origin' => t('Strict Origin'),
-        'strict-origin-when-cross-origin' => t('Strict Origin When Cross-Origin'),
         'unsafe-url' => t('Unsafe URL'),
       ],
       '#empty_option' => t('- None -'),

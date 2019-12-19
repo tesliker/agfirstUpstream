@@ -16,7 +16,7 @@ use Drupal\webform\WebformSubmissionInterface;
 /**
  * Provides a base class for 'webform_computed' elements.
  */
-abstract class WebformComputedBase extends FormElement implements WebformComputedInterface {
+abstract class WebformComputedBase extends FormElement {
 
   /**
    * Denotes HTML.
@@ -91,7 +91,7 @@ abstract class WebformComputedBase extends FormElement implements WebformCompute
       // @see drupal_process_states;
       $element['#type'] = 'item';
 
-      $value = static::computeValue($element, $webform_submission);
+      $value = static::processValue($element, $webform_submission);
       static::setWebformComputedElementValue($element, $value);
     }
 
@@ -160,9 +160,17 @@ abstract class WebformComputedBase extends FormElement implements WebformCompute
   }
 
   /**
-   * {@inheritdoc}
+   * Process computed value.
+   *
+   * @param array $element
+   *   The element.
+   * @param \Drupal\webform\WebformSubmissionInterface $webform_submission
+   *   A webform submission.
+   *
+   * @return array|string
+   *   The string with tokens replaced.
    */
-  public static function computeValue(array $element, WebformSubmissionInterface $webform_submission) {
+  public static function processValue(array $element, WebformSubmissionInterface $webform_submission) {
     return $element['#template'];
   }
 
@@ -175,7 +183,7 @@ abstract class WebformComputedBase extends FormElement implements WebformCompute
     // the accurate computed value.
     $webform_submission = static::getWebformSubmission($element, $form_state, $complete_form);
     if ($webform_submission) {
-      $value = static::computeValue($element, $webform_submission);
+      $value = static::processValue($element, $webform_submission);
       $form_state->setValueForElement($element['value'], NULL);
       $form_state->setValueForElement($element['hidden'], NULL);
       $form_state->setValueForElement($element, $value);
@@ -223,16 +231,7 @@ abstract class WebformComputedBase extends FormElement implements WebformCompute
    * Determine if the current request is using Ajax.
    */
   protected static function isAjax() {
-    // return (\Drupal::request()->get(MainContentViewSubscriber::WRAPPER_FORMAT) === 'drupal_ajax');
-    //
-    // ISSUE:
-    // For nodes with computed elements there is a duplicate
-    // _wrapper_format parameter.
-    // (i.e ?_wrapper_format=html&_wrapper_format=drupal_ajax)
-    // WORKAROUND:
-    // See if _wrapper_format=drupal_ajax is being appended to the query string.
-    $querystring = \Drupal::request()->getQueryString();
-    return (strpos($querystring, MainContentViewSubscriber::WRAPPER_FORMAT . '=drupal_ajax') !== FALSE);
+    return (\Drupal::request()->get(MainContentViewSubscriber::WRAPPER_FORMAT) === 'drupal_ajax');
   }
 
   /**
@@ -279,7 +278,7 @@ abstract class WebformComputedBase extends FormElement implements WebformCompute
 
     // Set element value and #markup  after the form has been validated.
     $webform_submission = static::getWebformSubmission($element, $form_state, $form);
-    $value = static::computeValue($element, $webform_submission);
+    $value = static::processValue($element, $webform_submission);
     static::setWebformComputedElementValue($element, $value);
 
     // Only return the wrapper id, this prevents the computed element from

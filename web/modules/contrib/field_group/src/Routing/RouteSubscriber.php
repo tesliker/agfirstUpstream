@@ -68,7 +68,7 @@ class RouteSubscriber extends RouteSubscriberBase {
         $defaults_add = [
           'entity_type_id' => $entity_type_id,
           '_form' => '\Drupal\field_group\Form\FieldGroupAddForm',
-          '_title' => 'Add field group',
+          '_title' => 'Add group',
         ];
 
         // If the entity type has no bundles and it doesn't use {bundle} in its

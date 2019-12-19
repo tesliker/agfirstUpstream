@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\Tests\metatag_google_plus\Functional;
+namespace Drupal\metatag_google_plus\Tests;
 
-use Drupal\Tests\metatag\Functional\MetatagTagsTestBase;
+use Drupal\metatag\Tests\MetatagTagsTestBase;
 
 /**
  * Tests that each of the Metatag Google Plus tags work correctly.

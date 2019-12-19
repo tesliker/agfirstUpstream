@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\Tests\metatag_verification\Functional;
+namespace Drupal\metatag_verification\Tests;
 
-use Drupal\Tests\metatag\Functional\MetatagTagsTestBase;
+use Drupal\metatag\Tests\MetatagTagsTestBase;
 
 /**
  * Tests that each of the Metatag Verification tags work correctly.
@@ -20,7 +20,6 @@ class MetatagVerificationTagsTest extends MetatagTagsTestBase {
     'google',
     'norton_safe_web',
     'pinterest',
-    'pocket',
     'yandex',
   ];
 
@@ -50,9 +49,6 @@ class MetatagVerificationTagsTest extends MetatagTagsTestBase {
     }
     elseif ($tag_name == 'pinterest') {
       $tag_name = 'p:domain_verify';
-    }
-    elseif ($tag_name == 'pocket') {
-      $tag_name = 'pocket-site-verification';
     }
     elseif ($tag_name == 'yandex') {
       $tag_name = 'yandex-verification';

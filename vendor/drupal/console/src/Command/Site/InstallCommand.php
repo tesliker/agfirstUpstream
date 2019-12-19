@@ -287,7 +287,7 @@ class InstallCommand extends ContainerAwareCommand
             if ($dbType === 'sqlite') {
                 // --db-file option
                 if (!$input->getOption('db-file')) {
-                    $uri = $this->site->getMultisiteName($input);
+                    $uri = parse_url($input->getParameterOption(['--uri', '-l'], 'default'), PHP_URL_HOST);
                     $uriPath = $this->site->multisiteMode($uri) ? $this->site->getMultisiteDir($uri) : 'default';
                     $dbFile = $this->getIo()->ask(
                         $this->trans('commands.migrate.execute.questions.db-file'),
@@ -323,7 +323,7 @@ class InstallCommand extends ContainerAwareCommand
             }
 
             // --db-prefix option
-            if ($input->getOption('db-prefix') === null) {
+            if (!$input->getOption('db-prefix')) {
                 $input->setOption('db-prefix', $this->dbPrefixQuestion());
             }
         }
@@ -383,7 +383,7 @@ class InstallCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $uri = $this->site->getMultisiteName($input);
+        $uri = parse_url($input->getParameterOption(['--uri', '-l'], 'default'), PHP_URL_HOST);
 
         if ($this->site->multisiteMode($uri)) {
             if (!$this->site->validMultisite($uri)) {

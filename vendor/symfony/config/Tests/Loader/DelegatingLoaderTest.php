@@ -19,7 +19,7 @@ class DelegatingLoaderTest extends TestCase
 {
     public function testConstructor()
     {
-        new DelegatingLoader($resolver = new LoaderResolver());
+        $loader = new DelegatingLoader($resolver = new LoaderResolver());
         $this->assertTrue(true, '__construct() takes a loader resolver as its first argument');
     }
 
@@ -56,9 +56,11 @@ class DelegatingLoaderTest extends TestCase
         $loader->load('foo');
     }
 
+    /**
+     * @expectedException \Symfony\Component\Config\Exception\FileLoaderLoadException
+     */
     public function testLoadThrowsAnExceptionIfTheResourceCannotBeLoaded()
     {
-        $this->expectException('Symfony\Component\Config\Exception\FileLoaderLoadException');
         $loader = $this->getMockBuilder('Symfony\Component\Config\Loader\LoaderInterface')->getMock();
         $loader->expects($this->once())->method('supports')->willReturn(false);
         $resolver = new LoaderResolver([$loader]);

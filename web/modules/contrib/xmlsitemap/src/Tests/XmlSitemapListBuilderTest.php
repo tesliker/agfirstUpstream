@@ -3,7 +3,6 @@
 namespace Drupal\xmlsitemap\Tests;
 
 use Drupal\language\Entity\ConfigurableLanguage;
-use Drupal\xmlsitemap\Entity\XmlSitemap;
 
 /**
  * Tests the sitemaps list builder.
@@ -92,14 +91,21 @@ class XmlSitemapListBuilderTest extends XmlSitemapTestBase {
     $this->drupalPostForm('admin/config/search/xmlsitemap/add', $edit, t('Save'));
     $this->assertText(t('There is another sitemap saved with the same context.'));
 
-    $sitemaps = XmlSitemap::loadMultiple();
+    $edit = [
+      'label' => 'Undefined',
+      'context[language]' => 'und',
+    ];
+    $this->drupalPostForm('admin/config/search/xmlsitemap/add', $edit, t('Save'));
+    $this->assertText(t('There is another sitemap saved with the same context.'));
+
+    $sitemaps = entity_load_multiple('xmlsitemap');
     foreach ($sitemaps as $sitemap) {
       $label = $sitemap->label();
       $this->drupalPostForm("admin/config/search/xmlsitemap/{$sitemap->id()}/delete", [], t('Delete'));
       $this->assertRaw(t("Sitemap %label has been deleted.", ['%label' => $label]));
     }
 
-    $sitemaps = XmlSitemap::loadMultiple();
+    $sitemaps = entity_load_multiple('xmlsitemap');
     $this->assertEqual(count($sitemaps), 0, t('No more sitemaps.'));
   }
 

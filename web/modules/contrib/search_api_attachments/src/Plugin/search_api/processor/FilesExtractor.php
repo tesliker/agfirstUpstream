@@ -388,10 +388,7 @@ class FilesExtractor extends ProcessorPluginBase implements PluginFormInterface 
    *   The first N bytes of the extracted text that will be indexed and cached.
    */
   public function limitBytes($extracted_text) {
-    // Default the configuration to a sensible amount of text to extract and
-    // cache in the database. 1 million characters should be enough for most
-    // cases.
-    $bytes = Bytes::toInt('1 MB');
+    $bytes = 0;
     if (isset($this->configuration['number_first_bytes'])) {
       $bytes = Bytes::toInt($this->configuration['number_first_bytes']);
     }
@@ -481,14 +478,12 @@ class FilesExtractor extends ProcessorPluginBase implements PluginFormInterface 
                 // For each media bundle allowed, check if the source field is a
                 // file field.
                 foreach ($settings['handler_settings']['target_bundles'] as $bundle_name) {
-                  if (!empty($this->entityTypeManager->getStorage('media_type')->load($bundle_name))) {
-                    $bundle_configuration = $this->entityTypeManager->getStorage('media_type')->load($bundle_name)->toArray();
-                    if (isset($bundle_configuration['source_configuration']['source_field'])) {
-                      $source_field = $bundle_configuration['source_configuration']['source_field'];
-                      $field_config = $this->entityTypeManager->getStorage('field_storage_config')->load(sprintf('media.%s', $source_field))->toArray();
-                      if (isset($field_config['type']) && $field_config['type'] === 'file') {
-                        $file_elements[$property->getName()] = $property->getLabel();
-                      }
+                  $bundle_configuration = $this->entityTypeManager->getStorage('media_type')->load($bundle_name)->toArray();
+                  if (isset($bundle_configuration['source_configuration']['source_field'])) {
+                    $source_field = $bundle_configuration['source_configuration']['source_field'];
+                    $field_config = $this->entityTypeManager->getStorage('field_storage_config')->load(sprintf('media.%s', $source_field))->toArray();
+                    if (isset($field_config['type']) && $field_config['type'] === 'file') {
+                      $file_elements[$property->getName()] = $property->getLabel();
                     }
                   }
                 }
@@ -531,11 +526,11 @@ class FilesExtractor extends ProcessorPluginBase implements PluginFormInterface 
     $form['number_first_bytes'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Limit size of the extracted string before indexing.'),
-      '#default_value' => isset($this->configuration['number_first_bytes']) ? $this->configuration['number_first_bytes'] : '1 MB',
+      '#default_value' => isset($this->configuration['number_first_bytes']) ? $this->configuration['number_first_bytes'] : '0',
       '#size' => 5,
       '#min' => 0,
       '#max' => 99999,
-      '#description' => $this->t('Enter a value like "1000", "10 KB", "10 MB" or "10 GB" in order to restrict the size of the content after extraction.<br /> "0" to index the full extracted content without bytes limitation.'),
+      '#description' => $this->t('Enter a value like "1000", "10 KB", "10 MB" or "10 GB" in order to restrict the size of the content after extraction.<br /> 0 to index the full extracted content without bytes limitation.'),
     ];
     $form['max_filesize'] = [
       '#type' => 'textfield',

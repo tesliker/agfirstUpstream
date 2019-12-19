@@ -2,16 +2,14 @@
 
 namespace Drupal\xmlsitemap;
 
-use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Query\Merge;
 use Drupal\Core\Entity\EntityChangedInterface;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Language\LanguageInterface;
-use Drupal\Core\Session\AnonymousUserSession;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\State\StateInterface;
-use Drupal\menu_link_content\MenuLinkContentInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AnonymousUserSession;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 /**
@@ -95,38 +93,13 @@ class XmlSitemapLinkStorage implements XmlSitemapLinkStorageInterface {
 
     // The following values must always be checked because they are volatile.
     try {
-      // @todo Could we move this logic to some kind of handler on the menu link entity class?
-      if ($entity instanceof MenuLinkContentInterface) {
-        $url = $entity->getUrlObject();
-        if ($url->isRouted()) {
-          if ($url->getRouteName() === '<nolink>') {
-            $loc = '';
-          }
-          else {
-            $loc = $url->getInternalPath();
-          }
-        }
-        else {
-          // Attempt to transform this to a relative URL.
-          $loc = file_url_transform_relative($url->toString());
-          // If it could not be transformed into a relative path, disregard it
-          // since we cannot store external URLs in the sitemap.
-          if (UrlHelper::isExternal($loc)) {
-            $loc = '';
-          }
-        }
-        $access = $url->access($this->anonymousUser);
-      }
-      else {
-        $loc = ($entity->id() && $entity->hasLinkTemplate('canonical')) ? $entity->toUrl()->getInternalPath() : '';
-        $access = $entity->access('view', $this->anonymousUser);
-      }
+      $loc = ($entity->id() !== NULL && $entity->hasLinkTemplate('canonical')) ? '/' . $entity->toUrl()->getInternalPath() : '';
     }
     catch (RouteNotFoundException $e) {
       $loc = '';
     }
-    $entity->xmlsitemap['loc'] = '/' . ltrim($loc, '/');
-    $entity->xmlsitemap['access'] = $loc && $access;
+    $entity->xmlsitemap['loc'] = $loc;
+    $entity->xmlsitemap['access'] = $loc && $entity->access('view', $this->anonymousUser);
     $language = $entity->language();
     $entity->xmlsitemap['language'] = !empty($language) ? $language->getId() : LanguageInterface::LANGCODE_NOT_SPECIFIED;
 
@@ -155,17 +128,17 @@ class XmlSitemapLinkStorage implements XmlSitemapLinkStorageInterface {
     // Temporary validation checks.
     // @todo Remove in final?
     if ($link['priority'] < 0 || $link['priority'] > 1) {
-      trigger_error("The XML sitemap link for {$link['type']} {$link['id']} has an invalid priority of {$link['priority']}.<br/>" . var_export($link, TRUE), E_USER_ERROR);
+      trigger_error(t('Invalid sitemap link priority %priority.<br />@link', [
+        '%priority' => $link['priority'],
+        '@link' => var_export($link, TRUE),
+      ]), E_USER_ERROR);
     }
     if ($link['changecount'] < 0) {
-      trigger_error("The XML sitemap link for {$link['type']} {$link['id']} has a negative changecount value. Please report this to https://www.drupal.org/node/516928.<br/>" . var_export($link, TRUE), E_USER_ERROR);
+      trigger_error(t('Negative changecount value. Please report this to <a href="@516928">@516928</a>.<br />@link', [
+        '@516928' => 'https://www.drupal.org/node/516928',
+        '@link' => var_export($link, TRUE),
+      ]), E_USER_ERROR);
       $link['changecount'] = 0;
-    }
-
-    // Throw an error with the link does not start with a slash.
-    // @see \Drupal\Core\Url::fromInternalUri()
-    if ($link['loc'][0] !== '/') {
-      trigger_error("The XML sitemap link path {$link['loc']} for {$link['type']} {$link['id']} is invalid because it does not start with a slash.", E_USER_ERROR);
     }
 
     // Check if this is a changed link and set the regenerate flag if necessary.
@@ -209,7 +182,7 @@ class XmlSitemapLinkStorage implements XmlSitemapLinkStorageInterface {
   /**
    * {@inheritdoc}
    */
-  public function checkChangedLink(array $link, array $original_link = NULL, $flag = FALSE) {
+  public function checkChangedLink(array $link, $original_link = NULL, $flag = FALSE) {
     $changed = FALSE;
 
     if ($original_link === NULL) {
@@ -297,7 +270,7 @@ class XmlSitemapLinkStorage implements XmlSitemapLinkStorageInterface {
   /**
    * {@inheritdoc}
    */
-  public function updateMultiple(array $updates = [], array $conditions = [], $check_flag = TRUE) {
+  public function updateMultiple($updates = [], $conditions = [], $check_flag = TRUE) {
     // If we are going to modify a visible sitemap link, we will need to set
     // the regenerate needed flag.
     if ($check_flag && !$this->state->get('xmlsitemap_regenerate_needed')) {

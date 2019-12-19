@@ -71,7 +71,7 @@ interface XmlSitemapGeneratorInterface {
    * Generates one chunk of the sitemap.
    *
    * @param \Drupal\xmlsitemap\XmlSitemapInterface $sitemap
-   *   The XML sitemap config entity.
+   *   An unserialized data array for an XML sitemap.
    * @param \Drupal\xmlsitemap\XmlSitemapWriter $writer
    *   XML writer object.
    * @param int $chunk
@@ -82,33 +82,30 @@ interface XmlSitemapGeneratorInterface {
   /**
    * Generate the index sitemap.
    *
-   * @param \Drupal\xmlsitemap\XmlSitemapInterface $sitemap
-   *   The XML sitemap config entity.
-   * @param int|null $pages
-   *   The number of pages to write in the sitemap. Defaults to the value of
-   *   $sitemap->getChunks().
+   * @param XmlSitemapInterface $sitemap
+   *   An unserialized data array for an XML sitemap.
    */
-  public function generateIndex(XmlSitemapInterface $sitemap, $pages = NULL);
+  public function generateIndex(XmlSitemapInterface $sitemap);
 
   /**
    * Batch callback; generate all pages of a sitemap.
    *
    * @param string $smid
    *   Sitemap id.
-   * @param array|\ArrayAccess $context
+   * @param array $context
    *   Sitemap context.
    */
-  public function regenerateBatchGenerate($smid, &$context);
+  public function regenerateBatchGenerate($smid, array &$context);
 
   /**
    * Batch callback; generate the index page of a sitemap.
    *
    * @param string $smid
    *   Sitemap id.
-   * @param array|\ArrayAccess $context
+   * @param array $context
    *   Sitemap context.
    */
-  public function regenerateBatchGenerateIndex($smid, &$context);
+  public function regenerateBatchGenerateIndex($smid, array &$context);
 
   /**
    * Batch callback; sitemap regeneration finished.
@@ -122,8 +119,10 @@ interface XmlSitemapGeneratorInterface {
    * @param int $elapsed
    *   Elapsed.
    *   Time elapsed.
+   *
+   * @codingStandardsIgnoreStart
    */
-  public function regenerateBatchFinished($success, array $results, array $operations, $elapsed);
+  public function regenerateBatchFinished($success, $results, $operations, $elapsed);
 
   /**
    * Batch callback; clear sitemap links for entites.
@@ -132,7 +131,7 @@ interface XmlSitemapGeneratorInterface {
    *   Entity types to rebuild.
    * @param bool $save_custom
    *   Save custom data.
-   * @param array|\ArrayAccess $context
+   * @param array $context
    *   Context to be rebuilt.
    */
   public function rebuildBatchClear(array $entity_type_ids, $save_custom, &$context);
@@ -142,7 +141,7 @@ interface XmlSitemapGeneratorInterface {
    *
    * @param string $entity_type_id
    *   Entity type to be rebuilt.
-   * @param array|\ArrayAccess $context
+   * @param array $context
    *   Context to be rebuilt.
    */
   public function rebuildBatchFetch($entity_type_id, &$context);
@@ -160,13 +159,15 @@ interface XmlSitemapGeneratorInterface {
    *   Elapsed.
    *   Time elapsed.
    */
-  public function rebuildBatchFinished($success, array $results, array $operations, $elapsed);
+  public function rebuildBatchFinished($success, $results, $operations, $elapsed);
 
   /**
    * Set variables during the batch process.
    *
    * @param array $variables
    *   Variables to be set.
+   *
+   * @codingStandardsIgnoreEnd
    */
   public function batchVariableSet(array $variables);
 

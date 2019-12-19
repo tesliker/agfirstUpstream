@@ -35,7 +35,7 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
     protected $indentPad = '  ';
     protected $flags;
 
-    private $charset = '';
+    private $charset;
 
     /**
      * @param callable|resource|string|null $output  A line dumper callable, an opened stream or an output path, defaults to static::$defaultOutput
@@ -154,8 +154,6 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
                 setlocale(LC_NUMERIC, $locale);
             }
         }
-
-        return null;
     }
 
     /**
@@ -187,13 +185,13 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
     /**
      * Converts a non-UTF-8 string to UTF-8.
      *
-     * @param string|null $s The non-UTF-8 string to convert
+     * @param string $s The non-UTF-8 string to convert
      *
-     * @return string|null The string converted to UTF-8
+     * @return string The string converted to UTF-8
      */
     protected function utf8Encode($s)
     {
-        if (null === $s || preg_match('//u', $s)) {
+        if (preg_match('//u', $s)) {
             return $s;
         }
 

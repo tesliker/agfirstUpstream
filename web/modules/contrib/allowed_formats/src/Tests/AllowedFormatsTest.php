@@ -5,7 +5,6 @@ namespace Drupal\allowed_formats\Tests;
 use Drupal\Component\Utility\Unicode;
 use Drupal\filter\Entity\FilterFormat;
 use Drupal\simpletest\WebTestBase;
-use Drupal\Tests\taxonomy\Functional\TaxonomyTestTrait;
 
 /**
  * Tests the basic functionality of Allowed Formats.
@@ -14,26 +13,18 @@ use Drupal\Tests\taxonomy\Functional\TaxonomyTestTrait;
  */
 class AllowedFormatsTest extends WebTestBase {
 
-  // Provides shortcut method createVocabulary().
-  use TaxonomyTestTrait;
-
   /**
    * Modules to enable.
    *
    * @var array
    */
-  public static $modules = [
-    'entity_test',
-    'allowed_formats',
-    'field_ui',
-    'taxonomy',
-  ];
+  public static $modules = ['entity_test', 'allowed_formats', 'field_ui'];
 
   /**
-   * A user with relevant administrative privileges.
-   *
-   * @var \Drupal\user\UserInterface
-   */
+  * A user with relevant administrative privileges.
+  *
+  * @var \Drupal\user\UserInterface
+  */
   protected $adminUser;
 
   /**
@@ -49,14 +40,14 @@ class AllowedFormatsTest extends WebTestBase {
   protected function setUp() {
     parent::setUp();
 
-    $this->adminUser = $this->drupalCreateUser(['administer filters', 'administer entity_test fields']);
-    $this->webUser = $this->drupalCreateUser(['administer entity_test content', 'administer taxonomy']);
+    $this->adminUser = $this->drupalCreateUser(array('administer filters', 'administer entity_test fields'));
+    $this->webUser = $this->drupalCreateUser(array('administer entity_test content'));
   }
 
   /**
    * Test widgets for fields with selected allowed formats.
    */
-  public function testAllowedFormats() {
+  function testAllowedFormats() {
 
     // Create one text format.
     $format1 = FilterFormat::create([
@@ -100,59 +91,4 @@ class AllowedFormatsTest extends WebTestBase {
     $this->assertFieldByName("field_test_text[0][value]", NULL, 'Widget is displayed');
     $this->assertNoFieldByName("field_test_text[0][format]", NULL, 'Format selector is not displayed');
   }
-
-  /**
-   * Test limiting allowed formats on base fields.
-   */
-  public function testBaseFields() {
-    // Create a vocabulary.
-    $vocabulary = $this->createVocabulary();
-
-    // Create the text formats as configured for the taxonomy term description
-    // field.
-    $roles = [$this->webUser->getRoles()[0]];
-    $format1 = FilterFormat::create([
-      'format' => 'basic_html',
-      'name' => 'basic_html',
-      'roles' => $roles,
-    ]);
-    $format1->save();
-    $format2 = FilterFormat::create([
-      'format' => 'restricted_html',
-      'name' => 'restricted_html',
-      'roles' => $roles,
-    ]);
-    $format2->save();
-    $format3 = FilterFormat::create([
-      'format' => 'full_html',
-      'name' => 'full_html',
-      'roles' => $roles,
-    ]);
-    $format3->save();
-
-    // Display the term creation form, we expect the widget to be displayed,
-    // and the formats 'basic_html', 'restricted_html' and 'full_html' to be
-    // available.
-    $this->drupalLogin($this->webUser);
-    $this->drupalGet('admin/structure/taxonomy/manage/' . $vocabulary->id() . '/add');
-    $this->assertFieldByName("description[0][value]", NULL, 'Widget is displayed');
-    $this->assertFieldByName("description[0][format]", NULL, 'Format selector is displayed');
-    $this->assertOption('edit-description-0-format--2', 'basic_html');
-    $this->assertOption('edit-description-0-format--2', 'restricted_html');
-    $this->assertOption('edit-description-0-format--2', 'full_html');
-
-    // Enable our test module, which disallows using the 'full_html' format
-    // using the allowed_formats functionality.
-    \Drupal::service('module_installer')->install(['allowed_formats_base_fields_test']);
-
-    // Display the term creation form again and check that 'full_html' is
-    // not available as expected.
-    $this->drupalGet('admin/structure/taxonomy/manage/' . $vocabulary->id() . '/add');
-    $this->assertFieldByName("description[0][value]", NULL, 'Widget is displayed');
-    $this->assertFieldByName("description[0][format]", NULL, 'Format selector is displayed');
-    $this->assertOption('edit-description-0-format--2', 'basic_html');
-    $this->assertOption('edit-description-0-format--2', 'restricted_html');
-    $this->assertNoOption('edit-description-0-format--2', 'full_html');
-  }
-
 }

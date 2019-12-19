@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Allows administrators to attach field groups.
+ * Allows administrators to attach custom fields to fieldable types.
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -182,25 +182,8 @@ function field_group_form_entity_view_display_edit_form_alter(&$form, FormStateI
  * Implements hook_field_info_max_weight().
  */
 function field_group_field_info_max_weight($entity_type, $bundle, $context, $context_mode) {
-  // Prevent recursion.
-  // @see https://www.drupal.org/project/drupal/issues/2966137
-  static $recursion_tracker = [];
-
-  // Track the entity display.
-  $key = $entity_type . ':' . $bundle . ':' . $context . ':' . $context_mode;
-
-  // If entity display check was attempted but did not finish, do not continue.
-  if (isset($recursion_tracker[$key])) {
-    return NULL;
-  }
-
-  // Mark this as an attempt at entity display check.
-  $recursion_tracker[$key] = TRUE;
 
   $groups = field_group_info_groups($entity_type, $bundle, $context, $context_mode);
-
-  // Remove the indicator once the entity display is successfully checked.
-  unset($recursion_tracker[$key]);
 
   $weights = [];
   foreach ($groups as $group) {
@@ -218,7 +201,7 @@ function field_group_form_alter(array &$form, FormStateInterface $form_state) {
   if ($form_object instanceof ContentEntityFormInterface && !$form_object instanceof ConfirmFormInterface) {
 
     /**
-     * @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface $form_display
+     * @var \Drupal\Core\Entity\Entity\EntityFormDisplayInterface $form_display
      */
     $storage = $form_state->getStorage();
     if (!empty($storage['form_display'])) {
@@ -257,7 +240,7 @@ function field_group_inline_entity_form_entity_form_alter(&$entity_form, FormSta
   ];
 
   field_group_attach_groups($entity_form, $context);
-  field_group_form_process($entity_form);
+  $entity_form['#process'][] = 'field_group_form_process';
 }
 
 /**
@@ -295,17 +278,54 @@ function field_group_entity_view_alter(&$build, EntityInterface $entity, EntityD
 }
 
 /**
- * Pre render callback for rendering groups.
+ * Pre render callback for rendering groups in forms.
  *
  * @param array $element
- *   Form that is being rendered.
- *
- * @deprecated Use field_group_form_process instead.
- *
- * @return array
+ *   The form element that is being rendered.
  */
 function field_group_form_pre_render(array $element) {
-  return field_group_form_process($element);
+  // Open any closed field groups that contain elements with errors.
+  if (!empty($element['#fieldgroups'])) {
+    foreach ($element['#fieldgroups'] as $fieldgroup) {
+      $closed = isset($element[$fieldgroup->group_name]['#open']) && !$element[$fieldgroup->group_name]['#open'];
+      if ($closed) {
+        foreach ($fieldgroup->children as $child) {
+          if (field_group_elements_contain_errors($element[$child])) {
+            $element[$fieldgroup->group_name]['#open'] = TRUE;
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  return $element;
+}
+
+/**
+ * Determines if an elements array contains validation errors.
+ *
+ * @param array $elements
+ *   The elements array to check for errors.
+ *
+ * @return bool
+ *   TRUE if the elements array contains validation errors, otherwise FALSE.
+ */
+function field_group_elements_contain_errors(array $elements) {
+  // Any errors at this level of the elements array?
+  if (!empty($elements['#errors']) || !empty($elements['#children_errors'])) {
+    return TRUE;
+  }
+
+  // Dive down.
+  foreach (Element::children($elements) as $child) {
+    if (field_group_elements_contain_errors($elements[$child])) {
+      return TRUE;
+    }
+  }
+
+  // No errors.
+  return FALSE;
 }
 
 /**
@@ -345,9 +365,7 @@ function field_group_form_process(array &$element, FormStateInterface $form_stat
       $element[$group_name]['#parents'] = $parents;
       $group_children_parent_group = implode('][', $parents);
       foreach ($group->children as $child) {
-        if (!isset($element[$child]['#group'])) {
-          $element[$child]['#group'] = $group_children_parent_group;
-        }
+        $element[$child]['#group'] = $group_children_parent_group;
       }
     }
 
@@ -380,8 +398,6 @@ function field_group_form_process(array &$element, FormStateInterface $form_stat
  *
  * @param array $element
  *   Entity being rendered.
- *
- * @return array
  */
 function field_group_entity_view_pre_render(array $element) {
   field_group_build_entity_groups($element, 'view');
@@ -470,9 +486,10 @@ function field_group_field_group_form_process_build_alter(array &$element, $form
 /**
  * Implements hook_field_group_build_pre_render_alter().
  *
- * @param array $element
+ * @param array $elements
+ *   By address.field_group_entity_display_build_alter
  */
-function field_group_field_group_build_pre_render_alter(&$element) {
+function field_group_field_group_build_pre_render_alter(& $element) {
   // Someone is doing a node view, in a node view. Reset content.
   if (isset($element['#node']->content) && count($element['#node']->content) > 0) {
     $element['#node']->content = [];
@@ -803,8 +820,6 @@ function field_group_pre_render(& $element, $group, & $rendering_object) {
  *
  * @param $context
  *   The display context (entity type, form or view).
- *
- * @return string
  */
 function field_group_get_content_element_key($context = 'default') {
   $keys = &drupal_static('field_group_content_elements');
@@ -819,12 +834,15 @@ function field_group_get_content_element_key($context = 'default') {
   if (isset($keys[$context])) {
     $key = $keys[$context];
   }
-
   return $key;
 }
 
 /**
  * Saves a group definition.
+ *
+ * This function is called by ctools export when calls are made through
+ * ctools_export_crud_save(). It's also used as an api method to add groups to a
+ * display.
  *
  * @param \stdClass $group
  *   A group definition.
@@ -833,8 +851,6 @@ function field_group_get_content_element_key($context = 'default') {
  *
  * @return \Drupal\Core\Entity\Display\EntityDisplayInterface|null
  *   The updated entity display.
- *
- * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function field_group_group_save($group, $display = NULL) {
   if ($display === NULL) {
@@ -883,8 +899,6 @@ function field_group_group_save($group, $display = NULL) {
  *
  * @param $group
  *   A group definition.
- *
- * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function field_group_group_delete($group) {
   if ($group->context == 'form') {
@@ -916,8 +930,6 @@ function field_group_group_delete($group) {
  *   The context of the view mode (form or view)
  * @param $mode
  *   The view mode.
- *
- * @return array
  */
 function field_group_info_groups($entity_type, $bundle, $context, $mode) {
   if ($context == 'form') {
@@ -963,8 +975,6 @@ function field_group_info_groups($entity_type, $bundle, $context, $mode) {
  *   The context of the view mode (form or view)
  * @param $mode
  *   The view mode to load.
- *
- * @return mixed
  */
 function field_group_load_field_group($group_name, $entity_type, $bundle, $context, $mode) {
   $groups = field_group_info_groups($entity_type, $bundle, $context, $mode);
@@ -986,8 +996,6 @@ function field_group_load_field_group($group_name, $entity_type, $bundle, $conte
  *   The context of the view mode (form or view)
  * @param string $mode
  *   The view mode context the group will be rendered.
- *
- * @return bool
  */
 function field_group_exists($group_name, $entity_type, $bundle, $context, $mode) {
   return (bool) field_group_load_field_group($group_name, $entity_type, $bundle, $context, $mode);
@@ -1037,8 +1045,6 @@ function field_group_remove_empty_form_groups(&$element, $groups, $entity_type) 
  *   The element to check the empty state.
  * @param array $groups
  *   Array of group objects.
- *
- * @return bool
  */
 function field_group_remove_empty_display_groups(& $element, $groups) {
 
@@ -1073,4 +1079,5 @@ function field_group_remove_empty_display_groups(& $element, $groups) {
   }
 
   return $empty_group;
+
 }

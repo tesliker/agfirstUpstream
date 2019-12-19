@@ -86,7 +86,6 @@
 
 .webform-multiple-table td input[type="image"] {
   width: 20px;
-  height: auto;
   min-width: initial;
   max-width: initial;
   box-sizing: border-box;
@@ -94,10 +93,6 @@
   border: 2px solid #333;
   border-radius: 50%;
   padding: 2px;
-}
-
-.webform-multiple-table td input[type="image"] + input[type="image"] {
-  margin-left: 2px;
 }
 
 .webform-multiple-table .container-inline input[type="submit"] {

@@ -2,16 +2,18 @@
 
 namespace Drupal\xmlsitemap_custom\Form;
 
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Form\FormBase;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Http\ClientFactory;
 use Drupal\Core\Language\LanguageInterface;
+use GuzzleHttp\Exception\ClientException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Path\AliasManagerInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\xmlsitemap\XmlSitemapLinkStorageInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a form for adding a custom link.
@@ -201,7 +203,7 @@ class XmlSitemapCustomAddForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $link = $form_state->getValues();
 
-    if (strpos($link['loc'], '/') !== 0) {
+    if (Unicode::substr($link['loc'], 0, 1) !== '/') {
       $form_state->setErrorByName('loc', $this->t('The path should start with /.'));
       return;
     }
@@ -227,7 +229,7 @@ class XmlSitemapCustomAddForm extends FormBase {
       $client = $this->httpClientFactory->fromOptions(['config/curl', [CURLOPT_FOLLOWLOCATION => FALSE]]);
       $client->get(Url::fromUserInput($link['loc'], ['absolute' => TRUE])->toString());
     }
-    catch (\Exception $e) {
+    catch (ClientException $e) {
       $form_state->setErrorByName('loc', $this->t('The custom link @link is either invalid or it cannot be accessed by anonymous users.', ['@link' => $link['loc']]));
     }
 
@@ -241,7 +243,7 @@ class XmlSitemapCustomAddForm extends FormBase {
     $form_state->cleanValues();
     $link = $form_state->getValues();
     $this->linkStorage->save($link);
-    $this->messenger()->addStatus($this->t('The custom link for %loc was saved.', ['%loc' => $link['loc']]));
+    drupal_set_message($this->t('The custom link for %loc was saved.', ['%loc' => $link['loc']]));
 
     $form_state->setRedirect('xmlsitemap_custom.list');
   }

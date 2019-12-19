@@ -1,9 +1,9 @@
 <?php
 
-namespace Drupal\Tests\metatag_hreflang\Functional;
+namespace Drupal\metatag_hreflang\Tests;
 
 use Drupal\language\Entity\ConfigurableLanguage;
-use Drupal\Tests\metatag\Functional\MetatagTagsTestBase;
+use Drupal\metatag\Tests\MetatagTagsTestBase;
 
 /**
  * Tests that each of the Metatag hreflang tags work correctly.

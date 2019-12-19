@@ -45,8 +45,7 @@ class IefTest extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $entity = $form['inline_entity_form']['#entity'];
-    $message = $this->t('Created @entity_type @label.', ['@entity_type' => $entity->getEntityType()->getLabel(), '@label' => $entity->label()]);
-    $this->messenger()->addMessage($message);
+    drupal_set_message(t('Created @entity_type @label.', ['@entity_type' => $entity->getEntityType()->getLabel(), '@label' => $entity->label()]));
   }
 
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\Tests\metatag_google_cse\Functional;
+namespace Drupal\metatag_google_cse\Tests;
 
-use Drupal\Tests\metatag\Functional\MetatagTagsTestBase;
+use Drupal\metatag\Tests\MetatagTagsTestBase;
 
 /**
  * Tests that each of the Metatag Google CSE tags work correctly.

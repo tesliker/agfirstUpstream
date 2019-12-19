@@ -12,8 +12,6 @@ include_once __DIR__ . "/../../lib/mailchimp-api-php/tests/src/MailchimpTestHttp
 
 /**
  * Sets up Mailchimp module tests.
- *
- * @deprecated Tests should use PHPUnit and \Drupal\Tests\mailchimp\Functional\FunctionalMailchimpTestBase
  */
 abstract class MailchimpTestBase extends WebTestBase {
 

@@ -56,7 +56,6 @@ class MetatagDefaultsListBuilder extends ConfigEntityListBuilder {
    */
   public function buildHeader() {
     $header['label'] = $this->t('Type');
-    $header['status'] = $this->t('Status');
     return $header + parent::buildHeader();
   }
 
@@ -65,7 +64,6 @@ class MetatagDefaultsListBuilder extends ConfigEntityListBuilder {
    */
   public function buildRow(EntityInterface $entity) {
     $row['label'] = $this->getLabelAndConfig($entity);
-    $row['status'] = $entity->status() ? $this->t('Active') : $this->t('Disabled');
     return $row + parent::buildRow($entity);
   }
 

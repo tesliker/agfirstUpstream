@@ -8,7 +8,6 @@ use Drupal\Core\Render\Element as RenderElement;
 use Drupal\Core\Render\Element;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\webform\Entity\WebformOptions;
-use Drupal\webform\Plugin\WebformElementComputedInterface;
 use Drupal\webform\Plugin\WebformElementEntityReferenceInterface;
 use Drupal\webform\Utility\WebformArrayHelper;
 use Drupal\webform\Utility\WebformElementHelper;
@@ -1455,7 +1454,7 @@ abstract class WebformCompositeBase extends WebformElementBase {
       || $element_plugin->isContainer($element)
       || $element_plugin->hasMultipleValues($element)
       || ($element_plugin instanceof WebformElementEntityReferenceInterface && !($element_plugin instanceof WebformManagedFileBase))
-      || $element_plugin instanceof WebformElementComputedInterface) {
+      || $element_plugin instanceof WebformComputedBase) {
       return FALSE;
     }
 

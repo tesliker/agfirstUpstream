@@ -67,11 +67,9 @@ class SqlRedirectNotFoundStorage implements RedirectNotFoundStorageInterface {
       ->key('path', $path)
       ->key('langcode', $langcode)
       ->expression('count', 'count + 1')
-      ->expression('daily_count', 'daily_count + 1')
       ->fields([
-        'timestamp' => \Drupal::time()->getRequestTime(),
+        'timestamp' => REQUEST_TIME,
         'count' => 1,
-        'daily_count' => 1,
         'resolved' => 0,
       ])
       ->execute();
@@ -159,15 +157,6 @@ class SqlRedirectNotFoundStorage implements RedirectNotFoundStorageInterface {
     $results = $query->condition('resolved', 0, '=')->execute()->fetchAll();
 
     return $results;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function resetDailyCount() {
-    $this->database->update('redirect_404')
-      ->fields(['daily_count' => 0])
-      ->execute();
   }
 
 }

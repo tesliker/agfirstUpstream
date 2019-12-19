@@ -109,16 +109,7 @@ class EntityContentCommand extends EntityCommand
             null,
             InputOption::VALUE_NONE,
             $this->trans('commands.generate.entity.content.options.has-owner')
-        );
-
-        $this->addOption(
-            'has-bundle-permissions',
-            null,
-            InputOption::VALUE_NONE,
-            $this->trans('commands.generate.entity.content.options.has-bundle-permissions')
-        );
-
-        $this->setAliases(['geco']);
+        )->setAliases(['geco']);
     }
 
     /**
@@ -165,18 +156,6 @@ class EntityContentCommand extends EntityCommand
             true
         );
         $input->setOption('has-owner', $has_owner);
-
-        // --has-bundle-permissions
-        if($bundle_of){
-          $has_bundle_permissions = $this->getIo()->confirm(
-            $this->trans('commands.generate.entity.content.questions.has-bundle-permissions'),
-            true
-          );
-          $input->setOption('has-bundle-permissions', $has_bundle_permissions);
-        }
-        else {
-          $input->setOption('has-bundle-permissions', false);
-        }
     }
 
     /**
@@ -196,7 +175,6 @@ class EntityContentCommand extends EntityCommand
         $revisionable = $input->getOption('revisionable');
         $has_forms = $input->getOption('has-forms');
         $has_owner = $input->getOption('has-owner');
-        $has_bundle_permissions = $input->getOption('has-bundle-permissions');
 
         $generator = $this->generator;
 
@@ -215,7 +193,6 @@ class EntityContentCommand extends EntityCommand
             'revisionable' => $revisionable,
             'has_forms' => $has_forms,
             'has_owner' => $has_owner,
-            'has_bundle_permissions' => $has_bundle_permissions,
         ]);
 
         if ($has_bundles) {

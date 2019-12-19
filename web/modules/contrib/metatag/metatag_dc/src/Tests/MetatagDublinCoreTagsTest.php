@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\Tests\metatag_dc\Functional;
+namespace Drupal\metatag_dc\Tests;
 
-use Drupal\Tests\metatag\Functional\MetatagTagsTestBase;
+use Drupal\metatag\Tests\MetatagTagsTestBase;
 
 /**
  * Tests that each of the Dublin Core tags work correctly.

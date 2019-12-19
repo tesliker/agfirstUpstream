@@ -125,19 +125,17 @@ class MetatagManager implements MetatagManagerInterface {
   public function defaultTagsFromEntity(ContentEntityInterface $entity) {
     /** @var \Drupal\metatag\Entity\MetatagDefaults $metatags */
     $metatags = $this->metatagDefaults->load('global');
-    if (!$metatags || !$metatags->status()) {
+    if (!$metatags) {
       return NULL;
     }
     // Add/overwrite with tags set on the entity type.
-    /** @var \Drupal\metatag\Entity\MetatagDefaults $entity_type_tags */
     $entity_type_tags = $this->metatagDefaults->load($entity->getEntityTypeId());
-    if (!is_null($entity_type_tags) && $entity_type_tags->status()) {
+    if (!is_null($entity_type_tags)) {
       $metatags->overwriteTags($entity_type_tags->get('tags'));
     }
     // Add/overwrite with tags set on the entity bundle.
-    /** @var \Drupal\metatag\Entity\MetatagDefaults $bundle_metatags */
     $bundle_metatags = $this->metatagDefaults->load($entity->getEntityTypeId() . '__' . $entity->bundle());
-    if (!is_null($bundle_metatags) && $bundle_metatags->status()) {
+    if (!is_null($bundle_metatags)) {
       $metatags->overwriteTags($bundle_metatags->get('tags'));
     }
     return $metatags->get('tags');
@@ -395,18 +393,17 @@ class MetatagManager implements MetatagManagerInterface {
   /**
    * Returns global meta tags.
    *
-   * @return \Drupal\metatag\Entity\MetatagDefaults|null
-   *   The global meta tags or NULL.
+   * @return array
+   *   The global meta tags.
    */
   public function getGlobalMetatags() {
-    $metatags = $this->metatagDefaults->load('global');
-    return (!empty($metatags) && $metatags->status()) ? $metatags : NULL;
+    return $this->metatagDefaults->load('global');
   }
 
   /**
    * Returns special meta tags.
    *
-   * @return \Drupal\metatag\Entity\MetatagDefaults|null
+   * @return array
    *   The defaults for this page, if it's a special page.
    */
   public function getSpecialMetatags() {
@@ -422,11 +419,6 @@ class MetatagManager implements MetatagManagerInterface {
       $metatags = $this->metatagDefaults->load('404');
     }
 
-    if ($metatags && !$metatags->status()) {
-      // Do not return disabled special metatags.
-      return NULL;
-    }
-
     return $metatags;
   }
 
@@ -440,18 +432,16 @@ class MetatagManager implements MetatagManagerInterface {
    *   The appropriate default meta tags.
    */
   public function getEntityDefaultMetatags(ContentEntityInterface $entity) {
-    /** @var \Drupal\metatag\Entity\MetatagDefaults $entity_metatags */
     $entity_metatags = $this->metatagDefaults->load($entity->getEntityTypeId());
     $metatags = [];
-    if ($entity_metatags != NULL && $entity_metatags->status()) {
+    if ($entity_metatags != NULL) {
       // Merge with global defaults.
       $metatags = array_merge($metatags, $entity_metatags->get('tags'));
     }
 
     // Finally, check if we should apply bundle overrides.
-    /** @var \Drupal\metatag\Entity\MetatagDefaults $bundle_metatags */
     $bundle_metatags = $this->metatagDefaults->load($entity->getEntityTypeId() . '__' . $entity->bundle());
-    if ($bundle_metatags != NULL && $bundle_metatags->status()) {
+    if ($bundle_metatags != NULL) {
       // Merge with existing defaults.
       $metatags = array_merge($metatags, $bundle_metatags->get('tags'));
     }

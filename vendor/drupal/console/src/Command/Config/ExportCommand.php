@@ -94,12 +94,10 @@ class ExportCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $drupal_root = $this->drupalFinder->getComposerRoot();
-        $directory = $drupal_root.'/'.$input->getOption('directory');
+        $directory = $input->getOption('directory');
         $tar = $input->getOption('tar');
         $removeUuid = $input->getOption('remove-uuid');
         $removeHash = $input->getOption('remove-config-hash');
-        $drupal_root = $this->drupalFinder->getComposerRoot();
 
         if (!$directory) {
             $directory = config_get_config_directory(CONFIG_SYNC_DIRECTORY);
@@ -107,7 +105,7 @@ class ExportCommand extends Command
 
         $fileSystem = new Filesystem();
         try {
-            $fileSystem->mkdir($drupal_root."/".$directory);
+            $fileSystem->mkdir($directory);
         } catch (IOExceptionInterface $e) {
             $this->getIo()->error(
                 sprintf(

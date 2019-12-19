@@ -2,10 +2,9 @@
 
 namespace Drupal\redirect\EventSubscriber;
 
-use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Logger\RfcLogLevel;
@@ -52,9 +51,9 @@ class RedirectRequestSubscriber implements EventSubscriberInterface {
   protected $moduleHandler;
 
   /**
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\Core\Entity\EntityManagerInterface
    */
-  protected $entityTypeManager;
+  protected $entityManager;
 
   /**
    * @var \Drupal\redirect\RedirectChecker
@@ -86,20 +85,20 @@ class RedirectRequestSubscriber implements EventSubscriberInterface {
    *   The alias manager service.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler service.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager.
+   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
+   *   The entity manager service.
    * @param \Drupal\redirect\RedirectChecker $checker
    *   The redirect checker service.
    * @param \Symfony\Component\Routing\RequestContext
    *   Request context.
    */
-  public function __construct(RedirectRepository $redirect_repository, LanguageManagerInterface $language_manager, ConfigFactoryInterface $config, AliasManagerInterface $alias_manager, ModuleHandlerInterface $module_handler, EntityTypeManagerInterface $entity_type_manager, RedirectChecker $checker, RequestContext $context, InboundPathProcessorInterface $path_processor) {
+  public function __construct(RedirectRepository $redirect_repository, LanguageManagerInterface $language_manager, ConfigFactoryInterface $config, AliasManagerInterface $alias_manager, ModuleHandlerInterface $module_handler, EntityManagerInterface $entity_manager, RedirectChecker $checker, RequestContext $context, InboundPathProcessorInterface $path_processor) {
     $this->redirectRepository = $redirect_repository;
     $this->languageManager = $language_manager;
     $this->config = $config->get('redirect.settings');
     $this->aliasManager = $alias_manager;
     $this->moduleHandler = $module_handler;
-    $this->entityTypeManager = $entity_type_manager;
+    $this->entityManager = $entity_manager;
     $this->checker = $checker;
     $this->context = $context;
     $this->pathProcessor = $path_processor;
@@ -148,7 +147,7 @@ class RedirectRequestSubscriber implements EventSubscriberInterface {
       $redirect = $this->redirectRepository->findMatchingRedirect($path, $request_query, $this->languageManager->getCurrentLanguage()->getId());
     }
     catch (RedirectLoopException $e) {
-      \Drupal::logger('redirect')->warning('Redirect loop identified at %path for redirect %rid', ['%path' => $e->getPath(), '%rid' => $e->getRedirectId()]);
+      \Drupal::logger('redirect')->warning($e->getMessage());
       $response = new Response();
       $response->setStatusCode(503);
       $response->setContent('Service unavailable');

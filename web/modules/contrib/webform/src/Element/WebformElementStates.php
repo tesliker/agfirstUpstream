@@ -2,7 +2,6 @@
 
 namespace Drupal\webform\Element;
 
-use Drupal\Component\Utility\Crypt;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\OptGroup;
@@ -255,7 +254,7 @@ class WebformElementStates extends FormElement {
     $sources = [];
     if ($element['#selector_sources']) {
       foreach ($element['#selector_sources'] as $selector => $values) {
-        $sources_key = Crypt::hashBase64(serialize($values));
+        $sources_key = md5(serialize($values));
         $selectors[$selector] = $sources_key;
         if (!isset($sources[$sources_key])) {
           foreach ($values as $key => $value) {
@@ -1076,6 +1075,8 @@ class WebformElementStates extends FormElement {
       'filled' => t('Filled'),
       'checked' => t('Checked'),
       'unchecked' => t('Unchecked'),
+      'expanded' => t('Expanded'),
+      'collapsed' => t('Collapsed'),
       'value' => t('Value is'),
       '!value' => t('Value is not'),
       'pattern' => t('Pattern'),

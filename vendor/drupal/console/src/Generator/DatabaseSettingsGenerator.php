@@ -26,12 +26,8 @@ class DatabaseSettingsGenerator extends Generator
         if (!is_writable($settingsFile)) {
             return false;
         }
-        $template = 'database/add.php.twig';
-        if ($parameters['default']) {
-            $template = 'database/add-default.php.twig';
-        }
         return $this->renderFile(
-            $template,
+            'database/add.php.twig',
             $settingsFile,
             $parameters,
             FILE_APPEND

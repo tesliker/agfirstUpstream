@@ -261,7 +261,7 @@ class MetatagViewsTranslationForm extends FormBase {
       'display_id' => $this->displayId,
     ]);
 
-    $this->messenger()->addMessage($this->t('Successfully updated @language translation.', [
+    drupal_set_message($this->t('Successfully updated @language translation.', [
       '@language' => $this->language->getName(),
     ]));
   }

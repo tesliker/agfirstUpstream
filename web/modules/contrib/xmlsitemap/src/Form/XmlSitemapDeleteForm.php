@@ -13,6 +13,17 @@ class XmlSitemapDeleteForm extends EntityConfirmFormBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @codingStandardsIgnoreStart
+   */
+  public function getBaseFormID() {
+    
+    // @codingStandardsIgnoreEnd
+    return 'xmlsitemap_delete_form';
+  }
+
+  /**
+   * {@inheritdoc}
    */
   public function getQuestion() {
     return $this->t('Are you sure you want to delete %name?', ['%name' => $this->entity->label()]);
@@ -37,7 +48,7 @@ class XmlSitemapDeleteForm extends EntityConfirmFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->delete();
-    $this->messenger()->addStatus($this->t('Sitemap %label has been deleted.', ['%label' => $this->entity->label()]));
+    drupal_set_message($this->t('Sitemap %label has been deleted.', ['%label' => $this->entity->label()]));
     $form_state->setRedirect('xmlsitemap.admin_search');
   }
 
