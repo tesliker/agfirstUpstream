@@ -21,7 +21,7 @@
  * Make sure flexbox is always using 'display: flex' when toggled via #states.
  * @see https://stackoverflow.com/questions/38491653/jquery-show-a-flex-box/4121
  */
-.webform-flexbox.js-webform-states-hidden[style*='display: block'] {
+.webform-flexbox.js-webform-states-hidden[style*="display: block"] {
   display: flex !important;
 }
 
@@ -59,8 +59,14 @@
  * @see webform_preprocess_fieldset()
  */
 .form-composite.webform-fieldset--title-inline legend {
-  float: left;
-  margin: 0.4em 0.5em 0.4em 0;
+  float: left; /* LTR */
+  margin: 0.4em 0.5em 0.4em 0; /* LTR */
+}
+
+[dir=rtl] .form-composite.webform-fieldset--title-inline legend {
+  float: right; /* RTL */
+  margin-left: 0.5em; /* RTL */
+  margin-right: 0; /* RTL */
 }
 
 .form-composite.webform-fieldset--title-inline .fieldset-wrapper,

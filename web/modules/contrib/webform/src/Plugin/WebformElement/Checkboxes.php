@@ -30,8 +30,7 @@ class Checkboxes extends OptionsBase {
       // Options settings.
       'options_display' => 'one_column',
       'options_description_display' => 'description',
-      // iCheck settings.
-      'icheck' => '',
+      'options__properties' => [],
       // Wrapper.
       'wrapper_type' => 'fieldset',
     ] + parent::getDefaultProperties();
@@ -49,6 +48,17 @@ class Checkboxes extends OptionsBase {
    */
   public function hasMultipleValues(array $element) {
     return TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepare(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
+    parent::prepare($element, $webform_submission);
+
+    // Issue #3068998: Checkboxes validation UI is different than
+    // other elements.
+    $element['#attached']['library'][] = 'webform/webform.element.checkboxes';
   }
 
   /**
