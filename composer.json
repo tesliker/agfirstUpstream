@@ -110,6 +110,7 @@
         "drupal/redirect": "^1.2",
         "drupal/reroute_email": "^1.0",
         "drupal/scheduler": "^1.0",
+        "drupal/scheduler_content_moderation_integration": "^1.1",
         "drupal/search_api": "^1.10",
         "drupal/search_api_attachments": "^1.0@beta",
         "drupal/search_api_solr": "^2.2",
@@ -204,17 +205,13 @@
                 "Add option to make the starting level follow the active menu item": "https://www.drupal.org/files/issues/2018-08-08/menu_block-follow-2756675-55.patch"
             },
             "drupal/field_group": {
-                "Fields with errors are not visible": "patches/field_group-open-groups-with-errors-server-side-2894213-11.patch"
+                "Fields with errors are not visible": "https://www.drupal.org/files/issues/2020-01-16/field_group-open-groups-with-errors-server-side-2894213-14.patch"
             },
             "drupal/imce": {
                 "File Browser on User Page": "patches/imce_no_browser_tab-2858430-4.patch"
             },
             "drupal/linkit": {
                 "Linkit 8.x doesn't work with images": "https://www.drupal.org/files/issues/linkit_8_x_doesn_t_work-2691879-3.patch"
-            },
-            "drupal/scheduler": {
-                "Scheduler integration with core Content moderation": "https://www.drupal.org/files/issues/2018-04-25/scheduler-content-moderation-integration-2798689-59.patch",
-                "Scheduler fix for Undefined Index error": "patches/scheduler_undefined_index_fix-tw11941113.patch"
             },
             "drupal/views_bulk_edit": {
                 "Better handling for paragraphs module: 'Only variable references should be returned by reference' error": "https://www.drupal.org/files/issues/2018-04-22/views_bulk_edit_8_2_1_0_fix_php_error_01.patch"
