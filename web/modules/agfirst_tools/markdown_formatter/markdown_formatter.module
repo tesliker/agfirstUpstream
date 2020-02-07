@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Defines simple markdown formatter for text fields.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * @param $route_name
+ * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+ *
+ * @return null|string
+ */
+function markdown_formatter_help($route_name, RouteMatchInterface $route_match) {
+  $output = null;
+  switch ($route_name) {
+    // Main module help for the Back-To Links module.
+    case 'help.page.markdown_formatter':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides a markdown formatter for text fields.') . '</p>';
+    default:
+  }
+  return $output;
+}

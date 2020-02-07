@@ -1,0 +1,7 @@
+name: Markdown Formatter
+type: module
+description: 'Provides a markdown formatter for text fields.'
+core: 8.x
+package: Cyberwoven
+dependencies:
+  - field
