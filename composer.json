@@ -24,6 +24,7 @@
         "drupal/ckeditor_accordion": "^1.1",
         "drupal/config_direct_save": "^1.0",
         "drupal/config_installer": "^1.0",
+        "drupal/config_pages": "^2.6",
         "drupal/console": "^1",
         "drupal/core": "^8.7",
         "drupal/crop": "^1.5",
