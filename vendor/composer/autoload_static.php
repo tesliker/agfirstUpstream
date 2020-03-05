@@ -115,6 +115,10 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
             'Mailchimp\\http\\' => 15,
             'Mailchimp\\' => 10,
         ),
+        'L' => 
+        array (
+            'League\\Csv\\' => 11,
+        ),
         'J' => 
         array (
             'JakubOnderka\\PhpConsoleHighlighter\\' => 35,
@@ -380,6 +384,10 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Mailchimp\\' => 
         array (
             0 => __DIR__ . '/..' . '/thinkshout/mailchimp-api-php/src',
+        ),
+        'League\\Csv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/csv/src',
         ),
         'JakubOnderka\\PhpConsoleHighlighter\\' => 
         array (
@@ -3726,6 +3734,20 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'JakubOnderka\\PhpConsoleColor\\ConsoleColor' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/ConsoleColor.php',
         'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/InvalidStyleException.php',
         'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src/Highlighter.php',
+        'League\\Csv\\AbstractCsv' => __DIR__ . '/..' . '/league/csv/src/AbstractCsv.php',
+        'League\\Csv\\Config\\Controls' => __DIR__ . '/..' . '/league/csv/src/Config/Controls.php',
+        'League\\Csv\\Config\\Output' => __DIR__ . '/..' . '/league/csv/src/Config/Output.php',
+        'League\\Csv\\Exception\\InvalidRowException' => __DIR__ . '/..' . '/league/csv/src/Exception/InvalidRowException.php',
+        'League\\Csv\\Modifier\\MapIterator' => __DIR__ . '/..' . '/league/csv/src/Modifier/MapIterator.php',
+        'League\\Csv\\Modifier\\QueryFilter' => __DIR__ . '/..' . '/league/csv/src/Modifier/QueryFilter.php',
+        'League\\Csv\\Modifier\\RowFilter' => __DIR__ . '/..' . '/league/csv/src/Modifier/RowFilter.php',
+        'League\\Csv\\Modifier\\StreamFilter' => __DIR__ . '/..' . '/league/csv/src/Modifier/StreamFilter.php',
+        'League\\Csv\\Modifier\\StreamIterator' => __DIR__ . '/..' . '/league/csv/src/Modifier/StreamIterator.php',
+        'League\\Csv\\Plugin\\ColumnConsistencyValidator' => __DIR__ . '/..' . '/league/csv/src/Plugin/ColumnConsistencyValidator.php',
+        'League\\Csv\\Plugin\\ForbiddenNullValuesValidator' => __DIR__ . '/..' . '/league/csv/src/Plugin/ForbiddenNullValuesValidator.php',
+        'League\\Csv\\Plugin\\SkipNullValuesFormatter' => __DIR__ . '/..' . '/league/csv/src/Plugin/SkipNullValuesFormatter.php',
+        'League\\Csv\\Reader' => __DIR__ . '/..' . '/league/csv/src/Reader.php',
+        'League\\Csv\\Writer' => __DIR__ . '/..' . '/league/csv/src/Writer.php',
         'Mailchimp\\Mailchimp' => __DIR__ . '/..' . '/thinkshout/mailchimp-api-php/src/Mailchimp.php',
         'Mailchimp\\MailchimpAPIException' => __DIR__ . '/..' . '/thinkshout/mailchimp-api-php/src/MailchimpAPIException.php',
         'Mailchimp\\MailchimpAutomations' => __DIR__ . '/..' . '/thinkshout/mailchimp-api-php/src/MailchimpAutomations.php',
