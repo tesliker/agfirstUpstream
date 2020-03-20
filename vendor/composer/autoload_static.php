@@ -33,6 +33,10 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
     );
 
     public static $prefixLengthsPsr4 = array (
+        'z' => 
+        array (
+            'zaporylie\\ComposerDrupalOptimizations\\' => 38,
+        ),
         'r' => 
         array (
             'rvtraveller\\QuicksilverComposerInstaller\\' => 41,
@@ -177,6 +181,10 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
     );
 
     public static $prefixDirsPsr4 = array (
+        'zaporylie\\ComposerDrupalOptimizations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zaporylie/composer-drupal-optimizations/src',
+        ),
         'rvtraveller\\QuicksilverComposerInstaller\\' => 
         array (
             0 => __DIR__ . '/..' . '/rvtraveller/qs-composer-installer/src',
@@ -2663,6 +2671,8 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Drupal\\Core\\Language\\LanguageManager' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Language/LanguageManager.php',
         'Drupal\\Core\\Language\\LanguageManagerInterface' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Language/LanguageManagerInterface.php',
         'Drupal\\Core\\Layout\\Annotation\\Layout' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/Annotation/Layout.php',
+        'Drupal\\Core\\Layout\\Icon\\IconBuilderInterface' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/Icon/IconBuilderInterface.php',
+        'Drupal\\Core\\Layout\\Icon\\SvgIconBuilder' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/Icon/SvgIconBuilder.php',
         'Drupal\\Core\\Layout\\LayoutDefault' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/LayoutDefault.php',
         'Drupal\\Core\\Layout\\LayoutDefinition' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/LayoutDefinition.php',
         'Drupal\\Core\\Layout\\LayoutInterface' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/LayoutInterface.php',
@@ -3083,6 +3093,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Drupal\\Core\\Template\\Attribute' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Template/Attribute.php',
         'Drupal\\Core\\Template\\AttributeArray' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Template/AttributeArray.php',
         'Drupal\\Core\\Template\\AttributeBoolean' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Template/AttributeBoolean.php',
+        'Drupal\\Core\\Template\\AttributeHelper' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Template/AttributeHelper.php',
         'Drupal\\Core\\Template\\AttributeString' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Template/AttributeString.php',
         'Drupal\\Core\\Template\\AttributeValueBase' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Template/AttributeValueBase.php',
         'Drupal\\Core\\Template\\Loader\\FilesystemLoader' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Template/Loader/FilesystemLoader.php',
@@ -5038,6 +5049,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface' => __DIR__ . '/..' . '/symfony/http-foundation/Session/SessionBagInterface.php',
         'Symfony\\Component\\HttpFoundation\\Session\\SessionBagProxy' => __DIR__ . '/..' . '/symfony/http-foundation/Session/SessionBagProxy.php',
         'Symfony\\Component\\HttpFoundation\\Session\\SessionInterface' => __DIR__ . '/..' . '/symfony/http-foundation/Session/SessionInterface.php',
+        'Symfony\\Component\\HttpFoundation\\Session\\SessionUtils' => __DIR__ . '/..' . '/symfony/http-foundation/Session/SessionUtils.php',
         'Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\AbstractSessionHandler' => __DIR__ . '/..' . '/symfony/http-foundation/Session/Storage/Handler/AbstractSessionHandler.php',
         'Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcacheSessionHandler' => __DIR__ . '/..' . '/symfony/http-foundation/Session/Storage/Handler/MemcacheSessionHandler.php',
         'Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcachedSessionHandler' => __DIR__ . '/..' . '/symfony/http-foundation/Session/Storage/Handler/MemcachedSessionHandler.php',
@@ -6295,6 +6307,9 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'lsolesen\\pel\\PelWrongComponentCountException' => __DIR__ . '/..' . '/lsolesen/pel/src/PelWrongComponentCountException.php',
         'rvtraveller\\QuicksilverComposerInstaller\\QuicksilverComposerInstaller' => __DIR__ . '/..' . '/rvtraveller/qs-composer-installer/src/QuicksilverComposerInstaller.php',
         'rvtraveller\\QuicksilverComposerInstaller\\QuicksilverComposerInstallerPlugin' => __DIR__ . '/..' . '/rvtraveller/qs-composer-installer/src/QuicksilverComposerInstallerPlugin.php',
+        'zaporylie\\ComposerDrupalOptimizations\\Cache' => __DIR__ . '/..' . '/zaporylie/composer-drupal-optimizations/src/Cache.php',
+        'zaporylie\\ComposerDrupalOptimizations\\Plugin' => __DIR__ . '/..' . '/zaporylie/composer-drupal-optimizations/src/Plugin.php',
+        'zaporylie\\ComposerDrupalOptimizations\\TruncatedComposerRepository' => __DIR__ . '/..' . '/zaporylie/composer-drupal-optimizations/src/TruncatedComposerRepository.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
