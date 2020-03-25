@@ -6426,21 +6426,22 @@
     },
     {
         "name": "drupal/svg_image",
-        "version": "1.9.0",
-        "version_normalized": "1.9.0.0",
+        "version": "1.10.0",
+        "version_normalized": "1.10.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/svg_image.git",
-            "reference": "8.x-1.9"
+            "reference": "8.x-1.10"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/svg_image-8.x-1.9.zip",
-            "reference": "8.x-1.9",
-            "shasum": "7b193de6ec7b7fc3626f170d0f5f8fccaa2f26bf"
+            "url": "https://ftp.drupal.org/files/projects/svg_image-8.x-1.10.zip",
+            "reference": "8.x-1.10",
+            "shasum": "5c2f77370fee29b30316f08da3df0446c564832d"
         },
         "require": {
-            "drupal/core": "*"
+            "drupal/core": "*",
+            "enshrined/svg-sanitize": "~0.13"
         },
         "type": "drupal-module",
         "extra": {
@@ -6448,8 +6449,8 @@
                 "dev-1.x": "1.x-dev"
             },
             "drupal": {
-                "version": "8.x-1.9",
-                "datestamp": "1548492180",
+                "version": "8.x-1.10",
+                "datestamp": "1585165722",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -6459,18 +6460,24 @@
         "installation-source": "dist",
         "notification-url": "https://packages.drupal.org/8/downloads",
         "license": [
-            "GPL-2.0-or-later"
+            "GPL-2.0+"
         ],
         "authors": [
             {
-                "name": "zvse",
-                "homepage": "https://www.drupal.org/user/2870933"
+                "name": "Yaroslav Lushnikov",
+                "homepage": "https://www.drupal.org/user/2870933",
+                "role": "Maintainer"
+            },
+            {
+                "name": "See contributors",
+                "homepage": "https://www.drupal.org/node/2887125/committers"
             }
         ],
         "description": "Overrides the standard image formatter and widget to support SVG files.",
-        "homepage": "https://www.drupal.org/project/svg_image",
+        "homepage": "http://drupal.org/project/svg_image",
         "support": {
-            "source": "https://git.drupalcode.org/project/svg_image"
+            "source": "http://cgit.drupalcode.org/svg_image",
+            "issues": "http://drupal.org/project/svg_image"
         }
     },
     {
@@ -7685,6 +7692,49 @@
             "validation",
             "validator"
         ]
+    },
+    {
+        "name": "enshrined/svg-sanitize",
+        "version": "0.13.3",
+        "version_normalized": "0.13.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/darylldoyle/svg-sanitizer.git",
+            "reference": "bc66593f255b7d2613d8f22041180036979b6403"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/bc66593f255b7d2613d8f22041180036979b6403",
+            "reference": "bc66593f255b7d2613d8f22041180036979b6403",
+            "shasum": ""
+        },
+        "require": {
+            "ext-dom": "*",
+            "ext-libxml": "*"
+        },
+        "require-dev": {
+            "codeclimate/php-test-reporter": "^0.1.2",
+            "phpunit/phpunit": "^6"
+        },
+        "time": "2020-01-20T01:34:17+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "enshrined\\svgSanitize\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "Daryll Doyle",
+                "email": "daryll@enshrined.co.uk"
+            }
+        ],
+        "description": "An SVG sanitizer for PHP"
     },
     {
         "name": "erusev/parsedown",
