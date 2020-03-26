@@ -9,3 +9,7 @@ Source: patches/drupalimage_ckeditor-2771837-34.patch
 Source: https://www.drupal.org/files/issues/2019-04-17/states_not_affecting-2847425-37.patch
 
 
+Simple decimals fail to pass validation
+Source: https://www.drupal.org/files/issues/2020-03-06/drupal_2230909_147.patch
+
+
