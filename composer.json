@@ -22,6 +22,7 @@
         "drupal/better_exposed_filters": "^3.0@alpha",
         "drupal/bg_image_formatter": "^1.11",
         "drupal/business_rules": "^1.0@beta",
+        "drupal/chosen": "^2.9",
         "drupal/ckeditor_accordion": "^1.1",
         "drupal/config_direct_save": "^1.0",
         "drupal/config_installer": "^1.0",
