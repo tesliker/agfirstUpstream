@@ -1714,6 +1714,60 @@
         }
     },
     {
+        "name": "drupal/administerusersbyrole",
+        "version": "3.0.0",
+        "version_normalized": "3.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/administerusersbyrole.git",
+            "reference": "8.x-3.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/administerusersbyrole-8.x-3.0.zip",
+            "reference": "8.x-3.0",
+            "shasum": "decf16981abe616f675812c040db2b52332f0a66"
+        },
+        "require": {
+            "drupal/core": "^8 || ^9"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "drupal": {
+                "version": "8.x-3.0",
+                "datestamp": "1586962918",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "AdamPS",
+                "homepage": "https://www.drupal.org/user/2650563"
+            },
+            {
+                "name": "mrfelton",
+                "homepage": "https://www.drupal.org/user/305669"
+            },
+            {
+                "name": "smokris",
+                "homepage": "https://www.drupal.org/user/161913"
+            }
+        ],
+        "description": "Allows site builders to set up fine-grained permissions for allowing \"sub-admin\" users to edit and delete other users.",
+        "homepage": "https://www.drupal.org/project/administerusersbyrole",
+        "support": {
+            "source": "https://git.drupalcode.org/project/administerusersbyrole"
+        }
+    },
+    {
         "name": "drupal/allowed_formats",
         "version": "1.2.0",
         "version_normalized": "1.2.0.0",
@@ -8341,7 +8395,8 @@
                 "name": "Jakub Onderka",
                 "email": "jakub.onderka@gmail.com"
             }
-        ]
+        ],
+        "abandoned": "php-parallel-lint/php-console-color"
     },
     {
         "name": "jakub-onderka/php-console-highlighter",
@@ -8389,7 +8444,8 @@
                 "homepage": "http://www.acci.cz/"
             }
         ],
-        "description": "Highlight PHP code in terminal"
+        "description": "Highlight PHP code in terminal",
+        "abandoned": "php-parallel-lint/php-console-highlighter"
     },
     {
         "name": "league/csv",

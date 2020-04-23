@@ -16,6 +16,7 @@
         "drupal-composer/drupal-scaffold": "^2.0.1",
         "drupal/address": "^1.4",
         "drupal/admin_toolbar": "^2.0",
+        "drupal/administerusersbyrole": "^3.0",
         "drupal/allowed_formats": "^1.1",
         "drupal/anchor_link": "^1.6",
         "drupal/auto_entitylabel": "^3.0@beta",
