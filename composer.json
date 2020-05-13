@@ -69,6 +69,7 @@
         "drupal/rabbit_hole": "^1.0@beta",
         "drupal/redirect": "^1.2",
         "drupal/reroute_email": "^1.0",
+        "drupal/robotstxt": "^1.4",
         "drupal/scheduler": "^1.0",
         "drupal/scheduler_content_moderation_integration": "^1.1",
         "drupal/search_api": "^1.10",
