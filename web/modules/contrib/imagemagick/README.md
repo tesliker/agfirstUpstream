@@ -9,9 +9,9 @@ To submit bug reports and feature suggestions, or to track changes: https://drup
 
 * The module **must** be installed using Composer, see https://www.drupal.org/node/2718229
 
-* PHP 5.6 or higher
+* PHP 7 or higher
 
-* Drupal 8.3.0 or higher
+* Drupal 8.7.0 or higher
 
 * Either ImageMagick (http://www.imagemagick.org) or GraphicsMagick
   (http://www.graphicsmagick.org) need to be installed on your server and the
@@ -29,9 +29,9 @@ these requirements.
 
 * Install the required module packages with Composer. From the Drupal
   installation root directory, type
-  ```
-      $ composer require drupal/imagemagick:^2.1
-  ```
+```
+  $ composer require drupal/imagemagick:^3
+```
   This will download both the ImageMagick module and any dependent module
   (namely, the File Metadata Manager module).
 

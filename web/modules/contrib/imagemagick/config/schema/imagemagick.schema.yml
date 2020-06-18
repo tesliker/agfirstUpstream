@@ -26,9 +26,6 @@ imagemagick.settings:
     debug:
       type: boolean
       label: 'Display debugging information'
-    use_identify:
-      type: boolean
-      label: 'Use identify command'
     locale:
       type: string
       label: 'Locale for escaping shell commands'

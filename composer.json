@@ -48,7 +48,7 @@
         "drupal/image_url_formatter": "^1.0@beta",
         "drupal/image_widget_crop": "^2.2",
         "drupal/imageapi_optimize": "^2.0@alpha",
-        "drupal/imagemagick": "^2.5",
+        "drupal/imagemagick": "^3.0",
         "drupal/imce": "^2.0",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/link_attributes": "^1.5",

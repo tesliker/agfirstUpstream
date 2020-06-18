@@ -5,7 +5,6 @@ prepend: ''
 prepend_pre_source: FALSE
 log_warnings: TRUE
 debug: FALSE
-use_identify: TRUE
 locale: 'en_US.UTF-8'
 advanced:
   density: 0
