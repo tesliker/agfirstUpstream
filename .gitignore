@@ -7,6 +7,9 @@
 ### to the Pantheon repository.
 ###
 
+# since we use the RobotsTxt module
+web/robots.txt
+
 # Ignore Drupal's file directory
 web/sites/default/files
 

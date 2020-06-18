@@ -166,12 +166,8 @@
                 "#states not affecting visibility/requirement of managed_file": "https://www.drupal.org/files/issues/2019-04-17/states_not_affecting-2847425-37.patch",
                 "Simple decimals fail to pass validation": "https://www.drupal.org/files/issues/2020-03-06/drupal_2230909_147.patch"
             },
-            "drupal/menu_block": {
-                "Menu parent as block title": "patches/2809699-27.patch",
-                "Add option to make the starting level follow the active menu item": "https://www.drupal.org/files/issues/2018-08-08/menu_block-follow-2756675-55.patch"
-            },
             "drupal/field_group": {
-                "Fields with errors are not visible": "https://www.drupal.org/files/issues/2020-01-16/field_group-open-groups-with-errors-server-side-2894213-14.patch"
+                "Fields with errors are not visible": "https://www.drupal.org/files/issues/2020-06-11/field_group-open-groups-with-errors-server-side-2894213-15.patch"
             },
             "drupal/imce": {
                 "File Browser on User Page": "patches/imce_no_browser_tab-2858430-4.patch"
