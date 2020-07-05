@@ -180,6 +180,9 @@
             },
             "drupal/sharethis": {
                 "Node Preview functionality break before node save": "https://www.drupal.org/files/issues/2018-04-07/sharethis-node_preview-2767165-26.patch"
+            },
+            "drupal/menu_block": {
+                "Menu parent as block title": "https://www.drupal.org/files/issues/2020-05-03/2809699-162-dynamic-block-titles.patch"
             }
         }
     },
