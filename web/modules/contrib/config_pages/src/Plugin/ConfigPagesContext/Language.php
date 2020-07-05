@@ -49,7 +49,7 @@ class Language extends ConfigPagesContextBase {
    * Get the value of the context.
    *
    * @return mixed
-   *   Retturn value of the context.
+   *   Return value of the context.
    */
   public function getValue() {
     $lang = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_URL);

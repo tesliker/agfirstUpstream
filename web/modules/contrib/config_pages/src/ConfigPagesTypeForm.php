@@ -8,6 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Path\PathValidatorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Routing\RouteBuilderInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 
 /**
  * Base form for category edit forms.
@@ -32,16 +33,27 @@ class ConfigPagesTypeForm extends EntityForm {
   protected $routerBuilder;
 
   /**
+   * The Messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
    * Constructs a ConfigPagesForm object.
    *
    * @param \Drupal\Core\Path\PathValidatorInterface $path_validator
    *   The path validator class.
    * @param \Drupal\Core\Routing\RouteBuilderInterface
    *   The router interface.
+   * @param MessengerInterface $messenger
    */
-  public function __construct(PathValidatorInterface $path_validator, RouteBuilderInterface $router_builder) {
+  public function __construct(PathValidatorInterface $path_validator,
+                              RouteBuilderInterface $router_builder,
+                              MessengerInterface $messenger) {
     $this->pathValidator = $path_validator;
     $this->routerBuilder = $router_builder;
+    $this->messenger = $messenger;
   }
 
   /**
@@ -50,7 +62,8 @@ class ConfigPagesTypeForm extends EntityForm {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('path.validator'),
-      $container->get('router.builder')
+      $container->get('router.builder'),
+      $container->get('messenger')
     );
   }
 
@@ -227,11 +240,11 @@ class ConfigPagesTypeForm extends EntityForm {
     $edit_link = $this->entity->toLink($this->t('Edit'), 'edit-form')->toString();
     $logger = $this->logger('config_pages');
     if ($status == SAVED_UPDATED) {
-      drupal_set_message(t('Custom config page type %label has been updated.', ['%label' => $config_pages_type->label()]));
+      $this->messenger->addStatus(t('Custom config page type %label has been updated.', ['%label' => $config_pages_type->label()]));
       $logger->notice('Custom config page type %label has been updated.', ['%label' => $config_pages_type->label(), 'link' => $edit_link]);
     }
     else {
-      drupal_set_message(t('Custom config page type %label has been added.', ['%label' => $config_pages_type->label()]));
+      $this->messenger->addStatus(t('Custom config page type %label has been added.', ['%label' => $config_pages_type->label()]));
       $logger->notice('Custom config page type %label has been added.', ['%label' => $config_pages_type->label(), 'link' => $edit_link]);
     }
 

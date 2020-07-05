@@ -26,6 +26,7 @@ class GetValueCommand extends ContainerAwareCommand {
 
   /**
    * Constructs a new GetValueCommand object.
+   * @param LoggerChannelFactoryInterface $loggerChannelFactory
    */
   public function __construct(LoggerChannelFactoryInterface $loggerChannelFactory) {
     $this->logger = $loggerChannelFactory->get('config_pages');

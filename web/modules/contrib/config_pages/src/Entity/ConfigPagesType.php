@@ -99,19 +99,15 @@ class ConfigPagesType extends ConfigEntityBundleBase implements ConfigPagesTypeI
    *
    * @return string
    *   Return context data.
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function getContextData($fallback = FALSE) {
+  public function getContextData() {
     $contextData = [];
     if (!empty($this->context['group'])) {
       foreach ($this->context['group'] as $context_id => $context_enabled) {
         if ($context_enabled) {
           $item = $this->config_pages_context->createInstance($context_id);
-          if ($fallback && !empty($this->context['fallback'][$context_id])) {
-            $context_value = $this->context['fallback'][$context_id];
-          }
-          else {
-            $context_value = $item->getValue();
-          }
+          $context_value = $item->getValue();
           $contextData[] = [$context_id => $context_value];
         }
       }
@@ -124,6 +120,8 @@ class ConfigPagesType extends ConfigEntityBundleBase implements ConfigPagesTypeI
    *
    * @return string
    *   Return context label.
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function getContextLabel() {
     $contextData = [];
@@ -145,6 +143,7 @@ class ConfigPagesType extends ConfigEntityBundleBase implements ConfigPagesTypeI
    *
    * @return array
    *   Get context links.
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   public function getContextLinks() {
     $contextLinks = [];

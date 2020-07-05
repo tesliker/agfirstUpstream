@@ -22,6 +22,9 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
  */
 class ConfigPagesBlock extends BlockBase implements BlockPluginInterface, ContainerFactoryPluginInterface {
 
+  private $entity_display_repository;
+  private $entity_type_manager;
+
   /**
    * {@inheritdoc}
    */

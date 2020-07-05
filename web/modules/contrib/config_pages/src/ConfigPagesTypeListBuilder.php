@@ -16,6 +16,11 @@ use Drupal\Core\Entity\EntityStorageInterface;
 class ConfigPagesTypeListBuilder extends ConfigEntityListBuilder {
 
   /**
+   * @var ConfigPagesContextManagerInterface
+   */
+  private $context;
+
+  /**
    * {@inheritdoc}
    */
   public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type) {

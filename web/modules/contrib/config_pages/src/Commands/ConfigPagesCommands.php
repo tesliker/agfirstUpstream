@@ -25,6 +25,7 @@ class ConfigPagesCommands extends DrushCommands {
    *   The name of field
    * @param $value
    *   The value for the field
+   * @param null $context
    * @param array $options An associative array of options whose values come from cli, aliases, config, etc.
    * @option append
    *   Append to an existing value.
@@ -71,6 +72,7 @@ class ConfigPagesCommands extends DrushCommands {
    *   The type of config page "/admin/structure/config_pages/types"
    * @param $field_name
    *   The name of field
+   * @param null $context
    * @validate-module-enabled config_pages
    *
    * @command config:pages-get-field-value

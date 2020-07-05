@@ -6,6 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\config_pages\ConfigPagesTypeInterface;
 use Drupal\Core\Extension\ThemeHandlerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\config_pages\Entity\ConfigPagesType;
@@ -18,6 +19,8 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
  * @package Drupal\config_pages
  */
 class ConfigPagesController extends ControllerBase {
+
+  use StringTranslationTrait;
 
   /**
    * The config page storage.
@@ -54,7 +57,7 @@ class ConfigPagesController extends ControllerBase {
   }
 
   /**
-   * ConfigPagesController constructor.
+   * Constructs a ConfigPages object.
    *
    * @param \Drupal\Core\Entity\EntityStorageInterface $config_pages_storage
    *   The config page storage.
@@ -62,8 +65,7 @@ class ConfigPagesController extends ControllerBase {
    *   The config page type storage.
    * @param \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler
    *   The theme handler.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager
+   * @param EntityTypeManagerInterface $entity_type_manager
    */
   public function __construct(EntityStorageInterface $config_pages_storage,
                               EntityStorageInterface $config_pages_type_storage,
@@ -117,6 +119,8 @@ class ConfigPagesController extends ControllerBase {
    *
    * @return array
    *   A form array as expected by drupal_render().
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function classInit(ConfigPagesTypeInterface $config_pages_type = NULL) {
     $cp_type = $config_pages_type->id();
@@ -128,7 +132,8 @@ class ConfigPagesController extends ControllerBase {
 
     $contextData = $typeEntity->getContextData();
 
-    $config_page_ids = $this->ConfigPagesStorage
+    $config_page_ids = $this->entityTypeManager
+      ->getStorage('config_pages')
       ->getQuery()
       ->condition('type', $cp_type)
       ->condition('context', $contextData)
@@ -148,13 +153,29 @@ class ConfigPagesController extends ControllerBase {
   }
 
   /**
-   * Presents the config page confiramtion form.
+   * Presents the config page confirmation form.
    *
+   * @param $config_pages
    * @return array
    *   A form array as expected by drupal_render().
    */
   public function clearConfirmation($config_pages) {
     return \Drupal::formBuilder()->getForm('Drupal\config_pages\Form\ConfigPagesClearConfirmationForm', $config_pages);
+  }
+
+  /**
+   * Page title callback for config page edit forms.
+   *
+   * @param string|null $label
+   *   Label of entity.
+   *
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
+   *   Translatable page title.
+   */
+  public function getPageTitle($label = NULL) {
+    return $this->t('<em>Edit config page</em> @label', [
+      '@label' => $label,
+    ]);
   }
 
 }

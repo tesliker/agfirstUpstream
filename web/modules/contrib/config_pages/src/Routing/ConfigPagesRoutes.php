@@ -32,8 +32,9 @@ class ConfigPagesRoutes {
         $path,
         [
           '_controller' => '\Drupal\config_pages\Controller\ConfigPagesController::classInit',
-          '_title' => "Edit config page $label",
           'config_pages_type' => $bundle,
+          '_title_callback' => '\Drupal\config_pages\Controller\ConfigPagesController::getPageTitle',
+          'label' => $label,
         ],
         [
           '_permission'  => 'edit config_pages entity+edit ' . $cp_type->id() . ' config page entity',

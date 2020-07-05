@@ -9,7 +9,6 @@ use Drupal\Component\Annotation\Plugin;
  *
  * Plugin Namespace: Plugin\config_pages\context.
  *
- * @see \Drupal\config_pages\Plugin\IcecreamManager
  * @see plugin_api
  *
  * @Annotation

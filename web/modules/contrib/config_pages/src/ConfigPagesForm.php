@@ -5,6 +5,7 @@ namespace Drupal\config_pages;
 use Drupal\Component\Utility\Html;
 use Drupal\config_pages\Entity\ConfigPagesType;
 use Drupal\Core\Entity\ContentEntityForm;
+use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -15,8 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\Url;
 use Drupal\Component\Datetime\TimeInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 
 /**
  * Form controller for the custom config page edit forms.
@@ -28,14 +29,14 @@ class ConfigPagesForm extends ContentEntityForm {
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  protected $ConfigPagesStorage;
+  protected $configPagesStorage;
 
   /**
    * The custom config page type storage.
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  protected $ConfigPagesTypeStorage;
+  protected $configPagesTypeStorage;
 
   /**
    * The language manager.
@@ -59,8 +60,16 @@ class ConfigPagesForm extends ContentEntityForm {
   protected $user;
 
   /**
+   * The Messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
    * Constructs a ConfigPagesForm object.
    *
+   * @param EntityRepositoryInterface $entity_repository
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity manager.
    * @param \Drupal\Core\Entity\EntityStorageInterface $config_pages_storage
@@ -69,8 +78,7 @@ class ConfigPagesForm extends ContentEntityForm {
    *   The custom config page type storage.
    * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
    *   The language manager.
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
-   *   The entity manager.
+   * @param MessengerInterface $messenger
    * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $entity_type_bundle_info
    *   The entity type bundle service.
    * @param \Drupal\Component\Datetime\TimeInterface $time
@@ -78,25 +86,23 @@ class ConfigPagesForm extends ContentEntityForm {
    * @param \Drupal\Core\Session\AccountProxyInterface $user
    *   User proxy, for checking permissions.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager,
+  public function __construct(EntityRepositoryInterface $entity_repository,
+                              EntityTypeManagerInterface $entity_type_manager,
                               EntityStorageInterface $config_pages_storage,
                               EntityStorageInterface $config_pages_type_storage,
                               LanguageManagerInterface $language_manager,
-                              EntityManagerInterface $entity_manager,
+                              MessengerInterface $messenger,
                               EntityTypeBundleInfoInterface $entity_type_bundle_info = NULL,
                               TimeInterface $time = NULL,
                               AccountProxyInterface $user = NULL
   ) {
-    parent::__construct($entity_manager, $entity_type_bundle_info, $time);
-    $this->ConfigPagesStorage = $config_pages_storage;
-    $this->ConfigPagesTypeStorage = $config_pages_type_storage;
+    parent::__construct($entity_repository, $entity_type_bundle_info, $time);
+    $this->configPagesStorage = $config_pages_storage;
+    $this->configPagesTypeStorage = $config_pages_type_storage;
     $this->languageManager = $language_manager;
     $this->entityTypeManager = $entity_type_manager;
     $this->user = $user;
-
-    // @to_do: this should be removed when parent class will be refactored and will not use entityManager anymore.
-    $this->entityManager = $entity_type_manager;
-
+    $this->messenger = $messenger;
   }
 
   /**
@@ -105,11 +111,12 @@ class ConfigPagesForm extends ContentEntityForm {
   public static function create(ContainerInterface $container) {
     $entity_type_manager = $container->get('entity_type.manager');
     return new static(
+      $container->get('entity.repository'),
       $entity_type_manager,
       $entity_type_manager->getStorage('config_pages'),
       $entity_type_manager->getStorage('config_pages_type'),
       $container->get('language_manager'),
-      $container->get('entity.manager'),
+      $container->get('messenger'),
       $container->get('entity_type.bundle.info'),
       $container->get('datetime.time'),
       $container->get('current_user')
@@ -128,7 +135,7 @@ class ConfigPagesForm extends ContentEntityForm {
     $config_pages = $this->entity;
 
     // Set up default values, if required.
-    $config_pages_type = $this->ConfigPagesTypeStorage->load($config_pages->bundle());
+    $this->configPagesTypeStorage->load($config_pages->bundle());
   }
 
   /**
@@ -137,8 +144,7 @@ class ConfigPagesForm extends ContentEntityForm {
   public function form(array $form, FormStateInterface $form_state) {
 
     $config_pages = $this->entity;
-    $account = $this->currentUser();
-    $config_pages_type = $this->ConfigPagesTypeStorage->load($config_pages->bundle());
+    $config_pages_type = $this->configPagesTypeStorage->load($config_pages->bundle());
 
     $form = parent::form($form, $form_state, $config_pages);
 
@@ -152,9 +158,9 @@ class ConfigPagesForm extends ContentEntityForm {
     $show_warning = $config_pages_type->context['show_warning'];
     $label = $config_pages_type->getContextLabel();
     if (!empty($label) && $show_warning) {
-      drupal_set_message($this->t('Please note that this Page is context sensitive, current context is %label', [
+      $this->messenger->addWarning($this->t('Please note that this Page is context sensitive, current context is %label', [
         '%label' => $label,
-      ]), 'warning');
+      ]));
     }
 
     if ($this->operation == 'edit') {
@@ -204,11 +210,12 @@ class ConfigPagesForm extends ContentEntityForm {
         if ($config_pages->id() != $id) {
           $value = $item->get('context')->first()->getValue();
           $params = unserialize($value['value']);
-          $params = array_shift($params);
           $string = '';
           if (is_array($params)) {
-            foreach ($params as $name => $val) {
-              $string .= $name . ' - ' . $val . ';';
+            foreach ($params as $param) {
+              foreach ($param as $name => $val) {
+                $string .= $name . ' - ' . $val . ';';
+              }
             }
             $options[$id] = $string;
           }
@@ -221,6 +228,7 @@ class ConfigPagesForm extends ContentEntityForm {
           '#type' => 'details',
           '#tree' => TRUE,
           '#title' => t('Import'),
+          '#weight' => 1000,
         ];
 
         $form['other_context']['list'] = [
@@ -231,7 +239,7 @@ class ConfigPagesForm extends ContentEntityForm {
         $form['other_context']['submit'] = [
           '#type' => 'submit',
           '#value' => t('Import'),
-          '#prefix' => '<div class="imort-form-actions">',
+          '#prefix' => '<div class="import-form-actions">',
           '#suffix' => '</div>',
           '#submit' => ['::configPagesImportValues'],
         ];
@@ -245,6 +253,8 @@ class ConfigPagesForm extends ContentEntityForm {
    * Form submit.
    *
    * Clear field values submit callback.
+   * @param array $form
+   * @param FormStateInterface $form_state
    */
   public function configPagesClearValues(array $form, FormStateInterface $form_state) {
 
@@ -301,16 +311,16 @@ class ConfigPagesForm extends ContentEntityForm {
     $config_pages->save();
     $context = ['@type' => $config_pages->bundle(), '%info' => $config_pages->label()];
     $logger = $this->logger('config_pages');
-    $config_pages_type = $this->ConfigPagesTypeStorage->load($config_pages->bundle());
+    $config_pages_type = $this->configPagesTypeStorage->load($config_pages->bundle());
     $t_args = ['@type' => $config_pages_type->label(), '%info' => $config_pages->label()];
 
     if ($insert) {
       $logger->notice('@type: added %info.', $context);
-      drupal_set_message($this->t('@type %info has been created.', $t_args));
+      $this->messenger->addStatus($this->t('@type %info has been created.', $t_args));
     }
     else {
       $logger->notice('@type: updated %info.', $context);
-      drupal_set_message($this->t('@type %info has been updated.', $t_args));
+      $this->messenger->addStatus($this->t('@type %info has been updated.', $t_args));
     }
 
     if ($config_pages->id()) {
@@ -320,7 +330,7 @@ class ConfigPagesForm extends ContentEntityForm {
     else {
       // In the unlikely case something went wrong on save, the config page
       // will be rebuilt and config page form redisplayed.
-      drupal_set_message($this->t('The config page could not be saved.'), 'error');
+      $this->messenger->addError($this->t('The config page could not be saved.'));
       $form_state->setRebuild();
     }
   }
@@ -330,6 +340,9 @@ class ConfigPagesForm extends ContentEntityForm {
    *
    * @todo Consider introducing a 'preview' action here, since it is used by
    *   many entity types.
+   * @param array $form
+   * @param FormStateInterface $form_state
+   * @return mixed
    */
   protected function actions(array $form, FormStateInterface $form_state) {
     $entity = $this->entity;
@@ -356,3 +369,4 @@ class ConfigPagesForm extends ContentEntityForm {
   }
 
 }
+

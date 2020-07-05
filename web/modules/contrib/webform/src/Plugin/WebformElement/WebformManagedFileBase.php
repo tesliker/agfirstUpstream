@@ -295,14 +295,22 @@ abstract class WebformManagedFileBase extends WebformElementBase implements Webf
     if ($file_limit) {
       $element_validate[] = [get_class($this), 'validateManagedFileLimit'];
     }
-    // NOTE: Using array_splice() to make sure that self::validateManagedFile
+    // NOTE: Using array_splice() to make sure that static::validateManagedFile
     // is executed before all other validation hooks are executed but after
     // \Drupal\file\Element\ManagedFile::validateManagedFile.
     array_splice($element['#element_validate'], 1, 0, $element_validate);
 
     // Upload validators.
+    // @see webform_preprocess_file_upload_help
     $element['#upload_validators']['file_validate_size'] = [$this->getMaxFileSize($element)];
     $element['#upload_validators']['file_validate_extensions'] = [$this->getFileExtensions($element)];
+    // Define 'webform_file_validate_extensions' which allows file
+    // extensions within webforms to be comma-delimited. The
+    // 'webform_file_validate_extensions' will be ignored by file_validate().
+    // @see file_validate()
+    // Issue #3136578: Comma-separate the list of allowed file extensions.
+    // @see https://www.drupal.org/project/drupal/issues/3136578
+    $element['#upload_validators']['webform_file_validate_extensions'] = [];
     $element['#upload_validators']['webform_file_validate_name_length'] = [];
 
     // Add file upload help to the element as #description, #help, or #more.
@@ -662,7 +670,9 @@ abstract class WebformManagedFileBase extends WebformElementBase implements Webf
    *   File extensions.
    */
   protected function getFileExtensions(array $element = NULL) {
-    return (!empty($element['#file_extensions'])) ? $element['#file_extensions'] : $this->getDefaultFileExtensions();
+    $extensions = (!empty($element['#file_extensions'])) ? $element['#file_extensions'] : $this->getDefaultFileExtensions();
+    $extensions = str_replace(',', ' ', $extensions);
+    return $extensions;
   }
 
   /**
@@ -812,7 +822,7 @@ abstract class WebformManagedFileBase extends WebformElementBase implements Webf
       $preview_element = ['#format' => $element['#file_preview']] + $element;
 
       // Convert '#theme': file_link to a container with a file preview.
-      $fids = (array) $webform_submission->getElementData($element['#webform_key']) ?: [];
+      $fids = (isset($element['#webform_key'])) ? (array) $webform_submission->getElementData($element['#webform_key']) : [];
       foreach ($fids as $delta => $fid) {
         $child_key = 'file_' . $fid;
         // Make sure the child element exists.
@@ -1089,7 +1099,7 @@ abstract class WebformManagedFileBase extends WebformElementBase implements Webf
     $form['file']['file_extensions'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Allowed file extensions'),
-      '#description' => $this->t('Separate extensions with a space and do not include the leading dot.') . '<br/><br/>' .
+      '#description' => $this->t('Separate extensions with a space or comma and do not include the leading dot.') . '<br/><br/>' .
         $this->t('Defaults to: %value', ['%value' => $this->getDefaultFileExtensions()]),
       '#maxlength' => 255,
     ];
@@ -1256,7 +1266,7 @@ abstract class WebformManagedFileBase extends WebformElementBase implements Webf
       $destination_uri = $this->getFileDestinationUri($element, $file, $webform_submission);
 
       // Save file if there is a new destination URI.
-      if ($source_uri != $destination_uri) {
+      if ($source_uri !== $destination_uri) {
         $destination_uri = $this->fileSystem->move($source_uri, $destination_uri);
         $file->setFileUri($destination_uri);
         $file->setFileName($this->fileSystem->basename($destination_uri));
@@ -1377,7 +1387,7 @@ abstract class WebformManagedFileBase extends WebformElementBase implements Webf
     $usage = $file_usage->listUsage($file);
     foreach ($usage as $module => $entity_types) {
       // Check for Webform module.
-      if ($module != 'webform') {
+      if ($module !== 'webform') {
         continue;
       }
 
@@ -1385,7 +1395,7 @@ abstract class WebformManagedFileBase extends WebformElementBase implements Webf
         $entity_ids = array_keys($counts);
 
         // Check for webform submission entity type.
-        if ($entity_type != 'webform_submission' || empty($entity_ids)) {
+        if ($entity_type !== 'webform_submission' || empty($entity_ids)) {
           continue;
         }
 
@@ -1474,7 +1484,7 @@ abstract class WebformManagedFileBase extends WebformElementBase implements Webf
         'filecontent' => file_get_contents($file->getFileUri()),
         'filename' => $file->getFilename(),
         'filemime' => $file->getMimeType(),
-        // File URIs that are not supportted return FALSE, when this happens
+        // File URIs that are not supported return FALSE, when this happens
         // still use the file's URI as the file's path.
         'filepath' => \Drupal::service('file_system')->realpath($file->getFileUri()) ?: $file->getFileUri(),
         // URI is used when debugging or resending messages.

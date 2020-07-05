@@ -17,11 +17,14 @@ class TransitionAccessTest extends BrowserTestBase {
   use ContentModerationTestTrait;
 
   /**
-   * Modules to install.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public static $modules = ['content_moderation', 'scheduler_content_moderation_integration'];
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static $modules = ['content_moderation', 'scheduler_content_moderation_integration'];
 
   /**
    * User.
@@ -111,7 +114,7 @@ class TransitionAccessTest extends BrowserTestBase {
     ];
     $this->drupalPostForm('node/' . $node->id() . '/edit', $edit, 'Save');
     $date_formatter = \Drupal::service('date.formatter');
-    $this->assertSession()->pageTextContains('This post is unpublished and will be published ' . $date_formatter->format($publish_time, 'long'));
+    $this->assertSession()->pageTextContains(sprintf('%s is scheduled to be published %s.', $node->getTitle(), $date_formatter->format($publish_time, 'long')));
   }
 
   /**
@@ -141,7 +144,7 @@ class TransitionAccessTest extends BrowserTestBase {
     $this->drupalPostForm('node/' . $node->id() . '/edit', $edit, 'Save');
 
     $this->assertSession()
-      ->pageTextContains('This post is unpublished and will be published ' . $date_formatter->format($publish_time, 'long'));
+      ->pageTextContains(sprintf('%s is scheduled to be published %s.', $node->getTitle(), $date_formatter->format($publish_time, 'long')));
 
     $this->drupalGet('node/' . $node->id() . '/edit');
     $this->assertResponse(200, 'Scheduler user should be able to edit the node."');

@@ -21,7 +21,7 @@ class ConfigPagesStorage extends SqlContentEntityStorage {
 
     // Default behavior allow to load entity by ID.
     if (is_numeric($id)) {
-      $entities = $this->loadMultiple([$id]);
+      $entities = parent::loadMultiple([$id]);
       $entity = isset($entities[$id]) ? $entities[$id] : NULL;
     }
     else {
@@ -29,6 +29,23 @@ class ConfigPagesStorage extends SqlContentEntityStorage {
       $entity = ConfigPages::config($id);
     }
     return $entity;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function loadMultiple(array $ids = NULL) {
+    $entities = [];
+
+    // Use module load method to get ConfigPage loaded by id.
+    foreach ($ids as $id){
+      $entity = $this->load($id);
+      if (!empty($entity)) {
+        $entities[$entity->id()] = $entity;
+      }
+    }
+
+    return !empty($entities) ? $entities : NULL;
   }
 
 }

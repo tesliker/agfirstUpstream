@@ -29,11 +29,13 @@ class SetValueCommand extends Command {
 
   /**
    * Constructs a new SetValueCommand object.
+   * @param LoggerChannelFactoryInterface $logger_factory
    */
   public function __construct(LoggerChannelFactoryInterface $logger_factory) {
     $this->logger = $logger_factory->get('config_pages');
     parent::__construct();
   }
+
   /**
    * {@inheritdoc}
    */
@@ -95,7 +97,7 @@ class SetValueCommand extends Command {
       $output->writeln('Saved new value for ' . $field_name . ' field.');
     }
     catch (\Exception $e) {
-      $this->logger()->error($e->getMessage());
+      $this->logger->error($e->getMessage());
     }
   }
 

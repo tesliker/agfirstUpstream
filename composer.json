@@ -164,7 +164,7 @@
             "drupal/core": {
                 "CKEditor Image Patch": "patches/drupalimage_ckeditor-2771837-34.patch",
                 "#states not affecting visibility/requirement of managed_file": "https://www.drupal.org/files/issues/2019-04-17/states_not_affecting-2847425-37.patch",
-                "Simple decimals fail to pass validation": "https://www.drupal.org/files/issues/2020-03-06/drupal_2230909_147.patch"
+                "Simple decimals fail to pass validation": "https://www.drupal.org/files/issues/2020-05-26/2230909-162.patch"
             },
             "drupal/field_group": {
                 "Fields with errors are not visible": "https://www.drupal.org/files/issues/2020-06-11/field_group-open-groups-with-errors-server-side-2894213-15.patch"
@@ -191,7 +191,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "platform": {
-            "php": "7.2"
+            "php": "7.4"
         }
     }
 }

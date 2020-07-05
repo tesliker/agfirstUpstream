@@ -69,7 +69,7 @@ class DecimalItem extends NumericItemBase {
       '#type' => 'number',
       '#title' => t('Precision'),
       '#min' => 10,
-      '#max' => 32,
+      '#max' => 16,
       '#default_value' => $settings['precision'],
       '#description' => t('The total number of digits to store in the database, including those to the right of the decimal.'),
       '#disabled' => $has_data,

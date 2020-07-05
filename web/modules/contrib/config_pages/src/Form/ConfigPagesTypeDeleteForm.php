@@ -3,7 +3,7 @@
 namespace Drupal\config_pages\Form;
 
 use Drupal\Core\Entity\EntityDeleteForm;
-use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -14,18 +14,21 @@ class ConfigPagesTypeDeleteForm extends EntityDeleteForm {
   /**
    * The query factory to create entity queries.
    *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
+   * @var \Drupal\Core\Entity\EntityStorageInterface::getQuery()
    */
   public $queryFactory;
 
   /**
    * Constructs a query factory object.
    *
-   * @param \Drupal\Core\Entity\Query\QueryFactory $query_factory
-   *   The entity query object.
+   * @param EntityTypeManagerInterface $entity_type_manager
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function __construct(QueryFactory $query_factory) {
-    $this->queryFactory = $query_factory;
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->queryFactory = $entity_type_manager
+      ->getStorage('config_pages')
+      ->getQuery();
   }
 
   /**
@@ -33,7 +36,7 @@ class ConfigPagesTypeDeleteForm extends EntityDeleteForm {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity.query')
+      $container->get('entity_type.manager')
     );
   }
 

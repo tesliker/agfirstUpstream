@@ -42,3 +42,14 @@ config_pages.type.*:
         description:
           type: text
           label: 'Description'
+
+block.settings.config_pages_block:
+  type: config_object
+  label: 'ConfigPages Block settings'
+  mapping:
+    config_page_type:
+      type: string
+      label: 'ConfigPage type to show'
+    config_page_view_mode:
+      type: string
+      label: 'view mode for ConfigPage to show'

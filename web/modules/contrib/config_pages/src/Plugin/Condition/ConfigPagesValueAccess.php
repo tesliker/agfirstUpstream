@@ -120,12 +120,12 @@ class ConfigPagesValueAccess extends ConditionPluginBase implements ContainerFac
       '#default_value' => isset($config['config_page_field']) ? $config['config_page_field'] : '',
       '#description' => $this->t('Applied for: @types', ['@types' => implode(', ', $this->allowedFieldTypes)]),
     ];
-    $perandOptions = $this->getOperandOptions();
+    $operandOptions = $this->getOperandOptions();
     $form['operator'] = [
       '#type' => 'select',
       '#title' => $this->t('Operator'),
-      '#options' => $perandOptions,
-      '#default_value' => isset($config['operator']) ? $config['operator'] : array_keys($perandOptions)[0],
+      '#options' => $operandOptions,
+      '#default_value' => isset($config['operator']) ? $config['operator'] : array_keys($operandOptions)[0],
     ];
     $form['condition_value'] = [
       '#type' => 'textfield',
@@ -229,14 +229,19 @@ class ConfigPagesValueAccess extends ConditionPluginBase implements ContainerFac
    */
   public function evaluate() {
     $config = $this->getConfiguration();
-    $config_page_field = $config['config_page_field'];
-    $operator = $config['operator'];
-    $condition_value = $config['condition_value'];
-    list($cp_type, $field, $data_type) = explode('|', $config_page_field);
 
-    // Get field value.
-    $field_value = $this->configPagesLoader->getValue($cp_type, $field, 0, 'value');
-    return $this->compareValues($condition_value, $field_value, $operator);
+    if (isset($config['config_page_field'], $config['operator'], $config['condition_value'])) {
+      $config_page_field = $config['config_page_field'];
+      $operator = $config['operator'];
+      $condition_value = $config['condition_value'];
+      list($cp_type, $field, $data_type) = explode('|', $config_page_field);
+
+      // Get field value.
+      $field_value = $this->configPagesLoader->getValue($cp_type, $field, 0, 'value');
+      return $this->compareValues($condition_value, $field_value, $operator);
+    }
+
+    return TRUE;
   }
 
   /**
