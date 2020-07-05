@@ -7,7 +7,7 @@ namespace Solarium\Plugin\ParallelExecution\Event;
  *
  * @codeCoverageIgnore
  */
-class Events
+interface Events
 {
     /**
      * This event is called just before parallel HTTP request execution, but after init work.
@@ -15,7 +15,7 @@ class Events
      *
      * @var string
      */
-    const EXECUTE_START = 'solarium.parallelExecution.executeStart';
+    public const EXECUTE_START = ExecuteStart::class;
 
     /**
      * This event is called just after parallel HTTP request execution, before further result handling.
@@ -23,5 +23,5 @@ class Events
      *
      * @var string
      */
-    const EXECUTE_END = 'solarium.parallelExecution.executeEnd';
+    public const EXECUTE_END = ExecuteEnd::class;
 }

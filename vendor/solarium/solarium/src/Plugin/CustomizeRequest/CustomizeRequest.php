@@ -3,7 +3,7 @@
 namespace Solarium\Plugin\CustomizeRequest;
 
 use Solarium\Core\Event\Events;
-use Solarium\Core\Event\PreExecuteRequest as preExecuteRequestEvent;
+use Solarium\Core\Event\postCreateRequest;
 use Solarium\Core\Plugin\AbstractPlugin;
 use Solarium\Exception\InvalidArgumentException;
 use Solarium\Exception\RuntimeException;
@@ -37,7 +37,7 @@ class CustomizeRequest extends AbstractPlugin
      *
      * @return Customization
      */
-    public function createCustomization($options = null)
+    public function createCustomization($options = null): Customization
     {
         if (is_string($options)) {
             $fq = new Customization();
@@ -66,7 +66,7 @@ class CustomizeRequest extends AbstractPlugin
      *
      * @return self Provides fluent interface
      */
-    public function addCustomization($customization)
+    public function addCustomization($customization): self
     {
         if (is_array($customization)) {
             $customization = new Customization($customization);
@@ -97,9 +97,9 @@ class CustomizeRequest extends AbstractPlugin
      *
      * @param array $customizations
      *
-     * @return CustomizeRequest Provides fluent interface
+     * @return self Provides fluent interface
      */
-    public function addCustomizations(array $customizations)
+    public function addCustomizations(array $customizations): self
     {
         foreach ($customizations as $key => $customization) {
             // in case of a config array: add key to config
@@ -118,13 +118,11 @@ class CustomizeRequest extends AbstractPlugin
      *
      * @param string $key
      *
-     * @return string
+     * @return Customization|null
      */
-    public function getCustomization($key)
+    public function getCustomization(string $key): ?Customization
     {
-        if (isset($this->customizations[$key])) {
-            return $this->customizations[$key];
-        }
+        return $this->customizations[$key] ?? null;
     }
 
     /**
@@ -132,7 +130,7 @@ class CustomizeRequest extends AbstractPlugin
      *
      * @return Customization[]
      */
-    public function getCustomizations()
+    public function getCustomizations(): array
     {
         return $this->customizations;
     }
@@ -144,9 +142,9 @@ class CustomizeRequest extends AbstractPlugin
      *
      * @param string|Customization $customization
      *
-     * @return CustomizeRequest Provides fluent interface
+     * @return self Provides fluent interface
      */
-    public function removeCustomization($customization)
+    public function removeCustomization($customization): self
     {
         if (is_object($customization)) {
             $customization = $customization->getKey();
@@ -162,9 +160,9 @@ class CustomizeRequest extends AbstractPlugin
     /**
      * Remove all Customizations.
      *
-     * @return CustomizeRequest Provides fluent interface
+     * @return self Provides fluent interface
      */
-    public function clearCustomizations()
+    public function clearCustomizations(): self
     {
         $this->customizations = [];
 
@@ -177,23 +175,29 @@ class CustomizeRequest extends AbstractPlugin
      * This overwrites any existing Customizations
      *
      * @param array $customizations
+     *
+     * @return self Provides fluent interface
      */
-    public function setCustomizations($customizations)
+    public function setCustomizations(array $customizations): self
     {
         $this->clearCustomizations();
         $this->addCustomizations($customizations);
+        return $this;
     }
 
     /**
      * Event hook to customize the request object.
      *
-     *
-     * @param preExecuteRequestEvent $event
+     * @param object $event
      *
      * @throws RuntimeException
+     *
+     * @return self Provides fluent interface
      */
-    public function preExecuteRequest(preExecuteRequestEvent $event)
+    public function postCreateRequest($event): self
     {
+        // We need to accept event proxies or decoraters.
+        /* @var PostCreateRequest $event */
         $request = $event->getRequest();
         foreach ($this->getCustomizations() as $key => $customization) {
             // first validate
@@ -221,7 +225,7 @@ class CustomizeRequest extends AbstractPlugin
             }
         }
 
-        $event->setRequest($request);
+        return $this;
     }
 
     /**
@@ -246,6 +250,8 @@ class CustomizeRequest extends AbstractPlugin
     protected function initPluginType()
     {
         $dispatcher = $this->client->getEventDispatcher();
-        $dispatcher->addListener(Events::PRE_EXECUTE_REQUEST, [$this, 'preExecuteRequest']);
+        if (is_subclass_of($dispatcher, '\Symfony\Component\EventDispatcher\EventDispatcherInterface')) {
+            $dispatcher->addListener(Events::POST_CREATE_REQUEST, [$this, 'postCreateRequest']);
+        }
     }
 }

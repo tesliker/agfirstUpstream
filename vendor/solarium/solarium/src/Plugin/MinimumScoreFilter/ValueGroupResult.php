@@ -32,20 +32,20 @@ class ValueGroupResult extends StandardValueGroup
     /**
      * Constructor.
      *
-     * @param string $value
-     * @param int    $numFound
-     * @param int    $start
-     * @param array  $documents
-     * @param int    $maximumScore
-     * @param Query  $query
+     * @param string     $value
+     * @param int        $numFound
+     * @param int        $start
+     * @param array      $documents
+     * @param float|null $maximumScore
+     * @param Query      $query
      */
-    public function __construct($value, $numFound, $start, $documents, $maximumScore, $query)
+    public function __construct(string $value, int $numFound, int $start, array $documents, ?float $maximumScore, Query $query)
     {
         $this->filterMode = $query->getFilterMode();
         $this->filterRatio = $query->getFilterRatio();
 
         // Use the maximumScore of the first group as maximum for all groups
-        if ($maximumScore > self::$overallMaximumScore) {
+        if (($maximumScore ?? 0.0) > self::$overallMaximumScore) {
             self::$overallMaximumScore = $maximumScore;
         }
 
@@ -57,7 +57,7 @@ class ValueGroupResult extends StandardValueGroup
      *
      * @return array
      */
-    public function getDocuments()
+    public function getDocuments(): array
     {
         if (!$this->filtered) {
             $filter = new Filter();

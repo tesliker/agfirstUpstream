@@ -5,7 +5,7 @@ namespace Solarium\Exception;
 /**
  * StreamException exception for Solarium classes.
  */
-class StreamException extends \UnexpectedValueException implements ExceptionInterface
+class StreamException extends \UnexpectedValueException implements RuntimeExceptionInterface
 {
     /**
      * @var string the streaming expression
@@ -27,7 +27,7 @@ class StreamException extends \UnexpectedValueException implements ExceptionInte
      *
      * @return string
      */
-    public function getExpression()
+    public function getExpression(): string
     {
         return $this->expression;
     }

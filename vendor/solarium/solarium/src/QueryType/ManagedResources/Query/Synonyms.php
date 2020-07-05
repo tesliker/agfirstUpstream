@@ -2,12 +2,20 @@
 
 namespace Solarium\QueryType\ManagedResources\Query;
 
-use InvalidArgumentException;
 use Solarium\Core\Client\Client;
 use Solarium\Core\Query\AbstractQuery as BaseQuery;
-use Solarium\QueryType\ManagedResources\Query\Synonyms\Command\AbstractCommand;
+use Solarium\Core\Query\RequestBuilderInterface;
+use Solarium\Core\Query\ResponseParserInterface;
+use Solarium\Exception\InvalidArgumentException;
+use Solarium\QueryType\ManagedResources\Query\Synonyms\Command\Add;
+use Solarium\QueryType\ManagedResources\Query\Synonyms\Command\Config;
+use Solarium\QueryType\ManagedResources\Query\Synonyms\Command\Create;
+use Solarium\QueryType\ManagedResources\Query\Synonyms\Command\Delete;
+use Solarium\QueryType\ManagedResources\Query\Synonyms\Command\Exists;
+use Solarium\QueryType\ManagedResources\Query\Synonyms\Command\Remove;
 use Solarium\QueryType\ManagedResources\RequestBuilder\Synonyms as RequestBuilder;
 use Solarium\QueryType\ManagedResources\ResponseParser\Synonyms as ResponseParser;
+use Solarium\QueryType\ManagedResources\Result\Synonyms\SynonymMappings;
 
 class Synonyms extends BaseQuery
 {
@@ -15,6 +23,16 @@ class Synonyms extends BaseQuery
      * Synonyms command add.
      */
     const COMMAND_ADD = 'add';
+
+    /**
+     * Synonyms command config.
+     */
+    const COMMAND_CONFIG = 'config';
+
+    /**
+     * Synonyms command create.
+     */
+    const COMMAND_CREATE = 'create';
 
     /**
      * Synonyms command delete.
@@ -25,6 +43,11 @@ class Synonyms extends BaseQuery
      * Synonyms command delete.
      */
     const COMMAND_EXISTS = 'exists';
+
+    /**
+     * Synonyms command delete.
+     */
+    const COMMAND_REMOVE = 'remove';
 
     /**
      * Name of the synonyms resource.
@@ -70,9 +93,12 @@ class Synonyms extends BaseQuery
      * @var array
      */
     protected $commandTypes = [
-        self::COMMAND_ADD => 'Solarium\QueryType\ManagedResources\Query\Synonyms\Command\Add',
-        self::COMMAND_DELETE => 'Solarium\QueryType\ManagedResources\Query\Synonyms\Command\Delete',
-        self::COMMAND_EXISTS => 'Solarium\QueryType\ManagedResources\Query\Synonyms\Command\Exists',
+        self::COMMAND_ADD => Add::class,
+        self::COMMAND_CONFIG => Config::class,
+        self::COMMAND_CREATE => Create::class,
+        self::COMMAND_DELETE => Delete::class,
+        self::COMMAND_EXISTS => Exists::class,
+        self::COMMAND_REMOVE => Remove::class,
     ];
 
     /**
@@ -82,7 +108,7 @@ class Synonyms extends BaseQuery
      */
     protected $options = [
         'handler' => 'schema/analysis/synonyms/',
-        'resultclass' => 'Solarium\QueryType\ManagedResources\Result\Synonyms\SynonymMappings',
+        'resultclass' => SynonymMappings::class,
         'omitheader' => true,
     ];
 
@@ -91,7 +117,7 @@ class Synonyms extends BaseQuery
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return Client::QUERY_MANAGED_SYNONYMS;
     }
@@ -101,7 +127,7 @@ class Synonyms extends BaseQuery
      *
      * @return RequestBuilder
      */
-    public function getRequestBuilder(): RequestBuilder
+    public function getRequestBuilder(): RequestBuilderInterface
     {
         return new RequestBuilder();
     }
@@ -111,7 +137,7 @@ class Synonyms extends BaseQuery
      *
      * @return ResponseParser
      */
-    public function getResponseParser(): ResponseParser
+    public function getResponseParser(): ResponseParserInterface
     {
         return new ResponseParser();
     }
@@ -130,10 +156,14 @@ class Synonyms extends BaseQuery
      * Set the name of the synonym resource.
      *
      * @param string $name
+     *
+     * @return self
      */
-    public function setName(string $name)
+    public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -164,7 +194,7 @@ class Synonyms extends BaseQuery
      *
      * @return AbstractCommand|null
      */
-    public function getCommand()
+    public function getCommand(): ?AbstractCommand
     {
         return $this->command;
     }

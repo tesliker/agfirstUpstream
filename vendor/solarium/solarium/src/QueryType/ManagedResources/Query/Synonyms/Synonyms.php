@@ -18,7 +18,7 @@ class Synonyms
     protected $synonyms = [];
 
     /**
-     * Set the term.
+     * Get the term.
      *
      * @return string
      */
@@ -28,11 +28,16 @@ class Synonyms
     }
 
     /**
+     * Set the term.
+     *
      * @param string $term
+     *
+     * @return self
      */
-    public function setTerm(string $term)
+    public function setTerm(string $term): self
     {
         $this->term = $term;
+        return $this;
     }
 
     /**
@@ -47,9 +52,12 @@ class Synonyms
      * Sets the synonyms. To set a list of symmetric synonyms leave the term empty.
      *
      * @param array $synonyms
+     *
+     * @return self
      */
-    public function setSynonyms(array $synonyms)
+    public function setSynonyms(array $synonyms): self
     {
         $this->synonyms = $synonyms;
+        return $this;
     }
 }

@@ -7,20 +7,16 @@ use Solarium\Component\FacetSetInterface;
 /**
  * Facet interval.
  *
- * @see http://wiki.apache.org/solr/SimpleFacetParameters#Interval_Faceting
+ * @see https://lucene.apache.org/solr/guide/faceting.html#interval-faceting
  */
 class Interval extends AbstractFacet
 {
-    use ExcludeTagsTrait {
-        init as excludeTagsInit;
-    }
-
     /**
      * Get the facet type.
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return FacetSetInterface::FACET_INTERVAL;
     }
@@ -32,17 +28,19 @@ class Interval extends AbstractFacet
      *
      * @return self Provides fluent interface
      */
-    public function setField($field)
+    public function setField(string $field): self
     {
-        return $this->setOption('field', $field);
+        $this->setOption('field', $field);
+
+        return $this;
     }
 
     /**
      * Get the field name.
      *
-     * @return string
+     * @return string|null
      */
-    public function getField()
+    public function getField(): ?string
     {
         return $this->getOption('field');
     }
@@ -57,14 +55,16 @@ class Interval extends AbstractFacet
      *
      * @return self Provides fluent interface
      */
-    public function setSet($set)
+    public function setSet($set): self
     {
-        if (is_string($set)) {
+        if (\is_string($set)) {
             $set = explode(',', $set);
             $set = array_map('trim', $set);
         }
 
-        return $this->setOption('set', $set);
+        $this->setOption('set', $set);
+
+        return $this;
     }
 
     /**
@@ -72,7 +72,7 @@ class Interval extends AbstractFacet
      *
      * @return array
      */
-    public function getSet()
+    public function getSet(): array
     {
         $set = $this->getOption('set');
         if (null === $set) {
@@ -90,8 +90,6 @@ class Interval extends AbstractFacet
      */
     protected function init()
     {
-        $this->excludeTagsInit();
-
         foreach ($this->options as $name => $value) {
             switch ($name) {
                 case 'set':

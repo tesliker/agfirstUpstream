@@ -6330,23 +6330,27 @@
     },
     {
         "name": "drupal/search_api",
-        "version": "1.13.0",
-        "version_normalized": "1.13.0.0",
+        "version": "1.17.0",
+        "version_normalized": "1.17.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/search_api.git",
-            "reference": "8.x-1.13"
+            "reference": "8.x-1.17"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/search_api-8.x-1.13.zip",
-            "reference": "8.x-1.13",
-            "shasum": "9f03dd5a4d9ee7c58d47aabc33d9229793d1195f"
+            "url": "https://ftp.drupal.org/files/projects/search_api-8.x-1.17.zip",
+            "reference": "8.x-1.17",
+            "shasum": "a9f3352f1c8c893c7032c11f00a23f76b9733b56"
         },
         "require": {
-            "drupal/core": "^8.5"
+            "drupal/core": "^8.8 || ^9"
+        },
+        "conflict": {
+            "drupal/search_api_solr": "2.* || 3.0 || 3.1"
         },
         "require-dev": {
+            "drupal/language_fallback_fix": "@dev",
             "drupal/search_api_autocomplete": "@dev",
             "drupal/search_api_db": "*"
         },
@@ -6357,12 +6361,9 @@
         },
         "type": "drupal-module",
         "extra": {
-            "branch-alias": {
-                "dev-1.x": "1.x-dev"
-            },
             "drupal": {
-                "version": "8.x-1.13",
-                "datestamp": "1562599986",
+                "version": "8.x-1.17",
+                "datestamp": "1591128369",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -6396,7 +6397,7 @@
         "description": "Provides a generic framework for modules offering search capabilities.",
         "homepage": "https://www.drupal.org/project/search_api",
         "support": {
-            "source": "http://git.drupal.org/project/search_api.git",
+            "source": "https://git.drupalcode.org/project/search_api",
             "issues": "https://www.drupal.org/project/issues/search_api",
             "irc": "irc://irc.freenode.org/drupal-search-api"
         }
@@ -6450,62 +6451,70 @@
     },
     {
         "name": "drupal/search_api_solr",
-        "version": "2.7.0",
-        "version_normalized": "2.7.0.0",
+        "version": "4.1.3",
+        "version_normalized": "4.1.3.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/search_api_solr.git",
-            "reference": "8.x-2.7"
+            "reference": "4.1.3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/search_api_solr-8.x-2.7.zip",
-            "reference": "8.x-2.7",
-            "shasum": "e1c22328bcb4fb74ca84384fb4ac8af75dc7a618"
+            "url": "https://ftp.drupal.org/files/projects/search_api_solr-4.1.3.zip",
+            "reference": "4.1.3",
+            "shasum": "5b1cf02a523c11deb69bf52698bc241877390b9d"
         },
         "require": {
-            "drupal/core": "^8.5",
-            "drupal/search_api": "~1.11",
+            "consolidation/annotated-command": "^2.12|^4.1",
+            "drupal/core": "^8.8 || ^9",
+            "drupal/search_api": "~1.17",
+            "ext-dom": "*",
             "ext-json": "*",
-            "maennchen/zipstream-php": "0.4.*",
-            "php": "^7.0",
-            "solarium/solarium": "~4.2.0"
+            "ext-simplexml": "*",
+            "laminas/laminas-stdlib": "^3.2",
+            "maennchen/zipstream-php": "^1.2|^2.0",
+            "php": "^7.2",
+            "solarium/solarium": "^6.0"
         },
         "conflict": {
-            "drupal/core": "<8.5",
-            "drupal/search_api_solr_multilingual": "*"
+            "drupal/search_api_solr_multilingual": "<3.0.0"
         },
         "require-dev": {
-            "drupal/devel": "*",
+            "drupal/devel": "^4.0",
             "drupal/facets": "1.x-dev",
             "drupal/geofield": "1.x-dev",
             "drupal/search_api_autocomplete": "1.x-dev",
             "drupal/search_api_location": "1.x-dev",
+            "drupal/search_api_spellcheck": "3.x-dev",
+            "monolog/monolog": "^1.25",
             "phayes/geophp": "^1.2"
         },
         "suggest": {
             "drupal/facets": "Provides facetted search.",
             "drupal/search_api_autocomplete": "Provides auto complete for search boxes.",
-            "drupal/search_api_location": "Provides location searches."
+            "drupal/search_api_location": "Provides location searches.",
+            "drupal/search_api_spellcheck": "Provides spell checking and 'Did You Mean?'."
         },
         "type": "drupal-module",
         "extra": {
-            "branch-alias": {
-                "dev-2.x": "2.x-dev"
-            },
             "drupal": {
-                "version": "8.x-2.7",
-                "datestamp": "1553881385",
+                "version": "4.1.3",
+                "datestamp": "1593780996",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
+                }
+            },
+            "drush": {
+                "services": {
+                    "drush.services.yml": "^9"
                 }
             }
         },
         "installation-source": "dist",
         "notification-url": "https://packages.drupal.org/8/downloads",
         "license": [
-            "GPL-2.0+"
+            "GPL-2.0-or-later"
         ],
         "authors": [
             {
@@ -6538,7 +6547,7 @@
         "support": {
             "source": "http://git.drupal.org/project/search_api_solr.git",
             "issues": "https://www.drupal.org/project/issues/search_api_solr",
-            "irc": "https://drupalchat.me/channel/search"
+            "chat": "https://drupalchat.me/channel/search"
         }
     },
     {
@@ -8853,27 +8862,32 @@
     },
     {
         "name": "maennchen/zipstream-php",
-        "version": "v0.4.1",
-        "version_normalized": "0.4.1.0",
+        "version": "2.1.0",
+        "version_normalized": "2.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/maennchen/ZipStream-PHP.git",
-            "reference": "89e0cdb3c9ecabef4da988852003781a7802afb7"
+            "reference": "c4c5803cc1f93df3d2448478ef79394a5981cc58"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/89e0cdb3c9ecabef4da988852003781a7802afb7",
-            "reference": "89e0cdb3c9ecabef4da988852003781a7802afb7",
+            "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c4c5803cc1f93df3d2448478ef79394a5981cc58",
+            "reference": "c4c5803cc1f93df3d2448478ef79394a5981cc58",
             "shasum": ""
         },
         "require": {
-            "ext-mbstring": "*",
-            "php": ">= 5.6"
+            "myclabs/php-enum": "^1.5",
+            "php": ">= 7.1",
+            "psr/http-message": "^1.0",
+            "symfony/polyfill-mbstring": "^1.0"
         },
         "require-dev": {
-            "phpunit/phpunit": "4.3.*"
+            "ext-zip": "*",
+            "guzzlehttp/guzzle": ">= 6.3",
+            "mikey179/vfsstream": "^1.6",
+            "phpunit/phpunit": ">= 7.5"
         },
-        "time": "2016-09-13T10:29:17+00:00",
+        "time": "2020-05-30T13:11:16+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -8891,18 +8905,28 @@
                 "email": "pabs@pablotron.org"
             },
             {
+                "name": "Jonatan Männchen",
+                "email": "jonatan@maennchen.ch"
+            },
+            {
                 "name": "Jesse Donat",
                 "email": "donatj@gmail.com"
             },
             {
-                "name": "Jonatan Männchen",
-                "email": "jonatan@maennchen.ch"
+                "name": "András Kolesár",
+                "email": "kolesar@kolesar.hu"
             }
         ],
         "description": "ZipStream is a library for dynamically streaming dynamic zip files from PHP without writing to the disk at all on the server.",
         "keywords": [
             "stream",
             "zip"
+        ],
+        "funding": [
+            {
+                "url": "https://opencollective.com/zipstream",
+                "type": "open_collective"
+            }
         ]
     },
     {
@@ -8972,6 +8996,54 @@
             "querypath",
             "serializer",
             "xml"
+        ]
+    },
+    {
+        "name": "myclabs/php-enum",
+        "version": "1.7.6",
+        "version_normalized": "1.7.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/myclabs/php-enum.git",
+            "reference": "5f36467c7a87e20fbdc51e524fd8f9d1de80187c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/myclabs/php-enum/zipball/5f36467c7a87e20fbdc51e524fd8f9d1de80187c",
+            "reference": "5f36467c7a87e20fbdc51e524fd8f9d1de80187c",
+            "shasum": ""
+        },
+        "require": {
+            "ext-json": "*",
+            "php": ">=7.1"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^7",
+            "squizlabs/php_codesniffer": "1.*",
+            "vimeo/psalm": "^3.8"
+        },
+        "time": "2020-02-14T08:15:52+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "MyCLabs\\Enum\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP Enum contributors",
+                "homepage": "https://github.com/myclabs/php-enum/graphs/contributors"
+            }
+        ],
+        "description": "PHP Enum implementation",
+        "homepage": "http://github.com/myclabs/php-enum",
+        "keywords": [
+            "enum"
         ]
     },
     {
@@ -9527,6 +9599,54 @@
         ]
     },
     {
+        "name": "psr/cache",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/cache.git",
+            "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/cache/zipball/d11b50ad223250cf17b86e38383413f5a6764bf8",
+            "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2016-08-06T20:24:11+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Cache\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for caching libraries",
+        "keywords": [
+            "cache",
+            "psr",
+            "psr-6"
+        ]
+    },
+    {
         "name": "psr/container",
         "version": "1.0.0",
         "version_normalized": "1.0.0.0",
@@ -9575,6 +9695,159 @@
             "container-interface",
             "container-interop",
             "psr"
+        ]
+    },
+    {
+        "name": "psr/event-dispatcher",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/event-dispatcher.git",
+            "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/event-dispatcher/zipball/dbefd12671e8a14ec7f180cab83036ed26714bb0",
+            "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.2.0"
+        },
+        "time": "2019-01-08T18:20:26+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\EventDispatcher\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Standard interfaces for event handling.",
+        "keywords": [
+            "events",
+            "psr",
+            "psr-14"
+        ]
+    },
+    {
+        "name": "psr/http-client",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/http-client.git",
+            "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/http-client/zipball/2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
+            "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.0 || ^8.0",
+            "psr/http-message": "^1.0"
+        },
+        "time": "2020-06-29T06:28:15+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Http\\Client\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for HTTP clients",
+        "homepage": "https://github.com/php-fig/http-client",
+        "keywords": [
+            "http",
+            "http-client",
+            "psr",
+            "psr-18"
+        ]
+    },
+    {
+        "name": "psr/http-factory",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/http-factory.git",
+            "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/http-factory/zipball/12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
+            "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.0.0",
+            "psr/http-message": "^1.0"
+        },
+        "time": "2019-04-30T12:38:16+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Http\\Message\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interfaces for PSR-7 HTTP message factories",
+        "keywords": [
+            "factory",
+            "http",
+            "message",
+            "psr",
+            "psr-17",
+            "psr-7",
+            "request",
+            "response"
         ]
     },
     {
@@ -9836,40 +10109,40 @@
     },
     {
         "name": "solarium/solarium",
-        "version": "4.2.0",
-        "version_normalized": "4.2.0.0",
+        "version": "6.0.1",
+        "version_normalized": "6.0.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/solariumphp/solarium.git",
-            "reference": "20cf9e906a4e8e4a29c1ff48a2b145fa31d1064d"
+            "reference": "5b5cee59f3f722d2a380e8f6ee384ccc05ac2a30"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/solariumphp/solarium/zipball/20cf9e906a4e8e4a29c1ff48a2b145fa31d1064d",
-            "reference": "20cf9e906a4e8e4a29c1ff48a2b145fa31d1064d",
+            "url": "https://api.github.com/repos/solariumphp/solarium/zipball/5b5cee59f3f722d2a380e8f6ee384ccc05ac2a30",
+            "reference": "5b5cee59f3f722d2a380e8f6ee384ccc05ac2a30",
             "shasum": ""
         },
         "require": {
-            "php": "^7.0",
-            "symfony/event-dispatcher": "^2.7 || ^3.0 || ^4.0"
+            "ext-json": "*",
+            "php": "^7.2",
+            "psr/event-dispatcher": "^1.0",
+            "psr/http-client": "^1.0",
+            "psr/http-factory": "^1.0",
+            "symfony/contracts": "^1.0 || ^2.0"
         },
         "require-dev": {
-            "guzzlehttp/guzzle": "^3.8 || ^6.2",
-            "php-coveralls/php-coveralls": "^1.0",
-            "phpunit/phpunit": "^6.5",
-            "squizlabs/php_codesniffer": "^1.4",
-            "zendframework/zendframework": "^3.0"
+            "guzzlehttp/guzzle": "^6.5",
+            "nyholm/psr7": "^1.2",
+            "php-http/guzzle6-adapter": "^2.0",
+            "phpstan/extension-installer": "^1.0",
+            "phpstan/phpstan": "^0.12",
+            "phpstan/phpstan-phpunit": "^0.12",
+            "phpunit/phpunit": "^8.0",
+            "roave/security-advisories": "dev-master",
+            "symfony/event-dispatcher": "^4.3 || ^5.0"
         },
-        "suggest": {
-            "minimalcode/search": "Query builder compatible with Solarium, allows simplified solr-query handling"
-        },
-        "time": "2018-11-24T09:20:30+00:00",
+        "time": "2020-07-03T12:46:41+00:00",
         "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "4.1.x-dev"
-            }
-        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
@@ -10279,6 +10552,103 @@
         ],
         "description": "Symfony Console Component",
         "homepage": "https://symfony.com",
+        "funding": [
+            {
+                "url": "https://symfony.com/sponsor",
+                "type": "custom"
+            },
+            {
+                "url": "https://github.com/fabpot",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                "type": "tidelift"
+            }
+        ]
+    },
+    {
+        "name": "symfony/contracts",
+        "version": "v2.1.2",
+        "version_normalized": "2.1.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/contracts.git",
+            "reference": "69e01844e38445cb15631cfe49949ecc08605576"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/contracts/zipball/69e01844e38445cb15631cfe49949ecc08605576",
+            "reference": "69e01844e38445cb15631cfe49949ecc08605576",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.2.5",
+            "psr/cache": "^1.0",
+            "psr/container": "^1.0",
+            "psr/event-dispatcher": "^1.0"
+        },
+        "replace": {
+            "symfony/cache-contracts": "self.version",
+            "symfony/deprecation-contracts": "self.version",
+            "symfony/event-dispatcher-contracts": "self.version",
+            "symfony/http-client-contracts": "self.version",
+            "symfony/service-contracts": "self.version",
+            "symfony/translation-contracts": "self.version"
+        },
+        "require-dev": {
+            "symfony/polyfill-intl-idn": "^1.10"
+        },
+        "suggest": {
+            "symfony/cache-implementation": "",
+            "symfony/event-dispatcher-implementation": "",
+            "symfony/http-client-implementation": "",
+            "symfony/service-implementation": "",
+            "symfony/translation-implementation": ""
+        },
+        "time": "2020-05-27T08:34:37+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Contracts\\": ""
+            },
+            "files": [
+                "Deprecation/function.php"
+            ],
+            "exclude-from-classmap": [
+                "**/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "A set of abstractions extracted out of the Symfony components",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "abstractions",
+            "contracts",
+            "decoupling",
+            "interfaces",
+            "interoperability",
+            "standards"
+        ],
         "funding": [
             {
                 "url": "https://symfony.com/sponsor",

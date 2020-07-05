@@ -11,6 +11,8 @@ use Drupal\search_api\Entity\Server;
  * Tests location searches and distance facets using the Solr search backend.
  *
  * @group search_api_solr
+ * @group not_solr4
+ * @group not_drupal9.0
  */
 class SearchApiSolrLocationTest extends SolrBackendTestBase {
 
@@ -20,23 +22,12 @@ class SearchApiSolrLocationTest extends SolrBackendTestBase {
    * @var string[]
    */
   public static $modules = [
+    'language',
     'search_api_location',
     'search_api_test_example_content',
-    'search_api_solr_test',
     'entity_test',
     'geofield',
   ];
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function installConfigs() {
-    parent::installConfigs();
-
-    $this->installConfig([
-      'search_api_solr_test',
-    ]);
-  }
 
   /**
    * Required parts of the setUp() function that are the same for all backends.
@@ -154,7 +145,7 @@ class SearchApiSolrLocationTest extends SolrBackendTestBase {
 
     // We get different precisions from Solr 6 and 7. Therefore we treat the
     // decimal as string and compare the first 9 characters.
-    $this->assertEquals('42.526337', substr($distance, 0 , 9), 'The distance is correctly returned');
+    $this->assertEquals('42.526337', substr($distance, 0, 9), 'The distance is correctly returned');
 
     // Search between 100km and 6000km from Antwerp.
     $location_options = [
@@ -176,7 +167,7 @@ class SearchApiSolrLocationTest extends SolrBackendTestBase {
     $facets_options['location__distance'] = [
       'field' => 'location__distance',
       'limit' => 10,
-      'min_count' => 0,
+      'min_count' => 1,
       'missing' => TRUE,
     ];
 
@@ -205,18 +196,6 @@ class SearchApiSolrLocationTest extends SolrBackendTestBase {
       [
         'filter' => '[200 399]',
         'count' => 1,
-      ],
-      [
-        'filter' => '[400 599]',
-        'count' => 0,
-      ],
-      [
-        'filter' => '[600 799]',
-        'count' => 0,
-      ],
-      [
-        'filter' => '[800 999]',
-        'count' => 0,
       ],
     ];
 
@@ -278,6 +257,7 @@ class SearchApiSolrLocationTest extends SolrBackendTestBase {
       'format' => 'ints2D',
     ];
     $result = $query->execute();
+    // @codingStandardsIgnoreLine
     $heatmap = [NULL, NULL, NULL, NULL, NULL, NULL, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], NULL, [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL];
     $filter = [];
     if (version_compare($this->getSolrVersion(), '7.5', '>=')) {
@@ -341,6 +321,7 @@ class SearchApiSolrLocationTest extends SolrBackendTestBase {
       'format' => 'ints2D',
     ];
     $result = $query->execute();
+    // @codingStandardsIgnoreLine
     $heatmap = [NULL, NULL, NULL, [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL];
     $filter = [];
     if (version_compare($this->getSolrVersion(), '7.5', '>=')) {
@@ -384,6 +365,17 @@ class SearchApiSolrLocationTest extends SolrBackendTestBase {
 
     $facets = $result->getExtraData('search_api_facets', [])['rpt'];
     $this->assertEquals($expected, $facets, 'The correct location facets are returned');
+
+    // Test boundary filtering.
+    $query = $this->buildSearch()
+      ->addCondition('location', ['38,-75', '42,-70'], 'BETWEEN');
+    $result = $query->execute();
+    $this->assertResults([2], $result, 'Search for NYC by boundary and NYC only');
+
+    $query = $this->buildSearch()
+      ->addCondition('location', ['38,-75', '42,-70'], 'NOT BETWEEN');
+    $result = $query->execute();
+    $this->assertResults([1, 3], $result, 'Search for outside NYC by boundary');
   }
 
 }

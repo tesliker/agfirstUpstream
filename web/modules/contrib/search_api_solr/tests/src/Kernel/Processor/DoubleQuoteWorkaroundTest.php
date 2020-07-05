@@ -35,7 +35,7 @@ class DoubleQuoteWorkaroundTest extends ProcessorTestBase {
    */
   public function setUp($processor = NULL) {
     parent::setUp('double_quote_workaround');
-    $this->enableSolrServer('search_api_solr_test', '/config/install/search_api.server.solr_search_server.yml');
+    $this->enableSolrServer();
 
     $backend = $this->index->getServerInstance()->getBackend();
     $config = $backend->getConfiguration();
@@ -60,7 +60,7 @@ class DoubleQuoteWorkaroundTest extends ProcessorTestBase {
       $replacement
     );
 
-    // Set fields to process
+    // Set fields to process.
     $configuration['fields'] = ['title'];
     $processor->setConfiguration($configuration);
     $this->index->setProcessors(['double_quote_workaround' => $processor]);
@@ -77,7 +77,7 @@ class DoubleQuoteWorkaroundTest extends ProcessorTestBase {
       );
 
     $this->assertEquals(
-      'search(d8, q=ss_search_api_datasource:entity\:entity_test_mulrev_changed, fq="tm_title:\\"double ' . $replacement . 'quotes' . $replacement . ' within the text\\"", fl="tm_title", sort="ss_search_api_id DESC", qt="/export")',
+      'search(drupal, q=ss_search_api_datasource:entity\:entity_test_mulrev_changed, fq="tm_X3b_und_title:\\"double ' . $replacement . 'quotes' . $replacement . ' within the text\\"", fl="tm_X3b_und_title", sort="ss_search_api_id DESC", qt="/export")',
       $streaming_expression
     );
 
@@ -86,4 +86,5 @@ class DoubleQuoteWorkaroundTest extends ProcessorTestBase {
       $this->processor->decodeStreamingExpressionValue('double ' . $replacement . 'quotes' . $replacement . ' within the text')
     );
   }
+
 }

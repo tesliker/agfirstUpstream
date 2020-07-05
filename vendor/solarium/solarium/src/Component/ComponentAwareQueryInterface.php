@@ -2,6 +2,8 @@
 
 namespace Solarium\Component;
 
+use Solarium\Exception\OutOfBoundsException;
+
 /**
  * Trait query types supporting components.
  */
@@ -97,14 +99,14 @@ interface ComponentAwareQueryInterface
      *
      * @return self Provides fluent interface
      */
-    public function registerComponentType($key, $component);
+    public function registerComponentType(string $key, string $component);
 
     /**
      * Get all registered components.
      *
      * @return AbstractComponent[]
      */
-    public function getComponents();
+    public function getComponents(): array;
 
     /**
      * Get a component instance by key.
@@ -117,11 +119,11 @@ interface ComponentAwareQueryInterface
      * @param string|bool $autoload Class to autoload if component needs to be created
      * @param array|null  $config   Configuration to use for autoload
      *
-     * @throws \Solarium\Exception\OutOfBoundsException
+     * @throws OutOfBoundsException
      *
      * @return object|null
      */
-    public function getComponent($key, $autoload = false, $config = null);
+    public function getComponent(string $key, $autoload = false, array $config = null);
 
     /**
      * Set a component instance.
@@ -133,7 +135,7 @@ interface ComponentAwareQueryInterface
      *
      * @return self Provides fluent interface
      */
-    public function setComponent($key, $component);
+    public function setComponent(string $key, AbstractComponent $component): self;
 
     /**
      * Remove a component instance.
@@ -144,5 +146,5 @@ interface ComponentAwareQueryInterface
      *
      * @return self Provides fluent interface
      */
-    public function removeComponent($component);
+    public function removeComponent($component): self;
 }

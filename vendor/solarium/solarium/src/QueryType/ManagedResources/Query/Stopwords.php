@@ -2,12 +2,20 @@
 
 namespace Solarium\QueryType\ManagedResources\Query;
 
-use InvalidArgumentException;
 use Solarium\Core\Client\Client;
 use Solarium\Core\Query\AbstractQuery as BaseQuery;
-use Solarium\QueryType\ManagedResources\Query\Stopwords\Command\AbstractCommand;
+use Solarium\Core\Query\RequestBuilderInterface;
+use Solarium\Core\Query\ResponseParserInterface;
+use Solarium\Exception\InvalidArgumentException;
+use Solarium\QueryType\ManagedResources\Query\Stopwords\Command\Add;
+use Solarium\QueryType\ManagedResources\Query\Stopwords\Command\Config;
+use Solarium\QueryType\ManagedResources\Query\Stopwords\Command\Create;
+use Solarium\QueryType\ManagedResources\Query\Stopwords\Command\Delete;
+use Solarium\QueryType\ManagedResources\Query\Stopwords\Command\Exists;
+use Solarium\QueryType\ManagedResources\Query\Stopwords\Command\Remove;
 use Solarium\QueryType\ManagedResources\RequestBuilder\Stopwords as RequestBuilder;
 use Solarium\QueryType\ManagedResources\ResponseParser\Stopwords as ResponseParser;
+use Solarium\QueryType\ManagedResources\Result\Stopwords\WordSet;
 
 class Stopwords extends BaseQuery
 {
@@ -15,6 +23,16 @@ class Stopwords extends BaseQuery
      * Stopwords command add.
      */
     const COMMAND_ADD = 'add';
+
+    /**
+     * Stopwords command config.
+     */
+    const COMMAND_CONFIG = 'config';
+
+    /**
+     * Stopwords command create.
+     */
+    const COMMAND_CREATE = 'create';
 
     /**
      * Stopwords command delete.
@@ -25,6 +43,11 @@ class Stopwords extends BaseQuery
      * Stopwords command delete.
      */
     const COMMAND_EXISTS = 'exists';
+
+    /**
+     * Stopwords command remove.
+     */
+    const COMMAND_REMOVE = 'remove';
 
     /**
      * Name of the stopwords resource.
@@ -46,9 +69,12 @@ class Stopwords extends BaseQuery
      * @var array
      */
     protected $commandTypes = [
-        self::COMMAND_ADD => 'Solarium\QueryType\ManagedResources\Query\Stopwords\Command\Add',
-        self::COMMAND_DELETE => 'Solarium\QueryType\ManagedResources\Query\Stopwords\Command\Delete',
-        self::COMMAND_EXISTS => 'Solarium\QueryType\ManagedResources\Query\Stopwords\Command\Exists',
+        self::COMMAND_ADD => Add::class,
+        self::COMMAND_CONFIG => Config::class,
+        self::COMMAND_CREATE => Create::class,
+        self::COMMAND_DELETE => Delete::class,
+        self::COMMAND_EXISTS => Exists::class,
+        self::COMMAND_REMOVE => Remove::class,
     ];
 
     /**
@@ -58,7 +84,7 @@ class Stopwords extends BaseQuery
      */
     protected $options = [
         'handler' => 'schema/analysis/stopwords/',
-        'resultclass' => 'Solarium\QueryType\ManagedResources\Result\Stopwords\WordSet',
+        'resultclass' => WordSet::class,
         'omitheader' => true,
     ];
 
@@ -77,7 +103,7 @@ class Stopwords extends BaseQuery
      *
      * @return RequestBuilder
      */
-    public function getRequestBuilder(): RequestBuilder
+    public function getRequestBuilder(): RequestBuilderInterface
     {
         return new RequestBuilder();
     }
@@ -87,7 +113,7 @@ class Stopwords extends BaseQuery
      *
      * @return ResponseParser
      */
-    public function getResponseParser(): ResponseParser
+    public function getResponseParser(): ResponseParserInterface
     {
         return new ResponseParser();
     }
@@ -106,10 +132,13 @@ class Stopwords extends BaseQuery
      * Set the name of the stopwords resource.
      *
      * @param string $name
+     *
+     * @return self
      */
-    public function setName(string $name)
+    public function setName(string $name): self
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
@@ -140,7 +169,7 @@ class Stopwords extends BaseQuery
      *
      * @return AbstractCommand|null
      */
-    public function getCommand()
+    public function getCommand(): ?AbstractCommand
     {
         return $this->command;
     }

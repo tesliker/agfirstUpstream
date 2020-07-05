@@ -16,6 +16,7 @@ use Drupal\Tests\search_api\Kernel\ResultsTrait;
  * Tests the "Date range" processor.
  *
  * @group search_api_solr
+ * @group not_solr4
  *
  * @see \Drupal\search_api_solr\Plugin\search_api\processor\DateRange
  */
@@ -46,7 +47,7 @@ class DateRangeTest extends ProcessorTestBase {
    */
   public function setUp($processor = NULL) {
     parent::setUp('solr_date_range');
-    $this->enableSolrServer('search_api_solr_test', '/config/install/search_api.server.solr_search_server.yml');
+    $this->enableSolrServer();
 
     // Create a node type for testing.
     $type = NodeType::create(['type' => 'page', 'name' => 'page']);
@@ -84,7 +85,6 @@ class DateRangeTest extends ProcessorTestBase {
       'required' => TRUE,
     ]);
     $rangesField->save();
-
 
     // Create a node.
     $values = [
@@ -200,10 +200,7 @@ class DateRangeTest extends ProcessorTestBase {
   }
 
   /**
-   * Data provider for testIndexField method. Set of values can be extended to
-   * check other field types and values.
-   *
-   * @return array
+   * Data provider for testIndexField method.
    */
   public function rangeQueryDataProvider() {
     return [
@@ -212,4 +209,5 @@ class DateRangeTest extends ProcessorTestBase {
       ['field_date_ranges', '2014-11-12', '2014-10-20'],
     ];
   }
+
 }

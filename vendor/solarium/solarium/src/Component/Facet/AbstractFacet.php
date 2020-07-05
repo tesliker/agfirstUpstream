@@ -3,14 +3,17 @@
 namespace Solarium\Component\Facet;
 
 use Solarium\Core\Configurable;
+use Solarium\Core\Query\LocalParameters\LocalParametersTrait;
 
 /**
  * Facet base class.
  *
- * @see http://wiki.apache.org/solr/SimpleFacetParameters
+ * @see https://lucene.apache.org/solr/guide/faceting.html
  */
 abstract class AbstractFacet extends Configurable implements FacetInterface
 {
+    use LocalParametersTrait;
+
     /**
      * Must be implemented by the facet types and return one of the constants.
      *
@@ -18,27 +21,29 @@ abstract class AbstractFacet extends Configurable implements FacetInterface
      *
      * @return string
      */
-    abstract public function getType();
+    abstract public function getType(): string;
 
     /**
-     * Get key value.
+     * Get key.
      *
-     * @return string
+     * @return string|null
      */
-    public function getKey()
+    public function getKey(): ?string
     {
-        return $this->getOption('key');
+        return $this->getLocalParameters()->getKeys()[0] ?? null;
     }
 
     /**
-     * Set key value.
+     * Set key.
      *
-     * @param string $value
+     * @param string $key
      *
      * @return self Provides fluent interface
      */
-    public function setKey($value)
+    public function setKey(string $key): FacetInterface
     {
-        return $this->setOption('key', $value);
+        $this->getLocalParameters()->setKey($key);
+
+        return $this;
     }
 }

@@ -3,13 +3,15 @@
 namespace Solarium\Component;
 
 use Solarium\Component\ComponentTraits\SuggesterTrait;
+use Solarium\Component\RequestBuilder\ComponentRequestBuilderInterface;
 use Solarium\Component\RequestBuilder\Suggester as RequestBuilder;
+use Solarium\Component\ResponseParser\ComponentParserInterface;
 use Solarium\Component\ResponseParser\Suggester as ResponseParser;
 
 /**
  * Spellcheck component.
  *
- * @see http://wiki.apache.org/solr/SpellcheckComponent
+ * @see https://lucene.apache.org/solr/guide/suggester.html
  */
 class Suggester extends AbstractComponent implements SuggesterInterface, QueryInterface
 {
@@ -21,7 +23,7 @@ class Suggester extends AbstractComponent implements SuggesterInterface, QueryIn
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return ComponentAwareQueryInterface::COMPONENT_SUGGESTER;
     }
@@ -31,7 +33,7 @@ class Suggester extends AbstractComponent implements SuggesterInterface, QueryIn
      *
      * @return RequestBuilder
      */
-    public function getRequestBuilder()
+    public function getRequestBuilder(): ComponentRequestBuilderInterface
     {
         return new RequestBuilder();
     }
@@ -41,7 +43,7 @@ class Suggester extends AbstractComponent implements SuggesterInterface, QueryIn
      *
      * @return ResponseParser
      */
-    public function getResponseParser()
+    public function getResponseParser(): ?ComponentParserInterface
     {
         return new ResponseParser();
     }

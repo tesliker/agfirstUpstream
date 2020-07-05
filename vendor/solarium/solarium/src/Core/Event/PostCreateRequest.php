@@ -4,7 +4,7 @@ namespace Solarium\Core\Event;
 
 use Solarium\Core\Client\Request;
 use Solarium\Core\Query\QueryInterface;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * PostCreateRequest event, see Events for details.
@@ -38,7 +38,7 @@ class PostCreateRequest extends Event
      *
      * @return QueryInterface
      */
-    public function getQuery()
+    public function getQuery(): QueryInterface
     {
         return $this->query;
     }
@@ -48,7 +48,7 @@ class PostCreateRequest extends Event
      *
      * @return Request
      */
-    public function getRequest()
+    public function getRequest(): Request
     {
         return $this->request;
     }

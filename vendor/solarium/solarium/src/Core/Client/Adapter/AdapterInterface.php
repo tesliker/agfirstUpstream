@@ -5,7 +5,6 @@ namespace Solarium\Core\Client\Adapter;
 use Solarium\Core\Client\Endpoint;
 use Solarium\Core\Client\Request;
 use Solarium\Core\Client\Response;
-use Solarium\Core\ConfigurableInterface;
 
 /**
  * Interface for client adapters.
@@ -22,7 +21,7 @@ use Solarium\Core\ConfigurableInterface;
  *
  * However an adapter may also implement all logic by itself if needed.
  */
-interface AdapterInterface extends ConfigurableInterface
+interface AdapterInterface
 {
     /**
      * Execute a request.
@@ -32,5 +31,5 @@ interface AdapterInterface extends ConfigurableInterface
      *
      * @return Response
      */
-    public function execute($request, $endpoint);
+    public function execute(Request $request, Endpoint $endpoint): Response;
 }

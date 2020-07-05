@@ -29,9 +29,7 @@ class QueryType extends Result
         if (!$this->parsed) {
             $responseParser = $this->query->getResponseParser();
             if (!$responseParser || !($responseParser instanceof ResponseParserInterface)) {
-                throw new UnexpectedValueException(
-                    'No responseparser returned by querytype: '.$this->query->getType()
-                );
+                throw new UnexpectedValueException('No responseparser returned by querytype: '.$this->query->getType());
             }
 
             $this->mapData($responseParser->parse($this));
@@ -45,10 +43,10 @@ class QueryType extends Result
      *
      * @param array $mapData
      */
-    protected function mapData($mapData)
+    protected function mapData(array $mapData)
     {
         foreach ($mapData as $key => $data) {
-            $this->$key = $data;
+            $this->{$key} = $data;
         }
     }
 }

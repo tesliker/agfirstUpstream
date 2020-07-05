@@ -7,7 +7,7 @@ use Solarium\QueryType\Update\Query\Query as UpdateQuery;
 /**
  * Update query rollback command.
  *
- * @see http://wiki.apache.org/solr/UpdateXmlMessages#A.22rollback.22
+ * @see https://lucene.apache.org/solr/guide/uploading-data-with-index-handlers.html#rollback-operations
  */
 class Rollback extends AbstractCommand
 {
@@ -16,7 +16,7 @@ class Rollback extends AbstractCommand
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return UpdateQuery::COMMAND_ROLLBACK;
     }

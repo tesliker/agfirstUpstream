@@ -7,12 +7,10 @@ use Solarium\Component\FacetSetInterface;
 /**
  * Facet query.
  *
- * @see http://wiki.apache.org/solr/SimpleFacetParameters#Field_Value_Faceting_Parameters
+ * @see https://lucene.apache.org/solr/guide/faceting.html#field-value-faceting-parameters
  */
-class Field extends AbstractField implements ExcludeTagsInterface
+class Field extends AbstractField
 {
-    use ExcludeTagsTrait;
-
     /**
      * Facet method enum.
      */
@@ -28,7 +26,7 @@ class Field extends AbstractField implements ExcludeTagsInterface
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return FacetSetInterface::FACET_FIELD;
     }
@@ -40,17 +38,19 @@ class Field extends AbstractField implements ExcludeTagsInterface
      *
      * @return self Provides fluent interface
      */
-    public function setContains($contains)
+    public function setContains(string $contains): self
     {
-        return $this->setOption('contains', $contains);
+        $this->setOption('contains', $contains);
+
+        return $this;
     }
 
     /**
      * Get the facet contains.
      *
-     * @return string
+     * @return string|null
      */
-    public function getContains()
+    public function getContains(): ?string
     {
         return $this->getOption('contains');
     }
@@ -62,17 +62,19 @@ class Field extends AbstractField implements ExcludeTagsInterface
      *
      * @return self Provides fluent interface
      */
-    public function setContainsIgnoreCase($containsIgnoreCase)
+    public function setContainsIgnoreCase($containsIgnoreCase): self
     {
-        return $this->setOption('containsignorecase', $containsIgnoreCase);
+        $this->setOption('containsignorecase', $containsIgnoreCase);
+
+        return $this;
     }
 
     /**
      * Get the case sensitivity of facet contains.
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getContainsIgnoreCase()
+    public function getContainsIgnoreCase(): ?bool
     {
         return $this->getOption('containsignorecase');
     }

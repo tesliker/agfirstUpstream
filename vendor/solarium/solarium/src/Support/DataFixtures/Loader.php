@@ -2,6 +2,9 @@
 
 namespace Solarium\Support\DataFixtures;
 
+use ReflectionException;
+use Solarium\Exception\InvalidArgumentException;
+
 /**
  * @author Baldur Rensch <brensch@gmail.com>
  */
@@ -29,16 +32,20 @@ class Loader
 
     /**
      * @param FixtureInterface $fixture
+     *
+     * @return self
      */
-    public function addFixture(FixtureInterface $fixture)
+    public function addFixture(FixtureInterface $fixture): self
     {
         $this->fixtures[] = $fixture;
+
+        return $this;
     }
 
     /**
      * @return FixtureInterface[]
      */
-    public function getFixtures()
+    public function getFixtures(): array
     {
         return $this->fixtures;
     }
@@ -46,12 +53,15 @@ class Loader
     /**
      * @param string $dir
      *
-     * @throws \InvalidArgumentException
+     * @return self
+     *
+     * @throws InvalidArgumentException
+     * @throws ReflectionException
      */
-    public function loadFromDirectory($dir)
+    public function loadFromDirectory(string $dir): self
     {
         if (!is_dir($dir)) {
-            throw new \InvalidArgumentException(sprintf('"%s" does not exist', $dir));
+            throw new InvalidArgumentException(sprintf('"%s" does not exist', $dir));
         }
 
         $includedFiles = [];
@@ -63,7 +73,7 @@ class Loader
 
         /** @var $file \DirectoryIterator */
         foreach ($iterator as $file) {
-            if (($fileName = $file->getBasename($this->fileExtension)) == $file->getBasename()) {
+            if ($file->getBasename($this->fileExtension) == $file->getBasename()) {
                 continue;
             }
             $sourceFile = realpath($file->getPathname());
@@ -83,5 +93,7 @@ class Loader
                 $this->addFixture($fixture);
             }
         }
+
+        return $this;
     }
 }

@@ -15,8 +15,10 @@ use Solarium\Exception\RuntimeException;
  *
  * @author Intervals <info@myintervals.com>
  */
-class Curl extends Configurable implements AdapterInterface
+class Curl extends Configurable implements AdapterInterface, TimeoutAwareInterface
 {
+    use TimeoutAwareTrait;
+
     /**
      * Execute a Solr request using the cURL Http.
      *
@@ -25,7 +27,7 @@ class Curl extends Configurable implements AdapterInterface
      *
      * @return Response
      */
-    public function execute($request, $endpoint)
+    public function execute(Request $request, Endpoint $endpoint): Response
     {
         return $this->getData($request, $endpoint);
     }
@@ -38,9 +40,8 @@ class Curl extends Configurable implements AdapterInterface
      *
      * @return Response
      */
-    public function getResponse($handle, $httpResponse)
+    public function getResponse($handle, $httpResponse): Response
     {
-        // @codeCoverageIgnoreStart
         if (false !== $httpResponse && null !== $httpResponse) {
             $data = $httpResponse;
             $info = curl_getinfo($handle);
@@ -55,7 +56,6 @@ class Curl extends Configurable implements AdapterInterface
         curl_close($handle);
 
         return new Response($data, $headers);
-        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -71,9 +71,7 @@ class Curl extends Configurable implements AdapterInterface
      */
     public function createHandle($request, $endpoint)
     {
-        // @codeCoverageIgnoreStart
-        $baseUri = $request->getIsServerRequest() ? $endpoint->getServerUri() : $endpoint->getCoreBaseUri();
-        $uri = $baseUri.$request->getUri();
+        $uri = AdapterHelper::buildUri($request, $endpoint);
 
         $method = $request->getMethod();
         $options = $this->createOptions($request, $endpoint);
@@ -92,10 +90,12 @@ class Curl extends Configurable implements AdapterInterface
         }
 
         if (!isset($options['headers']['Content-Type'])) {
+            $charset = $request->getParam('ie') ?? 'utf-8';
+
             if (Request::METHOD_GET == $method) {
-                $options['headers']['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf-8';
+                $options['headers']['Content-Type'] = 'application/x-www-form-urlencoded; charset='.$charset;
             } else {
-                $options['headers']['Content-Type'] = 'application/xml; charset=utf-8';
+                $options['headers']['Content-Type'] = 'application/xml; charset='.$charset;
             }
         }
 
@@ -122,8 +122,7 @@ class Curl extends Configurable implements AdapterInterface
             curl_setopt($handler, CURLOPT_POST, true);
 
             if ($request->getFileUpload()) {
-                $helper = new AdapterHelper();
-                $data = $helper->buildUploadBodyFromRequest($request);
+                $data = AdapterHelper::buildUploadBodyFromRequest($request);
                 curl_setopt($handler, CURLOPT_POSTFIELDS, $data);
             } else {
                 curl_setopt($handler, CURLOPT_POSTFIELDS, $request->getRawData());
@@ -138,8 +137,7 @@ class Curl extends Configurable implements AdapterInterface
             curl_setopt($handler, CURLOPT_CUSTOMREQUEST, 'PUT');
 
             if ($request->getFileUpload()) {
-                $helper = new AdapterHelper();
-                $data = $helper->buildUploadBodyFromRequest($request);
+                $data = AdapterHelper::buildUploadBodyFromRequest($request);
                 curl_setopt($handler, CURLOPT_POSTFIELDS, $data);
             } else {
                 curl_setopt($handler, CURLOPT_POSTFIELDS, $request->getRawData());
@@ -149,7 +147,6 @@ class Curl extends Configurable implements AdapterInterface
         }
 
         return $handler;
-        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -179,14 +176,12 @@ class Curl extends Configurable implements AdapterInterface
      *
      * @return Response
      */
-    protected function getData($request, $endpoint)
+    protected function getData($request, $endpoint): Response
     {
-        // @codeCoverageIgnoreStart
         $handle = $this->createHandle($request, $endpoint);
         $httpResponse = curl_exec($handle);
 
         return $this->getResponse($handle, $httpResponse);
-        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -198,13 +193,11 @@ class Curl extends Configurable implements AdapterInterface
      */
     protected function init()
     {
-        // @codeCoverageIgnoreStart
         if (!function_exists('curl_init')) {
             throw new RuntimeException('cURL is not available, install it to use the CurlHttp adapter');
         }
 
         parent::init();
-        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -217,18 +210,16 @@ class Curl extends Configurable implements AdapterInterface
      */
     protected function createOptions($request, $endpoint)
     {
-        // @codeCoverageIgnoreStart
         $options = [
-            'timeout' => $endpoint->getTimeout(),
+            'timeout' => $this->timeout,
         ];
         foreach ($request->getHeaders() as $headerLine) {
-            list($header, $value) = explode(':', $headerLine);
+            [$header, $value] = explode(':', $headerLine);
             if ($header = trim($header)) {
                 $options['headers'][$header] = trim($value);
             }
         }
 
         return $options;
-        // @codeCoverageIgnoreEnd
     }
 }

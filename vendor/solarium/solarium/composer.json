@@ -12,19 +12,25 @@
         }
     ],
     "require": {
-        "php": "^7.0",
-        "symfony/event-dispatcher": "^2.7 || ^3.0 || ^4.0"
+        "php": "^7.2",
+        "ext-json": "*",
+        "psr/event-dispatcher": "^1.0",
+        "psr/http-client": "^1.0",
+        "psr/http-factory": "^1.0",
+        "symfony/contracts": "^1.0 || ^2.0"
     },
     "require-dev": {
-        "guzzlehttp/guzzle": "^3.8 || ^6.2",
-        "phpunit/phpunit": "^6.5",
-        "php-coveralls/php-coveralls": "^1.0",
-        "squizlabs/php_codesniffer": "^1.4",
-        "zendframework/zendframework": "^3.0"
+        "guzzlehttp/guzzle": "^6.5",
+        "nyholm/psr7": "^1.2",
+        "php-http/guzzle6-adapter": "^2.0",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-phpunit": "^0.12",
+        "phpunit/phpunit": "^8.0",
+        "roave/security-advisories": "dev-master",
+        "symfony/event-dispatcher": "^4.3 || ^5.0"
     },
-    "suggest": {
-        "minimalcode/search": "Query builder compatible with Solarium, allows simplified solr-query handling"
-    },
+    "prefer-stable": true,
     "config": {
         "sort-packages": true
     },
@@ -36,11 +42,6 @@
     "autoload-dev": {
         "psr-4": {
             "Solarium\\Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "4.1.x-dev"
         }
     }
 }

@@ -3,6 +3,7 @@
 namespace Solarium\QueryType\MoreLikeThis;
 
 use Solarium\Core\Client\Request;
+use Solarium\Core\Query\AbstractQuery;
 use Solarium\Core\Query\QueryInterface;
 use Solarium\QueryType\Select\RequestBuilder as SelectRequestBuilder;
 
@@ -18,7 +19,7 @@ class RequestBuilder extends SelectRequestBuilder
      *
      * @return Request
      */
-    public function build(QueryInterface $query)
+    public function build(AbstractQuery $query): Request
     {
         $request = parent::build($query);
 
@@ -38,10 +39,12 @@ class RequestBuilder extends SelectRequestBuilder
 
         // convert query to stream if necessary
         if (true === $query->getQueryStream()) {
+            $charset = $request->getParam('ie') ?? 'utf-8';
+
             $request->removeParam('q');
             $request->setRawData($query->getQuery());
             $request->setMethod(Request::METHOD_POST);
-            $request->addHeader('Content-Type: text/plain; charset=utf-8');
+            $request->addHeader('Content-Type: text/plain; charset='.$charset);
         }
 
         return $request;
