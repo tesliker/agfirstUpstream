@@ -34,4 +34,16 @@ class ConfigPagesAccessControlHandler extends EntityAccessControlHandler {
     return parent::checkAccess($entity, $operation, $account);
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
+    if ($account->hasPermission('edit config_pages entity'))
+      return AccessResult::allowed()->cachePerPermissions();
+    if ($account->hasPermission('edit ' . $entity_bundle . ' config page entity')) {
+      return AccessResult::allowed()->cachePerPermissions();
+    }
+    return parent::checkCreateAccess($account, $context, $entity_bundle);
+  }
+
 }

@@ -25,6 +25,11 @@ class CreateConfigPageTypeTest extends BrowserTestBase
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stable';
+
+  /**
+   * {@inheritdoc}
+   */
   protected function setUp() {
     parent::setUp();
 
@@ -40,6 +45,7 @@ class CreateConfigPageTypeTest extends BrowserTestBase
         'weight' => 0,
         'description' => 'Test page for ConfigPages module.',
       ],
+      'token' => FALSE,
     ]);
 
     $configPageType->save();

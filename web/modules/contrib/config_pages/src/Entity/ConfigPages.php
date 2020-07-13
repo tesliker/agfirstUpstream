@@ -31,7 +31,7 @@ use Drupal\Core\Url;
  *     },
  *     "translation" = "Drupal\config_pages\ConfigPagesTranslationHandler"
  *   },
- *   admin_permission = "administer config pages",
+ *   admin_permission = "administer config_pages types",
  *   base_table = "config_pages",
  *   links = {
  *     "canonical" = "/config_pages/{config_pages}",
@@ -119,9 +119,7 @@ class ConfigPages extends ContentEntityBase implements ConfigPagesInterface {
       ->setDescription(t('A brief description of your config page.'))
       ->setRevisionable(FALSE)
       ->setTranslatable(FALSE)
-      ->setDisplayOptions('view', [
-        'type' => 'hidden',
-      ])
+      ->setDisplayOptions('view', ['region' => 'hidden'])
       ->setDisplayConfigurable('form', TRUE);
 
     $fields['type'] = BaseFieldDefinition::create('entity_reference')
@@ -209,7 +207,7 @@ class ConfigPages extends ContentEntityBase implements ConfigPagesInterface {
    */
   public function toUrl($rel = 'canonical', array $options = []) {
     $config_pages_type = ConfigPagesType::load($this->bundle());
-    $menu = $config_pages_type->get('menu');
+    $menu = $config_pages_type ? $config_pages_type->get('menu') : [];
     $path = isset($menu['path']) ? $menu['path'] : '';
 
     return $path

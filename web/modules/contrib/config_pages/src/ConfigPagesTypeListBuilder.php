@@ -62,6 +62,7 @@ class ConfigPagesTypeListBuilder extends ConfigEntityListBuilder {
   public function buildHeader() {
     $header['type'] = t('Type');
     $header['context'] = t('Context');
+    $header['token'] = t('Exposed as tokens');
     return $header + parent::buildHeader();
   }
 
@@ -83,6 +84,10 @@ class ConfigPagesTypeListBuilder extends ConfigEntityListBuilder {
       }
     }
     $row['context'] = implode(', ', $contextData);
+    $row['token'] =  !empty($entity->token)
+      ? 'Exposed'
+      : 'Hidden';
+
     return $row + parent::buildRow($entity);
   }
 

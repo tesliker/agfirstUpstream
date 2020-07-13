@@ -75,6 +75,7 @@ class ConfigPagesListBuilder extends EntityListBuilder implements EntityListBuil
   public function buildHeader() {
     $header['label'] = t('Name');
     $header['context'] = t('Context');
+    $header['token'] = t('Exposed as tokens');
     return $header + parent::buildHeader();
   }
 
@@ -96,6 +97,10 @@ class ConfigPagesListBuilder extends EntityListBuilder implements EntityListBuil
       }
     }
     $row['context'] = implode(', ', $contextData);
+    $row['token'] =  !empty($entity->token)
+      ? 'Exposed'
+      : 'Hidden';
+
     return $row + parent::buildRow($entity);
   }
 

@@ -19,6 +19,11 @@ class UiPageTest extends BrowserTestBase {
   protected static $modules = ['config_pages'];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stable';
+
+  /**
    * Tests that the ConfigPages listing page works.
    */
   public function testConfigPagesPage() {
@@ -29,8 +34,7 @@ class UiPageTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
 
     // Test that there is an empty reaction rule listing.
-    $this->assertSession()->pageTextContains('There is no Config page yet.');
-
+    $this->assertSession()->pageTextContains('There are no config page entities yet.');
   }
 
   /**
@@ -44,7 +48,7 @@ class UiPageTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
 
     // Test that there is an empty reaction rule listing.
-    $this->assertSession()->pageTextContains('There is no Config page type yet.');
+    $this->assertSession()->pageTextContains('There are no config page type entities yet.');
   }
 
 }

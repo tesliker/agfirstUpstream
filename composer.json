@@ -20,7 +20,7 @@
         "drupal/allowed_formats": "^1.1",
         "drupal/anchor_link": "^1.6",
         "drupal/auto_entitylabel": "^3.0@beta",
-        "drupal/better_exposed_filters": "^3.0@alpha",
+        "drupal/better_exposed_filters": "^5.0@beta",
         "drupal/bg_image_formatter": "^1.11",
         "drupal/business_rules": "^1.0@beta",
         "drupal/chosen": "^2.9",

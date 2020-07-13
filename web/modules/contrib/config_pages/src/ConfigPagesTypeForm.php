@@ -84,6 +84,7 @@ class ConfigPagesTypeForm extends EntityForm {
       '#description' => t("Provide a label for this config page type to help identify it in the administration pages."),
       '#required' => TRUE,
     ];
+
     $form['id'] = [
       '#type' => 'machine_name',
       '#default_value' => $config_pages_type->id(),
@@ -92,6 +93,16 @@ class ConfigPagesTypeForm extends EntityForm {
       ],
       '#maxlength' => EntityTypeInterface::BUNDLE_MAX_LENGTH,
       '#disabled' => !$config_pages_type->isNew(),
+    ];
+
+    // Token support.
+    $form['token'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Expose this ConfigPage values as tokens.'),
+      '#default_value' => !empty($config_pages_type->token)
+        ? $config_pages_type->token
+        : FALSE,
+      '#required' => FALSE,
     ];
 
     $form['actions'] = ['#type' => 'actions'];
@@ -222,7 +233,7 @@ class ConfigPagesTypeForm extends EntityForm {
     if (!empty($new_menu_path) && $new_menu_path != $old_menu_path) {
       $path_exists = $this->pathValidator->isValid($new_menu_path);
       if ($path_exists) {
-        $form_state->setErrorByName('menu', $this->t('This menu path is already exists, please provide another one.'));
+        $form_state->setErrorByName('menu', $this->t('This menu path already exists, please provide another one.'));
       }
       $this->routesRebuildRequired = TRUE;
     }

@@ -29,7 +29,8 @@ use Drupal\config_pages\ConfigPagesTypeInterface;
  *     "id" = "id",
  *     "label" = "label",
  *     "context" = "context",
- *     "menu" = "menu"
+ *     "menu" = "menu",
+ *     "token" = "token"
  *   },
  *   links = {
  *     "delete-form" = "/admin/structure/config_pages/config-pages-content/manage/{config_pages_type}/delete",
@@ -40,7 +41,8 @@ use Drupal\config_pages\ConfigPagesTypeInterface;
  *     "id",
  *     "label",
  *     "context",
- *     "menu"
+ *     "menu",
+ *     "token"
  *   }
  * )
  */
@@ -79,11 +81,14 @@ class ConfigPagesType extends ConfigEntityBundleBase implements ConfigPagesTypeI
     $query = \Drupal::entityQuery('config_pages');
 
     $type = array_shift($entities);
-    $label = $type->label();
-    $config_page_ids = $query->condition('label', $label)->execute();
+    $config_page_ids = $query->condition('type', $type->id())->execute();
     $cp_storage = \Drupal::service('entity_type.manager')->getStorage('config_pages');
-    $cp_entities = $cp_storage->loadMultiple($config_page_ids);
-    $cp_storage->delete($cp_entities);
+    if ($cp_storage && $config_page_ids) {
+      // ConfigPage could possibly never submitted, so no entities exists for this CP type.
+      // Delete them only if we have some ID's for that.
+      $cp_entities = $cp_storage->loadMultiple($config_page_ids);
+      $cp_storage->delete($cp_entities);
+    }
   }
 
   /**
@@ -97,17 +102,27 @@ class ConfigPagesType extends ConfigEntityBundleBase implements ConfigPagesTypeI
   /**
    * Provides the serialized context data.
    *
+   * @param bool $fallback
+   *   Not count the context plugins.
+   *
    * @return string
    *   Return context data.
+   *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function getContextData() {
+  public function getContextData($fallback = FALSE) {
     $contextData = [];
     if (!empty($this->context['group'])) {
       foreach ($this->context['group'] as $context_id => $context_enabled) {
         if ($context_enabled) {
           $item = $this->config_pages_context->createInstance($context_id);
-          $context_value = $item->getValue();
+
+          if ($fallback && !empty($this->context['fallback'][$context_id])) {
+            $context_value = $this->context['fallback'][$context_id];
+          }
+          else {
+            $context_value = $item->getValue();
+          }
           $contextData[] = [$context_id => $context_value];
         }
       }
