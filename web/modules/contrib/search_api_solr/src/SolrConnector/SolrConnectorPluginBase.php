@@ -2,6 +2,7 @@
 
 namespace Drupal\search_api_solr\SolrConnector;
 
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Plugin\PluginFormInterface;
@@ -397,7 +398,20 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
       // corresponding full version string.
       $min_version = ['0', '0', '0'];
       $version = implode('.', explode('.', $this->configuration['solr_version']) + $min_version);
-      return '4.0.0' === $version ? '4.5.0' : $version;
+      switch ($version) {
+        case '4.0.0':
+          // 4.5.0 is the minimum supported Solr version by the
+          // search_api_solr_legacy module.
+          $version = '4.5.0';
+          break;
+        case '6.0.0':
+          // 6.4.0 is the minimum supported Solr version. Earlier Solr 6
+          // versions should run in Solr 5 compatibility mode using the
+          // search_api_solr_legacy module.
+          $version = '6.4.0';
+          break;
+      }
+      return $version;
     }
 
     $info = [];
@@ -932,6 +946,11 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   /**
    * Converts a HttpException in an easier to read SearchApiSolrException.
    *
+   * Connectors must not overwrite this function. Otherwise support requests are
+   * hard to handle in the issue queue. If you want to extend this function and
+   * add more sophisticated error handling, please contribute a patch to
+   * the search_api_solr project on drupal.org.
+   *
    * @param \Solarium\Exception\HttpException $e
    *   The HttpException object.
    * @param \Solarium\Core\Client\Endpoint $endpoint
@@ -939,19 +958,28 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
    *
    * @throws \Drupal\search_api_solr\SearchApiSolrException
    */
-  protected function handleHttpException(HttpException $e, Endpoint $endpoint) {
+  final protected function handleHttpException(HttpException $e, Endpoint $endpoint) {
+    $body = $e->getBody();
     $response_code = (int) $e->getCode();
     switch ((string) $response_code) {
-      case '404':
+      case '400': // Bad Request.
+        $description = 'bad request';
+        $response_decoded = Json::decode($body);
+        if ($response_decoded && isset($response_decoded['error'])) {
+          $body = $response_decoded['error']['msg'] ?? $body;
+        }
+        break;
+
+      case '404': // Not Found.
         $description = 'not found';
         break;
 
-      case '401':
-      case '403':
+      case '401': // Unauthorized.
+      case '403': // Forbidden.
         $description = 'access denied';
         break;
 
-      case '500':
+      case '500': // Internal Server Error.
       case '0':
         $description = 'internal Solr server error';
         break;
@@ -959,7 +987,20 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
       default:
         $description = 'unreachable or returned unexpected response code';
     }
-    throw new SearchApiSolrException(sprintf('Solr endpoint %s %s (%d). %s', $endpoint->getServerUri(), $description, $response_code, $e->getBody()), $response_code, $e);
+    throw new SearchApiSolrException(sprintf('Solr endpoint %s %s (%d). %s', $this->getEndpointUri($endpoint), $description, $response_code, $body), $response_code, $e);
+  }
+
+  /**
+   * Gets a string representation of the endpoint URI.
+   *
+   * Could be overwritten by other connectors according to their needs.
+   *
+   * @param \Solarium\Core\Client\Endpoint $endpoint
+   *
+   * @return string
+   */
+  protected function getEndpointUri(Endpoint $endpoint): string {
+    return $endpoint->getServerUri();
   }
 
   /**
@@ -1151,13 +1192,6 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   public function alterConfigFiles(array &$files, string $lucene_match_version, string $server_id = '') {
     if (!empty($this->configuration['jmx'])) {
       $files['solrconfig_extra.xml'] .= "<jmx />\n";
-    }
-
-    if (!empty($this->configuration['solr_install_dir'])) {
-      $files['solrcore.properties'] = preg_replace("/solr\.install\.dir.*$/m", 'solr.install.dir=' . $this->configuration['solr_install_dir'], $files['solrcore.properties']);
-    }
-    else {
-      $files['solrcore.properties'] = preg_replace("/solr\.install\.dir.*$/m", '', $files['solrcore.properties']);
     }
   }
 
