@@ -121,17 +121,17 @@
     },
     {
         "name": "commerceguys/addressing",
-        "version": "v1.0.8",
-        "version_normalized": "1.0.8.0",
+        "version": "v1.0.9",
+        "version_normalized": "1.0.9.0",
         "source": {
             "type": "git",
             "url": "https://github.com/commerceguys/addressing.git",
-            "reference": "cf202c913c10d85085ab5ed9ec88607e312839ce"
+            "reference": "7f6b8780ae20862529a0ceaaf102a3f7ff740b91"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/commerceguys/addressing/zipball/cf202c913c10d85085ab5ed9ec88607e312839ce",
-            "reference": "cf202c913c10d85085ab5ed9ec88607e312839ce",
+            "url": "https://api.github.com/repos/commerceguys/addressing/zipball/7f6b8780ae20862529a0ceaaf102a3f7ff740b91",
+            "reference": "7f6b8780ae20862529a0ceaaf102a3f7ff740b91",
             "shasum": ""
         },
         "require": {
@@ -147,7 +147,7 @@
         "suggest": {
             "symfony/validator": "to validate addresses"
         },
-        "time": "2020-05-26T11:04:04+00:00",
+        "time": "2020-09-12T12:15:49+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1666,7 +1666,8 @@
         "license": [
             "GPL-2.0-or-later"
         ],
-        "description": "Composer Plugin for updating the Drupal scaffold files when using drupal/core"
+        "description": "Composer Plugin for updating the Drupal scaffold files when using drupal/core",
+        "abandoned": "drupal/core-composer-scaffold"
     },
     {
         "name": "drupal/address",
@@ -3718,30 +3719,27 @@
     },
     {
         "name": "drupal/environment_indicator",
-        "version": "3.7.0",
-        "version_normalized": "3.7.0.0",
+        "version": "4.0.0",
+        "version_normalized": "4.0.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/environment_indicator.git",
-            "reference": "8.x-3.7"
+            "reference": "4.0.0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/environment_indicator-8.x-3.7.zip",
-            "reference": "8.x-3.7",
-            "shasum": "c5e27581a10f446f7c88568279454f20f5910dc9"
+            "url": "https://ftp.drupal.org/files/projects/environment_indicator-4.0.0.zip",
+            "reference": "4.0.0",
+            "shasum": "f205832f96a50c62e627e1c0b0bad4eb6b02def4"
         },
         "require": {
-            "drupal/core": "*"
+            "drupal/core": "^8.8 || ^9"
         },
         "type": "drupal-module",
         "extra": {
-            "branch-alias": {
-                "dev-3.x": "3.x-dev"
-            },
             "drupal": {
-                "version": "8.x-3.7",
-                "datestamp": "1568149685",
+                "version": "4.0.0",
+                "datestamp": "1592917880",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -3761,6 +3759,10 @@
             {
                 "name": "mrfelton",
                 "homepage": "https://www.drupal.org/user/305669"
+            },
+            {
+                "name": "pratik_kamble",
+                "homepage": "https://www.drupal.org/user/3204909"
             }
         ],
         "description": "Adds a color indicator for the different environments.",
@@ -3902,18 +3904,18 @@
     },
     {
         "name": "drupal/fontyourface",
-        "version": "3.3.0",
-        "version_normalized": "3.3.0.0",
+        "version": "3.4.0",
+        "version_normalized": "3.4.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/fontyourface.git",
-            "reference": "8.x-3.3"
+            "reference": "8.x-3.4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/fontyourface-8.x-3.3.zip",
-            "reference": "8.x-3.3",
-            "shasum": "d29b4b6c3157105a726cb37aea628f6c0da26637"
+            "url": "https://ftp.drupal.org/files/projects/fontyourface-8.x-3.4.zip",
+            "reference": "8.x-3.4",
+            "shasum": "747c710edd301f47be3c5fb3377a4c422a1f487c"
         },
         "require": {
             "drupal/core": "^8 || ^9"
@@ -3921,8 +3923,8 @@
         "type": "drupal-module",
         "extra": {
             "drupal": {
-                "version": "8.x-3.3",
-                "datestamp": "1597334555",
+                "version": "8.x-3.4",
+                "datestamp": "1599818817",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -4526,18 +4528,18 @@
     },
     {
         "name": "drupal/imce",
-        "version": "2.2.0",
-        "version_normalized": "2.2.0.0",
+        "version": "2.3.0",
+        "version_normalized": "2.3.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/imce.git",
-            "reference": "8.x-2.2"
+            "reference": "8.x-2.3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/imce-8.x-2.2.zip",
-            "reference": "8.x-2.2",
-            "shasum": "afc77eff2cb146885dd115c303993a8f83ece003"
+            "url": "https://ftp.drupal.org/files/projects/imce-8.x-2.3.zip",
+            "reference": "8.x-2.3",
+            "shasum": "87548af8f66ef91146b70046755c1700a3847be6"
         },
         "require": {
             "drupal/core": "^8.8 || ^9"
@@ -4545,8 +4547,8 @@
         "type": "drupal-module",
         "extra": {
             "drupal": {
-                "version": "8.x-2.2",
-                "datestamp": "1586699977",
+                "version": "8.x-2.3",
+                "datestamp": "1599926540",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -6550,33 +6552,30 @@
     },
     {
         "name": "drupal/simple_block",
-        "version": "1.0.0-beta1",
-        "version_normalized": "1.0.0.0-beta1",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/simple_block.git",
-            "reference": "8.x-1.0-beta1"
+            "reference": "8.x-1.0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/simple_block-8.x-1.0-beta1.zip",
-            "reference": "8.x-1.0-beta1",
-            "shasum": "3a3555e580993ee1600b6e2eb01ab481ff8d9caa"
+            "url": "https://ftp.drupal.org/files/projects/simple_block-8.x-1.0.zip",
+            "reference": "8.x-1.0",
+            "shasum": "2c703aa97e487c5aea7a1b9823bf7254315fcc31"
         },
         "require": {
-            "drupal/core": "*"
+            "drupal/core": "^8 || ^9"
         },
         "type": "drupal-module",
         "extra": {
-            "branch-alias": {
-                "dev-1.x": "1.x-dev"
-            },
             "drupal": {
-                "version": "8.x-1.0-beta1",
-                "datestamp": "1485418683",
+                "version": "8.x-1.0",
+                "datestamp": "1599902885",
                 "security-coverage": {
-                    "status": "not-covered",
-                    "message": "Project has not opted into security advisory coverage!"
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
                 }
             }
         },
@@ -6586,6 +6585,10 @@
             "GPL-2.0-or-later"
         ],
         "authors": [
+            {
+                "name": "Neslee Canil Pinto",
+                "homepage": "https://www.drupal.org/user/3580850"
+            },
             {
                 "name": "claudiu.cristea",
                 "homepage": "https://www.drupal.org/user/56348"
@@ -7429,18 +7432,18 @@
     },
     {
         "name": "drupal/webform",
-        "version": "5.19.0",
-        "version_normalized": "5.19.0.0",
+        "version": "5.20.0",
+        "version_normalized": "5.20.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/webform.git",
-            "reference": "8.x-5.19"
+            "reference": "8.x-5.20"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/webform-8.x-5.19.zip",
-            "reference": "8.x-5.19",
-            "shasum": "90a2084c2647bca791cc8b18a7e2a3b49f3da7ea"
+            "url": "https://ftp.drupal.org/files/projects/webform-8.x-5.20.zip",
+            "reference": "8.x-5.20",
+            "shasum": "986dc0ba571e926a156390aca8138602dfc285e9"
         },
         "require": {
             "drupal/core": "^8.8"
@@ -7453,9 +7456,10 @@
             "drupal/clientside_validation": "~3.0",
             "drupal/clientside_validation_jquery": "*",
             "drupal/devel": "~3.0",
+            "drupal/entity": "~1.0",
             "drupal/entity_print": "~2.0",
             "drupal/gnode": "*",
-            "drupal/group": "~1.0",
+            "drupal/group": "1.0",
             "drupal/lingotek": "~3.0",
             "drupal/mailsystem": "~4.0",
             "drupal/paragraphs": "~1.0",
@@ -7464,6 +7468,7 @@
             "drupal/styleguide": "~1.0",
             "drupal/telephone_validation": "~2.0",
             "drupal/token": "~1.0",
+            "drupal/variationcache": "~1.0",
             "drupal/webform_access": "*",
             "drupal/webform_attachment": "*",
             "drupal/webform_clientside_validation": "*",
@@ -7479,8 +7484,8 @@
         "type": "drupal-module",
         "extra": {
             "drupal": {
-                "version": "8.x-5.19",
-                "datestamp": "1593681136",
+                "version": "8.x-5.20",
+                "datestamp": "1599851752",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -7939,17 +7944,17 @@
     },
     {
         "name": "egulias/email-validator",
-        "version": "2.1.20",
-        "version_normalized": "2.1.20.0",
+        "version": "2.1.21",
+        "version_normalized": "2.1.21.0",
         "source": {
             "type": "git",
             "url": "https://github.com/egulias/EmailValidator.git",
-            "reference": "f46887bc48db66c7f38f668eb7d6ae54583617ff"
+            "reference": "563d0cdde5d862235ffe24a158497f4d490191b5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/f46887bc48db66c7f38f668eb7d6ae54583617ff",
-            "reference": "f46887bc48db66c7f38f668eb7d6ae54583617ff",
+            "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/563d0cdde5d862235ffe24a158497f4d490191b5",
+            "reference": "563d0cdde5d862235ffe24a158497f4d490191b5",
             "shasum": ""
         },
         "require": {
@@ -7965,7 +7970,7 @@
         "suggest": {
             "ext-intl": "PHP Internationalization Libraries are required to use the SpoofChecking validation"
         },
-        "time": "2020-09-06T13:44:32+00:00",
+        "time": "2020-09-19T14:37:56+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -8945,17 +8950,17 @@
     },
     {
         "name": "nikic/php-parser",
-        "version": "v4.9.1",
-        "version_normalized": "4.9.1.0",
+        "version": "v4.10.1",
+        "version_normalized": "4.10.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/nikic/PHP-Parser.git",
-            "reference": "88e519766fc58bd46b8265561fb79b54e2e00b28"
+            "reference": "1b479e7592812411c20c34d9ed33db3957bde66e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/88e519766fc58bd46b8265561fb79b54e2e00b28",
-            "reference": "88e519766fc58bd46b8265561fb79b54e2e00b28",
+            "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/1b479e7592812411c20c34d9ed33db3957bde66e",
+            "reference": "1b479e7592812411c20c34d9ed33db3957bde66e",
             "shasum": ""
         },
         "require": {
@@ -8966,7 +8971,7 @@
             "ircmaxell/php-yacc": "^0.0.7",
             "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0"
         },
-        "time": "2020-08-30T16:15:20+00:00",
+        "time": "2020-09-23T18:23:49+00:00",
         "bin": [
             "bin/php-parse"
         ],
