@@ -72,6 +72,7 @@
         "drupal/scheduler_content_moderation_integration": "^1.1",
         "drupal/search_api": "^1.17",
         "drupal/search_api_attachments": "^1.0@beta",
+        "drupal/search_api_exclude_entity": "^1.2",
         "drupal/search_api_solr": "^4.1",
         "drupal/sendgrid_integration": "^1.4",
         "drupal/simple_block": "^1.0@beta",
