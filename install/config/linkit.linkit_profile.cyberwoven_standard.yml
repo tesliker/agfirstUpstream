@@ -1,0 +1,55 @@
+uuid: 3dcc05b2-ae65-40ad-a54d-184aeb614609
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.linkit_result_thumbnail
+  module:
+    - file
+    - image
+    - imce
+    - node
+third_party_settings:
+  imce:
+    use: true
+    scheme: public
+id: cyberwoven_standard
+label: 'Cyberwoven Standard'
+description: 'This standard LinkIt configuration for Cyberwoven sites.'
+attributes:
+  relationship:
+    id: relationship
+    weight: 0
+    settings: {  }
+  target:
+    id: target
+    weight: 0
+    settings:
+      widget_type: simple_checkbox
+  title:
+    id: title
+    weight: 0
+    settings:
+      automatic_title: true
+matchers:
+  2ec8795d-ce45-4573-bc20-6a1e0efc4178:
+    uuid: 2ec8795d-ce45-4573-bc20-6a1e0efc4178
+    id: 'entity:node'
+    weight: 0
+    settings:
+      result_description: ''
+      bundles: {  }
+      group_by_bundle: false
+      include_unpublished: true
+  26d2de6c-f664-4a59-b309-a4202767ef5b:
+    uuid: 26d2de6c-f664-4a59-b309-a4202767ef5b
+    id: 'entity:file'
+    weight: 0
+    settings:
+      result_description: '[file:name]'
+      bundles: null
+      group_by_bundle: null
+      images:
+        show_dimensions: true
+        show_thumbnail: true
+        thumbnail_image_style: linkit_result_thumbnail

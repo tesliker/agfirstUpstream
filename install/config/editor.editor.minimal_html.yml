@@ -1,0 +1,65 @@
+uuid: dcaf94ed-dd53-4bd6-879f-bd920d0574d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.minimal_html
+  module:
+    - ckeditor
+format: minimal_html
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Actions
+          items:
+            - Undo
+            - Redo
+            - Copy
+            - Cut
+            - Paste
+        -
+          name: Formatting
+          items:
+            - RemoveFormat
+            - Bold
+            - Italic
+            - Superscript
+            - Subscript
+        -
+          name: Links
+          items:
+            - Linkit
+            - Unlink
+        -
+          name: Media
+          items:
+            - ImceLink
+        -
+          name: Tools
+          items:
+            - Source
+  plugins:
+    stylescombo:
+      styles: ''
+    language:
+      language_list: un
+    linkit:
+      linkit_profile: cyberwoven_standard
+    video_embed:
+      defaults:
+        children:
+          autoplay: true
+          responsive: true
+          width: '854'
+          height: '480'
+image_upload:
+  status: false
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null

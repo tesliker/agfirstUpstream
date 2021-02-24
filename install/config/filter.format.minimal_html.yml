@@ -1,0 +1,14 @@
+uuid: fcc89181-a13c-4f08-9d79-0be2bccc57ca
+langcode: en
+status: true
+dependencies: {  }
+name: 'Minimal HTML'
+format: minimal_html
+weight: 0
+filters:
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: 10
+    settings: {  }
