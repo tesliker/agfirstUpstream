@@ -183,6 +183,8 @@ class FilesExtractor extends ProcessorPluginBase implements PluginFormInterface 
     $files = [];
     $config = $this->configFactory->get(static::CONFIGNAME);
     $extractor_plugin_id = $config->get('extraction_method');
+    // Get the config option to read text files directly.
+    $this->configuration['read_text_files_directly'] = $config->get('read_text_files_directly');
     if ($extractor_plugin_id != '') {
       $configuration = $config->get($extractor_plugin_id . '_configuration');
       $extractor_plugin = $this->textExtractorPluginManager->createInstance($extractor_plugin_id, $configuration);
@@ -273,14 +275,16 @@ class FilesExtractor extends ProcessorPluginBase implements PluginFormInterface 
    */
   public function extractOrGetFromCache(EntityInterface $entity, File $file, TextExtractorPluginInterface $extractor_plugin) {
     // Directly process plaintext files.
-    if (substr($file->getMimeType(), 0, 5) == 'text/') {
-      return file_get_contents($file->getFileUri());
+    if (!empty($this->configuration['read_text_files_directly'])) {
+      if (substr($file->getMimeType(), 0, 5) == 'text/') {
+        return file_get_contents($file->getFileUri());
+      }
     }
     $collection = 'search_api_attachments';
     $key = $collection . ':' . $file->id();
     $extracted_data = '';
     if ($cache = $this->keyValue->get($collection)->get($key)) {
-      $extracted_data = $cache;
+      $extracted_data = $this->limitBytes($cache);
     }
     else {
       try {

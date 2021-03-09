@@ -20,7 +20,10 @@ function taxonomy_import_uninstall() {
     $location[] = $val->fid;
   }
 
-  file_delete_multiple($location);
+  $storage = \Drupal::entityTypeManager()->getStorage('file');
+  $entities = $storage->loadMultiple($location);
+  $storage->delete($entities);
+
   // Remove directory on uninstall.
   rmdir('public://taxonomy_files/');
   drupal_flush_all_caches();

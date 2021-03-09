@@ -6,7 +6,7 @@ package: Testing
 hidden: true
 type: module
 
-# Information added by Drupal.org packaging script on 2020-05-25
-version: '8.x-1.2'
+# Information added by Drupal.org packaging script on 2021-01-13
+version: '8.x-1.3'
 project: 'reroute_email'
-datestamp: 1590428318
+datestamp: 1610544252
