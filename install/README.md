@@ -15,6 +15,6 @@ The install script adds the consistently used modules and configuration to upstr
 9. Copy the default.settings.local.php file to settings.local.php
 10. ```drush sd``` to pull down the database.
 11. In the project root, run ```bash install/install.sh```
-12. Once complete, commit the files, including the config export. 
-13. On the Pantheon dev site go to the Configuration Synchronization Config page ```/admin/config/development/configuration``` and Import All at the bottom of the page. 
+12. Once complete, commit the files, including the config export and push to dev. 
+13. In your sandbox run ```terminus drush SITESLUG.dev cim```. Ex. ```terminus drush agsouthfc.dev cim```
 14. This will install the general modules and config, and once this completes, you can begin the rest of the site build.  
