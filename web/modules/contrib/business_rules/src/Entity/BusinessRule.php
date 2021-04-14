@@ -24,12 +24,35 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     },
  *   },
  *   config_prefix = "business_rule",
+ *   config_export = {
+ *     "id",
+ *     "label",
+ *     "description",
+ *     "reacts_on",
+ *     "target_entity_type",
+ *     "target_bundle",
+ *     "items",
+ *     "tags",
+ *   },
  *   admin_permission = "administer site configuration",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
  *     "status" = "enabled",
  *     "uuid" = "uuid",
+ *   },
+ *   config_export = {
+ *     "description",
+ *     "id",
+ *     "label",
+ *     "enabled",
+ *     "uuid",
+ *     "reacts_on",
+ *     "items",
+ *     "status",
+ *     "tags",
+ *     "target_bundle",
+ *     "target_entity_type",
  *   },
  *   links = {
  *     "canonical" = "/admin/config/workflow/business_rules/{business_rule}",
@@ -463,6 +486,20 @@ class BusinessRule extends ConfigEntityBase implements BusinessRuleInterface {
 
     return $available_items;
 
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function calculateDependencies() {
+    parent::calculateDependencies();
+
+    /** @var \Drupal\business_rules\BusinessRulesItemObject $item */
+    foreach ($this->getItems() as $item) {
+      $this->addDependency('config', $item->loadEntity()->getConfigDependencyName());
+    }
+
+    return $this;
   }
 
 }

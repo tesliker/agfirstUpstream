@@ -1,5 +1,5 @@
 name: Cyberwoven Admin Overrides
 type: module
 description: Provides admin tweaks Cyberwoven projects.
-core: 8.x
+core_version_requirement: ^8 || ^9
 package: Cyberwoven

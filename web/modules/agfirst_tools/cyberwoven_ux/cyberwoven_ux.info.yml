@@ -1,5 +1,5 @@
 name: Cyberwoven UX
 type: module
 description: Form alters and other code to support a better admin and editor UX.
-core: 8.x
+core_version_requirement: ^8 || ^9
 package: Cyberwoven

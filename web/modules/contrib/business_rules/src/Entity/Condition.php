@@ -24,11 +24,35 @@ use Drupal\business_rules\Events\BusinessRulesEvent;
  *     },
  *   },
  *   config_prefix = "condition",
+ *   config_export = {
+ *     "id",
+ *     "label",
+ *     "type",
+ *     "reverse",
+ *     "description",
+ *     "target_entity_type",
+ *     "target_bundle",
+ *     "success_items",
+ *     "fail_items",
+ *     "tags",
+ *     "settings"
+ *   },
  *   admin_permission = "administer site configuration",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
  *     "uuid" = "uuid"
+ *   },
+ *   config_export = {
+ *     "id",
+ *     "label",
+ *     "description",
+ *     "settings",
+ *     "tags",
+ *     "uuid",
+ *     "type",
+ *     "target_entity_type",
+ *     "target_bundle",
  *   },
  *   links = {
  *     "canonical" = "/admin/config/workflow/business_rules/condition/{business_rules_condition}",
@@ -223,6 +247,28 @@ class Condition extends BusinessRulesItemBase implements ConditionInterface {
     $defined_condition->processTokens($condition, $event);
 
     return $defined_condition->process($condition, $event);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function calculateDependencies() {
+    parent::calculateDependencies();
+
+    /** @var \Drupal\business_rules\BusinessRulesItemObject $item */
+    foreach (array_merge($this->getSuccessItems(), $this->getFailItems()) as $item) {
+      $this->addDependency('config', $item->loadEntity()->getConfigDependencyName());
+    }
+
+    $items = $this->getSettings('items');
+
+    if (is_array($items)) {
+      foreach (BusinessRulesItemObject::itemsArrayToItemsObject($items) as $item) {
+        $this->addDependency('config', $item->loadEntity()->getConfigDependencyName());
+      }
+    }
+
+    return $this;
   }
 
 }

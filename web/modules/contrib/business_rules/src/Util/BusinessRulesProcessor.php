@@ -11,11 +11,13 @@ use Drupal\business_rules\Events\BusinessRulesEvent;
 use Drupal\business_rules\VariableObject;
 use Drupal\business_rules\VariablesSet;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Database\DatabaseExceptionWrapper;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Link;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\dbug\Dbug;
+use Drupal\Core\Messenger\MessengerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\Event;
 
@@ -130,10 +132,26 @@ class BusinessRulesProcessor {
   protected $entityTypeManager;
 
   /**
+   * The messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
+   * Generates a UUID v4 (RFC 4122 section 4.4) using PHP code.
+   *
+   * @var \Drupal\Component\Uuid\Php
+   */
+  protected $uuid;
+
+  /**
    * BusinessRulesProcessor constructor.
    *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
    *   Drupal container.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger service.
    */
   public function __construct(ContainerInterface $container) {
     $this->configFactory = $container->get('config.factory');
@@ -145,6 +163,8 @@ class BusinessRulesProcessor {
     $this->config = $this->configFactory->get('business_rules.settings');
     $this->eventDispatcher = $container->get('event_dispatcher');
     $this->entityTypeManager = $container->get('entity_type.manager');
+    $this->messenger = $container->get('messenger');
+    $this->uuid = $container->get('uuid');
   }
 
   /**
@@ -200,9 +220,7 @@ class BusinessRulesProcessor {
    *   TRUE|FALSE
    */
   private function avoidInfiniteLoop(BusinessRulesEvent $event) {
-
-    $keyvalue         = $this->util->getKeyValueExpirable('process');
-    $processed_events = $keyvalue->getAll();
+    $processed_events = &drupal_static(__CLASS__ . '-process', []);
     $loop_control     = $event->hasArgument('loop_control') ? $event->getArgument('loop_control') : $event->getSubject();
     $serialized_data  = json_encode($loop_control) . json_encode($event->getArgument('reacts_on'));
     if (count($processed_events)) {
@@ -212,8 +230,8 @@ class BusinessRulesProcessor {
         }
       }
     }
-    $this->processId = $this->util->container->get('uuid')->generate();
-    $keyvalue->set($this->processId, $serialized_data);
+    $this->processId = $this->uuid->generate();
+    $processed_events[$this->processId] = $serialized_data;
 
     return FALSE;
   }
@@ -332,7 +350,7 @@ class BusinessRulesProcessor {
         }
         else {
           $this->util->logger->error('Action id: %id not found', ['%id' => $item->getId()]);
-          drupal_set_message($this->t('Business Rules - Action id: %id not found.', ['%id' => $item->getId()]), 'error');
+          $this->messenger->addError($this->t('Business Rules - Action id: %id not found.', ['%id' => $item->getId()]));
         }
       }
       elseif ($item->getType() == BusinessRulesItemObject::CONDITION) {
@@ -340,7 +358,7 @@ class BusinessRulesProcessor {
 
         if (empty($condition)) {
           $this->util->logger->error('Condition id: %id not found', ['%id' => $item->getId()]);
-          drupal_set_message($this->t('Business Rules Condition id: %id not found.', ['%id' => $item->getId()]), 'error');
+          $this->messenger->addError($this->t('Business Rules Condition id: %id not found.', ['%id' => $item->getId()]));
         }
         else {
           $success = $this->isConditionValid($condition, $event);
@@ -751,9 +769,6 @@ class BusinessRulesProcessor {
    * Destructor.
    */
   public function __destruct() {
-    $keyvalue = $this->util->getKeyValueExpirable('process');
-    $keyvalue->deleteAll();
-
     if ($this->config->get('clear_render_cache')) {
       Cache::invalidateTags(['rendered']);
     }

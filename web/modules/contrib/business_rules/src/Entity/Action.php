@@ -3,6 +3,7 @@
 namespace Drupal\business_rules\Entity;
 
 use Drupal\business_rules\ActionInterface;
+use Drupal\business_rules\BusinessRulesItemObject;
 use Drupal\business_rules\Events\BusinessRulesEvent;
 
 /**
@@ -23,11 +24,32 @@ use Drupal\business_rules\Events\BusinessRulesEvent;
  *     },
  *   },
  *   config_prefix = "action",
+ *   config_export = {
+ *     "id",
+ *     "type",
+ *     "label",
+ *     "description",
+ *     "target_entity_type",
+ *     "target_bundle",
+ *     "tags",
+ *     "settings"
+ *   },
  *   admin_permission = "administer site configuration",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
  *     "uuid" = "uuid"
+ *   },
+ *   config_export = {
+ *     "id",
+ *     "label",
+ *     "description",
+ *     "settings",
+ *     "tags",
+ *     "uuid",
+ *     "type",
+ *     "target_entity_type",
+ *     "target_bundle",
  *   },
  *   links = {
  *     "canonical" =
@@ -95,6 +117,23 @@ class Action extends BusinessRulesItemBase implements ActionInterface {
     $defined_action->processTokens($action, $event);
 
     return $defined_action->execute($action, $event);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function calculateDependencies() {
+    parent::calculateDependencies();
+
+    $items = $this->getSettings('items');
+
+    if (is_array($items)) {
+      foreach (BusinessRulesItemObject::itemsArrayToItemsObject($items) as $item) {
+        $this->addDependency('config', $item->loadEntity()->getConfigDependencyName());
+      }
+    }
+
+    return $this;
   }
 
 }

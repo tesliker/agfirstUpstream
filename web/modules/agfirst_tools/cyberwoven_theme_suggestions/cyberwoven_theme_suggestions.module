@@ -346,7 +346,7 @@ function cyberwoven_theme_suggestions_preprocess_views_view(&$variables) {
 function _cyberwoven_theme_suggestions_get_current_path_and_alias(&$variables) {
 
   $current_path = \Drupal::service('path.current')->getPath();
-  $current_alias = \Drupal::service('path.alias_manager')
+  $current_alias = \Drupal::service('path_alias.manager')
     ->getAliasByPath($current_path);
 
   $variables['current_path'] = $current_path;
