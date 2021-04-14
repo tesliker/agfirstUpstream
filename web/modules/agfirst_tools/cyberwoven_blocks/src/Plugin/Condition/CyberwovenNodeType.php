@@ -55,7 +55,7 @@ class CyberwovenNodeType extends NodeType {
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $container->get('current_route_match'),
-      $container->get('entity.manager')->getStorage('node_type'),
+      $container->get('entity_type.manager')->getStorage('node_type'),
       $configuration,
       $plugin_id,
       $plugin_definition
@@ -141,7 +141,7 @@ class CyberwovenNodeType extends NodeType {
     elseif ($routeName == 'entity.node.revision') {
       $node = $this->currentRouteMatch->getParameter('node');
       if (is_scalar($node)) {
-        $node = \Drupal::entityManager()->getStorage('node')->load($node);
+        $node = $this->entity_storage->getStorage('node')->load($node);
       }
 
       if ($node instanceof NodeInterface) {
