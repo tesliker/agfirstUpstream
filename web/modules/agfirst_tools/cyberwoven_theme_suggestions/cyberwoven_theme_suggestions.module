@@ -9,7 +9,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\block_content\BlockContentInterface;
 
 /**
- * Implements hook_help().
+ * Implements hook_help()
  */
 function cyberwoven_theme_suggestions_help($route_name,
                                            RouteMatchInterface $route_match) {
@@ -165,7 +165,7 @@ function cyberwoven_theme_suggestions_theme_suggestions_page_title_alter(&$sugge
   $term = \Drupal::routeMatch()->getParameter('taxonomy_term');
   if (!empty($term) && is_object($term)) {
     $suggestions[] = 'page_title__terms';
-    $suggestions[] = 'page_title__' . $term->getVocabularyId();
+    $suggestions[] = 'page_title__' . $term->bundle();
     $suggestions[] = 'page_title__' . $term->id();
   }
 
