@@ -18,6 +18,7 @@
         "drupal/administerusersbyrole": "^3.0",
         "drupal/allowed_formats": "^1.1",
         "drupal/anchor_link": "^1.6",
+	"drupal/asset_injector": "^2.7",
         "drupal/auto_entitylabel": "^3.0@beta",
         "drupal/better_exposed_filters": "^5.0@beta",
         "drupal/bg_image_formatter": "^1.11",

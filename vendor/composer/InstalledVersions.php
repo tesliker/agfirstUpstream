@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'fddeeb6fb2b52e9c780f4137cf5322ae5e33bf62',
+    'reference' => 'b641b79eb3e072b2792d25b9b93398984370983d',
     'name' => 'pantheon-systems/example-drops-8-composer',
   ),
   'versions' => 
@@ -370,6 +370,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '8.x-1.7',
+    ),
+    'drupal/asset_injector' => 
+    array (
+      'pretty_version' => '2.7.0',
+      'version' => '2.7.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-2.7',
     ),
     'drupal/auto_entitylabel' => 
     array (
@@ -2199,7 +2208,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'fddeeb6fb2b52e9c780f4137cf5322ae5e33bf62',
+      'reference' => 'b641b79eb3e072b2792d25b9b93398984370983d',
     ),
     'pantheon-systems/quicksilver-pushback' => 
     array (
