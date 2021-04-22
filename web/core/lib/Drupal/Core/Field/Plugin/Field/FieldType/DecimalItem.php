@@ -2,7 +2,6 @@
 
 namespace Drupal\Core\Field\Plugin\Field\FieldType;
 
-use Drupal\Component\Utility\Number;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -69,7 +68,7 @@ class DecimalItem extends NumericItemBase {
       '#type' => 'number',
       '#title' => t('Precision'),
       '#min' => 10,
-      '#max' => 16,
+      '#max' => ini_get('precision') < $element['precision']['#min'] ? $element['precision']['#min'] : ini_get('precision'),
       '#default_value' => $settings['precision'],
       '#description' => t('The total number of digits to store in the database, including those to the right of the decimal.'),
       '#disabled' => $has_data,
@@ -79,7 +78,7 @@ class DecimalItem extends NumericItemBase {
       '#type' => 'number',
       '#title' => t('Scale', [], ['context' => 'decimal places']),
       '#min' => 0,
-      '#max' => Number::IEEE_754_DOUBLE_GUARANTEED_SIGNIFICANT_DECIMALS,
+      '#max' => ini_get('precision'),
       '#default_value' => $settings['scale'],
       '#description' => t('The number of digits to the right of the decimal.'),
       '#disabled' => $has_data,

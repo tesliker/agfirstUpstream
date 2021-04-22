@@ -10,17 +10,6 @@ namespace Drupal\Component\Utility;
 class Number {
 
   /**
-   * The minimum guaranteed significant number of floating point decimals.
-   *
-   * PHP's floating point implementation follows IEEE 754 doubles, which have
-   * 53-bit significands. For a significand with N bits, floor((N-1) * log10(2))
-   * gives the minimum number of significant decimals (Kahan, 1997, retrieved
-   * from https://people.eecs.berkeley.edu/~wkahan/ieee754status/IEEE754.PDF).
-   * For IEEE 754 doubles (PHP floats), this is floor((53-1) * log10(2)) = 15.
-   */
-  const IEEE_754_DOUBLE_GUARANTEED_SIGNIFICANT_DECIMALS = 15;
-
-  /**
    * Normalizes a numeric value to a lossless, easily parseable numeric string.
    *
    * The normalized value is string suitable for use with libraries such as
@@ -29,35 +18,31 @@ class Number {
    * @param $number int|float|string
    *   The value to normalize. If this is a string, it must be formatted as an
    *   integer or a float. Floats with a higher number of significant decimals
-   *   than the IEEE_754_DOUBLE_GUARANTEED_SIGNIFICANT_DECIMALS will lose the
-   *   additional precision as PHP does not guarantee.
+   *   than precision value from the PHP runtime configuration [default: 14]
+   *   will lose the additional precision as PHP does not guarantee.
    *
    * @return string
-   *   The normalized numeric string containing integers with an optional decimal
-   *   separator (.).
+   *   The normalized numeric string.
    */
   public static function normalize($number) {
     // Convert non-strings to strings, for consistent and lossless processing.
     if (is_float($number)) {
       // If the float has less significant decimals than the number we can
-      // guarantee, convert it to a stirng directly.
-      if (preg_match(sprintf('/^\d+\.\d{1,%d}$/', static::IEEE_754_DOUBLE_GUARANTEED_SIGNIFICANT_DECIMALS), (string) $number)) {
+      // guarantee, convert it to a string directly.
+      if (preg_match(sprintf('/^\d+\.\d{1,%d}$/', ini_get('precision')), (string) $number)) {
         return (string) $number;
       }
       // For floats with more significant decimals than the number we can
-      // guarantee, discard the unguaranteed ones.
-      return rtrim(number_format($number, self::IEEE_754_DOUBLE_GUARANTEED_SIGNIFICANT_DECIMALS, '.', ''), '0');
+      // guarantee, discard the not guaranteed ones.
+      return rtrim(number_format($number, ini_get('precision'), '.', ''), '0');
     }
-    elseif (is_int($number)) {
-      return (string) $number;
-    }
-    return $number;
+    return (string) $number;
   }
 
   /**
    * Counts a number's significant decimals.
    *
-   * @param int|float|string
+   * @param $number int|float|string
    *   The number whose decimals needed to be to count. If this is a string, it
    *   must be an integer or a float formatted. Floats are limited to the
    *   precision guaranteed by PHP (for example, 15).
@@ -115,7 +100,7 @@ class Number {
    *
    * @see http://opensource.apple.com/source/WebCore/WebCore-1298/html/NumberInputType.cpp
    */
-  public static function validStep($value, $step, $offset = NULL) {
+  public static function validStep($value, $step, $offset = 0.0) {
     // Confirm the step is positive.
     if ($step <= 0) {
       return FALSE;
@@ -124,7 +109,7 @@ class Number {
     // Convert the value to a float so we can evaluate the precision later.
     // Because subtracting the offset may change the value's precision, we only
     // do so if it was set explicitly (is not null).
-    $float_value = (float) abs(is_null($offset) ? $value : $value - $offset);
+    $float_value = (float) abs($value - $offset);
 
     // The expected number significant decimals is dictated by the step.
     $expected_significant_decimals = static::countSignificantDecimals($step) + 1;

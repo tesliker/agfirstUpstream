@@ -1516,42 +1516,41 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "1.10.2",
-            "version_normalized": "1.10.2.0",
+            "version": "1.11.0",
+            "version_normalized": "1.11.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "13e3381b25847283a91948d04640543941309727"
+                "reference": "a9c1b59eba5a08ca2770a76eddb88922f504e8e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/13e3381b25847283a91948d04640543941309727",
-                "reference": "13e3381b25847283a91948d04640543941309727",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/a9c1b59eba5a08ca2770a76eddb88922f504e8e0",
+                "reference": "a9c1b59eba5a08ca2770a76eddb88922f504e8e0",
                 "shasum": ""
             },
             "require": {
                 "php": "~7.1 || ^8.0"
             },
             "conflict": {
-                "doctrine/common": ">2.2,<2.4"
+                "doctrine/common": ">2.2,<2.4",
+                "psr/cache": ">=3"
             },
             "require-dev": {
                 "alcaeus/mongo-php-adapter": "^1.1",
-                "doctrine/coding-standard": "^6.0",
+                "cache/integration-tests": "dev-master",
+                "doctrine/coding-standard": "^8.0",
                 "mongodb/mongodb": "^1.1",
-                "phpunit/phpunit": "^7.0",
-                "predis/predis": "~1.0"
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
+                "predis/predis": "~1.0",
+                "psr/cache": "^1.0 || ^2.0",
+                "symfony/cache": "^4.4 || ^5.2"
             },
             "suggest": {
                 "alcaeus/mongo-php-adapter": "Required to use legacy MongoDB driver"
             },
-            "time": "2020-07-07T18:54:01+00:00",
+            "time": "2021-04-13T14:46:17+00:00",
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.9.x-dev"
-                }
-            },
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
@@ -1599,7 +1598,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/cache/issues",
-                "source": "https://github.com/doctrine/cache/tree/1.10.x"
+                "source": "https://github.com/doctrine/cache/tree/1.11.0"
             },
             "funding": [
                 {
@@ -1892,30 +1891,30 @@
         },
         {
             "name": "doctrine/inflector",
-            "version": "1.4.3",
-            "version_normalized": "1.4.3.0",
+            "version": "1.4.4",
+            "version_normalized": "1.4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "4650c8b30c753a76bf44fb2ed00117d6f367490c"
+                "reference": "4bd5c1cdfcd00e9e2d8c484f79150f67e5d355d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/4650c8b30c753a76bf44fb2ed00117d6f367490c",
-                "reference": "4650c8b30c753a76bf44fb2ed00117d6f367490c",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/4bd5c1cdfcd00e9e2d8c484f79150f67e5d355d9",
+                "reference": "4bd5c1cdfcd00e9e2d8c484f79150f67e5d355d9",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2 || ^8.0"
+                "php": "^7.1 || ^8.0"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^7.0",
-                "phpstan/phpstan": "^0.11",
-                "phpstan/phpstan-phpunit": "^0.11",
-                "phpstan/phpstan-strict-rules": "^0.11",
+                "doctrine/coding-standard": "^8.0",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpstan/phpstan-strict-rules": "^0.12",
                 "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
             },
-            "time": "2020-05-29T07:19:59+00:00",
+            "time": "2021-04-16T17:34:40+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1971,7 +1970,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/inflector/issues",
-                "source": "https://github.com/doctrine/inflector/tree/1.4.x"
+                "source": "https://github.com/doctrine/inflector/tree/1.4.4"
             },
             "funding": [
                 {
@@ -3583,17 +3582,17 @@
         },
         {
             "name": "drupal/core",
-            "version": "9.1.6",
-            "version_normalized": "9.1.6.0",
+            "version": "9.1.7",
+            "version_normalized": "9.1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core.git",
-                "reference": "775b801f12bbcfb0634b2ae442c5ed4529b3150d"
+                "reference": "0cbed9e7b0243ccc89a3735853eedb40becf8095"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core/zipball/775b801f12bbcfb0634b2ae442c5ed4529b3150d",
-                "reference": "775b801f12bbcfb0634b2ae442c5ed4529b3150d",
+                "url": "https://api.github.com/repos/drupal/core/zipball/0cbed9e7b0243ccc89a3735853eedb40becf8095",
+                "reference": "0cbed9e7b0243ccc89a3735853eedb40becf8095",
                 "shasum": ""
             },
             "require": {
@@ -3757,7 +3756,7 @@
                 "drupal/workflows": "self.version",
                 "drupal/workspaces": "self.version"
             },
-            "time": "2021-04-07T11:18:45+00:00",
+            "time": "2021-04-20T23:05:22+00:00",
             "type": "drupal-core",
             "extra": {
                 "drupal-scaffold": {
@@ -3789,7 +3788,8 @@
                 },
                 "patches_applied": {
                     "CKEditor Image Patch": "patches/drupalimage_ckeditor-2771837-34.patch",
-                    "#states not affecting visibility/requirement of managed_file": "https://www.drupal.org/files/issues/2019-04-17/states_not_affecting-2847425-37.patch"
+                    "#states not affecting visibility/requirement of managed_file": "https://www.drupal.org/files/issues/2019-04-17/states_not_affecting-2847425-37.patch",
+                    "Simple decimals fail to pass validation": "https://www.drupal.org/files/issues/2021-01-12/drupal-simple-decimal-validation-2230909-210.patch"
                 }
             },
             "installation-source": "dist",
@@ -3836,14 +3836,14 @@
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
             "support": {
-                "source": "https://github.com/drupal/core/tree/9.1.6"
+                "source": "https://github.com/drupal/core/tree/9.1.7"
             },
             "install-path": "../../web/core"
         },
         {
             "name": "drupal/core-composer-scaffold",
-            "version": "9.1.6",
-            "version_normalized": "9.1.6.0",
+            "version": "9.1.7",
+            "version_normalized": "9.1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core-composer-scaffold.git",
@@ -3889,14 +3889,14 @@
                 "drupal"
             ],
             "support": {
-                "source": "https://github.com/drupal/core-composer-scaffold/tree/9.1.6"
+                "source": "https://github.com/drupal/core-composer-scaffold/tree/9.1.7"
             },
             "install-path": "../drupal/core-composer-scaffold"
         },
         {
             "name": "drupal/core-project-message",
-            "version": "9.1.6",
-            "version_normalized": "9.1.6.0",
+            "version": "9.1.7",
+            "version_normalized": "9.1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core-project-message.git",
@@ -3933,23 +3933,23 @@
                 "drupal"
             ],
             "support": {
-                "source": "https://github.com/drupal/core-project-message/tree/9.1.6"
+                "source": "https://github.com/drupal/core-project-message/tree/9.1.7"
             },
             "install-path": "../drupal/core-project-message"
         },
         {
             "name": "drupal/core-recommended",
-            "version": "9.1.6",
-            "version_normalized": "9.1.6.0",
+            "version": "9.1.7",
+            "version_normalized": "9.1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core-recommended.git",
-                "reference": "03a5765123d9c76e0ca2ab3de26059356193d35c"
+                "reference": "ced38da112867c8fff15d5079926c95e5bcdca5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core-recommended/zipball/03a5765123d9c76e0ca2ab3de26059356193d35c",
-                "reference": "03a5765123d9c76e0ca2ab3de26059356193d35c",
+                "url": "https://api.github.com/repos/drupal/core-recommended/zipball/ced38da112867c8fff15d5079926c95e5bcdca5b",
+                "reference": "ced38da112867c8fff15d5079926c95e5bcdca5b",
                 "shasum": ""
             },
             "require": {
@@ -3958,7 +3958,7 @@
                 "doctrine/annotations": "1.11.1",
                 "doctrine/lexer": "1.2.1",
                 "doctrine/reflection": "1.2.2",
-                "drupal/core": "9.1.6",
+                "drupal/core": "9.1.7",
                 "egulias/email-validator": "2.1.22",
                 "guzzlehttp/guzzle": "6.5.5",
                 "guzzlehttp/promises": "1.4.0",
@@ -4012,7 +4012,7 @@
             "conflict": {
                 "webflo/drupal-core-strict": "*"
             },
-            "time": "2021-04-07T11:18:45+00:00",
+            "time": "2021-04-20T23:05:22+00:00",
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -4020,7 +4020,7 @@
             ],
             "description": "Locked core dependencies; require this project INSTEAD OF drupal/core.",
             "support": {
-                "source": "https://github.com/drupal/core-recommended/tree/9.1.6"
+                "source": "https://github.com/drupal/core-recommended/tree/9.1.7"
             },
             "install-path": null
         },
@@ -10840,6 +10840,10 @@
                 "MIT"
             ],
             "description": "Push commits made via the Pantheon dashboard back to original GitHub repository.",
+            "support": {
+                "issues": "https://github.com/pantheon-systems/quicksilver-pushback/issues",
+                "source": "https://github.com/pantheon-systems/quicksilver-pushback/tree/master"
+            },
             "install-path": "../pantheon-systems/quicksilver-pushback"
         },
         {

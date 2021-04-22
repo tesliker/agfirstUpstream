@@ -99,23 +99,23 @@ class NumberTest extends TestCase {
       [1, '0.0'],
       [0, -0.0],
       [1, '-0.0'],
-      // The maximum supported number of significant float decimals is 15.
+      // The maximum supported number of significant float decimals is 14.
       [0, 0.0000000000000],
       [0, -0.0000000000000],
       [9, -0.0000000090000],
       [9, -0.0000000090000],
       [9, -0.00000000900000],
       [9, -0.000000009000000000],
-      [15, -0.0000000090000009],
-      [15, -0.00000000900000099],
-      [15, -0.000000009000000900009],
+      [14, -0.00000000900009],
+      [14, -0.0000000090000099],
+      [14, -0.0000000090000090009],
       // Numeric strings do not suffer from the system-specific limitations to
       // float precision, so they can contain many more significant decimals.
       // This is especially useful when working with solutions such as BCMath
       // (https://secure.php.net/manual/en/book.bc.php)
-      [15, '0.000000000000000'],
-      [15, '-0.000000000000000'],
-      [15, '-0.000000009000000'],
+      [14, '0.00000000000000'],
+      [14, '-0.00000000000000'],
+      [14, '-0.00000000900000'],
       [16, '-0.0000000090000000'],
       [20, '-0.00000000900000000000'],
     ];
@@ -202,7 +202,7 @@ class NumberTest extends TestCase {
 
       // Ensure floats with more significant decimals that the guaranteed
       // minimum are normalized.
-      [0.00000000000000900009, 0.00000000000000100001, TRUE],
+      [0.0000000000000900009, 0.0000000000000100001, TRUE],
     ];
   }
 
