@@ -4380,6 +4380,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "Draggable views upgrade patch": "https://www.drupal.org/files/issues/2020-06-26/draggableviews-sorting-issue-for-2.0.patch"
                 }
             },
             "installation-source": "dist",

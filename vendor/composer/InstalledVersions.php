@@ -20,6 +20,8 @@ use Composer\Semver\VersionParser;
 
 
 
+
+
 class InstalledVersions
 {
 private static $installed = array (
@@ -30,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'b3ae4093c6a3c4df493ed3ace3aa2d88c1c0e7ad',
+    'reference' => '4ab34beb35d047b90243a0dff483f6856b1d2365',
     'name' => 'pantheon-systems/example-drops-8-composer',
   ),
   'versions' => 
@@ -2226,7 +2228,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'b3ae4093c6a3c4df493ed3ace3aa2d88c1c0e7ad',
+      'reference' => '4ab34beb35d047b90243a0dff483f6856b1d2365',
     ),
     'pantheon-systems/quicksilver-pushback' => 
     array (
@@ -2999,7 +3001,6 @@ foreach (self::getInstalled() as $installed) {
 $packages[] = array_keys($installed['versions']);
 }
 
-
 if (1 === \count($packages)) {
 return $packages[0];
 }
@@ -3191,6 +3192,7 @@ public static function reload($data)
 self::$installed = $data;
 self::$installedByVendor = array();
 }
+
 
 
 
