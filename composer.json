@@ -7,12 +7,17 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
         }
     ],
     "require": {
         "php": ">=7.2",
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.7",
+        "drupal/ace_editor": "^1.3",
         "drupal/address": "^1.4",
         "drupal/admin_toolbar": "^3.0",
         "drupal/administerusersbyrole": "^3.0",
@@ -40,6 +45,7 @@
         "drupal/environment_indicator": "^4.0",
         "drupal/extlink": "^1.1",
         "drupal/field_group": "^3.1",
+        "drupal/field_permissions": "^1.1",
         "drupal/fontyourface": "^3.2",
         "drupal/geocoder": "^2.2",
         "drupal/geofield": "^1.3",
@@ -101,7 +107,7 @@
         "pantheon-systems/quicksilver-pushback": "~1"
     },
     "conflict": {
-            "drupal/drupal": "*"
+        "drupal/drupal": "*"
     },
     "minimum-stability": "alpha",
     "prefer-stable": true,
@@ -132,11 +138,15 @@
     "extra": {
         "installer-paths": {
             "web/core": ["type:drupal-core"],
+            "pub/libraries/{$name}": [
+                "type:drupal-library",
+                "type:npm-asset"
+            ],
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
             "drush/contrib/{$name}": ["type:drupal-drush"],
-	    "web/private/scripts/quicksilver/{$name}/": ["type:quicksilver-script"]
+            "web/private/scripts/quicksilver/{$name}/": ["type:quicksilver-script"]
         },
         "build-env": {
             "install-cms": [
@@ -167,9 +177,9 @@
                 "#states not affecting visibility/requirement of managed_file": "https://www.drupal.org/files/issues/2019-04-17/states_not_affecting-2847425-37.patch",
                 "Simple decimals fail to pass validation": "https://www.drupal.org/files/issues/2021-01-12/drupal-simple-decimal-validation-2230909-210.patch"
             },
-	        "drupal/mysql56": {
-		        "Pantheon Database Version": "https://www.drupal.org/files/issues/2020-08-25/3167170-maria-tenzero-compatibility.patch"
-      	    },
+            "drupal/mysql56": {
+                "Pantheon Database Version": "https://www.drupal.org/files/issues/2020-08-25/3167170-maria-tenzero-compatibility.patch"
+            },
             "drupal/imce": {
                 "File Browser on User Page": "patches/imce_no_browser_tab-2858430-4.patch"
             },
@@ -182,9 +192,9 @@
             "drupal/menu_block": {
                 "Menu parent as block title": "https://www.drupal.org/files/issues/2020-05-03/2809699-162-dynamic-block-titles.patch"
             },
-	    "drupal/draggableviews": {
-	    	"Draggable views upgrade patch": "https://www.drupal.org/files/issues/2020-06-26/draggableviews-sorting-issue-for-2.0.patch"
-	    }
+            "drupal/draggableviews": {
+                "Draggable views upgrade patch": "https://www.drupal.org/files/issues/2020-06-26/draggableviews-sorting-issue-for-2.0.patch"
+            }
         }
     },
     "config": {

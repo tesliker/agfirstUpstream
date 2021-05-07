@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '4ab34beb35d047b90243a0dff483f6856b1d2365',
+    'reference' => '27e4f2e09b7888b5e27586f1f738ab02fba0b4f6',
     'name' => 'pantheon-systems/example-drops-8-composer',
   ),
   'versions' => 
@@ -313,6 +313,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'fa587178be682efe90d005e3a322590d6ebb59a5',
+    ),
+    'drupal/ace_editor' => 
+    array (
+      'pretty_version' => '1.3.0',
+      'version' => '1.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.3',
     ),
     'drupal/action' => 
     array (
@@ -1022,6 +1031,15 @@ private static $installed = array (
       array (
         0 => '9.1.7',
       ),
+    ),
+    'drupal/field_permissions' => 
+    array (
+      'pretty_version' => '1.1.0',
+      'version' => '1.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8.x-1.1',
     ),
     'drupal/field_ui' => 
     array (
@@ -2214,6 +2232,24 @@ private static $installed = array (
       ),
       'reference' => 'c6d052fc58cb876152f89f532b95a8d7907e7f0e',
     ),
+    'npm-asset/ace-builds' => 
+    array (
+      'pretty_version' => '1.4.12',
+      'version' => '1.4.12.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => NULL,
+    ),
+    'oomphinc/composer-installers-extender' => 
+    array (
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8d3fe38a1723e0e91076920c8bb946b1696e28ca',
+    ),
     'orno/di' => 
     array (
       'replaced' => 
@@ -2228,7 +2264,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '4ab34beb35d047b90243a0dff483f6856b1d2365',
+      'reference' => '27e4f2e09b7888b5e27586f1f738ab02fba0b4f6',
     ),
     'pantheon-systems/quicksilver-pushback' => 
     array (

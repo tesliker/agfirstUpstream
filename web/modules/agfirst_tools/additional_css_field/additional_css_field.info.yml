@@ -1,0 +1,10 @@
+name: 'Additional CSS Field'
+type: module
+description: 'Provides a field for injecting CSS to a content type.'
+core_version_requirement: ^8 || ^9
+package: 'AgFirst'
+
+dependencies:
+  - field_permissions
+  - ace_editor
+  - allowed_formats

@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * Implements hook_page_attachments_alter().
+ *
+ * Alter attachments (typically assets) to a page before it is rendered.
+ *
+ * @param array $attachments
+ */
+function additional_css_field_page_attachments_alter(array &$attachments) {
+
+  if (($node = \Drupal::routeMatch()->getParameter('node')) && $node instanceof \Drupal\node\NodeInterface) {
+    if ($node->hasField('agf_field_css_editor')) {
+      $agf_field_css_editor = $node->get('agf_field_css_editor')->getValue();
+      if (empty($agf_field_css_editor[0]['value'])) {
+        $vars['additional_css_field_style'] = NULL;
+      }
+      else {
+        $vars['additional_css_field_style'] = $agf_field_css_editor[0]['value'];
+      }
+    }
+  }
+}
