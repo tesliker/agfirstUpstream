@@ -173,7 +173,7 @@ class MenuBlockTest extends BrowserTestBase {
     $this->drupalGet('admin/structure/block/add/menu_block:main');
     $this->assertSession()->pageTextContains('Initial visibility level');
     $this->assertSession()->pageTextContains('Number of levels to display');
-    $this->assertSession()->pageTextContains('Expand all menu links');
+    $this->assertSession()->pageTextContains('Expand all menu items');
     $this->assertSession()->pageTextContains('Fixed parent item');
     $this->assertSession()
       ->pageTextContains('Make the initial visibility level follow the active menu item.');
@@ -185,13 +185,14 @@ class MenuBlockTest extends BrowserTestBase {
    */
   public function testMenuBlockUi() {
     $block_id = 'main';
-    $this->drupalPostForm('admin/structure/block/add/menu_block:main', [
+    $this->drupalGet('admin/structure/block/add/menu_block:main');
+    $this->submitForm([
       'id' => $block_id,
       'settings[label]' => 'Main navigation',
       'settings[label_display]' => FALSE,
       'settings[level]' => 2,
       'settings[depth]' => 6,
-      'settings[expand]' => TRUE,
+      'settings[expand_all_items]' => TRUE,
       'settings[parent]' => 'main:',
       'settings[follow]' => TRUE,
       'settings[follow_parent]' => 'active',
@@ -203,7 +204,7 @@ class MenuBlockTest extends BrowserTestBase {
     $block_settings = $block->get('settings');
     $this->assertSame(2, $block_settings['level']);
     $this->assertSame(6, $block_settings['depth']);
-    $this->assertTrue($block_settings['expand']);
+    $this->assertTrue($block_settings['expand_all_items']);
     $this->assertSame('main:', $block_settings['parent']);
     $this->assertTrue($block_settings['follow']);
     $this->assertSame('active', $block_settings['follow_parent']);
@@ -216,7 +217,8 @@ class MenuBlockTest extends BrowserTestBase {
   public function testMenuBlockLevel() {
     // Add new menu block.
     $block_id = 'main';
-    $this->drupalPostForm('admin/structure/block/add/menu_block:main', [
+    $this->drupalGet('admin/structure/block/add/menu_block:main');
+    $this->submitForm([
       'id' => $block_id,
       'settings[label]' => 'Main navigation',
       'settings[label_display]' => FALSE,
@@ -231,7 +233,8 @@ class MenuBlockTest extends BrowserTestBase {
     $this->assertSession()->pageTextNotContains('child-1-1 menu item');
     $this->assertSession()->pageTextNotContains('child-2 menu item');
 
-    $this->drupalPostForm('admin/structure/block/manage/' . $block_id, [
+    $this->drupalGet('admin/structure/block/manage/' . $block_id);
+    $this->submitForm([
       'settings[level]' => 2,
     ], 'Save block');
 
@@ -250,13 +253,14 @@ class MenuBlockTest extends BrowserTestBase {
   public function testMenuBlockDepth() {
     // Add new menu block.
     $block_id = 'main';
-    $this->drupalPostForm('admin/structure/block/add/menu_block:main', [
+    $this->drupalGet('admin/structure/block/add/menu_block:main');
+    $this->submitForm([
       'id' => $block_id,
       'settings[label]' => 'Main navigation',
       'settings[label_display]' => FALSE,
       'settings[level]' => 1,
       'settings[depth]' => 1,
-      'settings[expand]' => TRUE,
+      'settings[expand_all_items]' => TRUE,
       'region' => 'primary_menu',
     ], 'Save block');
 
@@ -267,7 +271,8 @@ class MenuBlockTest extends BrowserTestBase {
     $this->assertSession()->pageTextNotContains('child-1-1 menu item');
     $this->assertSession()->pageTextNotContains('child-2 menu item');
 
-    $this->drupalPostForm('admin/structure/block/manage/' . $block_id, [
+    $this->drupalGet('admin/structure/block/manage/' . $block_id);
+    $this->submitForm([
       'settings[depth]' => 2,
     ], 'Save block');
 
@@ -279,7 +284,8 @@ class MenuBlockTest extends BrowserTestBase {
     $this->assertSession()->pageTextContains('child-2 menu item');
     $this->assertSession()->pageTextNotContains('child-1-1 menu item');
 
-    $this->drupalPostForm('admin/structure/block/manage/' . $block_id, [
+    $this->drupalGet('admin/structure/block/manage/' . $block_id);
+    $this->submitForm([
       'settings[depth]' => 0,
     ], 'Save block');
 
@@ -297,12 +303,13 @@ class MenuBlockTest extends BrowserTestBase {
    */
   public function testMenuBlockExpand() {
     $block_id = 'main';
-    $this->drupalPostForm('admin/structure/block/add/menu_block:main', [
+    $this->drupalGet('admin/structure/block/add/menu_block:main');
+    $this->submitForm([
       'id' => $block_id,
       'settings[label]' => 'Main navigation',
       'settings[label_display]' => FALSE,
       'settings[level]' => 1,
-      'settings[expand]' => TRUE,
+      'settings[expand_all_items]' => TRUE,
       'region' => 'primary_menu',
     ], 'Save block');
 
@@ -313,8 +320,9 @@ class MenuBlockTest extends BrowserTestBase {
     $this->assertSession()->pageTextContains('child-1-1 menu item');
     $this->assertSession()->pageTextContains('child-2 menu item');
 
-    $this->drupalPostForm('admin/structure/block/manage/' . $block_id, [
-      'settings[expand]' => FALSE,
+    $this->drupalGet('admin/structure/block/manage/' . $block_id);
+    $this->submitForm([
+      'settings[expand_all_items]' => FALSE,
     ], 'Save block');
 
     $this->drupalGet('<front>');
@@ -329,7 +337,8 @@ class MenuBlockTest extends BrowserTestBase {
    */
   public function testMenuBlockParent() {
     $block_id = 'main';
-    $this->drupalPostForm('admin/structure/block/add/menu_block:main', [
+    $this->drupalGet('admin/structure/block/add/menu_block:main');
+    $this->submitForm([
       'id' => $block_id,
       'settings[label]' => 'Main navigation',
       'settings[label_display]' => FALSE,
@@ -342,7 +351,8 @@ class MenuBlockTest extends BrowserTestBase {
     $this->assertSession()->pageTextContains('child-1 menu item');
     $this->assertSession()->pageTextNotContains('child-1-1 menu item');
 
-    $this->drupalPostForm('admin/structure/block/manage/' . $block_id, [
+    $this->drupalGet('admin/structure/block/manage/' . $block_id);
+    $this->submitForm([
       'settings[parent]' => 'main:' . $this->links['child-1'],
     ], 'Save block');
 
@@ -357,7 +367,8 @@ class MenuBlockTest extends BrowserTestBase {
    */
   public function testMenuBlockFollow() {
     $block_id = 'main';
-    $this->drupalPostForm('admin/structure/block/add/menu_block:main', [
+    $this->drupalGet('admin/structure/block/add/menu_block:main');
+    $this->submitForm([
       'id' => $block_id,
       'settings[label]' => 'Main navigation',
       'settings[label_display]' => FALSE,
@@ -383,7 +394,8 @@ class MenuBlockTest extends BrowserTestBase {
     $this->assertSession()->pageTextContains('child-1-2 menu item');
     $this->assertSession()->pageTextNotContains('child-2 menu item');
 
-    $this->drupalPostForm('admin/structure/block/manage/' . $block_id, [
+    $this->drupalGet('admin/structure/block/manage/' . $block_id);
+    $this->submitForm([
       'settings[follow_parent]' => 'active',
     ], 'Save block');
 
@@ -403,7 +415,8 @@ class MenuBlockTest extends BrowserTestBase {
    */
   public function testMenuBlockSuggestion() {
     $block_id = 'main';
-    $this->drupalPostForm('admin/structure/block/add/menu_block:main', [
+    $this->drupalGet('admin/structure/block/add/menu_block:main');
+    $this->submitForm([
       'id' => $block_id,
       'settings[label]' => 'Main navigation',
       'settings[label_display]' => FALSE,
@@ -465,10 +478,12 @@ class MenuBlockTest extends BrowserTestBase {
   public function testMenuBlockTitleOptions() {
     // Create a block, and edit it repeatedly to test the title display options.
     $block_id = 'main';
-    $this->drupalPostForm('admin/structure/block/add/menu_block:main', [
+    $this->drupalGet('admin/structure/block/add/menu_block:main');
+    $this->submitForm([
       'id' => $block_id,
       'settings[label]' => 'Block title',
       'settings[label_display]' => TRUE,
+      'settings[label_link]' => FALSE,
       'settings[parent]' => 'main:' . $this->links['child-1'],
       'region' => 'primary_menu',
     ], 'Save block');
@@ -486,6 +501,11 @@ class MenuBlockTest extends BrowserTestBase {
         'option' => MenuBlock::LABEL_FIXED,
         'title' => 'child-1 menu item',
       ],
+      'fixed menu item as link' => [
+        'option' => MenuBlock::LABEL_FIXED,
+        'title' => 'child-1 menu item',
+        'label_link' => TRUE,
+      ],
       'fixed menu item parent' => [
         'option' => MenuBlock::LABEL_FIXED,
         'title' => 'child-1 menu item',
@@ -495,9 +515,19 @@ class MenuBlockTest extends BrowserTestBase {
         'option' => MenuBlock::LABEL_ACTIVE_ITEM,
         'title' => 'child-1-1 menu item',
       ],
+      'active item as link' => [
+        'option' => MenuBlock::LABEL_ACTIVE_ITEM,
+        'title' => 'child-1-1 menu item',
+        'label_link' => TRUE,
+      ],
       'parent item' => [
         'option' => MenuBlock::LABEL_PARENT,
         'title' => 'child-1 menu item',
+      ],
+      'parent item as link' => [
+        'option' => MenuBlock::LABEL_PARENT,
+        'title' => 'child-1 menu item',
+        'label_link' => TRUE,
       ],
       'parent item top level' => [
         'option' => MenuBlock::LABEL_PARENT,
@@ -517,6 +547,11 @@ class MenuBlockTest extends BrowserTestBase {
       'menu root' => [
         'option' => MenuBlock::LABEL_ROOT,
         'title' => 'parent menu item',
+      ],
+      'menu root as link' => [
+        'option' => MenuBlock::LABEL_ROOT,
+        'title' => 'parent menu item',
+        'label_link' => TRUE,
       ],
       'menu root 2' => [
         'option' => MenuBlock::LABEL_ROOT,
@@ -538,9 +573,13 @@ class MenuBlockTest extends BrowserTestBase {
     foreach ($options as $case_id => $option) {
       // The 'label_display' setting should be TRUE if not defined explicitly.
       $label_display = $option['label_display'] ?? TRUE;
-      $this->drupalPostForm('admin/structure/block/manage/main', [
+      // The 'label_link' setting should default to FALSE.
+      $label_link = $option['label_link'] ?? FALSE;
+      $this->drupalGet('admin/structure/block/manage/main');
+      $this->submitForm([
         'settings[label_type]' => $option['option'],
         'settings[label_display]' => $label_display,
+        'settings[label_link]' => $label_link,
       ], 'Save block');
       $test_link = empty($option['test_link']) ? 'menu-block-test/hierarchy/parent/child-1/child-1-1' : $option['test_link'];
       $this->drupalGet($test_link);
@@ -553,6 +592,13 @@ class MenuBlockTest extends BrowserTestBase {
       // and invert it to determine if the block title is visible or not.
       $visible = !$block_label->hasClass('visually-hidden');
       $this->assertEquals($label_display, $visible, "Test case '$case_id' should have the right visibility.");
+
+      if ($label_link) {
+        $this->assertStringContainsString('<a href="', $block_label->getHtml(), "Test case '$case_id' should have a link in the block title.");
+      }
+      else {
+        $this->assertStringNotContainsString('<a href="', $block_label->getHtml(), "Test case '$case_id' should not have a link in the block title.");
+      }
     }
   }
 

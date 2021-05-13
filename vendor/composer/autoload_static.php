@@ -10,10 +10,10 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
-        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '7e9bd612cc444b3eed788ebbe46263a0' => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src/autoload.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
@@ -48,10 +48,6 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
     );
 
     public static $prefixLengthsPsr4 = array (
-        'p' => 
-        array (
-            'phpGPX\\' => 7,
-        ),
         'e' => 
         array (
             'enshrined\\svgSanitize\\' => 22,
@@ -112,7 +108,6 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
             'Stecman\\Component\\Symfony\\Console\\BashCompletion\\' => 49,
             'Solarium\\' => 9,
-            'Shapefile\\' => 10,
             'SendGrid\\' => 9,
             'SelfUpdate\\' => 11,
         ),
@@ -224,10 +219,6 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
     );
 
     public static $prefixDirsPsr4 = array (
-        'phpGPX\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX',
-        ),
         'enshrined\\svgSanitize\\' => 
         array (
             0 => __DIR__ . '/..' . '/enshrined/svg-sanitize/src',
@@ -399,10 +390,6 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Solarium\\' => 
         array (
             0 => __DIR__ . '/..' . '/solarium/solarium/src',
-        ),
-        'Shapefile\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/gasparesganga/php-shapefile/src/Shapefile',
         ),
         'SendGrid\\' => 
         array (
@@ -942,6 +929,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Composer\\Installers\\MauticInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/MauticInstaller.php',
         'Composer\\Installers\\MayaInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/MayaInstaller.php',
         'Composer\\Installers\\MediaWikiInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/MediaWikiInstaller.php',
+        'Composer\\Installers\\MiaoxingInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/MiaoxingInstaller.php',
         'Composer\\Installers\\MicroweberInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/MicroweberInstaller.php',
         'Composer\\Installers\\ModxInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/ModxInstaller.php',
         'Composer\\Installers\\MoodleInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/MoodleInstaller.php',
@@ -977,12 +965,14 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Composer\\Installers\\TYPO3CmsInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/TYPO3CmsInstaller.php',
         'Composer\\Installers\\TYPO3FlowInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/TYPO3FlowInstaller.php',
         'Composer\\Installers\\TaoInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/TaoInstaller.php',
+        'Composer\\Installers\\TastyIgniterInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/TastyIgniterInstaller.php',
         'Composer\\Installers\\TheliaInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/TheliaInstaller.php',
         'Composer\\Installers\\TuskInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/TuskInstaller.php',
         'Composer\\Installers\\UserFrostingInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/UserFrostingInstaller.php',
         'Composer\\Installers\\VanillaInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/VanillaInstaller.php',
         'Composer\\Installers\\VgmcpInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/VgmcpInstaller.php',
         'Composer\\Installers\\WHMCSInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/WHMCSInstaller.php',
+        'Composer\\Installers\\WinterInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/WinterInstaller.php',
         'Composer\\Installers\\WolfCMSInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/WolfCMSInstaller.php',
         'Composer\\Installers\\WordPressInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/WordPressInstaller.php',
         'Composer\\Installers\\YawikInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/YawikInstaller.php',
@@ -3085,6 +3075,8 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Drupal\\Core\\Language\\LanguageManager' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Language/LanguageManager.php',
         'Drupal\\Core\\Language\\LanguageManagerInterface' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Language/LanguageManagerInterface.php',
         'Drupal\\Core\\Layout\\Annotation\\Layout' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/Annotation/Layout.php',
+        'Drupal\\Core\\Layout\\Icon\\IconBuilderInterface' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/Icon/IconBuilderInterface.php',
+        'Drupal\\Core\\Layout\\Icon\\SvgIconBuilder' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/Icon/SvgIconBuilder.php',
         'Drupal\\Core\\Layout\\LayoutDefault' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/LayoutDefault.php',
         'Drupal\\Core\\Layout\\LayoutDefinition' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/LayoutDefinition.php',
         'Drupal\\Core\\Layout\\LayoutInterface' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Core/Layout/LayoutInterface.php',
@@ -3911,6 +3903,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Enlightn\\SecurityChecker\\JsonFormatter' => __DIR__ . '/..' . '/enlightn/security-checker/src/JsonFormatter.php',
         'Enlightn\\SecurityChecker\\SecurityChecker' => __DIR__ . '/..' . '/enlightn/security-checker/src/SecurityChecker.php',
         'Enlightn\\SecurityChecker\\SecurityCheckerCommand' => __DIR__ . '/..' . '/enlightn/security-checker/src/SecurityCheckerCommand.php',
+        'Enlightn\\SecurityChecker\\ZipExtractor' => __DIR__ . '/..' . '/enlightn/security-checker/src/ZipExtractor.php',
         'Geocoder\\Adapter\\GeoIP2Adapter' => __DIR__ . '/..' . '/willdurand/geocoder/src/Adapter/GeoIP2Adapter.php',
         'Geocoder\\Assert' => __DIR__ . '/..' . '/willdurand/geocoder/src/Assert.php',
         'Geocoder\\Collection' => __DIR__ . '/..' . '/willdurand/geocoder/src/Collection.php',
@@ -4491,6 +4484,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'PhpParser\\Builder' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Builder.php',
         'PhpParser\\BuilderFactory' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/BuilderFactory.php',
         'PhpParser\\BuilderHelpers' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/BuilderHelpers.php',
+        'PhpParser\\Builder\\ClassConst' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Builder/ClassConst.php',
         'PhpParser\\Builder\\Class_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Builder/Class_.php',
         'PhpParser\\Builder\\Declaration' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Builder/Declaration.php',
         'PhpParser\\Builder\\FunctionLike' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Builder/FunctionLike.php',
@@ -4521,6 +4515,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'PhpParser\\Lexer\\Emulative' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/Emulative.php',
         'PhpParser\\Lexer\\TokenEmulator\\AttributeEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/AttributeEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\CoaleseEqualTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/CoaleseEqualTokenEmulator.php',
+        'PhpParser\\Lexer\\TokenEmulator\\EnumTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/EnumTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\FlexibleDocStringEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/FlexibleDocStringEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\FnTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/FnTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\KeywordEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/KeywordEmulator.php',
@@ -4682,6 +4677,8 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'PhpParser\\Node\\Stmt\\Echo_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Echo_.php',
         'PhpParser\\Node\\Stmt\\ElseIf_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/ElseIf_.php',
         'PhpParser\\Node\\Stmt\\Else_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Else_.php',
+        'PhpParser\\Node\\Stmt\\EnumCase' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/EnumCase.php',
+        'PhpParser\\Node\\Stmt\\Enum_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Enum_.php',
         'PhpParser\\Node\\Stmt\\Expression' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Expression.php',
         'PhpParser\\Node\\Stmt\\Finally_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Finally_.php',
         'PhpParser\\Node\\Stmt\\For_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/For_.php',
@@ -5087,19 +5084,6 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'SendGrid\\Email' => __DIR__ . '/..' . '/fastglass/sendgrid/src/Email.php',
         'SendGrid\\Exception' => __DIR__ . '/..' . '/fastglass/sendgrid/src/Exception.php',
         'SendGrid\\Response' => __DIR__ . '/..' . '/fastglass/sendgrid/src/Response.php',
-        'Shapefile\\Geometry\\Geometry' => __DIR__ . '/..' . '/gasparesganga/php-shapefile/src/Shapefile/Geometry/Geometry.php',
-        'Shapefile\\Geometry\\GeometryCollection' => __DIR__ . '/..' . '/gasparesganga/php-shapefile/src/Shapefile/Geometry/GeometryCollection.php',
-        'Shapefile\\Geometry\\Linestring' => __DIR__ . '/..' . '/gasparesganga/php-shapefile/src/Shapefile/Geometry/Linestring.php',
-        'Shapefile\\Geometry\\MultiLinestring' => __DIR__ . '/..' . '/gasparesganga/php-shapefile/src/Shapefile/Geometry/MultiLinestring.php',
-        'Shapefile\\Geometry\\MultiPoint' => __DIR__ . '/..' . '/gasparesganga/php-shapefile/src/Shapefile/Geometry/MultiPoint.php',
-        'Shapefile\\Geometry\\MultiPolygon' => __DIR__ . '/..' . '/gasparesganga/php-shapefile/src/Shapefile/Geometry/MultiPolygon.php',
-        'Shapefile\\Geometry\\Point' => __DIR__ . '/..' . '/gasparesganga/php-shapefile/src/Shapefile/Geometry/Point.php',
-        'Shapefile\\Geometry\\Polygon' => __DIR__ . '/..' . '/gasparesganga/php-shapefile/src/Shapefile/Geometry/Polygon.php',
-        'Shapefile\\Shapefile' => __DIR__ . '/..' . '/gasparesganga/php-shapefile/src/Shapefile/Shapefile.php',
-        'Shapefile\\ShapefileAutoloader' => __DIR__ . '/..' . '/gasparesganga/php-shapefile/src/Shapefile/ShapefileAutoloader.php',
-        'Shapefile\\ShapefileException' => __DIR__ . '/..' . '/gasparesganga/php-shapefile/src/Shapefile/ShapefileException.php',
-        'Shapefile\\ShapefileReader' => __DIR__ . '/..' . '/gasparesganga/php-shapefile/src/Shapefile/ShapefileReader.php',
-        'Shapefile\\ShapefileWriter' => __DIR__ . '/..' . '/gasparesganga/php-shapefile/src/Shapefile/ShapefileWriter.php',
         'Smtpapi' => __DIR__ . '/..' . '/sendgrid/smtpapi/lib/Smtpapi.php',
         'Smtpapi\\Header' => __DIR__ . '/..' . '/sendgrid/smtpapi/lib/Smtpapi/Header.php',
         'Solarium\\Builder\\AbstractExpressionVisitor' => __DIR__ . '/..' . '/solarium/solarium/src/Builder/AbstractExpressionVisitor.php',
@@ -5686,6 +5670,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Symfony\\Component\\Console\\Output\\Output' => __DIR__ . '/..' . '/symfony/console/Output/Output.php',
         'Symfony\\Component\\Console\\Output\\OutputInterface' => __DIR__ . '/..' . '/symfony/console/Output/OutputInterface.php',
         'Symfony\\Component\\Console\\Output\\StreamOutput' => __DIR__ . '/..' . '/symfony/console/Output/StreamOutput.php',
+        'Symfony\\Component\\Console\\Output\\TrimmedBufferOutput' => __DIR__ . '/..' . '/symfony/console/Output/TrimmedBufferOutput.php',
         'Symfony\\Component\\Console\\Question\\ChoiceQuestion' => __DIR__ . '/..' . '/symfony/console/Question/ChoiceQuestion.php',
         'Symfony\\Component\\Console\\Question\\ConfirmationQuestion' => __DIR__ . '/..' . '/symfony/console/Question/ConfirmationQuestion.php',
         'Symfony\\Component\\Console\\Question\\Question' => __DIR__ . '/..' . '/symfony/console/Question/Question.php',
@@ -7240,43 +7225,6 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'enshrined\\svgSanitize\\data\\TagInterface' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/TagInterface.php',
         'enshrined\\svgSanitize\\data\\XPath' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/XPath.php',
         'geoPHP' => __DIR__ . '/..' . '/phayes/geophp/geoPHP.inc',
-        'phpGPX\\Helpers\\DateTimeHelper' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Helpers/DateTimeHelper.php',
-        'phpGPX\\Helpers\\DistanceCalculator' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Helpers/DistanceCalculator.php',
-        'phpGPX\\Helpers\\ElevationGainLossCalculator' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Helpers/ElevationGainLossCalculator.php',
-        'phpGPX\\Helpers\\GeoHelper' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Helpers/GeoHelper.php',
-        'phpGPX\\Helpers\\SerializationHelper' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Helpers/SerializationHelper.php',
-        'phpGPX\\Models\\Bounds' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Bounds.php',
-        'phpGPX\\Models\\Collection' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Collection.php',
-        'phpGPX\\Models\\Copyright' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Copyright.php',
-        'phpGPX\\Models\\Email' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Email.php',
-        'phpGPX\\Models\\Extensions' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Extensions.php',
-        'phpGPX\\Models\\Extensions\\AbstractExtension' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Extensions/AbstractExtension.php',
-        'phpGPX\\Models\\Extensions\\TrackPointExtension' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Extensions/TrackPointExtension.php',
-        'phpGPX\\Models\\GpxFile' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/GpxFile.php',
-        'phpGPX\\Models\\Link' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Link.php',
-        'phpGPX\\Models\\Metadata' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Metadata.php',
-        'phpGPX\\Models\\Person' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Person.php',
-        'phpGPX\\Models\\Point' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Point.php',
-        'phpGPX\\Models\\Route' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Route.php',
-        'phpGPX\\Models\\Segment' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Segment.php',
-        'phpGPX\\Models\\Stats' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Stats.php',
-        'phpGPX\\Models\\StatsCalculator' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/StatsCalculator.php',
-        'phpGPX\\Models\\Summarizable' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Summarizable.php',
-        'phpGPX\\Models\\Track' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Models/Track.php',
-        'phpGPX\\Parsers\\BoundsParser' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Parsers/BoundsParser.php',
-        'phpGPX\\Parsers\\CopyrightParser' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Parsers/CopyrightParser.php',
-        'phpGPX\\Parsers\\EmailParser' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Parsers/EmailParser.php',
-        'phpGPX\\Parsers\\ExtensionParser' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Parsers/ExtensionParser.php',
-        'phpGPX\\Parsers\\Extensions\\TrackPointExtensionParser' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Parsers/Extensions/TrackPointExtensionParser.php',
-        'phpGPX\\Parsers\\LinkParser' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Parsers/LinkParser.php',
-        'phpGPX\\Parsers\\MetadataParser' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Parsers/MetadataParser.php',
-        'phpGPX\\Parsers\\PersonParser' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Parsers/PersonParser.php',
-        'phpGPX\\Parsers\\PointParser' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Parsers/PointParser.php',
-        'phpGPX\\Parsers\\RouteParser' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Parsers/RouteParser.php',
-        'phpGPX\\Parsers\\SegmentParser' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Parsers/SegmentParser.php',
-        'phpGPX\\Parsers\\TrackParser' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Parsers/TrackParser.php',
-        'phpGPX\\Parsers\\WaypointParser' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/Parsers/WaypointParser.php',
-        'phpGPX\\phpGPX' => __DIR__ . '/..' . '/sibyx/phpgpx/src/phpGPX/phpGPX.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

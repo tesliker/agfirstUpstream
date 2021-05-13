@@ -1,0 +1,53 @@
+--- src/Plugin/Block/MenuBlock.php
++++ src/Plugin/Block/MenuBlock.php
+@@ -5,6 +5,7 @@ namespace Drupal\menu_block\Plugin\Block;
+ use Drupal\Core\Access\AccessResult;
+ use Drupal\Core\Form\FormStateInterface;
+ use Drupal\Core\Menu\MenuParentFormSelectorInterface;
++use Drupal\Core\Menu\MenuTreeParameters;
+ use Drupal\Core\Session\AccountInterface;
+ use Drupal\system\Entity\Menu;
+ use Drupal\system\Plugin\Block\SystemMenuBlock;
+@@ -55,7 +73,7 @@ class MenuBlock extends SystemMenuBlock {
+   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+     $instance->setMenuParentFormSelector($container->get('menu.parent_form_selector'));
+-
++    $instance->entityTypeManager = $container->get('entity_type.manager');
+     return $instance;
+   }
+ 
+@@ -201,6 +239,7 @@ class MenuBlock extends SystemMenuBlock {
+     $this->configuration['expand'] = $form_state->getValue('expand');
+     $this->configuration['parent'] = $form_state->getValue('parent');
+     $this->configuration['suggestion'] = $form_state->getValue('suggestion');
++    $this->configuration['label_type'] = $form_state->getValue('label_type');
+   }
+ 
+   /**
+@@ -310,9 +349,17 @@ class MenuBlock extends SystemMenuBlock {
+     $tree = $this->menuTree->transform($tree, $manipulators);
+     $build = $this->menuTree->build($tree);
+ 
++    $label = $this->getBlockLabel() ?: $this->label();
++    // Set the block's #title (label) to the dynamic value.
++    $build['#title'] = [
++      '#markup' => $label,
++    ];
+     if (!empty($build['#theme'])) {
+       // Add the configuration for use in menu_block_theme_suggestions_menu().
+       $build['#menu_block_configuration'] = $this->configuration;
++      // Set the generated label into the configuration array so it is
++      // propagated to the theme preprocessor and template(s) as needed.
++      $build['#menu_block_configuration']['label'] = $label;
+       // Remove the menu name-based suggestion so we can control its precedence
+       // better in menu_block_theme_suggestions_menu().
+       $build['#theme'] = 'menu';
+@@ -348,6 +395,7 @@ class MenuBlock extends SystemMenuBlock {
+       'expand' => 0,
+       'parent' => $this->getDerivativeId() . ':',
+       'suggestion' => strtr($this->getDerivativeId(), '-', '_'),
++      'label_type' => self::LABEL_BLOCK,
+     ];
+   }
+ 
