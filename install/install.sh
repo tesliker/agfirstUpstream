@@ -9,25 +9,14 @@ ROOT_DIR=$(dirname $(dirname $(readlink -f $0)))
 
 pushd $ROOT_DIR > /dev/null
 
-    cat install/banner.txt
-    echo
-    echo -n " Domain name (Ex. www.example.com ): "
-    read DOMAIN
-    
-    #create random admin password
-    ADMIN_PASS=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)
-    
     pushd web > /dev/null
-
-        #add sitemap to robots.txt
-        sed "s/%DOMAIN%/${DOMAIN}/g"   < ../install/robotstxt.settings.yml.TEMPLATE > ../install/config/robotstxt.settings.yml
 
         # gotta be able to write to these dirs and their children
         chmod -R u+w sites/default
         chmod -R u+w libraries
 
         # enable our standard modules
-        drush pm:enable \
+        drush en \
             address, \
             admin_toolbar, \
             admin_toolbar_tools, \
@@ -73,15 +62,15 @@ pushd $ROOT_DIR > /dev/null
             --yes
 
         # disable modules
-        drush pm:uninstall \
+        drush pm-uninstall \
             quickedit \
             contact \
             --yes
 
-        drush core:cron
-        drush cache:rebuild
-        drush config:import --partial --source=../install/config/ --yes
-        drush config:export --yes
+        drush cron
+        drush cr
+        drush config-import --partial --source=../install/config/ --yes
+        drush config-export --yes
     popd
 
 popd
