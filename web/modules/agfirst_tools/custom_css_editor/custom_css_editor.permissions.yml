@@ -1,0 +1,9 @@
+administer custom_css_editor module_settings:
+  title: 'Administer Custom CSS editor module settings'
+  description: 'Allow to access the settings form of the Custom CSS editor module.'
+  restrict access: true
+
+administer custom_css_editor edit_custom_css:
+  title: 'Edit Custom CSS.'
+  description: 'Allow to access the Custom CSS editor field on node edit forms.'
+  restrict access: true

@@ -1,0 +1,6 @@
+custom_css_editor.module_admin:
+  title: 'Custom CSS editor'
+  description: 'Manage the Custom CSS editor module settings.'
+  parent: system.admin_config_content
+  route_name: custom_css_editor.module_settings
+  weight: 0

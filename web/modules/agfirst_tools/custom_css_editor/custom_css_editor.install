@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions.
+ */
+
+use Drupal\Core\Url;
+use Drupal\Core\Link;
+
+/**
+ * Implements hook_schema().
+ */
+function custom_css_editor_schema() {
+  $schema['custom_css_data'] = [
+    'description' => 'Table that stores failed attempts to submit a form.',
+    'fields' => [
+      'nid' => [
+        'type' => 'int',
+        'description' => 'Identifies the associated node.',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'css_code' => [
+        'type' => 'text',
+        'description' => 'Custom CSS code.',
+        'size' => 'big',
+        'not null' => TRUE,
+      ],
+    ],
+    'indexes' => [
+      'nid' => ['nid'],
+    ],
+  ];
+  return $schema;
+}

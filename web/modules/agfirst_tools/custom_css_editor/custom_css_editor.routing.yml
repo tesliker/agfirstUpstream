@@ -1,0 +1,8 @@
+
+custom_css_editor.module_settings:
+  path: '/admin/config/content/custom-css-editor'
+  defaults:
+    _form: '\Drupal\custom_css_editor\Form\CustomCSSEditorSettingsForm'
+    _title: 'Custom CSS editor'
+  requirements:
+    _permission: 'administer custom_css_editor module_settings'

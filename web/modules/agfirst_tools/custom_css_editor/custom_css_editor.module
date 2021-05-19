@@ -1,0 +1,252 @@
+<?php
+
+/**
+ * @file
+ * Contains custom_css_editor.module.
+ */
+
+use Drupal\Core\Asset\AttachedAssetsInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Component\Utility\Xss;
+use Drupal\custom_css_editor\CustomCSS;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_help().
+ *
+ * @param $route_name
+ * @param RouteMatchInterface $route_match
+ * @return string
+ */
+function custom_css_editor_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.custom_css_editor':
+      $parse_down = new Erusev\Parsedown\Parsedown();
+      $readme = file_get_contents(drupal_get_path('module', 'custom_css_editor') . '/README.md');
+      return Xss::filterAdmin($parse_down->toHtml($readme));
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * @param $form
+ * @param FormStateInterface $form_state
+ * @param $form_id
+ */
+function custom_css_editor_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  $user = \Drupal::currentUser();
+  $has_permission = $user->hasPermission('administer custom_css_editor edit_custom_css');
+
+  $config = \Drupal::config('custom_css_editor.module_settings');
+  $allowed_bundles = $config->get('bundles') ?: [];
+  $allowed_bundles = array_keys(array_filter($allowed_bundles));
+
+  $entity = $form_state->getFormObject()->getEntity();
+
+  if (!$has_permission || !($entity instanceof NodeInterface) || !in_array($entity->bundle(), $allowed_bundles)) {
+    return;
+  }
+
+  $nid = intval($entity->id());
+  $css_code = null;
+
+  $custom_css = new CustomCSS();
+  $custom_css->get($nid);
+
+  $custom_css_editor = &$form['advanced']['custom_css_editor'];
+
+  $custom_css_editor = [
+    '#type' => 'details',
+    '#title' => 'Additional Styles',
+    '#description' => 'Use the following CSS Editor to add additional styles to this page.',
+    '#open' => FALSE,
+  ];
+
+  $custom_css_editor['custom_css_code'] = [
+    '#type' => 'textarea',
+    '#title' => t('CSS Editor'),
+    '#rows' => 10,
+    '#default_value' => $custom_css->css_code,
+    '#required' => FALSE,
+    '#prefix' => /** @lang html */ '<div>',
+    '#suffix' => /** @lang html */ '<div class="resizable"><div class="ace-editor"></div></div></div>',
+  ];
+
+  $custom_css_editor['#attached']['library'][] = 'custom_css_editor/ace-editor';
+
+  foreach (array_keys($form['actions']) as $action) {
+    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      $form['actions'][$action]['#submit'][] = 'custom_css_editor_node_form_submit';
+    }
+  }
+
+}
+
+///**
+// * @param $vars
+// */
+//function custom_css_editor_preprocess_page(&$vars) {
+//  $vars['#attached']['library'][] = 'custom_css_editor/dynamic-css-thing';
+//}
+//
+///**
+// * @param $vars
+// */
+//function custom_css_editor_preprocess_node(&$vars) {
+//
+//  // Only show if the "full" node is being displayed.
+//  if ($vars['view_mode'] == 'full') {
+//
+//    $nid = $vars['node']->id();
+//    $custom_css = new CustomCSS();
+//    $custom_css->get($nid);
+//
+//  }
+//
+//}
+
+/**
+ * Implements hook_preprocess_html().
+ *
+ * @param $vars
+ */
+function custom_css_editor_preprocess_html(&$vars) {
+
+  $config = \Drupal::config('custom_css_editor.module_settings');
+  $allowed_bundles = $config->get('bundles') ?: [];
+  $allowed_bundles = array_keys(array_filter($allowed_bundles));
+
+  $node = Drupal::routeMatch()->getParameter('node');
+
+  if (!($node instanceof NodeInterface) || !in_array($node->bundle(), $allowed_bundles)) {
+    return;
+  }
+
+  if ($node instanceof NodeInterface) {
+    $nid = $node->id();
+    $custom_css = new CustomCSS();
+    $custom_css->get($nid);
+
+    if (!empty($custom_css->css_code)) {
+      $vars['custom_css_editor'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'style',
+        '#attributes' => [
+          'type' => 'text/css',
+        ],
+        '#value' => $custom_css->css_code,
+      ];
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ *
+ * @param array $build
+ * @param EntityInterface $entity
+ * @param EntityViewDisplayInterface $display
+ * @param $view_mode
+ */
+function custom_css_editor_node_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+
+//  $node = $entity;
+//
+//  if ($node->bundle() === 'page') {
+//    if ($view_mode === 'full') {
+//      $nid = $node->id();
+//      $custom_css = new CustomCSS();
+//      $custom_css->get($nid);
+//
+//      $css = [
+//        '#type' => 'html_tag',
+//        '#tag' => 'style',
+//        '#attributes' => [
+//          'type' => 'text/css',
+//        ],
+//        '#value' => $custom_css->css_code,
+//      ];
+//
+//      // $build['#attached']['library'][] = "custom_css_editor/custom-css-editor";
+//      // $build['#attached']['html_head'][] = [$css, 'text/css'];
+//    }
+//  }
+}
+
+/**
+ * @param $form
+ * @param FormStateInterface $form_state
+ * @throws Exception
+ */
+function custom_css_editor_node_form_submit($form, FormStateInterface $form_state) {
+
+  $user = \Drupal::currentUser();
+  $has_permission = $user->hasPermission('administer custom_css_editor edit_custom_css');
+
+  $config = \Drupal::config('custom_css_editor.module_settings');
+  $allowed_bundles = $config->get('bundles') ?: [];
+  $allowed_bundles = array_keys(array_filter($allowed_bundles));
+
+  $entity = $form_state->getFormObject()->getEntity();
+
+  if (!$has_permission || !($entity instanceof NodeInterface) || !in_array($entity->bundle(), $allowed_bundles)) {
+    return;
+  }
+
+  $nid = intval($entity->id());
+
+  $css_code = $form_state->getValue('custom_css_code');
+
+  $custom_css = new CustomCSS();
+  $custom_css->save($nid, $css_code);
+
+//  $directory = 'public://custom_css_editor/';
+//  Drupal::service('file_system')->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
+//  $file = file_save_data(
+//    $css_code,
+//    $directory . 'custom_css__' . $nid . '.css',
+//    FileSystemInterface::EXISTS_REPLACE
+//  );
+//
+//  \Drupal::service('cache.static')->invalidateAll();
+
+}
+
+
+/**
+ * Implements hook_css_alter().
+ * @param $css
+ * @param AttachedAssetsInterface $assets
+ */
+function custom_css_editor_css_alter(&$css, AttachedAssetsInterface $assets) {
+
+//  $node = Drupal::routeMatch()->getParameter('node');
+//  if ($node instanceof NodeInterface) {
+//
+//    $nid = $node->id();
+//    $custom_css = new CustomCSS();
+//    $custom_css->get($nid);
+//
+//    $directory = 'public://custom_css_editor/custom_css__' . $nid . '.css';
+//    $stored_file = \Drupal::service('file_system')->realpath($directory);
+//
+//    if (file_exists($stored_file)) {
+//
+//      $relative_path = file_url_transform_relative(file_create_url($directory));
+//
+//      $placeholder = drupal_get_path('module', 'custom_css_editor') . '/css/custom_css.css';
+//
+//      if (isset($css[$placeholder])) {
+//        $css[$placeholder]['group'] = 300;
+//        $css[$placeholder]['data'] = $relative_path;
+//      }
+//
+//    }
+//  }
+
+}

@@ -1,0 +1,19 @@
+{
+  "name": "cyberwoven/custom_css_editor",
+  "type": "drupal-module",
+  "description": "This module provides a field on the node edit form to inject custom CSS.",
+  "keywords": ["Drupal"],
+  "homepage": "https://bitbucket.org/cyberwoven/custom_css_editor",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Danny Cooper (grentastic)",
+      "homepage": "https://www.drupal.org/u/grentastic",
+      "role": "Author / Maintainer"
+    }
+  ],
+  "support": {
+    "source": "https://bitbucket.org/cyberwoven/custom_css_editor.git"
+  }
+}

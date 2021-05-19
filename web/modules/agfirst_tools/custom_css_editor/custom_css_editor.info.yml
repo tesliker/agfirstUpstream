@@ -1,0 +1,10 @@
+name: Custom CSS Editor
+type: module
+description: "This module provides a field on the node edit form to inject custom CSS."
+package: Cyberwoven
+core_version_requirement: ^8 || ^9
+php: 7.2
+
+configure: custom_css_editor.module_settings
+
+dependencies:
