@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'ab3831ba1b83f330d46c26239c7d91c3e6c110e0',
+    'reference' => '8fa2a07165f86c23bae38e5d9c7f51a8ce360121',
     'name' => 'pantheon-systems/example-drops-8-composer',
   ),
   'versions' => 
@@ -75,12 +75,12 @@ private static $installed = array (
     ),
     'commerceguys/addressing' => 
     array (
-      'pretty_version' => 'v1.2.0',
-      'version' => '1.2.0.0',
+      'pretty_version' => 'v1.2.1',
+      'version' => '1.2.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '00c263fa945e7f78524bbb6b99d331f3b493be2a',
+      'reference' => '311040bd78ea2ea82105dd1f17205c449ac8de47',
     ),
     'composer/installers' => 
     array (
@@ -244,12 +244,12 @@ private static $installed = array (
     ),
     'doctrine/cache' => 
     array (
-      'pretty_version' => '1.11.0',
-      'version' => '1.11.0.0',
+      'pretty_version' => '1.11.1',
+      'version' => '1.11.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a9c1b59eba5a08ca2770a76eddb88922f504e8e0',
+      'reference' => '163074496dc7c3c7b8ccbf3d4376c0187424ed81',
     ),
     'doctrine/collections' => 
     array (
@@ -936,12 +936,12 @@ private static $installed = array (
     ),
     'drupal/draggableviews' => 
     array (
-      'pretty_version' => '2.0.0',
-      'version' => '2.0.0.0',
+      'pretty_version' => '2.0.1',
+      'version' => '2.0.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '2.0.0',
+      'reference' => '2.0.1',
     ),
     'drupal/dynamic_page_cache' => 
     array (
@@ -1098,12 +1098,12 @@ private static $installed = array (
     ),
     'drupal/geolocation' => 
     array (
-      'pretty_version' => '3.4.0',
-      'version' => '3.4.0.0',
+      'pretty_version' => '3.5.0',
+      'version' => '3.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8.x-3.4',
+      'reference' => '8.x-3.5',
     ),
     'drupal/google_analytics' => 
     array (
@@ -2255,7 +2255,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'ab3831ba1b83f330d46c26239c7d91c3e6c110e0',
+      'reference' => '8fa2a07165f86c23bae38e5d9c7f51a8ce360121',
     ),
     'pantheon-systems/quicksilver-pushback' => 
     array (
@@ -2612,12 +2612,12 @@ private static $installed = array (
     ),
     'symfony/css-selector' => 
     array (
-      'pretty_version' => 'v4.4.22',
-      'version' => '4.4.22.0',
+      'pretty_version' => 'v4.4.24',
+      'version' => '4.4.24.0',
       'aliases' => 
       array (
       ),
-      'reference' => '01c77324d1d47efbfd7891f62a7c256c69330115',
+      'reference' => '947cacaf1b3a2af6f13a435392873d5ddaba5f70',
     ),
     'symfony/debug' => 
     array (
@@ -2639,12 +2639,12 @@ private static $installed = array (
     ),
     'symfony/dom-crawler' => 
     array (
-      'pretty_version' => 'v4.4.20',
-      'version' => '4.4.20.0',
+      'pretty_version' => 'v4.4.24',
+      'version' => '4.4.24.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'be133557f1b0e6672367325b508e65da5513a311',
+      'reference' => 'fc0bd1f215b0cd9f4efdc63bb66808f3417331bc',
     ),
     'symfony/error-handler' => 
     array (
@@ -2691,12 +2691,12 @@ private static $installed = array (
     ),
     'symfony/finder' => 
     array (
-      'pretty_version' => 'v4.4.23',
-      'version' => '4.4.23.0',
+      'pretty_version' => 'v4.4.24',
+      'version' => '4.4.24.0',
       'aliases' => 
       array (
       ),
-      'reference' => '67b77716f517e3f864759232e1201e7aa2ab0e82',
+      'reference' => 'a96bc19ed87c88eec78e1a4c803bdc1446952983',
     ),
     'symfony/http-client-contracts' => 
     array (

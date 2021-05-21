@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.3",
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.7",
         "drupal/ace_editor": "^1.3",
@@ -138,15 +138,15 @@
     "extra": {
         "installer-paths": {
             "web/core": ["type:drupal-core"],
-            "pub/libraries/{$name}": [
+            "web/libraries/{$name}": [
                 "type:drupal-library",
                 "type:npm-asset"
             ],
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
-            "drush/contrib/{$name}": ["type:drupal-drush"],
-            "web/private/scripts/quicksilver/{$name}/": ["type:quicksilver-script"]
+            "web/private/scripts/quicksilver/{$name}/": ["type:quicksilver-script"],
+            "drush/contrib/{$name}": ["type:drupal-drush"]
         },
         "build-env": {
             "install-cms": [
@@ -157,14 +157,14 @@
             "export-configuration": "drush config-export --yes"
         },
         "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            },
             "source": "https://raw.githubusercontent.com/pantheon-systems/drops-8-scaffolding/{version}/{path}",
             "includes": [
                 "sites/default/default.services.pantheon.preproduction.yml",
                 "sites/default/settings.pantheon.php"
             ],
-	    "locations": {
-	        "web-root": "web/"
-	    },
             "excludes": [
                 ".csslintrc",
                 ".editorconfig",
@@ -202,7 +202,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "platform": {
-            "php": "7.4"
+            "php": "7.3"
         }
     }
 }
