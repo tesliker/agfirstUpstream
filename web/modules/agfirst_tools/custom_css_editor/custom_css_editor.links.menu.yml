@@ -1,6 +1,13 @@
-custom_css_editor.module_admin:
+custom_css_editor.module_settings:
   title: 'Custom CSS editor'
   description: 'Manage the Custom CSS editor module settings.'
   parent: system.admin_config_content
   route_name: custom_css_editor.module_settings
   weight: 0
+#
+#custom_css_editor.content_list:
+#  title: 'Content List'
+#  description: 'View the occurrences of CSS Editors with values.'
+#  parent: custom_css_editor.module_settings
+#  route_name: custom_css_editor.content_list
+#  weight: 0

@@ -2,6 +2,7 @@
 
 namespace Drupal\custom_css_editor;
 
+use Drupal\node\Entity\Node;
 use Exception;
 
 class CustomCSS {
@@ -33,6 +34,39 @@ class CustomCSS {
       $this->css_code = $record->css_code;
       break;
     }
+
+  }
+
+  /**
+   * @param bool $pager
+   * @param int $limit
+   * @return \Drupal\Core\Entity\EntityBase[]|\Drupal\Core\Entity\EntityInterface[]
+   */
+  public function getContentList($pager = FALSE, $limit = 10) {
+
+    $db = \Drupal::database();
+    $query = $db->select('custom_css_data', 'ccd');
+    $query->fields('ccd');
+
+    if ($pager) {
+      $pager = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit($limit);
+      $results = $pager->execute()->fetchAll();
+    } else {
+      $results = $query->execute()->fetchAll();
+    }
+
+    $nids = [];
+    foreach($results as $record) {
+      if (!empty(trim($record->css_code))) {
+        $nids[] = $record->nid;
+      }
+    }
+
+    return Node::loadMultiple($nids);
+
+  }
+
+  public function getBundles() {
 
   }
 
