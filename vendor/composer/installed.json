@@ -1514,17 +1514,17 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "1.11.1",
-            "version_normalized": "1.11.1.0",
+            "version": "1.11.3",
+            "version_normalized": "1.11.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "163074496dc7c3c7b8ccbf3d4376c0187424ed81"
+                "reference": "3bb5588cec00a0268829cc4a518490df6741af9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/163074496dc7c3c7b8ccbf3d4376c0187424ed81",
-                "reference": "163074496dc7c3c7b8ccbf3d4376c0187424ed81",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/3bb5588cec00a0268829cc4a518490df6741af9d",
+                "reference": "3bb5588cec00a0268829cc4a518490df6741af9d",
                 "shasum": ""
             },
             "require": {
@@ -1547,7 +1547,7 @@
             "suggest": {
                 "alcaeus/mongo-php-adapter": "Required to use legacy MongoDB driver"
             },
-            "time": "2021-05-18T16:45:32+00:00",
+            "time": "2021-05-25T09:01:55+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1594,6 +1594,10 @@
                 "redis",
                 "xcache"
             ],
+            "support": {
+                "issues": "https://github.com/doctrine/cache/issues",
+                "source": "https://github.com/doctrine/cache/tree/1.11.3"
+            },
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -4206,18 +4210,18 @@
         },
         {
             "name": "drupal/ctools",
-            "version": "3.6.0",
-            "version_normalized": "3.6.0.0",
+            "version": "3.7.0",
+            "version_normalized": "3.7.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/ctools.git",
-                "reference": "8.x-3.6"
+                "reference": "8.x-3.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ctools-8.x-3.6.zip",
-                "reference": "8.x-3.6",
-                "shasum": "9a849bb6ac9f4d02603d04b3265b35b7329e1ef5"
+                "url": "https://ftp.drupal.org/files/projects/ctools-8.x-3.7.zip",
+                "reference": "8.x-3.7",
+                "shasum": "b11c0981a1d2ab3cc9e8e614a337d8e2a2a70c0e"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9"
@@ -4225,8 +4229,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.6",
-                    "datestamp": "1620838181",
+                    "version": "8.x-3.7",
+                    "datestamp": "1623860918",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4419,89 +4423,6 @@
                 "slack": "https://drupal.slack.com/archives/C012WAW1MH6"
             },
             "install-path": "../../web/modules/contrib/devel"
-        },
-        {
-            "name": "drupal/draggableviews",
-            "version": "2.0.1",
-            "version_normalized": "2.0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/draggableviews.git",
-                "reference": "2.0.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/draggableviews-2.0.1.zip",
-                "reference": "2.0.1",
-                "shasum": "e13a6c625fb8ca370a32b76dfd9f8bea9b2e27e9"
-            },
-            "require": {
-                "drupal/core": "^8 || ^9"
-            },
-            "require-dev": {
-                "drupal/draggableviews_demo": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "2.0.1",
-                    "datestamp": "1620931210",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                },
-                "patches_applied": []
-            },
-            "installation-source": "dist",
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Tyler Struyk (iStryker)",
-                    "homepage": "https://www.drupal.org/u/istryker",
-                    "email": "tyler.struyk@gmail.com",
-                    "role": "Maintainer"
-                },
-                {
-                    "name": "Andrii Podanenko (podarok)",
-                    "homepage": "https://www.drupal.org/u/podarok",
-                    "email": "podarokua@gmail.com",
-                    "role": "Drupal 7 to 8 Porter"
-                },
-                {
-                    "name": "Yuriy Gerasimov (ygerasimov)",
-                    "homepage": "https://www.drupal.org/u/ygerasimov",
-                    "email": "yuriy.gerasimov@gmail.com",
-                    "role": "Ex Maintainer (D7)"
-                },
-                {
-                    "name": "Severin Unger (sevi)",
-                    "homepage": "https://www.drupal.org/u/sevi",
-                    "role": "Ex Maintainer (D6)"
-                },
-                {
-                    "name": "podarok",
-                    "homepage": "https://www.drupal.org/user/116002"
-                },
-                {
-                    "name": "sevi",
-                    "homepage": "https://www.drupal.org/user/199290"
-                },
-                {
-                    "name": "ygerasimov",
-                    "homepage": "https://www.drupal.org/user/257311"
-                }
-            ],
-            "description": "DraggableViews module makes views draggable.",
-            "homepage": "https://www.drupal.org/project/draggableviews",
-            "support": {
-                "source": "https://cgit.drupalcode.org/draggableviews",
-                "issues": "https://www.drupal.org/project/issues/draggableviews"
-            },
-            "install-path": "../../web/modules/contrib/draggableviews"
         },
         {
             "name": "drupal/easy_breadcrumb",
@@ -12862,23 +12783,23 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v4.4.24",
-            "version_normalized": "4.4.24.0",
+            "version": "v4.4.25",
+            "version_normalized": "4.4.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "947cacaf1b3a2af6f13a435392873d5ddaba5f70"
+                "reference": "c1e29de6dc893b130b45d20d8051efbb040560a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/947cacaf1b3a2af6f13a435392873d5ddaba5f70",
-                "reference": "947cacaf1b3a2af6f13a435392873d5ddaba5f70",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/c1e29de6dc893b130b45d20d8051efbb040560a9",
+                "reference": "c1e29de6dc893b130b45d20d8051efbb040560a9",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1.3"
             },
-            "time": "2021-05-16T09:52:47+00:00",
+            "time": "2021-05-26T17:39:37+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -12909,6 +12830,9 @@
             ],
             "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/css-selector/tree/v4.4.25"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -13087,17 +13011,17 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v4.4.24",
-            "version_normalized": "4.4.24.0",
+            "version": "v4.4.25",
+            "version_normalized": "4.4.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "fc0bd1f215b0cd9f4efdc63bb66808f3417331bc"
+                "reference": "41d15bb6d6b95d2be763c514bb2494215d9c5eef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/fc0bd1f215b0cd9f4efdc63bb66808f3417331bc",
-                "reference": "fc0bd1f215b0cd9f4efdc63bb66808f3417331bc",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/41d15bb6d6b95d2be763c514bb2494215d9c5eef",
+                "reference": "41d15bb6d6b95d2be763c514bb2494215d9c5eef",
                 "shasum": ""
             },
             "require": {
@@ -13115,7 +13039,7 @@
             "suggest": {
                 "symfony/css-selector": ""
             },
-            "time": "2021-05-16T09:52:47+00:00",
+            "time": "2021-05-26T11:20:16+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -13142,6 +13066,9 @@
             ],
             "description": "Eases DOM navigation for HTML and XML documents",
             "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/dom-crawler/tree/v4.4.25"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -13465,23 +13392,23 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.4.24",
-            "version_normalized": "4.4.24.0",
+            "version": "v4.4.25",
+            "version_normalized": "4.4.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "a96bc19ed87c88eec78e1a4c803bdc1446952983"
+                "reference": "ed33314396d968a8936c95f5bd1b88bd3b3e94a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/a96bc19ed87c88eec78e1a4c803bdc1446952983",
-                "reference": "a96bc19ed87c88eec78e1a4c803bdc1446952983",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/ed33314396d968a8936c95f5bd1b88bd3b3e94a3",
+                "reference": "ed33314396d968a8936c95f5bd1b88bd3b3e94a3",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1.3"
             },
-            "time": "2021-05-16T12:27:45+00:00",
+            "time": "2021-05-26T11:20:16+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -13508,6 +13435,9 @@
             ],
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/finder/tree/v4.4.25"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
