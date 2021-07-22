@@ -68,7 +68,7 @@ class DecimalItem extends NumericItemBase {
       '#type' => 'number',
       '#title' => t('Precision'),
       '#min' => 10,
-      '#max' => ini_get('precision') < $element['precision']['#min'] ? $element['precision']['#min'] : ini_get('precision'),
+      '#max' => ini_get('precision') < 10 ? 10 : ini_get('precision'),
       '#default_value' => $settings['precision'],
       '#description' => t('The total number of digits to store in the database, including those to the right of the decimal.'),
       '#disabled' => $has_data,

@@ -10,6 +10,6 @@ Source: https://www.drupal.org/files/issues/2019-04-17/states_not_affecting-2847
 
 
 Simple decimals fail to pass validation
-Source: https://www.drupal.org/files/issues/2021-01-12/drupal-simple-decimal-validation-2230909-210.patch
+Source: https://www.drupal.org/files/issues/2021-07-11/drupal-simple-decimal-validation-2230909-223.patch
 
 
