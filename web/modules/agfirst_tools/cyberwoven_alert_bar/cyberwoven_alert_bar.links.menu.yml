@@ -4,4 +4,10 @@ cyberwoven_alert_bar.admin:
   parent: system.admin_content
   route_name: cyberwoven_alert_bar.settings
   weight: 0
-  
+
+cyberwoven_alert_bar.module_admin:
+  title: 'Alert bar settings'
+  description: 'Manage the Cyberwoven alert bar module settings.'
+  parent: system.admin_config_content
+  route_name: cyberwoven_alert_bar.module_settings
+  weight: 0

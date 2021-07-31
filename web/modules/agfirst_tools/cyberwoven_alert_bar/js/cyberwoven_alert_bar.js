@@ -2,11 +2,23 @@
   Drupal.behaviors.cyberwovenAlertBar = {
     attach: function (context, settings) {
 
-      var cyberwoven_alert_bar_closed = $.cookie('cyberwoven_alert_bar_closed', Number);
+      var cookieintro = 'cyberwoven_alert_bar_closed_';
+      var cyberwoven_alert_bar_closed = $.cookie(cookieintro.concat(settings.cw_alert_bar.unique_id), Number);
+      var is_root = (location.pathname === "/");
+      if (drupalSettings.alertSettings.homepage_only === 1 && is_root !== true) {
+        cyberwoven_alert_bar_closed = 1;
+      }
+
       if (!cyberwoven_alert_bar_closed) {
-        var current_time = Math.round(new Date().getTime()/1000);
-        if (current_time < drupalSettings.alertSettings.expires) {
-          $('#cw-alert-bar').addClass('show-alert');
+        if (drupalSettings.alertSettings.enabled) {
+          if (drupalSettings.alertSettings.expires === null) {
+            $('#cw-alert-bar').addClass('show-alert');
+          } else {
+            var current_time = Math.round(new Date().getTime() / 1000);
+            if (current_time < drupalSettings.alertSettings.expires) {
+              $('#cw-alert-bar').addClass('show-alert');
+            }
+          }
         }
       }
 
@@ -14,7 +26,7 @@
         e.preventDefault();
         if ($('#cw-alert-bar').length > 0) {
           $('#cw-alert-bar').removeClass('show-alert');
-          $.cookie('cyberwoven_alert_bar_closed', 1);
+          $.cookie(cookieintro.concat(settings.cw_alert_bar.unique_id), 1);
         }
       });
 

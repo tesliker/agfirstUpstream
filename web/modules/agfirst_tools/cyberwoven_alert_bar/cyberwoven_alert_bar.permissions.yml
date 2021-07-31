@@ -1,4 +1,9 @@
 administer cyberwoven_alert_bar settings:
   title: 'Administer Cyberwoven Alert Bar settings'
+  description: 'Allow to access the Manage alert bar form of to configure how and when alerts are displayed.'
+  restrict access: true
+
+administer cyberwoven_alert_bar module_settings:
+  title: 'Administer Cyberwoven Alert Bar module settings'
   description: 'Allow to access the settings form of the Cyberwoven Alert Bar module.'
   restrict access: true

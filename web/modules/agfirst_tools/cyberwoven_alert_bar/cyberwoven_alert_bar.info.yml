@@ -4,4 +4,4 @@ description: Create and administer alerts for the site.
 package: Cyberwoven
 core_version_requirement: ^8 || ^9
 
-configure: cyberwoven_alert_bar.settings
+configure: cyberwoven_alert_bar.module_settings

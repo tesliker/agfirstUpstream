@@ -6,3 +6,11 @@ cyberwoven_alert_bar.settings:
     _title: 'Manage alert'
   requirements:
     _permission: 'administer cyberwoven_alert_bar settings'
+
+cyberwoven_alert_bar.module_settings:
+  path: '/admin/config/content/cw-alert-bar'
+  defaults:
+    _form: '\Drupal\cyberwoven_alert_bar\Form\CyberwovenAlertBarModuleSettingsForm'
+    _title: 'Alert bar module settings'
+  requirements:
+    _permission: 'administer cyberwoven_alert_bar module_settings'

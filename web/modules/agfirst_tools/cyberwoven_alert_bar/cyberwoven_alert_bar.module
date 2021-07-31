@@ -36,12 +36,14 @@ function cyberwoven_alert_bar_theme($existing, $type, $theme, $path) {
         'enabled' => null,
         'expires' => null,
         'severity' => null,
+        'homepage_only' => null,
         'message' => null,
         'more_link_label' => null,
         'more_link_url' => null,
         'more_link_external' => null,
         'alert_color_scheme' => null,
         'additional_classes' => null,
+        'unique_id' => null,
       ],
     ],
   ];
@@ -55,21 +57,29 @@ function cyberwoven_alert_bar_preprocess_block__cyberwoven_alert_bar(&$variables
   $variables['#attached']['library'][] =  'cyberwoven_alert_bar/cyberwoven_alert_bar_functions';
 
   $config = \Drupal::config('cyberwoven_alert_bar.settings');
+  $module_config = \Drupal::config('cyberwoven_alert_bar.module_settings');
 
-  // Get the UNIX timestamp of the expiration date,
-  // and add one day to make it the last day the alert shows.
-  $expires_date = date(strtotime($config->get('expires') . ' + 1 days'));
+  $expires_date = $config->get('expires');
+  if (empty($expires_date)) {
+    $expires_date = null;
+  } else {
+    // Get the UNIX timestamp of the expiration date,
+    // and add one day to make it the last day the alert shows.
+    $expires_date = date(strtotime($expires_date . ' + 1 days'));
+  }
 
   $variables['#attached']['drupalSettings']['alertSettings'] = [
     'enabled' => $config->get('enabled'),
     'expires' => $expires_date,
-    'severity' => $config->get('severity'),
+    'severity' => ($module_config->get('hide_severity')) ? null : $config->get('severity'),
+    'homepage_only' => $config->get('homepage_only'),
     'message' => $config->get('message'),
     'more_link_label' => $config->get('more_link_label'),
     'more_link_url' => $config->get('more_link_url'),
     'more_link_external' => $config->get('more_link_external'),
-    'alert_color_scheme' => $config->get('alert_color_scheme'),
-    'additional_classes' => $config->get('additional_classes'),
+    'alert_color_scheme' => ($module_config->get('hide_additional_settings')) ? null : $config->get('alert_color_scheme'),
+    'additional_classes' => ($module_config->get('hide_additional_settings')) ? null : $config->get('additional_classes'),
+    'unique_id' => $config->get('unique_id'),
   ];
 
 }

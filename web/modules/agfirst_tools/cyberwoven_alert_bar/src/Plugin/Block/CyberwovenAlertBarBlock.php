@@ -37,6 +37,7 @@ class CyberwovenAlertBarBlock extends BlockBase implements BlockPluginInterface 
       '#enabled' => $config->get('enabled'),
       '#expires' => $config->get('expires'),
       '#severity' => $config->get('severity'),
+      '#homepage_only' => $config->get('homepage_only'),
       '#message' => array(
         '#markup' => $config->get('message')['value'],
       ),
@@ -45,6 +46,7 @@ class CyberwovenAlertBarBlock extends BlockBase implements BlockPluginInterface 
       '#more_link_external' => $config->get('more_link_external'),
       '#alert_color_scheme' => $config->get('alert_color_scheme'),
       '#additional_classes' => $config->get('additional_classes'),
+      '#unique_id' => $config->get('unique_id'),
       '#cache' => [
         'tags' => ['config:cyberwoven_alert_bar.settings'],
       ]
@@ -56,6 +58,7 @@ class CyberwovenAlertBarBlock extends BlockBase implements BlockPluginInterface 
       $build['cw-alert-bar'] = null;
     }
 
+    $build['#attached']['drupalSettings']['cw_alert_bar']['unique_id']= $config->get('unique_id');
     return $build;
 
   }
