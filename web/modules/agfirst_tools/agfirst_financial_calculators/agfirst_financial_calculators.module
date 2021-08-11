@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @file
+ * Contains agfirst_financial_calculators.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function agfirst_financial_calculators_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the agfirst_financial_calculators module.
+    case 'help.page.agfirst_financial_calculators':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides blocks containing shared calculators for AgFirst sites.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function agfirst_financial_calculators_theme() {
+  return [
+    'agfirst_financial_calculators_loan' => [
+      'variables' => [
+        'attributes' => [],
+        'loan_calc_amount' => NULL,
+        'loan_calc_interest' => NULL,
+        'loan_calc_term' => NULL,
+        'loan_calc_frequency' => NULL,
+      ],
+    ],
+    'agfirst_financial_calculators_mortgage' => [
+      'variables' => [
+        'attributes' => [],
+        'mort_calc_amount' => NULL,
+        'mort_calc_interest' => NULL,
+        'mort_calc_term' => NULL,
+        'mort_calc_down_payment' => NULL,
+      ],
+    ],
+    'agfirst_financial_calculators_patronage' => [
+      'variables' => [
+        'attributes'=> [],
+        'patronage_percent' => 19.24
+      ]
+    ]
+  ];
+}

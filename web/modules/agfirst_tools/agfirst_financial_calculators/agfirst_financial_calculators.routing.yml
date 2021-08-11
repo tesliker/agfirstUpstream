@@ -1,0 +1,9 @@
+agfirst_financial_calculators.calculators_config_form:
+  path: '/admin/config/agfirst-financial-calculator-settings'
+  defaults:
+    _form: 'Drupal\agfirst_financial_calculators\Form\CalculatorSettings'
+    _title: 'Calculator Settings'
+  requirements:
+    _permission: 'administer calculator settings'
+  options:
+    _admin_route: TRUE

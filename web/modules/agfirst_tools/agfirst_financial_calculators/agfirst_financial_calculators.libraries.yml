@@ -1,0 +1,24 @@
+loan_calculator:
+  js:
+    js/amortize.js: {}
+    js/agfirst-loan-calculator.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+mortgage_calculator:
+  js:
+    js/agfirst-mortgage-calculator.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+patronage_calculator:
+  js:
+    js/agfirst-patronage-calculator.js: {}
+  css:
+    component:
+      css/agfirst-patronage-calculator.css : {}
+  dependencies:
+    - core/jquery
+    - core/drupal
