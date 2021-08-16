@@ -1,7 +1,13 @@
 loan_calculator:
   js:
-    js/amortize.js: {}
     js/agfirst-loan-calculator.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+amortization_calculator:
+  js:
+    js/agfirst-amortization-calculator.js: {}
   dependencies:
     - core/jquery
     - core/drupal

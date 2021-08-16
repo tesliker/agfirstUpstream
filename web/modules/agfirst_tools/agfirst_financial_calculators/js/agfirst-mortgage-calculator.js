@@ -29,12 +29,12 @@
   function reload() {
     var ds = getDataSet();
 
-    if (isNaN(ds.payment.toFixed(2))) {
-      $('#mortgage-paymentAmount').text('');
-      $('#mortgageCalcResult').hide();
-    } else {
+    if ($.isNumeric(ds.payment.toFixed(2))) {
       $('#mortgage-paymentAmount').text('$' + ds.payment.toFixed(2));
       $('#mortgageCalcResult').show();
+    } else {
+      $('#mortgage-paymentAmount').text('');
+      $('#mortgageCalcResult').hide();
     }
   }
 

@@ -37,6 +37,15 @@ function agfirst_financial_calculators_theme() {
         'loan_calc_frequency' => NULL,
       ],
     ],
+    'agfirst_financial_calculators_amortization' => [
+      'variables' => [
+        'attributes' => [],
+        'loan_calc_amount' => NULL,
+        'loan_calc_interest' => NULL,
+        'loan_calc_term' => NULL,
+        'loan_calc_frequency' => NULL,
+      ],
+    ],
     'agfirst_financial_calculators_mortgage' => [
       'variables' => [
         'attributes' => [],

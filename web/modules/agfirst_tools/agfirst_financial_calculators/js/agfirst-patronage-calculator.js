@@ -6,10 +6,8 @@
     var interestRate = 10/100;*/
     $(document).on('click', '#btnSubmit', function(e) {
       e.preventDefault();
-      console.log($('#tbxLoanAmount').val());
-      if (isNaN($('#tbxLoanAmount').val()) || isNaN($('#tbxAnnualRate').val())) {
-        $('.calculator-results').removeClass('reveal');
-      }else{
+
+      if ($.isNumeric($('#tbxLoanAmount').val()) && $.isNumeric($('#tbxAnnualRate').val())) {
         var loanAmount = $('#tbxLoanAmount').val().replace(/,/g, '');
         var interestRate = $('#tbxAnnualRate').val() / 100;
         var patronageDistro = calcPatronageDistro(loanAmount, interestRate, patronagePercent);
@@ -21,6 +19,8 @@
         $('span[data-id="effective-interest-expense"]').text('$' + effectiveInterestExpense.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'));
         $('span[data-id="effective-interest-rate"]').text((effectiveInterestRate * 100).toFixed(2) + '%');
         $('.calculator-results').addClass('reveal');
+      }else{
+        $('.calculator-results').removeClass('reveal');
       }
     });
     $(document).on('click', '#clearForm', function(e) {

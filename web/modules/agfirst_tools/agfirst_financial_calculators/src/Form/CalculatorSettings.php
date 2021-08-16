@@ -97,6 +97,46 @@ class CalculatorSettings extends ConfigFormBase {
       '#required' => FALSE,
     ];
 
+    /** Amortization Calculator Settings */
+
+    $form['amortization_calculator'] = [
+      '#type' => 'details',
+      '#title' => 'Loan Calculator Settings',
+      '#open' => TRUE,
+    ];
+
+    $form['amortization_calculator']['amortization_calc_amount'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Amount of Loan'),
+      '#description' => $this->t('Default loan amount.'),
+      '#default_value' => $config->get('amortization_calc_amount'),
+      '#required' => FALSE,
+    ];
+
+    $form['amortization_calculator']['amortization_calc_interest'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Interest Rate'),
+      '#description' => $this->t('Default interest rate of the loan (exclude percent sign).'),
+      '#default_value' => $config->get('amortization_calc_interest'),
+      '#required' => FALSE,
+    ];
+
+    $form['amortization_calculator']['amortization_calc_term'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Years'),
+      '#description' => $this->t('Default term of loan in years.'),
+      '#default_value' => $config->get('amortization_calc_term'),
+      '#required' => FALSE,
+    ];
+
+    $form['amortization_calculator']['amortization_calc_frequency'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Payments per year'),
+      '#description' => $this->t('Default number of payments per year.'),
+      '#default_value' => $config->get('amortization_calc_frequency'),
+      '#required' => FALSE,
+    ];
+
 
     /** Mortgage Calculator Settings */
 

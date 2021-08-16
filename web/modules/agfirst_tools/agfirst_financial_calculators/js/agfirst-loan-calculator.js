@@ -51,12 +51,12 @@
   function reload() {
     var ds = getDataSet();
 
-    if (isNaN(ds.payment.toFixed(2))) {
-      $('#paymentAmount').text('');
-      $('#loanCalcResult').hide();
-    } else {
+    if ($.isNumeric(ds.payment.toFixed(2))) {
       $('#paymentAmount').text('$' + ds.payment.toFixed(2));
       $('#loanCalcResult').show();
+    } else {
+      $('#paymentAmount').text('');
+      $('#loanCalcResult').hide();
     }
     reloadTable(ds);
   }
