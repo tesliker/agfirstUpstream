@@ -101,7 +101,7 @@ class CalculatorSettings extends ConfigFormBase {
 
     $form['amortization_calculator'] = [
       '#type' => 'details',
-      '#title' => 'Loan Calculator Settings',
+      '#title' => 'Amortization Calculator Settings',
       '#open' => TRUE,
     ];
 
@@ -123,17 +123,9 @@ class CalculatorSettings extends ConfigFormBase {
 
     $form['amortization_calculator']['amortization_calc_term'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Years'),
-      '#description' => $this->t('Default term of loan in years.'),
+      '#title' => $this->t('Months'),
+      '#description' => $this->t('Default term of loan in months.'),
       '#default_value' => $config->get('amortization_calc_term'),
-      '#required' => FALSE,
-    ];
-
-    $form['amortization_calculator']['amortization_calc_frequency'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Payments per year'),
-      '#description' => $this->t('Default number of payments per year.'),
-      '#default_value' => $config->get('amortization_calc_frequency'),
       '#required' => FALSE,
     ];
 
@@ -195,6 +187,10 @@ class CalculatorSettings extends ConfigFormBase {
     $config->set('loan_calc_interest', $form_state->getValue('loan_calc_interest'));
     $config->set('loan_calc_term', $form_state->getValue('loan_calc_term'));
     $config->set('loan_calc_frequency', $form_state->getValue('loan_calc_frequency'));
+
+    $config->set('amortization_calc_amount', $form_state->getValue('amortization_calc_amount'));
+    $config->set('amortization_calc_interest', $form_state->getValue('amortization_calc_interest'));
+    $config->set('amortization_calc_term', $form_state->getValue('amortization_calc_term'));
 
     $config->set('mort_calc_amount', $form_state->getValue('mort_calc_amount'));
     $config->set('mort_calc_interest', $form_state->getValue('mort_calc_interest'));

@@ -32,7 +32,6 @@ class AmortizationCalculator extends BlockBase {
       '#amortization_calc_amount' => $config->get('amortization_calc_amount'),
       '#amortization_calc_interest' => $config->get('amortization_calc_interest'),
       '#amortization_calc_term' => $config->get('amortization_calc_term'),
-      '#amortization_calc_frequency' => $config->get('amortization_calc_frequency'),
     ];
 
     return $build;
