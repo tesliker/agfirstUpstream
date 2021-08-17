@@ -6,9 +6,9 @@
 
         let thisCalc = $(this).closest('.amortization-calculator');
 
-        let principal = parseFloat($('#loanAmount').val());
-        let interestRate = parseFloat($('#interestRate').val());
-        let months = parseInt($('#months').val());
+        let principal = parseFloat(thisCalc.find('#loanAmount').val());
+        let interestRate = parseFloat(thisCalc.find('#interestRate').val());
+        let months = parseInt(thisCalc.find('#months').val());
 
         let interest = interestRate / 100.0 / 12;
         let payment = principal * (interest + interest / (Math.pow(1 + interest, months) -1 ));
@@ -70,8 +70,6 @@
       let toCurrency = function(value) {
         return '$' + value.toFixed(2).replace(/(\d)(?=(\d{3})+\.\d\d$)/g,"$1,");
       };
-
-
     }
   };
 
