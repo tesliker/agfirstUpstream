@@ -141,7 +141,7 @@ class CyberwovenNodeType extends NodeType {
     elseif ($routeName == 'entity.node.revision') {
       $node = $this->currentRouteMatch->getParameter('node');
       if (is_scalar($node)) {
-        $node = $this->entity_storage->getStorage('node')->load($node);
+        $node = \Drupal::entityTypeManager()->getStorage('node')->load($node);
       }
 
       if ($node instanceof NodeInterface) {
