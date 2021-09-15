@@ -177,7 +177,7 @@
             "drupal/core": {
                 "CKEditor Image Patch": "patches/drupalimage_ckeditor-2771837-34.patch",
                 "#states not affecting visibility/requirement of managed_file": "https://www.drupal.org/files/issues/2019-04-17/states_not_affecting-2847425-37.patch",
-                "Simple decimals fail to pass validation": "https://www.drupal.org/files/issues/2021-07-11/drupal-simple-decimal-validation-2230909-223.patch"
+                "Simple decimals fail to pass validation": "https://www.drupal.org/files/issues/2021-09-06/drupal-simple-decimal-validation-ver_9.2.5-2230909-230.patch"
             },
             "drupal/imce": {
                 "File Browser on User Page": "patches/imce_no_browser_tab-2858430-4.patch"
