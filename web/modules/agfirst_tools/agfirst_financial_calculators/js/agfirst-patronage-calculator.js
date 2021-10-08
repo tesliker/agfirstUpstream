@@ -1,18 +1,19 @@
 (function ($) {
 
   $(document).ready(function() {
-    var patronagePercent = (window.agf_calc_patronage_percent || 19.42) / 100; /* 19.42% Patronage */
-    /*var loanAmount = 100000;
-    var interestRate = 10/100;*/
+    let patronagePercent = (window.agf_calc_patronage_percent || 19.42) / 100; /* 19.42% Patronage */
+    /*let loanAmount = 100000;
+    let interestRate = 10/100;*/
     $(document).on('click', '#btnSubmit', function(e) {
       e.preventDefault();
 
       if ($.isNumeric($('#tbxLoanAmount').val()) && $.isNumeric($('#tbxAnnualRate').val())) {
-        var loanAmount = $('#tbxLoanAmount').val().replace(/,/g, '');
-        var interestRate = $('#tbxAnnualRate').val() / 100;
-        var patronageDistro = calcPatronageDistro(loanAmount, interestRate, patronagePercent);
-        var effectiveInterestExpense = calcEffectiveInterestExpense(loanAmount, interestRate, patronageDistro);
-        var effectiveInterestRate = calcEffectiveInterestRate(interestRate, patronagePercent);
+        $('#patronageMessage').hide();
+        let loanAmount = $('#tbxLoanAmount').val().replace(/,/g, '');
+        let interestRate = $('#tbxAnnualRate').val() / 100;
+        let patronageDistro = calcPatronageDistro(loanAmount, interestRate, patronagePercent);
+        let effectiveInterestExpense = calcEffectiveInterestExpense(loanAmount, interestRate, patronageDistro);
+        let effectiveInterestRate = calcEffectiveInterestRate(interestRate, patronagePercent);
         $('span[data-id="loan-amount"]').text(parseInt(loanAmount * interestRate, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'));
         $('span[data-id="annual-rate"]').text($('#tbxAnnualRate').val() + '%');
         $('span[data-id="estimated-patronage"]').text('$' + patronageDistro.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'));
@@ -20,6 +21,7 @@
         $('span[data-id="effective-interest-rate"]').text((effectiveInterestRate * 100).toFixed(2) + '%');
         $('.calculator-results').addClass('reveal');
       }else{
+        $('#patronageMessage').fadeIn(300);
         $('.calculator-results').removeClass('reveal');
       }
     });
@@ -28,16 +30,16 @@
     });
   });
   function calcPatronageDistro(loanAmount, interestRate, patronagePercent) {
-    var patronageDistro = (loanAmount * interestRate) * patronagePercent;
+    let patronageDistro = (loanAmount * interestRate) * patronagePercent;
     return (patronageDistro);
   }
   function calcEffectiveInterestExpense(loanAmount, interestRate, patronageDistro) {
-    var grossInterestExpense = loanAmount * interestRate;
-    var effectiveInterestExpense = grossInterestExpense - patronageDistro;
+    let grossInterestExpense = loanAmount * interestRate;
+    let effectiveInterestExpense = grossInterestExpense - patronageDistro;
     return (effectiveInterestExpense);
   }
   function calcEffectiveInterestRate(interestRate, patronagePercent) {
-    var effectiveInterestRate = interestRate * (1 - patronagePercent);
+    let effectiveInterestRate = interestRate * (1 - patronagePercent);
     return (effectiveInterestRate);
   }
 

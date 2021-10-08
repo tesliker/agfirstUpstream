@@ -1,6 +1,5 @@
 
 <div class="amortization-calculator">
-
   <form>
     <div class="form-group">
       <label for="loanAmount">{{"Loan Amount" | t}}</label>
@@ -15,32 +14,40 @@
       <input type="text" id="months" class="form-control user-input" value="{{ amortization_calc_term }}">
     </div>
 
+    <div class="form-error-message"></div>
+
     <div class="form-actions">
-      <div><input type="button" value="{{ "Calculate" | t }}" id="buttonCalculate" /></div>
+      <a id="buttonCalculate" href="#amortization-results" class="fancybox">Calculate</a>
     </div>
 
-    <div class="payment-summary" style="display: none;">
-      <h2>{{ "Payment Summary" | t }}</h2>
-      <div>{{ "Monthly Payment" | t }}: <span class="monthlyPayment"></span></div>
-      <div>{{ "Total Principal" | t }}: <span class="totalPrincipal"></span></div>
-      <div>{{ "Total Interest" | t }}: <span class="totalInterest"></span></div>
-    </div>
+    <div style="display: none;">
+      <div id="amortization-results">
 
-    <div class="payment-schedule" style="display: none;">
-      <h2>{{ "Payment Schedule" }}</h2>
+        <div class="payment-summary" style="display: none;">
+          <h2>{{ "Payment Summary" | t }}</h2>
+          <div>{{ "Monthly Payment" | t }}: <span class="monthlyPayment"></span></div>
+          <div>{{ "Total Principal" | t }}: <span class="totalPrincipal"></span></div>
+          <div>{{ "Total Interest" | t }}: <span class="totalInterest"></span></div>
+        </div>
 
-      <table class="amortization-schedule">
-        <thead>
-        <tr>
-          <th>{{ "Installment" | t }}</th>
-          <th>{{ "Payment" | t }}</th>
-          <th>{{ "Principal" | t }}</th>
-          <th>{{ "Interest" | t }}</th>
-          <th>{{ "Total Interest" | t }}</th>
-          <th>{{ "Balance" | t }}</th>
-        </tr>
-        <tbody></tbody>
-      </table>
+        <div class="payment-schedule" style="display: none;">
+          <h2>{{ "Payment Schedule" }}</h2>
+
+          <table class="amortization-schedule">
+            <thead>
+            <tr>
+              <th>{{ "Installment" | t }}</th>
+              <th>{{ "Payment" | t }}</th>
+              <th>{{ "Principal" | t }}</th>
+              <th>{{ "Interest" | t }}</th>
+              <th>{{ "Total Interest" | t }}</th>
+              <th>{{ "Balance" | t }}</th>
+            </tr>
+            <tbody></tbody>
+          </table>
+        </div>
+
+      </div>
     </div>
   </form>
 

@@ -9,23 +9,25 @@
 <form>
   <div class="form-group">
     <label for="tbxLoanAmount">{{ "Loan Amount" | t }}</label>
-    <input class="form-control" id="tbxLoanAmount" placeholder="Amount" runat="server" type="text" />
+    <input class="form-control" id="tbxLoanAmount" placeholder="{{ "Amount" | t }}" type="text" />
   </div>
 
   <div class="form-group">
     <label for="tbxAnnualRate">{{ "Annual Rate" | t }}</label>
-    <input class="form-control" id="tbxAnnualRate" placeholder="Annual Rate" runat="server" type="text" />
+    <input class="form-control" id="tbxAnnualRate" placeholder="{{ "Annual Rate" | t }}" type="text" />
   </div>
   </div>
 
   <div class="form-actions">
-    <button class="button green" id="btnSubmit" runat="server" type="submit">Submit</button>
-    <button class="button brown" id="clearForm" runat="server" type="reset">Reset</button>
+    <button class="button green" id="btnSubmit" type="submit">{{ "Submit" | t }}</button>
+    <button class="button brown" id="clearForm" type="reset">{{ "Reset"| t }}</button>
   </div>
 </form>
 <!--Form Ends Here -->
 
 <!--Results Start Here -->
+
+<div id="patronageMessage" class="form-error-message" style="display: none;">{{ "Please check your values and try again." | t }}</div>
 <div class="calculator-results">
   <p>{{ "Here is your estimated Patronage Distribution:" | t }}
     <strong>
@@ -51,6 +53,6 @@
 
   <p>*{{ "Results based on 10-year average refund totals. Past performance not a guarantee of future payouts. Calculations
   do not account for time value of money or distinguish between returns made in cash and in allocated surplus. Talk to a loan
-  officer for details." }}</p>
+  officer for details." | t }}</p>
 </div>
 <!--Results End Here -->

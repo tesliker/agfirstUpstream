@@ -1,43 +1,47 @@
 (function ($) {
 
   function getDataSet() {
-    var output = {};
-    var homePrice = output.loanAmount = parseFloat($('#mortgage-homePrice').val());
-    var downPayment = output.loanAmount = parseFloat($('#mortgage-downPayment').val());
-    var loanAmount = homePrice - downPayment;
-    var interestRate = output.interestRate = parseFloat($('#mortgage-interestRate').val());
-    var paymentsPerYear = 12;
-    var years = output.years = parseInt($('#mortgage-years').val());
-    var numberOfPayments = output.numberOfPayments = paymentsPerYear * years;
+    let output = {
+      homePrice: parseFloat($('#mortgage-homePrice').val().replace(/,/g, '')),
+      downPayment: parseFloat($('#mortgage-downPayment').val().replace(/,/g, '')),
+      interestRate: parseFloat($('#mortgage-interestRate').val().replace(/,/g, '')),
+      years: parseInt($('#mortgage-years').val().replace(/,/g, '')),
+    };
 
-    var payment = output.payment = pmt(interestRate / 100 / paymentsPerYear, numberOfPayments, -loanAmount);
+    output['paymentsPerYear'] = 12;
+    output['loanAmount'] = output.homePrice - output.downPayment;
+    output['numberOfPayments'] = output.paymentsPerYear * output.years;
+    output['payment'] = pmt(output.interestRate / 100 / output.paymentsPerYear, output.numberOfPayments, -output.loanAmount);
+
     $("#mortgage-loanAmount").keydown(function (e) {
       if (e.keyCode === 188) {
         e.preventDefault();
       }
     });
 
-    output.schedule = computeSchedule(loanAmount,
-      interestRate,
-      paymentsPerYear,
-      years,
-      payment);
     return output;
 
   }
 
   function reload() {
-    var ds = getDataSet();
+    let ds = getDataSet();
 
-    if ($.isNumeric(ds.payment.toFixed(2))) {
+    // Validate input / output as numeric.
+    if ($.isNumeric($('#mortgage-homePrice').val().replace(/,/g, '')) &&
+      $.isNumeric($('#mortgage-downPayment').val().replace(/,/g, '')) &&
+      $.isNumeric($('#mortgage-interestRate').val().replace(/,/g, '')) &&
+      $.isNumeric($('#mortgage-years').val().replace(/,/g, '')) &&
+      $.isNumeric(ds.payment.toFixed(2))) {
+
       $('#mortgage-paymentAmount').text('$' + ds.payment.toFixed(2));
-      $('#mortgageCalcResult').show();
+      $('#mortgageCalcMessage').hide();
+      $('#mortgageCalcResult').fadeIn(300);
     } else {
       $('#mortgage-paymentAmount').text('');
+      $('#mortgageCalcMessage').fadeIn(300);
       $('#mortgageCalcResult').hide();
     }
   }
-
 
   $(document).on('keyup', '.user-input', reload);
 

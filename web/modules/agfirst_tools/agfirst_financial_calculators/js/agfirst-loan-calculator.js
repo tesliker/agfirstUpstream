@@ -1,66 +1,44 @@
 (function ($) {
 
   function getDataSet() {
-    var output = {};
-    var loanAmount = output.loanAmount = parseFloat($('#loanAmount').val());
-    var interestRate = output.interestRate = parseFloat($('#interestRate').val());
-    var paymentsPerYear = output.paymentsPerYear = parseInt($('#paymentsPerYear').val());
-    var years = output.years = parseInt($('#years').val());
-    var numberOfPayments = output.numberOfPayments = paymentsPerYear * years;
+    let output = {
+      loanAmount: parseFloat($('#loanAmount').val().replace(/,/g, '')),
+      interestRate: parseFloat($('#interestRate').val().replace(/,/g, '')),
+      years: parseInt($('#years').val().replace(/,/g, '')),
+      paymentsPerYear: parseInt($('#paymentsPerYear').val().replace(/,/g, '')),
+    };
 
-    var payment = output.payment = pmt(interestRate / 100 / paymentsPerYear, numberOfPayments, -loanAmount);
+    output['numberOfPayments'] = output.paymentsPerYear * output.years;
+    output['payment'] = pmt(output.interestRate / 100 / output.paymentsPerYear, output.numberOfPayments, -output.loanAmount);
+
     $("#loanAmount").keydown(function (e) {
       if (e.keyCode === 188) {
         e.preventDefault();
       }
-
     });
-    output.schedule = computeSchedule(loanAmount,
-      interestRate,
-      paymentsPerYear,
-      years,
-      payment);
 
     return output;
   }
 
-  function reloadTable(ds) {
-    // map the schedule to 2 digits after decimal point.
-    var schedule = ds.schedule.map(function (n) {
-      return [n[0], n[1].toFixed(2), n[2].toFixed(2), n[3].toFixed(2)];
-    });
-
-    $('#schedule').empty();
-    $('#schedule').html('<table cellpadding="0" cellspacing="0" border="0" class="display table" id="schedule_table"></table>');
-    $('#schedule_table').dataTable({
-      "data": schedule,
-      "searching": false,
-      "columns": [
-        {"title": "Period"},
-        {"title": "Principle"},
-        {"title": "Interest"},
-        {"title": "Remaining"}
-      ],
-      "search": false,
-      "paging": false,
-      "ordering": false,
-      "info": false
-    });
-  }
-
   function reload() {
-    var ds = getDataSet();
+    let ds = getDataSet();
 
-    if ($.isNumeric(ds.payment.toFixed(2))) {
+    // Validate input / output as numeric.
+    if ($.isNumeric($('#loanAmount').val().replace(/,/g, '')) &&
+      $.isNumeric($('#interestRate').val().replace(/,/g, '')) &&
+      $.isNumeric($('#years').val().replace(/,/g, '')) &&
+      $.isNumeric($('#paymentsPerYear').val().replace(/,/g, '')) &&
+      $.isNumeric(ds.payment.toFixed(2))) {
+
       $('#paymentAmount').text('$' + ds.payment.toFixed(2));
-      $('#loanCalcResult').show();
+      $('#loanCalcMessage').hide();
+      $('#loanCalcResult').fadeIn(300);
     } else {
       $('#paymentAmount').text('');
+      $('#loanCalcMessage').fadeIn(300);
       $('#loanCalcResult').hide();
     }
-    reloadTable(ds);
   }
-
 
   $(document).on('keyup', '.user-input', reload);
 

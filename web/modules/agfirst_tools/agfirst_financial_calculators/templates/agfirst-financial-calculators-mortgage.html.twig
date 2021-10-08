@@ -21,6 +21,7 @@
   </div>
   <div class="form-group form-results">
     <p class="form-instructions">{{ "Change any combination of fields to calculate the monthly payment." | t }}</p>
+    <div id="mortgageCalcMessage" class="form-error-message" style="display: none;">{{ "Please check your values and try again." | t }}</div>
     <div id="mortgageCalcResult" class="calcResult">{{"Your payment amount is" | t}} <span id="mortgage-paymentAmount"></span></div>
   </div>
 
