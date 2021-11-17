@@ -4,7 +4,7 @@
     let patronagePercent = (window.agf_calc_patronage_percent || 19.42) / 100; /* 19.42% Patronage */
     /*let loanAmount = 100000;
     let interestRate = 10/100;*/
-    $(document).on('click', '#btnSubmit', function(e) {
+    $(document).on('click', '#buttonCalculatePatronage', function(e) {
       e.preventDefault();
 
       if ($.isNumeric($('#tbxLoanAmount').val()) && $.isNumeric($('#tbxAnnualRate').val())) {
