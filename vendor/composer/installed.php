@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'cee32161b65f3381053ec45102ec379f36c97c12',
+        'reference' => 'edcf91345d5e25df77fe67ea811623c7f8b92db7',
         'name' => 'pantheon-systems/example-drops-8-composer',
         'dev' => true,
     ),
@@ -2059,7 +2059,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'cee32161b65f3381053ec45102ec379f36c97c12',
+            'reference' => 'edcf91345d5e25df77fe67ea811623c7f8b92db7',
             'dev_requirement' => false,
         ),
         'pantheon-systems/quicksilver-pushback' => array(
