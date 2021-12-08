@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '7c8026b7aa2d9f1a5ed75cfbc507124829ca04c2',
+        'reference' => '00dbae5c7b62f5946d30cf3c916792ed3415fda8',
         'name' => 'pantheon-systems/example-drops-8-composer',
         'dev' => true,
     ),
@@ -1766,12 +1766,12 @@
             'dev_requirement' => false,
         ),
         'drupal/webform' => array(
-            'pretty_version' => '6.0.5',
-            'version' => '6.0.5.0',
+            'pretty_version' => '6.1.2',
+            'version' => '6.1.2.0',
             'type' => 'drupal-module',
             'install_path' => __DIR__ . '/../../web/modules/contrib/webform',
             'aliases' => array(),
-            'reference' => '6.0.5',
+            'reference' => '6.1.2',
             'dev_requirement' => false,
         ),
         'drupal/workflows' => array(
@@ -2059,7 +2059,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '7c8026b7aa2d9f1a5ed75cfbc507124829ca04c2',
+            'reference' => '00dbae5c7b62f5946d30cf3c916792ed3415fda8',
             'dev_requirement' => false,
         ),
         'pantheon-systems/quicksilver-pushback' => array(
