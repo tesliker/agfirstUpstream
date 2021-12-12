@@ -103,7 +103,8 @@
         "drush-ops/behat-drush-endpoint": "^0.0.5",
         "drush/drush": "^10.0",
         "erusev/parsedown": "^1.8",
-        "pantheon-systems/quicksilver-pushback": "~1"
+        "pantheon-systems/quicksilver-pushback": "~1",
+        "wikimedia/composer-merge-plugin": "^2.0"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -171,6 +172,11 @@
                 ".eslintrc.json",
                 ".htaccess",
                 "web.config"
+            ]
+        },
+        "merge-plugin": {
+            "include": [
+                "pub/modules/contrib/webform/composer.libraries.json"
             ]
         },
         "patches": {

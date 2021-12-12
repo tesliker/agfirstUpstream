@@ -7,25 +7,19 @@ describe("autoHideDialCode option:", function() {
   beforeEach(function() {
     intlSetup();
 
-    var form = $("<form></form>").appendTo("body");
-    form.on("submit", function (e) {
-      e.preventDefault();
-    });
-
     // must be in DOM for focus to work
-    input = $("<input>").appendTo(form);
+    input = $("<input>").appendTo("body");
   });
 
   afterEach(function() {
-    input.intlTelInput("destroy").remove();
-    input = null;
+    intlTeardown();
   });
 
 
   describe("init plugin with autoHideDialCode=true and nationalMode=false", function() {
 
     beforeEach(function() {
-      input.intlTelInput({
+      iti = window.intlTelInput(input[0], {
         autoHideDialCode: true,
         nationalMode: false
       });
@@ -35,31 +29,18 @@ describe("autoHideDialCode option:", function() {
       expect(getInputVal()).toEqual("");
     });
 
-    describe("focusing the input", function() {
+    describe("selecting a country", function() {
 
       beforeEach(function() {
-        input.focus();
+        selectFlag("gb");
       });
 
-      it("adds the default dial code", function() {
-        expect(getInputVal()).toEqual("+1");
-      });
-
-      // special case: if first char you type is a plus, then we remove auto-added dial code
-      it("typing a new dial code replaces the old one", function() {
-        triggerKeyOnInput("+");
-        triggerKeyOnInput("4");
-        triggerKeyOnInput("4");
+      it("adds the dial code", function() {
         expect(getInputVal()).toEqual("+44");
       });
 
-      it("blurring it removes it again", function() {
-        input.blur();
-        expect(getInputVal()).toEqual("");
-      });
-
-      it("submitting it removes it again", function() {
-        input.parent().submit();
+      it("blurring the input removes it again", function() {
+        triggerInputEvent("blur");
         expect(getInputVal()).toEqual("");
       });
 
@@ -76,9 +57,9 @@ describe("autoHideDialCode option:", function() {
       });
 
       it("focusing and blurring the input doesn't change it", function() {
-        input.focus();
+        triggerInputEvent("focus");
         expect(getInputVal()).toEqual(number);
-        input.blur();
+        triggerInputEvent("blur");
         expect(getInputVal()).toEqual(number);
       });
 
@@ -90,7 +71,7 @@ describe("autoHideDialCode option:", function() {
   describe("init plugin with autoHideDialCode=false and nationalMode=false", function() {
 
     beforeEach(function() {
-      input.intlTelInput({
+      iti = window.intlTelInput(input[0], {
         autoHideDialCode: false,
         nationalMode: false
       });
@@ -101,9 +82,9 @@ describe("autoHideDialCode option:", function() {
     });
 
     it("focusing and bluring the input dont change the val", function() {
-      input.focus();
+      triggerInputEvent("focus");
       expect(getInputVal()).toEqual(defaultDialCode);
-      input.blur();
+      triggerInputEvent("blur");
       expect(getInputVal()).toEqual(defaultDialCode);
     });
 
@@ -117,9 +98,9 @@ describe("autoHideDialCode option:", function() {
       });
 
       it("focusing and blurring the input doesn't change it", function() {
-        input.focus();
+        triggerInputEvent("focus");
         expect(getInputVal()).toEqual(number);
-        input.blur();
+        triggerInputEvent("blur");
         expect(getInputVal()).toEqual(number);
       });
 

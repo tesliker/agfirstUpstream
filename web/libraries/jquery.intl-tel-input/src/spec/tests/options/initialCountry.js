@@ -2,25 +2,27 @@
 
 describe("initialCountry: ", function() {
 
+  beforeEach(function() {
+    intlSetup();
+  });
+
+  afterEach(function() {
+    intlTeardown();
+  });
+
   describe("init plugin with initialCountry set to Japan", function() {
 
     var initialCountry = "jp";
 
     beforeEach(function() {
-      intlSetup();
-      input = $("<input>");
-      input.intlTelInput({
+      input = $("<input>").wrap("div");
+      iti = window.intlTelInput(input[0], {
         initialCountry: initialCountry
       });
     });
 
-    afterEach(function() {
-      input.intlTelInput("destroy");
-      input = null;
-    });
-
     it("sets the selected flag correctly", function() {
-      expect(getSelectedFlagElement()).toHaveClass(initialCountry);
+      expect(getSelectedFlagElement()).toHaveClass(`iti__${initialCountry}`);
     });
 
     it("sets the active list item correctly", function() {
@@ -36,20 +38,14 @@ describe("initialCountry: ", function() {
     var initialCountry = "ca";
 
     beforeEach(function() {
-      intlSetup();
       input = $("<input value='+1 800 123 1234'>");
-      input.intlTelInput({
+      iti = window.intlTelInput(input[0], {
         initialCountry: initialCountry
       });
     });
 
-    afterEach(function() {
-      input.intlTelInput("destroy");
-      input = null;
-    });
-
     it("sets the state correctly: selected flag and active list item", function() {
-      expect(getSelectedFlagElement()).toHaveClass(initialCountry);
+      expect(getSelectedFlagElement()).toHaveClass(`iti__${initialCountry}`);
       expect(getActiveListItem().attr("data-country-code")).toEqual(initialCountry);
     });
 

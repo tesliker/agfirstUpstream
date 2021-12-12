@@ -8,27 +8,26 @@ describe("allowDropdown:", function() {
   });
 
   afterEach(function() {
-    input.intlTelInput("destroy").remove();
-    input = null;
+    intlTeardown();
   });
 
   describe("init plugin with allowDropdown=false", function() {
 
     beforeEach(function() {
-      input.intlTelInput({
+      iti = window.intlTelInput(input[0], {
         allowDropdown: false
       });
     });
 
     it("doesn't show the arrow or generate the dropdown markup", function() {
-      expect(getSelectedFlagContainer().find(".iti-arrow")).not.toExist();
+      expect(getSelectedFlagContainer().find(".iti__arrow")).not.toExist();
       expect(getListElement()).not.toExist();
     });
 
     it("typing a different dial code updates the flag", function() {
       input.val("+4");
       triggerKeyOnInput("4");
-      expect(getSelectedFlagElement()).toHaveClass("gb");
+      expect(getSelectedFlagElement()).toHaveClass("iti__gb");
     });
 
   });
@@ -36,14 +35,14 @@ describe("allowDropdown:", function() {
   describe("init plugin with allowDropdown=false and separateDialCode=true", function() {
 
     beforeEach(function() {
-      input.intlTelInput({
+      iti = window.intlTelInput(input[0], {
         allowDropdown: false,
         separateDialCode: true
       });
     });
 
     it("doesn't show the arrow or generate the dropdown markup", function() {
-      expect(getSelectedFlagContainer().find(".iti-arrow")).not.toExist();
+      expect(getSelectedFlagContainer().find(".iti__arrow")).not.toExist();
     });
 
     it("shows selected dial code element", function() {
@@ -56,20 +55,20 @@ describe("allowDropdown:", function() {
   describe("init plugin with allowDropdown=true", function() {
 
     beforeEach(function() {
-      input.intlTelInput({
+      iti = window.intlTelInput(input[0], {
         allowDropdown: true
       });
     });
 
     it("shows the arrow and generate the dropdown markup", function() {
-      expect(getSelectedFlagContainer().find(".iti-arrow")).toExist();
+      expect(getSelectedFlagContainer().find(".iti__arrow")).toExist();
       expect(getListElement()).toExist();
     });
 
     it("typing a different dial code updates the flag", function() {
       input.val("+4");
       triggerKeyOnInput("4");
-      expect(getSelectedFlagElement()).toHaveClass("gb");
+      expect(getSelectedFlagElement()).toHaveClass("iti__gb");
     });
 
     it("clicking the selected flag shows the dropdown", function() {

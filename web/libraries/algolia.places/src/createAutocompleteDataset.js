@@ -1,35 +1,34 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = createAutocompleteDataset;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _createAutocompleteSource = _interopRequireDefault(require("./createAutocompleteSource"));
 
-exports.default = createAutocompleteDataset;
+var _defaultTemplates = _interopRequireDefault(require("./defaultTemplates"));
 
-var _createAutocompleteSource = require('./createAutocompleteSource.js');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var _createAutocompleteSource2 = _interopRequireDefault(_createAutocompleteSource);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-var _defaultTemplates = require('./defaultTemplates.js');
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-var _defaultTemplates2 = _interopRequireDefault(_defaultTemplates);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function createAutocompleteDataset(options) {
-  var templates = _extends({}, _defaultTemplates2.default, options.templates);
+  var templates = _objectSpread(_objectSpread({}, _defaultTemplates["default"]), options.templates);
 
-  var source = (0, _createAutocompleteSource2.default)(_extends({}, options, {
+  var source = (0, _createAutocompleteSource["default"])(_objectSpread(_objectSpread({}, options), {}, {
     formatInputValue: templates.value,
     templates: undefined
   }));
-
   return {
     source: source,
     templates: templates,
     displayKey: 'value',
-    name: 'places'
+    name: 'places',
+    cache: false
   };
 }
