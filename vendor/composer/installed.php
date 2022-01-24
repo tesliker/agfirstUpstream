@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'ab7554f2a8a0075ab6e92e9deb887a10a4e7b531',
+        'reference' => 'f5c8833547d5a5b8b127ee245cf34aea465470ec',
         'name' => 'pantheon-systems/example-drops-8-composer',
         'dev' => true,
     ),
@@ -449,12 +449,12 @@
             'dev_requirement' => false,
         ),
         'drupal/bg_image_formatter' => array(
-            'pretty_version' => '1.14.0',
-            'version' => '1.14.0.0',
+            'pretty_version' => '1.15.0',
+            'version' => '1.15.0.0',
             'type' => 'drupal-module',
             'install_path' => __DIR__ . '/../../web/modules/contrib/bg_image_formatter',
             'aliases' => array(),
-            'reference' => '8.x-1.14',
+            'reference' => '8.x-1.15',
             'dev_requirement' => false,
         ),
         'drupal/big_pipe' => array(
@@ -2236,7 +2236,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'ab7554f2a8a0075ab6e92e9deb887a10a4e7b531',
+            'reference' => 'f5c8833547d5a5b8b127ee245cf34aea465470ec',
             'dev_requirement' => false,
         ),
         'pantheon-systems/quicksilver-pushback' => array(
