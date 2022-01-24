@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '8a36392fec652a8aae25d864e14a9e93bcb20ce0',
+        'reference' => 'ab7554f2a8a0075ab6e92e9deb887a10a4e7b531',
         'name' => 'pantheon-systems/example-drops-8-composer',
         'dev' => true,
     ),
@@ -1178,12 +1178,12 @@
             'dev_requirement' => false,
         ),
         'drupal/jquery_ui_datepicker' => array(
-            'pretty_version' => '1.1.0',
-            'version' => '1.1.0.0',
+            'pretty_version' => '1.2.0',
+            'version' => '1.2.0.0',
             'type' => 'drupal-module',
             'install_path' => __DIR__ . '/../../web/modules/contrib/jquery_ui_datepicker',
             'aliases' => array(),
-            'reference' => '8.x-1.1',
+            'reference' => '8.x-1.2',
             'dev_requirement' => false,
         ),
         'drupal/jquery_ui_slider' => array(
@@ -2236,7 +2236,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '8a36392fec652a8aae25d864e14a9e93bcb20ce0',
+            'reference' => 'ab7554f2a8a0075ab6e92e9deb887a10a4e7b531',
             'dev_requirement' => false,
         ),
         'pantheon-systems/quicksilver-pushback' => array(
