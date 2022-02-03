@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\admin_toolbar_tools\Form;
+namespace Drupal\admin_toolbar\Form;
 
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -10,11 +10,11 @@ use Drupal\Core\Menu\MenuLinkManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Settings form for AdminToobar Tools.
+ * Class AdminToolbarSettingsForm. The config form for the admin_toolbar module.
  *
- * @package Drupal\admin_toolbar_tools\Form
+ * @package Drupal\admin_toolbar\Form
  */
-class AdminToolbarToolsSettingsForm extends ConfigFormBase {
+class AdminToolbarSettingsForm extends ConfigFormBase {
 
   /**
    * The cache menu instance.
@@ -31,17 +31,17 @@ class AdminToolbarToolsSettingsForm extends ConfigFormBase {
   protected $menuLinkManager;
 
   /**
-   * AdminToolbarToolsSettingsForm constructor.
+   * AdminToolbarSettingsForm constructor.
    *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The factory for configuration objects.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory for the form.
    * @param \Drupal\Core\Menu\MenuLinkManagerInterface $menuLinkManager
    *   A menu link manager instance.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cacheMenu
    *   A cache menu instance.
    */
-  public function __construct(ConfigFactoryInterface $configFactory, MenuLinkManagerInterface $menuLinkManager, CacheBackendInterface $cacheMenu) {
-    parent::__construct($configFactory);
+  public function __construct(ConfigFactoryInterface $config_factory, MenuLinkManagerInterface $menuLinkManager, CacheBackendInterface $cacheMenu) {
+    parent::__construct($config_factory);
     $this->cacheMenu = $cacheMenu;
     $this->menuLinkManager = $menuLinkManager;
   }
@@ -58,38 +58,33 @@ class AdminToolbarToolsSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * {@inheritDoc}
    */
   protected function getEditableConfigNames() {
     return [
-      'admin_toolbar_tools.settings',
+      'admin_toolbar.settings',
     ];
   }
 
   /**
-   * {@inheritdoc}
+   * {@inheritDoc}
    */
   public function getFormId() {
-    return 'admin_toolbar_tools_settings';
+    return 'admin_toolbar_settings';
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('admin_toolbar_tools.settings');
-    $form['max_bundle_number'] = [
-      '#type' => 'number',
-      '#title' => $this->t('Maximum number of bundle sub-menus to display'),
-      '#description' => $this->t('Loading a large number of items can cause performance issues.'),
-      '#default_value' => $config->get('max_bundle_number'),
-    ];
-
-    $form['hoverintent_functionality'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Enable/Disable the hoverintent functionality'),
-      '#description' => $this->t('Check it if you want to enable the hoverintent feature.'),
-      '#default_value' => $config->get('hoverintent_functionality'),
+    $config = $this->config('admin_toolbar.settings');
+    $depth_values = range(1, 9);
+    $form['menu_depth'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Menu depth'),
+      '#description' => $this->t('Maximal depth of displayed menu.'),
+      '#default_value' => $config->get('menu_depth'),
+      '#options' => array_combine($depth_values, $depth_values),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -99,9 +94,8 @@ class AdminToolbarToolsSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->config('admin_toolbar_tools.settings')
-      ->set('max_bundle_number', $form_state->getValue('max_bundle_number'))
-      ->set('hoverintent_functionality', $form_state->getValue('hoverintent_functionality'))
+    $this->config('admin_toolbar.settings')
+      ->set('menu_depth', $form_state->getValue('menu_depth'))
       ->save();
     parent::submitForm($form, $form_state);
     $this->cacheMenu->invalidateAll();
