@@ -1496,6 +1496,7 @@ return array(
     'Drupal\\Core\\Entity\\Exception\\EntityTypeIdLengthException' => $baseDir . '/web/core/lib/Drupal/Core/Entity/Exception/EntityTypeIdLengthException.php',
     'Drupal\\Core\\Entity\\Exception\\FieldStorageDefinitionUpdateForbiddenException' => $baseDir . '/web/core/lib/Drupal/Core/Entity/Exception/FieldStorageDefinitionUpdateForbiddenException.php',
     'Drupal\\Core\\Entity\\Exception\\InvalidLinkTemplateException' => $baseDir . '/web/core/lib/Drupal/Core/Entity/Exception/InvalidLinkTemplateException.php',
+    'Drupal\\Core\\Entity\\Exception\\MissingBundleClassException' => $baseDir . '/web/core/lib/Drupal/Core/Entity/Exception/MissingBundleClassException.php',
     'Drupal\\Core\\Entity\\Exception\\NoCorrespondingEntityClassException' => $baseDir . '/web/core/lib/Drupal/Core/Entity/Exception/NoCorrespondingEntityClassException.php',
     'Drupal\\Core\\Entity\\Exception\\UndefinedLinkTemplateException' => $baseDir . '/web/core/lib/Drupal/Core/Entity/Exception/UndefinedLinkTemplateException.php',
     'Drupal\\Core\\Entity\\Exception\\UnsupportedEntityTypeDefinitionException' => $baseDir . '/web/core/lib/Drupal/Core/Entity/Exception/UnsupportedEntityTypeDefinitionException.php',
