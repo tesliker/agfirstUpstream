@@ -2,15 +2,40 @@
 
 namespace Drupal\taxonomy_import\Form;
 
+use Drupal\Core\Database\Database;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Contribute form.
  */
 class ImportForm extends FormBase {
+
+  /**
+   * Config of Taxonomy import module.
+   *
+   * @var \Drupal\Core\Config\Config
+   */
+  protected $config;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(ConfigFactoryInterface $config_factory) {
+    $this->config = $config_factory->get('import_taxonomy.config');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+
+  public static function create(ContainerInterface $container) {
+    return new static($container->get('config.factory'));
+  }
 
   /**
    * {@inheritdoc}
@@ -23,24 +48,30 @@ class ImportForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $vocabularies = Vocabulary::loadMultiple();
+    $vocabulariesList = [];
+    foreach ($vocabularies as $vid => $vocablary) {
+      $vocabulariesList[$vid] = $vocablary->get('name');
+    }
     $form['field_vocabulary_name'] = [
-      '#type' => 'textfield',
+      '#type' => 'select',
       '#title' => $this->t('Vocabulary name'),
-      '#required' => TRUE,
-      '#maxlength_js' => TRUE,
-      '#maxlength' => 30,
-      '#description' => $this->t('Not more than 30 characters please!'),
+      '#options' => $vocabulariesList,
+      '#attributes' => [
+        'class' => ['vocab-name-select'],
+      ],
+      '#description' => t('Select vocabulary!'),
     ];
     $form['taxonomy_file'] = [
       '#type' => 'managed_file',
       '#title' => $this->t('Import file'),
       '#required' => TRUE,
       '#upload_validators'  => [
-        'file_validate_extensions' => ['csv xml'],
-        'file_validate_size' => [25600000],
+        'file_validate_extensions' => [$this->config->get('file_extensions') ?? ImportFormSettings::DEFAULT_FILE_EXTENSION],
+        'file_validate_size' => [$this->config->get('file_max_size') ?? ImportFormSettings::DEFAULT_FILE_SIZE],
       ],
       '#upload_location' => 'public://taxonomy_files/',
-      '#description' => $this->t('Upload a file to Import taxonomy!'),
+      '#description' => $this->t('Upload a file to Import taxonomy!') . $this->config->get('file_max_size'),
     ];
     $form['actions']['#type'] = 'actions';
     $form['submit'] = [
@@ -77,12 +108,7 @@ class ImportForm extends FormBase {
  */
 function create_taxonomy($voc_name) {
   global $base_url;
-  // TODO: Drupal Rector Notice: Please delete the following
-  // comment after you've made any necessary changes.
-  // You will need to use
-  // `\Drupal\core\Database\Database::getConnection()`
-  // if you do not yet have access to the container here.
-  $loc = \Drupal::database()->query('SELECT {file_managed.uri} FROM {file_managed} ORDER BY {file_managed.fid} DESC limit 1', []);
+  $loc = Database::getConnection()->query('SELECT file_managed.uri FROM file_managed ORDER BY file_managed.fid DESC limit 1', []);
   foreach ($loc as $val) {
     // Get location of the file.
     $location = $val->uri;
@@ -105,6 +131,7 @@ function create_taxonomy($voc_name) {
       'vid' => $vid,
       'machine_name' => $vid,
       'name' => $name,
+      'description' => '',
     ]);
     $vocabulary->save();
   }
@@ -112,17 +139,12 @@ function create_taxonomy($voc_name) {
   if ($mimetype == "text/plain") {
     if (($handle = fopen($location, "r")) !== FALSE) {
       // Read all data including title.
+      $data1 = fgetcsv($handle);
       while (($data = fgetcsv($handle)) !== FALSE) {
         $termid = 0;
         $term_id = 0;
         // Get tid of term with same name
-        // TODO: Drupal Rector Notice:
-        // Please delete the following comment after
-        // you've made any necessary changes.
-        // You will need to use
-        // `\Drupal\core\Database\Database::getConnection()`
-        // if you do not yet have access to the container here.
-        $termid = \Drupal::database()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid', [':uid' => $data[0], ':vid' => $vid]);
+        $termid = Database::getConnection()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid', [':uid' => $data[0], ':vid' => $vid]);
         foreach ($termid as $val) {
           // Get tid.
           $term_id = $val->tid;
@@ -130,12 +152,7 @@ function create_taxonomy($voc_name) {
         // Finding parent of new item.
         $parent = 0;
         if (!empty($data[1])) {
-          // TODO: Drupal Rector Notice: Please delete the
-          // following comment after you've made any necessary changes.
-          // You will need to use
-          // `\Drupal\core\Database\Database::getConnection()`
-          // if you do not yet have access to the container here.
-          $parent_id = \Drupal::database()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid', [':uid' => $data[1], ':vid' => $vid]);
+          $parent_id = Database::getConnection()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid', [':uid' => $data[1], ':vid' => $vid]);
 
           foreach ($parent_id as $val) {
             if (!empty($val)) {
@@ -147,21 +164,48 @@ function create_taxonomy($voc_name) {
             }
           }
         }
+        $target_term = null;
         // Check whether term already exists or not.
         if (empty($term_id)) {
           // Create  new term.
           $term = Term::create([
             'parent' => [$parent],
             'name' => $data[0],
-            'description' => $data[2],
+            'description' => '',
             'vid' => $vid,
           ])->save();
+          if ($term == 1) {
+            if (!empty($data[0])) {
+              $properties['name'] = $data[0];
+            }
+            if (!empty($vid)) {
+              $properties['vid'] = $vid;
+            }
+            $terms = \Drupal::EntityTypeManager()->getStorage('taxonomy_term')->loadByProperties($properties);
+            $term = reset($terms);
+            $target_term = $term;
+          }
         }
         // Code to update existing term field(s)
         else {
-          $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($term_id);
+          $term = \Drupal::EntityTypeManager()->getStorage('taxonomy_term')->load($term_id);
           $term->parent->setValue($parent);
           $term->Save();
+          $target_term = $term;
+        }
+        if (count($data1) > 2 && !empty($target_term)) {
+          $i = 2;
+          $update = false;
+          while($i < count($data1)) {
+           if(!empty($data[$i]) && !empty($data1[$i])) {
+               $target_term->set($data1[$i],$data[$i]);
+              $update = true;
+            }
+            $i++;
+          }
+          if($update) {
+             $target_term->save();
+          }
         }
       }
       fclose($handle);
@@ -174,7 +218,7 @@ function create_taxonomy($voc_name) {
     }
   }
   // Code for fetch and save xml file.
-  elseif ($mimetype == "text/xml") {
+  elseif (($mimetype == "text/xml") || ($mimetype == "application/xml")) {
     if (file_exists($location)) {
       $feed = file_get_contents($location);
       $items = simplexml_load_string($feed);
@@ -206,12 +250,7 @@ function create_taxonomy($voc_name) {
           // Checks if parent tag exists.
           if (isset($parents) && !empty($parents)) {
             $data = $parents;
-            // TODO: Drupal Rector Notice: Please delete the
-            // following comment after you've made any necessary changes.
-            // You will need to use
-            // `\Drupal\core\Database\Database::getConnection()`
-            // if you do not yet have access to the container here.
-            $parent_id = \Drupal::database()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid', [':uid' => $data, ':vid' => $vid]);
+            $parent_id = Database::getConnection()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid', [':uid' => $data, ':vid' => $vid]);
             foreach ($parent_id as $val) {
               if (!empty($val)) {
                 // Get tid.
@@ -222,12 +261,7 @@ function create_taxonomy($voc_name) {
               }
             }
           }
-          // TODO: Drupal Rector Notice: Please delete the
-          // following comment after you've made any necessary changes.
-          // You will need to use
-          // `\Drupal\core\Database\Database::getConnection()`
-          // if you do not yet have access to the container here.
-          $termid = \Drupal::database()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid', [':uid' => $terms, ':vid' => $vid]);
+          $termid = Database::getConnection()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid', [':uid' => $terms, ':vid' => $vid]);
           foreach ($termid as $val) {
             // Get tid.
             $term_id = $val->tid;
@@ -238,7 +272,7 @@ function create_taxonomy($voc_name) {
             $term = Term::create([
               'parent' => [$parent],
               'name' => $terms,
-              'description' => $description,
+              'description' => $description ?: '',
               'vid' => $vid,
             ])->save();
           }

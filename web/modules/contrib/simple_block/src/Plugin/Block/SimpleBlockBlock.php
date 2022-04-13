@@ -103,7 +103,7 @@ class SimpleBlockBlock extends BlockBase implements ContainerFactoryPluginInterf
     $content = $simple_block->getContent();
     return [
       '#type' => 'processed_text',
-      '#text' => $content['value'],
+      '#text' => \Drupal::token()->replace($content['value']),
       '#format' => $content['format'],
       '#contextual_links' => [
         'simple_block' => [

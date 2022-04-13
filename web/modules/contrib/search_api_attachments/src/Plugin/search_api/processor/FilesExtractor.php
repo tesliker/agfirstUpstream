@@ -295,6 +295,9 @@ class FilesExtractor extends ProcessorPluginBase implements PluginFormInterface 
           $extracted_data = $extractor_plugin->extract($file);
           $extracted_data = $this->limitBytes($extracted_data);
           $this->keyValue->get($collection)->set($key, $extracted_data);
+          $this->moduleHandler->invokeAll(
+            'search_api_attachments_content_extracted', [$file, $entity]
+          );
         }
         else {
           $this->queueItem($entity, $file);

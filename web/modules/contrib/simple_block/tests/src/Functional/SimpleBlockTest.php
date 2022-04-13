@@ -32,6 +32,7 @@ class SimpleBlockTest extends BrowserTestBase {
    * Tests the simple block functionality.
    */
   public function testBlockDisplay(): void {
+    $this->config('system.site')->set('name', 'Hocus Pocus')->save();
     $this->drupalLogin($this->createUser([
       'administer blocks',
       'access administration pages',
@@ -42,13 +43,14 @@ class SimpleBlockTest extends BrowserTestBase {
     $this->submitForm([
       'id' => 'very_simple_block',
       'title' => 'A simple block',
-      'content[value]' => 'Just a simple block...',
+      'content[value]' => 'Just a simple block...[site:name]',
     ], 'Save');
     $this->assertSession()->pageTextContains('Block very_simple_block has been added.');
     $block = $this->drupalPlaceBlock('simple_block:very_simple_block');
     $this->getSession()->reload();
     $this->assertBlockAppears($block);
-    $this->assertSession()->pageTextContains('Just a simple block...');
+    // The token has been replaced.
+    $this->assertSession()->pageTextContains('Just a simple block...Hocus Pocus');
 
     // Update the block.
     $this->drupalGet('/admin/structure/block/simple-block/manage/very_simple_block/edit');

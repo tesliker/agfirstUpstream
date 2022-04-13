@@ -13,6 +13,7 @@ use Drupal\search_api_attachments\TextExtractorPluginManager;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 
 /**
  * Processes Tasks for Search API Attachments.
@@ -54,14 +55,22 @@ class ExtractorQueue extends QueueWorkerBase implements ContainerFactoryPluginIn
   protected $logger;
 
   /**
+   * Module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, TextExtractorPluginManager $text_extractor_plugin_manager, EntityTypeManagerInterface $entity_type_manager, KeyValueFactoryInterface $key_value, LoggerInterface $logger) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, TextExtractorPluginManager $text_extractor_plugin_manager, EntityTypeManagerInterface $entity_type_manager, KeyValueFactoryInterface $key_value, LoggerInterface $logger, ModuleHandlerInterface $module_handler) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->textExtractorPluginManager = $text_extractor_plugin_manager;
     $this->entityTypeManager = $entity_type_manager;
     $this->keyValue = $key_value;
     $this->logger = $logger;
+    $this->moduleHandler = $module_handler;
   }
 
   /**
@@ -75,7 +84,8 @@ class ExtractorQueue extends QueueWorkerBase implements ContainerFactoryPluginIn
       $container->get('plugin.manager.search_api_attachments.text_extractor'),
       $container->get('entity_type.manager'),
       $container->get('keyvalue'),
-      $container->get('logger.channel.search_api_attachments')
+      $container->get('logger.channel.search_api_attachments'),
+      $container->get('module_handler')
     );
   }
 
@@ -103,6 +113,10 @@ class ExtractorQueue extends QueueWorkerBase implements ContainerFactoryPluginIn
   public function processItem($data) {
 
     $extractor_plugin = $this->getExtractorPlugin();
+
+    if (!isset($data->fid)) {
+      return;
+    }
 
     // Load file from queue item.
     $file = $this->entityTypeManager->getStorage('file')->load($data->fid);
@@ -145,6 +159,9 @@ class ExtractorQueue extends QueueWorkerBase implements ContainerFactoryPluginIn
       foreach ($indexes as $index) {
         $index->trackItemsUpdated($datasource_id, $item_ids);
       }
+      $this->moduleHandler->invokeAll(
+        'search_api_attachments_content_extracted', [$file, $entity]
+      );
     }
     catch (\Exception $exception) {
       if ($data->extract_attempts < 5) {

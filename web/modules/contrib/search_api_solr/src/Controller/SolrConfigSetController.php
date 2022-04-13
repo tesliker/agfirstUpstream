@@ -5,10 +5,14 @@ namespace Drupal\search_api_solr\Controller;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\search_api\ServerInterface;
+use Drupal\search_api_solr\Event\PostConfigFilesGenerationEvent;
+use Drupal\search_api_solr\Event\PostConfigSetGenerationEvent;
+use Drupal\search_api_solr\Event\PostConfigSetTemplateMappingEvent;
 use Drupal\search_api_solr\SearchApiSolrConflictingEntitiesException;
 use Drupal\search_api_solr\SearchApiSolrException;
 use Drupal\search_api_solr\SolrBackendInterface;
 use Drupal\search_api_solr\Utility\Utility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use ZipStream\Option\Archive;
@@ -22,6 +26,12 @@ defined('SEARCH_API_SOLR_JUMP_START_CONFIG_SET') || define('SEARCH_API_SOLR_JUMP
 class SolrConfigSetController extends ControllerBase {
 
   use BackendTrait;
+  use EventDispatcherTrait;
+
+  /**
+   * @var EventDispatcherInterface
+   */
+  protected $eventDispatcher;
 
   /**
    * Provides an XML snippet containing all extra Solr field types.
@@ -157,8 +167,6 @@ class SolrConfigSetController extends ControllerBase {
    *
    * @return string
    *   XML snippet containing all index settings.
-   *
-   * @throws \Drupal\search_api\SearchApiException
    */
   public function getSolrconfigIndexXml(?ServerInterface $search_api_server = NULL): string {
     // Reserved for future internal use.
@@ -264,7 +272,10 @@ class SolrConfigSetController extends ControllerBase {
       '8.x' => $template_path . '8.x',
     ];
 
-    $this->moduleHandler()->alter('search_api_solr_configset_template_mapping', $solr_configset_template_mapping);
+    $this->moduleHandler()->alterDeprecated('hook_search_api_solr_configset_template_mapping_alter is deprecated will be removed in Search API Solr 4.3.0. Handle the PostConfigSetTemplateMappingEvent instead.','search_api_solr_configset_template_mapping', $solr_configset_template_mapping);
+    $event = new PostConfigSetTemplateMappingEvent($solr_configset_template_mapping);
+    $this->eventDispatcher()->dispatch($event);
+    $solr_configset_template_mapping = $event->getConfigSetTemplateMapping();
 
     $search_api_solr_conf_path = $solr_configset_template_mapping[$solr_branch];
     $solrcore_properties_file = $search_api_solr_conf_path . '/solrcore.properties';
@@ -323,8 +334,8 @@ class SolrConfigSetController extends ControllerBase {
         $file_path = $search_api_solr_conf_path . '/' . $file;
         if (file_exists($file_path) && is_readable($file_path)) {
           $files[$file] = str_replace(
-            ['SEARCH_API_SOLR_MIN_SCHEMA_VERSION', 'SEARCH_API_SOLR_BRANCH', 'SEARCH_API_SOLR_JUMP_START_CONFIG_SET'],
-            [SolrBackendInterface::SEARCH_API_SOLR_MIN_SCHEMA_VERSION, $real_solr_branch, SEARCH_API_SOLR_JUMP_START_CONFIG_SET],
+            ['SEARCH_API_SOLR_SCHEMA_VERSION', 'SEARCH_API_SOLR_BRANCH', 'SEARCH_API_SOLR_JUMP_START_CONFIG_SET'],
+            [SolrBackendInterface::SEARCH_API_SOLR_SCHEMA_VERSION, $real_solr_branch, SEARCH_API_SOLR_JUMP_START_CONFIG_SET],
             file_get_contents($search_api_solr_conf_path . '/' . $file)
           );
         }
@@ -344,8 +355,11 @@ class SolrConfigSetController extends ControllerBase {
     }
 
     $connector->alterConfigFiles($files, $solrcore_properties['solr.luceneMatchVersion'], $this->serverId);
-    $this->moduleHandler()->alter('search_api_solr_config_files', $files, $solrcore_properties['solr.luceneMatchVersion'], $this->serverId);
-    return $files;
+    $this->moduleHandler()->alterDeprecated('hook_search_api_solr_config_files_alter is deprecated will be removed in Search API Solr 4.3.0. Handle the PostConfigFilesGenerationEvent instead.','search_api_solr_config_files', $files, $solrcore_properties['solr.luceneMatchVersion'], $this->serverId);
+    $event = new PostConfigFilesGenerationEvent($files, $solrcore_properties['solr.luceneMatchVersion'], $this->serverId);
+    $this->eventDispatcher()->dispatch($event);
+
+    return $event->getConfigFiles();
   }
 
   /**
@@ -377,9 +391,11 @@ class SolrConfigSetController extends ControllerBase {
     }
 
     $connector->alterConfigZip($zip, $lucene_match_version, $this->serverId);
-    $this->moduleHandler()->alter('search_api_solr_config_zip', $zip, $lucene_match_version, $this->serverId);
+    $this->moduleHandler->alterDeprecated('hook_search_api_solr_config_zip_alter is deprecated will be removed in Search API Solr 4.3.0. Handle the PostConfigSetGenerationEvent instead.','search_api_solr_config_zip', $zip, $lucene_match_version, $this->serverId);
+    $event = new PostConfigSetGenerationEvent($zip, $lucene_match_version, $this->serverId);
+    $this->eventDispatcher()->dispatch($event);
 
-    return $zip;
+    return $event->getZipStream();
   }
 
   /**
@@ -416,7 +432,60 @@ class SolrConfigSetController extends ControllerBase {
     }
     catch (\Exception $e) {
       watchdog_exception('search_api', $e);
-      $this->messenger()->addError($this->t('An error occured during the creation of the config.zip. Look at the logs for details.'));
+      $this->messenger()->addError($this->t('An error occurred during the creation of the config.zip. Look at the logs for details.'));
+    }
+
+    return new RedirectResponse($search_api_server->toUrl('canonical')->toString());
+  }
+
+  /**
+   * Streams a zip archive containing a complete Solr configuration currently in use.
+   *
+   * @param \Drupal\search_api\ServerInterface $search_api_server
+   *   The Search API server entity.
+   *
+   * @return \Symfony\Component\HttpFoundation\Response
+   *   The HTTP response object.
+   */
+  public function streamCurrentConfigZip(ServerInterface $search_api_server): Response {
+    try {
+      /** @var \Drupal\search_api_solr\SolrBackendInterface $backend */
+      $backend = $search_api_server->getBackend();
+
+      $archive_options = new Archive();
+      $archive_options->setSendHttpHeaders(TRUE);
+
+      @ob_clean();
+      // If you are using nginx as a webserver, it will try to buffer the
+      // response. We have to disable this with a custom header.
+      // @see https://github.com/maennchen/ZipStream-PHP/wiki/nginx
+      header('X-Accel-Buffering: no');
+
+      $zip = new ZipStream('solr_current_config.zip', $archive_options);
+
+      /** @var \Drupal\search_api_solr\SolrBackendInterface $backend */
+      $backend = $search_api_server->getBackend();
+
+      $files_list = Utility::getServerFiles($search_api_server);
+
+      foreach ($files_list as $file_name => $file_info) {
+        $content = '';
+        if ($file_info['size'] > 0) {
+          $file_data = $backend->getSolrConnector()->getFile($file_name);
+          $content = $file_data->getBody();
+        }
+
+        $zip->addFile($file_name, $content);
+      }
+
+      $zip->finish();
+      @ob_end_flush();
+
+      exit();
+    }
+    catch (\Exception $e) {
+      watchdog_exception('search_api', $e);
+      $this->messenger()->addError($this->t('An error occurred during the creation of the config.zip. Look at the logs for details.'));
     }
 
     return new RedirectResponse($search_api_server->toUrl('canonical')->toString());

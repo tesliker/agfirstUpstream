@@ -5,3 +5,10 @@ taxonomy_import.settings:
     _title: 'Taxonomy Import'
   requirements:
     _permission: 'administer taxonomy import'
+taxonomy_import.config:
+  path: '/admin/config/content/settings_import_taxonomy'
+  defaults:
+    _form: '\Drupal\taxonomy_import\Form\ImportFormSettings'
+    _title: 'Configure taxonomy import'
+  requirements:
+    _permission: 'administer configure taxonomy import'

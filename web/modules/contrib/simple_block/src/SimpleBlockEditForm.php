@@ -45,6 +45,7 @@ class SimpleBlockEditForm extends EntityForm {
       '#title' => $this->t('Content'),
       '#default_value' => $simple_block->getContent()['value'],
       '#required' => TRUE,
+      '#description' => $this->t('Global tokens are allowed.'),
     ];
 
     return parent::form($form, $form_state);

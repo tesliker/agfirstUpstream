@@ -75,7 +75,7 @@ class AddressService extends ServiceProviderBase {
    *   - 'default': \CommerceGuys\Addressing\Formatter\DefaultFormatter
    *     The default formatter.
    */
-  public function getFormatter($langcode, $countrycode, $formatter = 'default') {
+  public function getFormatter($langcode, $countrycode = 'US', $formatter = 'default') {
     $default_options = [
       'locale' => $langcode,
       'origin_country' => $countrycode,
@@ -137,16 +137,9 @@ class AddressService extends ServiceProviderBase {
       ->withDependentLocality($values['dependent_locality'])
       ->withLocality($values['locality'])
       ->withAddressLine1($values['address_line1'])
-      ->withAddressLine2($values['address_line2'])
-      ->withOrganization($values['organization']);
+      ->withAddressLine2($values['address_line2']);
 
-    // Set the country code, language, and formatter to use.
-    // Although we have a country code in the address, and it may not be the US,
-    // the formatter only appends the country name if the country in the address
-    // is different than the formatter setting. So we always set it to be US to
-    // force all other country names to be appended to the postal label, then
-    // manually append 'USA' to US addresses.
-    $countrycode = 'US';
+    $countrycode = isset($values['country_code']) ? $values['country_code'] : NULL;
     $langcode = !empty($values['langcode']) ? $values['langcode'] : 'en';
 
     // Get the formatted address.
@@ -160,17 +153,9 @@ class AddressService extends ServiceProviderBase {
     $address_string = str_replace("<br>", ' ', $address_string);
     $address_string = strip_tags($address_string);
 
-    // Append USA to US addresses so all strings have explicit country names.
-    if ($values['country_code'] == 'US') {
-      $address_string .= ', USA';
-    }
+    $address_string .= isset($countrycode) ? ' ' . $countrycode : '';
 
-    // There can still be geocoder confusion when a country name matches a US
-    // state name (like Georgia), so for clarity, append the country code.
-    if ($values['country_code'] != 'US') {
-      $address_string .= '(' . $values['country_code'] . ')';
-    }
-
+    // Add Country code suffix, if defined.
     return $address_string;
   }
 

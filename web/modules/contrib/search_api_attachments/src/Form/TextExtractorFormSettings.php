@@ -106,7 +106,7 @@ class TextExtractorFormSettings extends ConfigFormBase {
     $form['read_text_files_directly'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Get contents of text attachments directly using file_get_contents.'),
-      '#default_value' => $config->get('use_text_files_directly'),
+      '#default_value' => $config->get('read_text_files_directly'),
       '#description' => $this->t('When checked, get contents of text files directly using file_get_contents, rather than sending the whole file to Solr. This may cause problems when reading non-UTF-8 text files.'),
     ];
     $form['actions']['submit']['#value'] = $this->t('Submit and test extraction');

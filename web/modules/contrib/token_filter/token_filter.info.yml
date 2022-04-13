@@ -3,12 +3,11 @@ name: 'Token Filter'
 description: 'Allows token values to be used as filters.'
 core: 8.x
 core_version_requirement: ^8 || ^9
-# version: VERSION
 dependencies:
   - drupal:filter
   - token:token
 
-# Information added by Drupal.org packaging script on 2020-04-27
-version: '8.x-1.2'
+# Information added by Drupal.org packaging script on 2022-04-04
+version: '8.x-1.4'
 project: 'token_filter'
-datestamp: 1588030001
+datestamp: 1649114306

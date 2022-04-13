@@ -7,7 +7,7 @@ use Drupal\Core\Render\Element\RenderElement;
 use Drupal\Core\Template\Attribute;
 
 /**
- * Class GeolocationMapShapeBase.
+ * Class GeolocationMapShape Base.
  *
  * @package Drupal\geolocation\Element
  */
@@ -26,6 +26,14 @@ abstract class GeolocationMapShapeBase extends RenderElement {
     if (empty($render_array['#id'])) {
       $id = uniqid();
       $render_array['#id'] = $id;
+    }
+
+    if (is_array($render_array['#coordinates'])) {
+      $coordinates = '';
+      foreach ($render_array['#coordinates'] as $coordinate) {
+        $coordinates .= $coordinate['lat'] . ',' . $coordinate['lng'] . ' ';
+      }
+      $render_array['#coordinates'] = $coordinates;
     }
 
     foreach (Element::children($render_array) as $child) {

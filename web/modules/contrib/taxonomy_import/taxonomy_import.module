@@ -62,7 +62,7 @@ function taxonomy_import_help($route_name, RouteMatchInterface $route_match) {
       $output .= '<p><ul><li><b><a href="' . $sample_csv . '" title="Sample CSV File">CSV</a></b></li>
       <li><b><a href="' . $sample_xml . '" title="Sample XML File">XML</a></b></li></ul></p>';
       $output .= '<h3>' . t('Maintainers') . '</h3>';
-      $output .= '<p><ul><li>Sajini Antony</li><li>Neethu P S</li></ul></p>';
+      $output .= '<p><ul><li>Sajini Antony</li><li>Neethu P S</li><li>Aswathy Ajish</li><li>Colan Schwartz</li><li>Ilcho Vuchkov</li></ul></p>';
       return $output;
 
     default:

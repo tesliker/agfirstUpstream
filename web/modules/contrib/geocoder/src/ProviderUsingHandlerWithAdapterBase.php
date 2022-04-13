@@ -4,13 +4,20 @@ namespace Drupal\geocoder;
 
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Http\Client\HttpClient;
+use Ivory\HttpAdapter\HttpAdapterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a base class for providers using handlers with HTTP adapter.
  */
 abstract class ProviderUsingHandlerWithAdapterBase extends ProviderUsingHandlerBase {
+
+  /**
+   * The HTTP adapter.
+   *
+   * @var \Ivory\HttpAdapter\HttpAdapterInterface
+   */
+  protected $httpAdapter;
 
   /**
    * Constructs a geocoder provider plugin object.
@@ -25,22 +32,15 @@ abstract class ProviderUsingHandlerWithAdapterBase extends ProviderUsingHandlerB
    *   The config factory service.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache_backend
    *   The cache backend used to cache geocoding data.
-   * @param \Http\Client\HttpClient $http_adapter
+   * @param \Ivory\HttpAdapter\HttpAdapterInterface $http_adapter
    *   The HTTP adapter.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, CacheBackendInterface $cache_backend, HttpClient $http_adapter) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, CacheBackendInterface $cache_backend, HttpAdapterInterface $http_adapter) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $config_factory, $cache_backend);
     $this->httpAdapter = $http_adapter;
   }
-
-  /**
-   * The HTTP adapter.
-   *
-   * @var \Http\Client\HttpClient
-   */
-  protected $httpAdapter;
 
   /**
    * {@inheritdoc}
