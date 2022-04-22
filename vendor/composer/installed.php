@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'a201efe78b79e23f131110c6fbd168d1ea0255e2',
+        'reference' => '5e28acc1a6f942ebb9be94d6b170dfe03ddae91a',
         'name' => 'pantheon-systems/example-drops-8-composer',
         'dev' => true,
     ),
@@ -1921,6 +1921,30 @@
             'reference' => '2f118ad67787899a84a95a870fb90a67949c3b82',
             'dev_requirement' => false,
         ),
+        'geocoder-php/common-http' => array(
+            'pretty_version' => '4.4.0',
+            'version' => '4.4.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../geocoder-php/common-http',
+            'aliases' => array(),
+            'reference' => '9f44a006d4b45d01dd31ea9b38ee7fb5724cd73e',
+            'dev_requirement' => false,
+        ),
+        'geocoder-php/google-maps-provider' => array(
+            'pretty_version' => '4.6.0',
+            'version' => '4.6.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../geocoder-php/google-maps-provider',
+            'aliases' => array(),
+            'reference' => '1e88138b66bf31b7e025b7bd579edb2cc9690414',
+            'dev_requirement' => false,
+        ),
+        'geocoder-php/provider-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '1.0',
+            ),
+        ),
         'grasmash/expander' => array(
             'pretty_version' => '1.0.0',
             'version' => '1.0.0.0',
@@ -2212,7 +2236,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'a201efe78b79e23f131110c6fbd168d1ea0255e2',
+            'reference' => '5e28acc1a6f942ebb9be94d6b170dfe03ddae91a',
             'dev_requirement' => false,
         ),
         'pantheon-systems/quicksilver-pushback' => array(
@@ -2280,6 +2304,15 @@
             'provided' => array(
                 0 => '1.0',
             ),
+        ),
+        'php-http/discovery' => array(
+            'pretty_version' => '1.14.1',
+            'version' => '1.14.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/discovery',
+            'aliases' => array(),
+            'reference' => 'de90ab2b41d7d61609f504e031339776bc8c7223',
+            'dev_requirement' => false,
         ),
         'php-http/guzzle6-adapter' => array(
             'pretty_version' => 'v2.0.2',

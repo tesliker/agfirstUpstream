@@ -105,6 +105,7 @@
         "drush-ops/behat-drush-endpoint": "^0.0.5",
         "drush/drush": "^10.0",
         "erusev/parsedown": "^1.8",
+        "geocoder-php/google-maps-provider": "^4.6",
         "pantheon-systems/quicksilver-pushback": "~1",
         "wikimedia/composer-merge-plugin": "^2.0"
     },

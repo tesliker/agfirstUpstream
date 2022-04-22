@@ -41,9 +41,9 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '952683d815ff0a7bf322b93c0be7e4e4' => __DIR__ . '/..' . '/chi-teck/drupal-code-generator/src/bootstrap.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
-        '9e4824c5afbdc1482b6025ce3d4dfde8' => __DIR__ . '/..' . '/league/csv/src/functions_include.php',
         '9c67151ae59aff4788964ce8eb2a0f43' => __DIR__ . '/..' . '/clue/stream-filter/src/functions_include.php',
         '8cff32064859f4559445b89279f3199c' => __DIR__ . '/..' . '/php-http/message/src/filters.php',
+        '9e4824c5afbdc1482b6025ce3d4dfde8' => __DIR__ . '/..' . '/league/csv/src/functions_include.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -147,6 +147,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         array (
             'Http\\Promise\\' => 13,
             'Http\\Message\\' => 13,
+            'Http\\Discovery\\' => 15,
             'Http\\Client\\' => 12,
             'Http\\Adapter\\Guzzle6\\' => 21,
             'Html2Text\\' => 10,
@@ -158,6 +159,8 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
             'GuzzleHttp\\' => 11,
             'Grasmash\\YamlExpander\\' => 22,
             'Grasmash\\Expander\\' => 18,
+            'Geocoder\\Provider\\GoogleMaps\\' => 29,
+            'Geocoder\\Http\\' => 14,
             'Geocoder\\' => 9,
         ),
         'E' => 
@@ -463,8 +466,12 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         ),
         'Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/php-http/message-factory/src',
-            1 => __DIR__ . '/..' . '/php-http/message/src',
+            0 => __DIR__ . '/..' . '/php-http/message/src',
+            1 => __DIR__ . '/..' . '/php-http/message-factory/src',
+        ),
+        'Http\\Discovery\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-http/discovery/src',
         ),
         'Http\\Client\\' => 
         array (
@@ -498,6 +505,14 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Grasmash\\Expander\\' => 
         array (
             0 => __DIR__ . '/..' . '/grasmash/expander/src',
+        ),
+        'Geocoder\\Provider\\GoogleMaps\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/geocoder-php/google-maps-provider',
+        ),
+        'Geocoder\\Http\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/geocoder-php/common-http',
         ),
         'Geocoder\\' => 
         array (
@@ -3480,6 +3495,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Geocoder\\Formatter\\StringFormatter' => __DIR__ . '/..' . '/willdurand/geocoder/Formatter/StringFormatter.php',
         'Geocoder\\Geocoder' => __DIR__ . '/..' . '/willdurand/geocoder/Geocoder.php',
         'Geocoder\\GeocoderTrait' => __DIR__ . '/..' . '/willdurand/geocoder/GeocoderTrait.php',
+        'Geocoder\\Http\\Provider\\AbstractHttpProvider' => __DIR__ . '/..' . '/geocoder-php/common-http/Provider/AbstractHttpProvider.php',
         'Geocoder\\Location' => __DIR__ . '/..' . '/willdurand/geocoder/Location.php',
         'Geocoder\\Model\\Address' => __DIR__ . '/..' . '/willdurand/geocoder/Model/Address.php',
         'Geocoder\\Model\\AddressBuilder' => __DIR__ . '/..' . '/willdurand/geocoder/Model/AddressBuilder.php',
@@ -3491,6 +3507,8 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Geocoder\\Model\\Country' => __DIR__ . '/..' . '/willdurand/geocoder/Model/Country.php',
         'Geocoder\\ProviderAggregator' => __DIR__ . '/..' . '/willdurand/geocoder/ProviderAggregator.php',
         'Geocoder\\Provider\\AbstractProvider' => __DIR__ . '/..' . '/willdurand/geocoder/Provider/AbstractProvider.php',
+        'Geocoder\\Provider\\GoogleMaps\\GoogleMaps' => __DIR__ . '/..' . '/geocoder-php/google-maps-provider/GoogleMaps.php',
+        'Geocoder\\Provider\\GoogleMaps\\Model\\GoogleAddress' => __DIR__ . '/..' . '/geocoder-php/google-maps-provider/Model/GoogleAddress.php',
         'Geocoder\\Provider\\Provider' => __DIR__ . '/..' . '/willdurand/geocoder/Provider/Provider.php',
         'Geocoder\\Query\\GeocodeQuery' => __DIR__ . '/..' . '/willdurand/geocoder/Query/GeocodeQuery.php',
         'Geocoder\\Query\\Query' => __DIR__ . '/..' . '/willdurand/geocoder/Query/Query.php',
@@ -3611,6 +3629,27 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Http\\Client\\HttpClient' => __DIR__ . '/..' . '/php-http/httplug/src/HttpClient.php',
         'Http\\Client\\Promise\\HttpFulfilledPromise' => __DIR__ . '/..' . '/php-http/httplug/src/Promise/HttpFulfilledPromise.php',
         'Http\\Client\\Promise\\HttpRejectedPromise' => __DIR__ . '/..' . '/php-http/httplug/src/Promise/HttpRejectedPromise.php',
+        'Http\\Discovery\\ClassDiscovery' => __DIR__ . '/..' . '/php-http/discovery/src/ClassDiscovery.php',
+        'Http\\Discovery\\Exception' => __DIR__ . '/..' . '/php-http/discovery/src/Exception.php',
+        'Http\\Discovery\\Exception\\ClassInstantiationFailedException' => __DIR__ . '/..' . '/php-http/discovery/src/Exception/ClassInstantiationFailedException.php',
+        'Http\\Discovery\\Exception\\DiscoveryFailedException' => __DIR__ . '/..' . '/php-http/discovery/src/Exception/DiscoveryFailedException.php',
+        'Http\\Discovery\\Exception\\NoCandidateFoundException' => __DIR__ . '/..' . '/php-http/discovery/src/Exception/NoCandidateFoundException.php',
+        'Http\\Discovery\\Exception\\NotFoundException' => __DIR__ . '/..' . '/php-http/discovery/src/Exception/NotFoundException.php',
+        'Http\\Discovery\\Exception\\PuliUnavailableException' => __DIR__ . '/..' . '/php-http/discovery/src/Exception/PuliUnavailableException.php',
+        'Http\\Discovery\\Exception\\StrategyUnavailableException' => __DIR__ . '/..' . '/php-http/discovery/src/Exception/StrategyUnavailableException.php',
+        'Http\\Discovery\\HttpAsyncClientDiscovery' => __DIR__ . '/..' . '/php-http/discovery/src/HttpAsyncClientDiscovery.php',
+        'Http\\Discovery\\HttpClientDiscovery' => __DIR__ . '/..' . '/php-http/discovery/src/HttpClientDiscovery.php',
+        'Http\\Discovery\\MessageFactoryDiscovery' => __DIR__ . '/..' . '/php-http/discovery/src/MessageFactoryDiscovery.php',
+        'Http\\Discovery\\NotFoundException' => __DIR__ . '/..' . '/php-http/discovery/src/NotFoundException.php',
+        'Http\\Discovery\\Psr17FactoryDiscovery' => __DIR__ . '/..' . '/php-http/discovery/src/Psr17FactoryDiscovery.php',
+        'Http\\Discovery\\Psr18ClientDiscovery' => __DIR__ . '/..' . '/php-http/discovery/src/Psr18ClientDiscovery.php',
+        'Http\\Discovery\\Strategy\\CommonClassesStrategy' => __DIR__ . '/..' . '/php-http/discovery/src/Strategy/CommonClassesStrategy.php',
+        'Http\\Discovery\\Strategy\\CommonPsr17ClassesStrategy' => __DIR__ . '/..' . '/php-http/discovery/src/Strategy/CommonPsr17ClassesStrategy.php',
+        'Http\\Discovery\\Strategy\\DiscoveryStrategy' => __DIR__ . '/..' . '/php-http/discovery/src/Strategy/DiscoveryStrategy.php',
+        'Http\\Discovery\\Strategy\\MockClientStrategy' => __DIR__ . '/..' . '/php-http/discovery/src/Strategy/MockClientStrategy.php',
+        'Http\\Discovery\\Strategy\\PuliBetaStrategy' => __DIR__ . '/..' . '/php-http/discovery/src/Strategy/PuliBetaStrategy.php',
+        'Http\\Discovery\\StreamFactoryDiscovery' => __DIR__ . '/..' . '/php-http/discovery/src/StreamFactoryDiscovery.php',
+        'Http\\Discovery\\UriFactoryDiscovery' => __DIR__ . '/..' . '/php-http/discovery/src/UriFactoryDiscovery.php',
         'Http\\Message\\Authentication' => __DIR__ . '/..' . '/php-http/message/src/Authentication.php',
         'Http\\Message\\Authentication\\AutoBasicAuth' => __DIR__ . '/..' . '/php-http/message/src/Authentication/AutoBasicAuth.php',
         'Http\\Message\\Authentication\\BasicAuth' => __DIR__ . '/..' . '/php-http/message/src/Authentication/BasicAuth.php',
