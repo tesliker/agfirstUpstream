@@ -172,7 +172,6 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
             'Drupal\\Driver\\' => 14,
             'Drupal\\Core\\' => 12,
             'Drupal\\Composer\\Plugin\\Scaffold\\' => 32,
-            'Drupal\\Composer\\Plugin\\ProjectMessage\\' => 38,
             'Drupal\\Component\\' => 17,
             'DrupalCodeGenerator\\' => 20,
             'Doctrine\\Persistence\\' => 21,
@@ -533,10 +532,6 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Drupal\\Composer\\Plugin\\Scaffold\\' => 
         array (
             0 => __DIR__ . '/..' . '/drupal/core-composer-scaffold',
-        ),
-        'Drupal\\Composer\\Plugin\\ProjectMessage\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/drupal/core-project-message',
         ),
         'Drupal\\Component\\' => 
         array (
@@ -1585,8 +1580,6 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Drupal\\Component\\Uuid\\Uuid' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Component/Uuid/Uuid.php',
         'Drupal\\Component\\Uuid\\UuidInterface' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Component/Uuid/UuidInterface.php',
         'Drupal\\Component\\Version\\Constraint' => __DIR__ . '/../..' . '/web/core/lib/Drupal/Component/Version/Constraint.php',
-        'Drupal\\Composer\\Plugin\\ProjectMessage\\Message' => __DIR__ . '/..' . '/drupal/core-project-message/Message.php',
-        'Drupal\\Composer\\Plugin\\ProjectMessage\\MessagePlugin' => __DIR__ . '/..' . '/drupal/core-project-message/MessagePlugin.php',
         'Drupal\\Composer\\Plugin\\Scaffold\\AllowedPackages' => __DIR__ . '/..' . '/drupal/core-composer-scaffold/AllowedPackages.php',
         'Drupal\\Composer\\Plugin\\Scaffold\\CommandProvider' => __DIR__ . '/..' . '/drupal/core-composer-scaffold/CommandProvider.php',
         'Drupal\\Composer\\Plugin\\Scaffold\\ComposerScaffoldCommand' => __DIR__ . '/..' . '/drupal/core-composer-scaffold/ComposerScaffoldCommand.php',

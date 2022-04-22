@@ -903,8 +903,6 @@ return array(
     'Drupal\\Component\\Uuid\\Uuid' => $baseDir . '/web/core/lib/Drupal/Component/Uuid/Uuid.php',
     'Drupal\\Component\\Uuid\\UuidInterface' => $baseDir . '/web/core/lib/Drupal/Component/Uuid/UuidInterface.php',
     'Drupal\\Component\\Version\\Constraint' => $baseDir . '/web/core/lib/Drupal/Component/Version/Constraint.php',
-    'Drupal\\Composer\\Plugin\\ProjectMessage\\Message' => $vendorDir . '/drupal/core-project-message/Message.php',
-    'Drupal\\Composer\\Plugin\\ProjectMessage\\MessagePlugin' => $vendorDir . '/drupal/core-project-message/MessagePlugin.php',
     'Drupal\\Composer\\Plugin\\Scaffold\\AllowedPackages' => $vendorDir . '/drupal/core-composer-scaffold/AllowedPackages.php',
     'Drupal\\Composer\\Plugin\\Scaffold\\CommandProvider' => $vendorDir . '/drupal/core-composer-scaffold/CommandProvider.php',
     'Drupal\\Composer\\Plugin\\Scaffold\\ComposerScaffoldCommand' => $vendorDir . '/drupal/core-composer-scaffold/ComposerScaffoldCommand.php',

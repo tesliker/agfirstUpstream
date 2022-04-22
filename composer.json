@@ -34,7 +34,6 @@
         "drupal/config_pages": "^2.6",
         "drupal/content_moderation_notifications": "^3.3",
         "drupal/core-composer-scaffold": "^9.1",
-        "drupal/core-project-message": "^9.1",
         "drupal/core-recommended": "^9.1",
         "drupal/crop": "^2.1",
         "drupal/devel": "^4.1",
