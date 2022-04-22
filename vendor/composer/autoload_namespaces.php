@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
+    'Stiphle' => array($vendorDir . '/davedevelopment/stiphle/src'),
     'Stack' => array($vendorDir . '/stack/builder/src'),
     'Smtpapi' => array($vendorDir . '/sendgrid/smtpapi/lib'),
     'Parsedown' => array($vendorDir . '/erusev/parsedown'),

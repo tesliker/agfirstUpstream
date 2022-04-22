@@ -118,7 +118,7 @@ class AddressService extends ServiceProviderBase {
   public function addressArrayToGeoString(array $values) {
 
     // Make sure the address_array has all values populated.
-    // @var \Drupal\address\Element\Address::applyDefaults()
+    /** @var \Drupal\address\Element\Address::applyDefaults() */
     $values = ElementAddress::applyDefaults($values);
 
     // Without a country code this won't work.
@@ -128,7 +128,7 @@ class AddressService extends ServiceProviderBase {
 
     // Use the Address formatter to create a string ordered appropriately
     // for the country in the address.
-    // @var CommerceGuys\Addressing\Address
+    /** @var CommerceGuys\Addressing\Address */
     $address = new AddressingAddress();
     $address = $address
       ->withCountryCode($values['country_code'])
@@ -143,7 +143,7 @@ class AddressService extends ServiceProviderBase {
     $langcode = !empty($values['langcode']) ? $values['langcode'] : 'en';
 
     // Get the formatted address.
-    // @var CommerceGuys\Addressing\Formatter\PostalLabelFormatter
+    /** @var CommerceGuys\Addressing\Formatter\PostalLabelFormatter */
     $formatter = $this->getFormatter($langcode, $countrycode, 'postal');
     $address_string = $formatter->format($address);
 
@@ -153,9 +153,9 @@ class AddressService extends ServiceProviderBase {
     $address_string = str_replace("<br>", ' ', $address_string);
     $address_string = strip_tags($address_string);
 
+    // Add Country code suffix, if defined.
     $address_string .= isset($countrycode) ? ' ' . $countrycode : '';
 
-    // Add Country code suffix, if defined.
     return $address_string;
   }
 
