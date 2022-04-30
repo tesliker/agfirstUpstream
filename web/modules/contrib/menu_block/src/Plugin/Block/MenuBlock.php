@@ -325,6 +325,11 @@ class MenuBlock extends SystemMenuBlock {
       ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
     ];
     $tree = $this->menuTree->transform($tree, $manipulators);
+
+    // There are no menu items to display, so don't render the empty block.
+    if (empty($tree)) {
+      return [];
+    }
     $build = $this->menuTree->build($tree);
 
     $label = $this->getBlockLabel() ?: $this->label();
