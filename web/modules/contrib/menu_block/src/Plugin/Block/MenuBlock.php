@@ -69,7 +69,6 @@ class MenuBlock extends SystemMenuBlock {
     $defaults = $this->defaultConfiguration();
 
     $form = parent::blockForm($form, $form_state);
-    $menu_parent_selector = \Drupal::service('menu.parent_form_selector');
 
     // If there exists a config value for Expand all menu links (expand), that
     // value should populate core's Expand all menu items checkbox
@@ -89,7 +88,7 @@ class MenuBlock extends SystemMenuBlock {
     $menus = Menu::loadMultiple([$menu_name]);
     $menus[$menu_name] = $menus[$menu_name]->label();
 
-    $form['advanced']['parent'] = $menu_parent_selector->parentSelectElement($config['parent'], '', $menus);
+    $form['advanced']['parent'] = $this->menuParentFormSelector->parentSelectElement($config['parent'], '', $menus);
 
     $form['advanced']['parent'] += [
       '#title' => $this->t('Fixed parent item'),
@@ -325,11 +324,6 @@ class MenuBlock extends SystemMenuBlock {
       ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
     ];
     $tree = $this->menuTree->transform($tree, $manipulators);
-
-    // There are no menu items to display, so don't render the empty block.
-    if (empty($tree)) {
-      return [];
-    }
     $build = $this->menuTree->build($tree);
 
     $label = $this->getBlockLabel() ?: $this->label();
@@ -352,9 +346,18 @@ class MenuBlock extends SystemMenuBlock {
       'route_parameters' => ['menu' => $menu_name],
     ];
 
-    $build['#cache']['contexts'][] = 'route.menu_active_trails:' . $menu_name;
-
     return $build;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockAccess(AccountInterface $account) {
+    $build = $this->build();
+    if (empty($build['#items'])) {
+      return AccessResult::forbidden();
+    }
+    return parent::blockAccess($account);
   }
 
   /**
