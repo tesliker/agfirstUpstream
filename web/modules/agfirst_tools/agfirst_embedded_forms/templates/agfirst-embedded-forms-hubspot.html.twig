@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Default template for the JotForms embedded formatter.
+ *
+ *   - hubspot_link: id provided by hubspot account.
+ *   - form_id: id provided by hubspot form. 
+ *
+ * @ingroup themeable
+ */
+#}
+
+<!--Embed Code for the Contact Form -->
+<div{{attributes}}>
+  <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/shell.js"></script>
+  <script>
+    hbspt.forms.create({
+    region: "na1",
+    portalId: "{{- hubspot_link -}}",
+    formId: "{{- form_id -}}"
+  });
+  </script>
+</div>
