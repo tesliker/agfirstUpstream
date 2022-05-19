@@ -76,7 +76,7 @@ class UniversalFormWidget extends WidgetBase {
       '#title' => $this->t('Form ID'),
       '#placeholder' => $this->getSetting('placeholder'),
       '#default_value' => isset($items[$delta]->form_code) ? $items[$delta]->form_code : NULL,
-      '#maxlength' => 31,
+      '#maxlength' => 60,
       '#required' => $element['#required'],
     ];
 
@@ -87,6 +87,7 @@ class UniversalFormWidget extends WidgetBase {
       '#options' => [
         'jot' => 'Jot',
         'dynamics' => 'ClickDynamics',
+        'hubspot' => 'HubSpot',
         'shortstack' => 'Shortstack',
       ],
     ];

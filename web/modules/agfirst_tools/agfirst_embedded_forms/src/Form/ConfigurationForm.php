@@ -43,6 +43,12 @@ class ConfigurationForm extends ConfigFormBase {
       '#description' => $this->t('This is defined in your embed codes as src URL for the script tag.'),
       '#default_value' => $config->get('shortstack_location'),
     ];
+    $form['hubspot_location'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Hubspot Portal ID'),
+      '#description' => $this->t('This is defined in your embed code.'),
+      '#default_value' => $config->get('hubspot_location'),
+    ];
     return parent::buildForm($form, $form_state);
   }
 
@@ -63,6 +69,7 @@ class ConfigurationForm extends ConfigFormBase {
     $this->config('agfirst_embedded_forms.configuration')
       ->set('clickdynamics_location', $form_state->getValue('clickdynamics_location'))
       ->set('shortstack_location', $form_state->getValue('shortstack_location'))
+      ->set('hubspot_location', $form_state->getValue('hubspot_location'))
       ->save();
   }
 

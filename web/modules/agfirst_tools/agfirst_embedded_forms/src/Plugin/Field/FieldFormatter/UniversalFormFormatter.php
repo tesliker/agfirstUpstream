@@ -102,6 +102,21 @@ class UniversalFormFormatter extends FormatterBase {
             '#shortstack_location' => $shortstack_loocation,
           ];
           break;
+        
+        case 'hubspot':
+          $hubspot_link = $config->get('hubspot_location');
+          $form_id = $this->viewValue($item);
+          $elements[$delta] = [
+            '#theme' => 'agfirst_embedded_forms_hubspot',
+            '#form_vendor' => 'hubspot',
+            '#attributes' => [
+              'class' => ['hubspot-form-wrapper'],
+              'id' => Html::cleanCssIdentifier('hubspot-form-field--' . $form_id),
+            ],
+            '#form_id' => $form_id,
+            '#hubspot_link' => $hubspot_link,
+          ];
+          break;
       }
 
     }

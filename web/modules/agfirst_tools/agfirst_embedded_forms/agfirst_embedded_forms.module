@@ -44,6 +44,14 @@ function agfirst_embedded_forms_theme() {
         'form_vendor' => 'jot'
       ],
     ],
+    'agfirst_embedded_forms_hubspot' => [
+      'variables' => [
+        'attributes' => [],
+        'form_id' => '',
+        'hubspot_link' => '',
+        'form_vendor' => 'dynamics'
+      ],
+    ],
     'agfirst_embedded_forms_shortstack' => [
       'variables' => [
         'attributes' => [],

@@ -56,12 +56,12 @@ class EmbeddedFormField extends FieldItemBase {
       'columns' => [
         'form_code' => [
           'type' => 'varchar',
-          'length' => 31,
+          'length' => 60,
           'binary' => FALSE,
         ],
         'form_type' => [
           'type' => 'varchar',
-          'length' => 31,
+          'length' => 60,
           'binary' => FALSE,
         ],
       ],
