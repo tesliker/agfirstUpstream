@@ -1,0 +1,32 @@
+<?php
+
+use \Drupal\Core\Utility\UpdateException;
+use \Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Increase form_code to 60 chars
+ */
+function agfirst_embedded_forms_update_9001() {
+    $db        = \Drupal::database();
+    $schema    = \Drupal::keyValue('entity.storage_schema.sql');
+    $efm       = \Drupal::service('entity_field.manager');
+    $field_map = $efm->getFieldMapByFieldType('embedded_form_field');
+
+    foreach ($field_map as $entity_type => $field_info) {
+        foreach ($field_info as $field_machine_name => $bundles) {
+            
+            $column_name          = $field_machine_name . '_form_code';
+            $field_table          = $entity_type . '__' . $field_machine_name;
+            $field_revision_table = $entity_type . '_revision__' . $field_machine_name;
+            $schema_storage_key   = $entity_type . '.field_schema_data.' . $field_machine_name;
+
+            $db->query("ALTER TABLE ${field_table}          MODIFY COLUMN ${column_name} VARCHAR(60)");
+            $db->query("ALTER TABLE ${field_revision_table} MODIFY COLUMN ${column_name} VARCHAR(60)");
+
+            $field_schema = $schema->get($schema_storage_key);
+            $field_schema[$field_table]['fields'][$column_name]['length'] = 60;
+            $field_schema[$field_revision_table]['fields'][$column_name]['length'] = 60;
+            $schema->set($schema_storage_key, $field_schema);
+        }
+    }
+}
