@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '0d101df70d93d6a8e953248592c19f6e60b0580d',
+        'reference' => '3a4b8b3eb1bfd1714d64391e0283cea6671610f5',
         'name' => 'pantheon-systems/example-drops-8-composer',
         'dev' => true,
     ),
@@ -552,6 +552,15 @@
             'replaced' => array(
                 0 => '9.4.1',
             ),
+        ),
+        'drupal/condition_query' => array(
+            'pretty_version' => '1.3.0',
+            'version' => '1.3.0.0',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../web/modules/contrib/condition_query',
+            'aliases' => array(),
+            'reference' => '8.x-1.3',
+            'dev_requirement' => false,
         ),
         'drupal/config' => array(
             'dev_requirement' => false,
@@ -2281,7 +2290,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '0d101df70d93d6a8e953248592c19f6e60b0580d',
+            'reference' => '3a4b8b3eb1bfd1714d64391e0283cea6671610f5',
             'dev_requirement' => false,
         ),
         'pantheon-systems/quicksilver-pushback' => array(
