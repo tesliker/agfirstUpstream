@@ -3,7 +3,6 @@
 namespace Drupal\config_pages\Plugin\Field\FieldFormatter;
 
 use Drupal\config_pages\ConfigPagesInterface;
-use Drupal\config_pages\Entity\ConfigPages;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;

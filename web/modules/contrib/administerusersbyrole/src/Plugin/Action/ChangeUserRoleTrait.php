@@ -25,8 +25,12 @@ trait ChangeUserRoleTrait {
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildConfigurationForm($form, $form_state);
-    $allowed = \Drupal::service('administerusersbyrole.access')->listRoles('role-assign', \Drupal::currentUser());
-    $form['rid']['#options'] = array_intersect_key($form['rid']['#options'], array_flip($allowed));
+    $account = \Drupal::currentUser();
+
+    if (!$account->hasPermission('administer users')) {
+      $allowed = \Drupal::service('administerusersbyrole.access')->listRoles('role-assign', $account);
+      $form['rid']['#options'] = array_intersect_key($form['rid']['#options'], array_flip($allowed));
+    }
     return $form;
   }
 

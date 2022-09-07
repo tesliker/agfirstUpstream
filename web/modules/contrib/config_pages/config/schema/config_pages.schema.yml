@@ -47,7 +47,7 @@ config_pages.type.*:
           label: 'Description'
 
 block.settings.config_pages_block:
-  type: config_object
+  type: block_settings
   label: 'ConfigPages Block settings'
   mapping:
     config_page_type:

@@ -10,7 +10,7 @@ use Drupal\Console\Core\Command\ContainerAwareCommand;
 use Drupal\Console\Annotations\DrupalCommand;
 
 /**
- * Class GetValueCommand.
+ * Class for a Drupal command to works with ConfigPages.
  *
  * @DrupalCommand (
  *     extension="config_pages",
@@ -20,13 +20,17 @@ use Drupal\Console\Annotations\DrupalCommand;
 class GetValueCommand extends ContainerAwareCommand {
 
   /**
+   * Drupal logger.
+   *
    * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
   protected $logger;
 
   /**
    * Constructs a new GetValueCommand object.
-   * @param LoggerChannelFactoryInterface $loggerChannelFactory
+   *
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerChannelFactory
+   *   Logger factory.
    */
   public function __construct(LoggerChannelFactoryInterface $loggerChannelFactory) {
     $this->logger = $loggerChannelFactory->get('config_pages');

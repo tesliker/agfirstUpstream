@@ -6,3 +6,9 @@ services:
   config_pages.loader:
     class: Drupal\config_pages\ConfigPagesLoaderService
     arguments: []
+
+  config_pages.twig_extension:
+    class: Drupal\config_pages\Twig\ConfigPagesExtension
+    arguments: ['@module_handler', '@theme.manager']
+    tags:
+      - { name: twig.extension }

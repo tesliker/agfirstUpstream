@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\Tests\migrate_tools\Functional;
 
 use Drupal\Tests\BrowserTestBase;
@@ -10,7 +12,7 @@ use Drush\TestTraits\DrushTestTrait;
  *
  * @group migrate_tools
  */
-class DrushCommandsTest extends BrowserTestBase {
+final class DrushCommandsTest extends BrowserTestBase {
   use DrushTestTrait;
 
   /**
@@ -50,7 +52,7 @@ class DrushCommandsTest extends BrowserTestBase {
    */
   public function testLimit(): void {
     $this->drush('mim', ['fruit_terms'], ['limit' => 2]);
-    $this->assertStringContainsString('1/3', $this->getErrorOutput());
+    $this->assertStringContainsString('1/2', $this->getErrorOutput());
     $this->assertStringContainsString('[notice] Processed 2 items (2 created, 0 updated, 0 failed, 0 ignored) - done with \'fruit_terms\'', $this->getErrorOutput());
     $this->assertStringNotContainsString('3/3', $this->getErrorOutput());
   }

@@ -23,12 +23,16 @@ class ConfigPagesTypeForm extends EntityForm {
   protected $routesRebuildRequired = FALSE;
 
   /**
-   * @var PathValidatorInterface|\Drupal\Core\Path\PathValidatorInterface
+   * Path validator.
+   *
+   * @var \Drupal\Core\Path\PathValidatorInterface
    */
   protected  $pathValidator;
 
   /**
-   * @var RouteBuilderInterface|\Drupal\Core\Routing\RouteBuilderInterface
+   * Router builder.
+   *
+   * @var \Drupal\Core\Routing\RouteBuilderInterface
    */
   protected $routerBuilder;
 
@@ -44,9 +48,10 @@ class ConfigPagesTypeForm extends EntityForm {
    *
    * @param \Drupal\Core\Path\PathValidatorInterface $path_validator
    *   The path validator class.
-   * @param \Drupal\Core\Routing\RouteBuilderInterface
+   * @param \Drupal\Core\Routing\RouteBuilderInterface $router_builder
    *   The router interface.
-   * @param MessengerInterface $messenger
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   Messenger.
    */
   public function __construct(PathValidatorInterface $path_validator,
                               RouteBuilderInterface $router_builder,
@@ -73,7 +78,7 @@ class ConfigPagesTypeForm extends EntityForm {
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
 
-    /* @var \Drupal\config_pages\ConfigPagesTypeInterface $config_pages_type */
+    /** @var \Drupal\config_pages\ConfigPagesTypeInterface $config_pages_type */
     $config_pages_type = $this->entity;
 
     $form['label'] = [
@@ -99,9 +104,7 @@ class ConfigPagesTypeForm extends EntityForm {
     $form['token'] = [
       '#type' => 'checkbox',
       '#title' => t('Expose this ConfigPage values as tokens.'),
-      '#default_value' => !empty($config_pages_type->token)
-        ? $config_pages_type->token
-        : FALSE,
+      '#default_value' => !empty($config_pages_type->token) ? $config_pages_type->token : FALSE,
       '#required' => FALSE,
     ];
 
@@ -251,12 +254,16 @@ class ConfigPagesTypeForm extends EntityForm {
     $edit_link = $this->entity->toLink($this->t('Edit'), 'edit-form')->toString();
     $logger = $this->logger('config_pages');
     if ($status == SAVED_UPDATED) {
-      $this->messenger->addStatus(t('Custom config page type %label has been updated.', ['%label' => $config_pages_type->label()]));
-      $logger->notice('Custom config page type %label has been updated.', ['%label' => $config_pages_type->label(), 'link' => $edit_link]);
+      $this->messenger->addStatus(t('Custom config page type %label has been updated.',
+        ['%label' => $config_pages_type->label()]));
+      $logger->notice('Custom config page type %label has been updated.',
+        ['%label' => $config_pages_type->label(), 'link' => $edit_link]);
     }
     else {
-      $this->messenger->addStatus(t('Custom config page type %label has been added.', ['%label' => $config_pages_type->label()]));
-      $logger->notice('Custom config page type %label has been added.', ['%label' => $config_pages_type->label(), 'link' => $edit_link]);
+      $this->messenger->addStatus(t('Custom config page type %label has been added.',
+        ['%label' => $config_pages_type->label()]));
+      $logger->notice('Custom config page type %label has been added.',
+        ['%label' => $config_pages_type->label(), 'link' => $edit_link]);
     }
 
     // Check if we need to rebuild routes.

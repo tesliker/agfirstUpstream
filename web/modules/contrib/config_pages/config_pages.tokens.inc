@@ -22,19 +22,17 @@ function config_pages_token_info() {
   ];
 
   $tokens = [];
+  $storage = \Drupal::entityTypeManager()->getStorage('config_pages_type');
 
   // Dynamically generate the tokens for all exposed to tokens ConfigPages.
-  $query = \Drupal::entityTypeManager()->getStorage('config_pages_type')->getQuery();
-  $ids = $query
+  $ids = $storage->getQuery()
     ->sort('id')
     ->condition('token', TRUE)
     ->execute();
-  $config_pages = ConfigPages::loadMultiple($ids);
+  $config_pages = $storage->loadMultiple($ids);
   if ($config_pages) {
     foreach ($config_pages as $config_page) {
-      $values = $config_page->toArray();
-      $type = $values['type'][0]['target_id'];
-      $tokens['config_page'][$type] = [
+      $tokens['config_page'][$config_page->id()] = [
         'name' => $config_page->label(),
         'description' => t('Field values from the config page.'),
         'type' => 'config_pages',

@@ -179,6 +179,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
             'DrupalCodeGenerator\\' => 20,
             'Doctrine\\Persistence\\' => 21,
             'Doctrine\\Inflector\\' => 19,
+            'Doctrine\\Deprecations\\' => 22,
             'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Inflector\\' => 26,
             'Doctrine\\Common\\Collections\\' => 28,
@@ -562,6 +563,10 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
         ),
+        'Doctrine\\Deprecations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations',
+        ),
         'Doctrine\\Common\\Lexer\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
@@ -585,9 +590,9 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Doctrine\\Common\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
-            1 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
-            2 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
-            3 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
+            1 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
+            2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
+            3 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
         ),
         'Consolidation\\SiteProcess\\' => 
         array (
@@ -1245,6 +1250,8 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Doctrine\\Common\\Util\\Debug' => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common/Util/Debug.php',
         'Doctrine\\Common\\Util\\Inflector' => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common/Util/Inflector.php',
         'Doctrine\\Common\\Version' => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common/Version.php',
+        'Doctrine\\Deprecations\\Deprecation' => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations/Deprecation.php',
+        'Doctrine\\Deprecations\\PHPUnit\\VerifyDeprecations' => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations/PHPUnit/VerifyDeprecations.php',
         'Doctrine\\Inflector\\CachedWordInflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/CachedWordInflector.php',
         'Doctrine\\Inflector\\GenericLanguageInflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/GenericLanguageInflectorFactory.php',
         'Doctrine\\Inflector\\Inflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Inflector.php',
@@ -3979,7 +3986,6 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'League\\Csv\\Info' => __DIR__ . '/..' . '/league/csv/src/Info.php',
         'League\\Csv\\InvalidArgument' => __DIR__ . '/..' . '/league/csv/src/InvalidArgument.php',
         'League\\Csv\\MapIterator' => __DIR__ . '/..' . '/league/csv/src/MapIterator.php',
-        'League\\Csv\\Polyfill\\EmptyEscapeParser' => __DIR__ . '/..' . '/league/csv/src/Polyfill/EmptyEscapeParser.php',
         'League\\Csv\\RFC4180Field' => __DIR__ . '/..' . '/league/csv/src/RFC4180Field.php',
         'League\\Csv\\Reader' => __DIR__ . '/..' . '/league/csv/src/Reader.php',
         'League\\Csv\\ResultSet' => __DIR__ . '/..' . '/league/csv/src/ResultSet.php',
@@ -4721,6 +4727,8 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Solarium\\Component\\Grouping' => __DIR__ . '/..' . '/solarium/solarium/src/Component/Grouping.php',
         'Solarium\\Component\\Highlighting\\Field' => __DIR__ . '/..' . '/solarium/solarium/src/Component/Highlighting/Field.php',
         'Solarium\\Component\\Highlighting\\Highlighting' => __DIR__ . '/..' . '/solarium/solarium/src/Component/Highlighting/Highlighting.php',
+        'Solarium\\Component\\Highlighting\\HighlightingInterface' => __DIR__ . '/..' . '/solarium/solarium/src/Component/Highlighting/HighlightingInterface.php',
+        'Solarium\\Component\\Highlighting\\HighlightingTrait' => __DIR__ . '/..' . '/solarium/solarium/src/Component/Highlighting/HighlightingTrait.php',
         'Solarium\\Component\\MoreLikeThis' => __DIR__ . '/..' . '/solarium/solarium/src/Component/MoreLikeThis.php',
         'Solarium\\Component\\MoreLikeThisInterface' => __DIR__ . '/..' . '/solarium/solarium/src/Component/MoreLikeThisInterface.php',
         'Solarium\\Component\\QueryElevation' => __DIR__ . '/..' . '/solarium/solarium/src/Component/QueryElevation.php',
@@ -5007,6 +5015,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Solarium\\QueryType\\Server\\Api\\Query' => __DIR__ . '/..' . '/solarium/solarium/src/QueryType/Server/Api/Query.php',
         'Solarium\\QueryType\\Server\\Api\\RequestBuilder' => __DIR__ . '/..' . '/solarium/solarium/src/QueryType/Server/Api/RequestBuilder.php',
         'Solarium\\QueryType\\Server\\Api\\ResponseParser' => __DIR__ . '/..' . '/solarium/solarium/src/QueryType/Server/Api/ResponseParser.php',
+        'Solarium\\QueryType\\Server\\Api\\Result' => __DIR__ . '/..' . '/solarium/solarium/src/QueryType/Server/Api/Result.php',
         'Solarium\\QueryType\\Server\\Collections\\Query\\Action\\ClusterStatus' => __DIR__ . '/..' . '/solarium/solarium/src/QueryType/Server/Collections/Query/Action/ClusterStatus.php',
         'Solarium\\QueryType\\Server\\Collections\\Query\\Action\\Create' => __DIR__ . '/..' . '/solarium/solarium/src/QueryType/Server/Collections/Query/Action/Create.php',
         'Solarium\\QueryType\\Server\\Collections\\Query\\Action\\Delete' => __DIR__ . '/..' . '/solarium/solarium/src/QueryType/Server/Collections/Query/Action/Delete.php',
@@ -5054,7 +5063,6 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Solarium\\QueryType\\Spellcheck\\ResponseParser' => __DIR__ . '/..' . '/solarium/solarium/src/QueryType/Spellcheck/ResponseParser.php',
         'Solarium\\QueryType\\Spellcheck\\Result\\Result' => __DIR__ . '/..' . '/solarium/solarium/src/QueryType/Spellcheck/Result/Result.php',
         'Solarium\\QueryType\\Spellcheck\\Result\\Term' => __DIR__ . '/..' . '/solarium/solarium/src/QueryType/Spellcheck/Result/Term.php',
-        'Solarium\\QueryType\\Stream\\Expression' => __DIR__ . '/..' . '/solarium/solarium/src/QueryType/Stream/Expression.php',
         'Solarium\\QueryType\\Stream\\ExpressionBuilder' => __DIR__ . '/..' . '/solarium/solarium/src/QueryType/Stream/ExpressionBuilder.php',
         'Solarium\\QueryType\\Stream\\Query' => __DIR__ . '/..' . '/solarium/solarium/src/QueryType/Stream/Query.php',
         'Solarium\\QueryType\\Stream\\RequestBuilder' => __DIR__ . '/..' . '/solarium/solarium/src/QueryType/Stream/RequestBuilder.php',
@@ -5101,7 +5109,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Stiphle\\Throttle\\LeakyBucket' => __DIR__ . '/..' . '/davedevelopment/stiphle/src/Stiphle/Throttle/LeakyBucket.php',
         'Stiphle\\Throttle\\ThrottleInterface' => __DIR__ . '/..' . '/davedevelopment/stiphle/src/Stiphle/Throttle/ThrottleInterface.php',
         'Stiphle\\Throttle\\TimeWindow' => __DIR__ . '/..' . '/davedevelopment/stiphle/src/Stiphle/Throttle/TimeWindow.php',
-        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'Stringable' => __DIR__ . '/..' . '/myclabs/php-enum/stubs/Stringable.php',
         'Symfony\\Bridge\\PsrHttpMessage\\ArgumentValueResolver\\PsrServerRequestResolver' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/ArgumentValueResolver/PsrServerRequestResolver.php',
         'Symfony\\Bridge\\PsrHttpMessage\\EventListener\\PsrResponseListener' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/EventListener/PsrResponseListener.php',
         'Symfony\\Bridge\\PsrHttpMessage\\Factory\\HttpFoundationFactory' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/Factory/HttpFoundationFactory.php',
@@ -6723,7 +6731,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'enshrined\\svgSanitize\\data\\AttributeInterface' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/AttributeInterface.php',
         'enshrined\\svgSanitize\\data\\TagInterface' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/TagInterface.php',
         'enshrined\\svgSanitize\\data\\XPath' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/XPath.php',
-        'geoPHP' => __DIR__ . '/..' . '/phayes/geophp/geoPHP.inc',
+        'geoPHP' => __DIR__ . '/..' . '/itamair/geophp/geoPHP.inc',
     );
 
     public static function getInitializer(ClassLoader $loader)

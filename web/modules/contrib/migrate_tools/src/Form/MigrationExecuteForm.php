@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\migrate_tools\Form;
 
 use Drupal\Core\Form\FormBase;
@@ -18,10 +20,8 @@ class MigrationExecuteForm extends FormBase {
 
   /**
    * Plugin manager for migration plugins.
-   *
-   * @var \Drupal\migrate\Plugin\MigrationPluginManagerInterface
    */
-  protected $migrationPluginManager;
+  protected MigrationPluginManagerInterface $migrationPluginManager;
 
   /**
    * Constructs a new MigrationExecuteForm object.
@@ -39,7 +39,7 @@ class MigrationExecuteForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): self {
     return new static(
       $container->get('plugin.manager.migration'),
       $container->get('current_route_match')
@@ -49,14 +49,14 @@ class MigrationExecuteForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'migration_execute_form';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $form = $form ?: [];
 
     /** @var \Drupal\migrate_plus\Entity\MigrationInterface $migration */
@@ -85,7 +85,7 @@ class MigrationExecuteForm extends FormBase {
    * @return array
    *   The execution form updated with the operations.
    */
-  protected function buildFormOperations(array $form, FormStateInterface $form_state) {
+  protected function buildFormOperations(array $form, FormStateInterface $form_state): array {
     // Build the migration execution form.
     $options = [
       'import' => $this->t('Import'),
@@ -129,7 +129,7 @@ class MigrationExecuteForm extends FormBase {
    * @return array
    *   The execution form updated with the execution options.
    */
-  protected function buildFormOptions(array $form, FormStateInterface $form_state) {
+  protected function buildFormOptions(array $form, FormStateInterface $form_state): array {
     $form['options'] = [
       '#type' => 'details',
       '#title' => $this->t('Additional execution options'),
@@ -161,7 +161,7 @@ class MigrationExecuteForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
 
     $operation = $form_state->getValue('operation');
 

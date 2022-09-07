@@ -24,14 +24,14 @@ class ConfigPagesListBuilder extends EntityListBuilder implements EntityListBuil
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  protected $cpt_storage;
+  protected $cptStorage;
 
   /**
    * The ConfigPages storage.
    *
    * @var \Drupal\config_pages\ConfigPagesContextManagerInterface
    */
-  protected $cp_context;
+  protected $cpContext;
 
   /**
    * The instantiated account.
@@ -64,8 +64,8 @@ class ConfigPagesListBuilder extends EntityListBuilder implements EntityListBuil
                               ConfigPagesContextManagerInterface $cp_context,
                               AccountProxyInterface $account) {
     parent::__construct($entity_type, $storage);
-    $this->cpt_storage = $cpt_storage;
-    $this->cp_context = $cp_context;
+    $this->cptStorage = $cpt_storage;
+    $this->cpContext = $cp_context;
     $this->account = $account;
   }
 
@@ -90,14 +90,14 @@ class ConfigPagesListBuilder extends EntityListBuilder implements EntityListBuil
     if (!empty($entity->context['group'])) {
       foreach ($entity->context['group'] as $context_id => $context_enabled) {
         if ($context_enabled) {
-          $item = $this->cp_context->getDefinition($context_id);
+          $item = $this->cpContext->getDefinition($context_id);
           $context_value = $item['label'];
           $contextData[] = $context_value;
         }
       }
     }
     $row['context'] = implode(', ', $contextData);
-    $row['token'] =  !empty($entity->token)
+    $row['token'] = !empty($entity->token)
       ? 'Exposed'
       : 'Hidden';
 
@@ -158,7 +158,7 @@ class ConfigPagesListBuilder extends EntityListBuilder implements EntityListBuil
    */
   public function load() {
     $entity_ids = $this->getEntityIds();
-    return $this->cpt_storage->loadMultiple($entity_ids);
+    return $this->cptStorage->loadMultiple($entity_ids);
   }
 
   /**
@@ -168,7 +168,7 @@ class ConfigPagesListBuilder extends EntityListBuilder implements EntityListBuil
    *   An array of entity IDs.
    */
   protected function getEntityIds() {
-    $query = $this->cpt_storage->getQuery();
+    $query = $this->cptStorage->getQuery();
     $keys = $this->entityType->getKeys();
     return $query
       ->sort($keys['id'])

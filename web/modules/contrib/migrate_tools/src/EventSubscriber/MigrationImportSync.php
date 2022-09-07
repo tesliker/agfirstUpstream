@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\migrate_tools\EventSubscriber;
 
 use Drupal\migrate\Event\MigrateEvents;
@@ -16,12 +18,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class MigrationImportSync implements EventSubscriberInterface {
 
-  /**
-   * The event dispatcher.
-   *
-   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
-   */
-  protected $dispatcher;
+  protected EventDispatcherInterface $dispatcher;
 
   /**
    * MigrationImportSync constructor.
@@ -36,7 +33,7 @@ class MigrationImportSync implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     $events = [];
     $events[MigrateEvents::PRE_IMPORT][] = ['sync'];
     return $events;
@@ -48,7 +45,7 @@ class MigrationImportSync implements EventSubscriberInterface {
    * @param \Drupal\migrate\Event\MigrateImportEvent $event
    *   The migration import event.
    */
-  public function sync(MigrateImportEvent $event) {
+  public function sync(MigrateImportEvent $event): void {
     $migration = $event->getMigration();
     if (!empty($migration->syncSource)) {
       $id_map = $migration->getIdMap();
@@ -68,7 +65,9 @@ class MigrationImportSync implements EventSubscriberInterface {
         if (!in_array($map_source_id, $source_id_values, TRUE)) {
           $destination_ids = $id_map->currentDestination();
           $this->dispatchRowDeleteEvent(MigrateEvents::PRE_ROW_DELETE, $migration, $destination_ids);
-          $this->dispatchRowDeleteEvent(MigratePlusEvents::MISSING_SOURCE_ITEM, $migration, $destination_ids);
+          if (class_exists(MigratePlusEvents::class)) {
+            $this->dispatchRowDeleteEvent(MigratePlusEvents::MISSING_SOURCE_ITEM, $migration, $destination_ids);
+          }
           $destination->rollback($destination_ids);
           $this->dispatchRowDeleteEvent(MigrateEvents::POST_ROW_DELETE, $migration, $destination_ids);
           $id_map->delete($map_source_id);
@@ -89,7 +88,7 @@ class MigrationImportSync implements EventSubscriberInterface {
    * @param array $destination_ids
    *   The destination identifier values of the record.
    */
-  protected function dispatchRowDeleteEvent($event_name, MigrationInterface $migration, array $destination_ids) {
+  protected function dispatchRowDeleteEvent(string $event_name, MigrationInterface $migration, array $destination_ids): void {
     // Symfony changing dispatcher so implementation could change.
     $this->dispatcher->dispatch(new MigrateRowDeleteEvent($migration, $destination_ids), $event_name);
   }

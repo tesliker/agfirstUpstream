@@ -7,7 +7,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 
 /**
- * Class ConfigPagesContextManager.
+ * Context plugins manager.
  *
  * @package Drupal\config_pages
  */

@@ -7,7 +7,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class ConfigPagesContextBase.
+ * Base class for Context plugins.
  *
  * @package Drupal\config_pages
  */

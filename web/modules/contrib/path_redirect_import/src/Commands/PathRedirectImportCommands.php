@@ -2,14 +2,16 @@
 
 namespace Drupal\path_redirect_import\Commands;
 
+use Drupal\Core\Batch\BatchBuilder;
 use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\File\FileSystem;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\migrate\Plugin\MigrationPluginManager;
 use Drupal\migrate_tools\Commands\MigrateToolsCommands;
 use Drupal\path_redirect_import\Form\MigrateRedirectForm;
+use Drupal\path_redirect_import\RedirectExport;
 
 /**
  * A Drush commandfile.
@@ -24,12 +26,21 @@ use Drupal\path_redirect_import\Form\MigrateRedirectForm;
  */
 class PathRedirectImportCommands extends MigrateToolsCommands {
 
+  use StringTranslationTrait;
+
   /**
    * The file system service.
    *
    * @var \Drupal\Core\File\FileSystem
    */
   protected $fileSystem;
+
+  /**
+   * The redirect export service.
+   *
+   * @var \Drupal\path_redirect_import\RedirectExport
+   */
+  protected $redirectExport;
 
   /**
    * PathRedirectImportCommands constructor.
@@ -42,12 +53,15 @@ class PathRedirectImportCommands extends MigrateToolsCommands {
    *   Entity type manager service.
    * @param \Drupal\Core\KeyValueStore\KeyValueFactoryInterface $keyValue
    *   Key-value store service.
-   * @param \Drupal\Core\File\FileSystem $fileSystem
+   * @param \Drupal\Core\File\FileSystemInterface $fileSystem
    *   File System service.
+   * @param \Drupal\path_redirect_import\RedirectExport $redirectExport
+   *   The redirect export service.
    */
-  public function __construct(MigrationPluginManager $migrationPluginManager, DateFormatter $dateFormatter, EntityTypeManagerInterface $entityTypeManager, KeyValueFactoryInterface $keyValue, FileSystem $fileSystem) {
+  public function __construct(MigrationPluginManager $migrationPluginManager, DateFormatter $dateFormatter, EntityTypeManagerInterface $entityTypeManager, KeyValueFactoryInterface $keyValue, FileSystemInterface $fileSystem, RedirectExport $redirectExport) {
     parent::__construct($migrationPluginManager, $dateFormatter, $entityTypeManager, $keyValue);
     $this->fileSystem = $fileSystem;
+    $this->redirectExport = $redirectExport;
   }
 
   /**
@@ -59,7 +73,7 @@ class PathRedirectImportCommands extends MigrateToolsCommands {
    * @command path_redirect_import:import
    * @aliases prii
    */
-  public function commandName($file) {
+  public function importRedirects($file) {
     if (!file_exists($file)) {
       $this->logger()->error("File $file doesn't exist \n");
       exit;
@@ -75,7 +89,29 @@ class PathRedirectImportCommands extends MigrateToolsCommands {
       'force' => FALSE,
     ]);
 
-    $this->logger()->success(dt('Achievement unlocked.'));
+    $this->logger()->success($this->t('Redirects imported.'));
+  }
+
+  /**
+   * Exports the redirects.
+   *
+   * @command path_redirect_import:export
+   * @aliases prie
+   */
+  public function exportRedirects() {
+    $operations = $this->redirectExport->getBatchOperations();
+
+    $batchBuilder = new BatchBuilder();
+    array_walk($operations, fn($operation) => $batchBuilder->addOperation($operation[0], $operation[1]));
+
+    $batchBuilder
+      ->setTitle($this->t('Exporting redirect entities to file'))
+      ->setFinishCallback(RedirectExport::class . '::batchFinishedExport')
+      ->setErrorMessage($this->t('An error occurred while exporting redirect entities.'));
+    // 5. Add batch operations as new batch sets.
+    batch_set($batchBuilder->toArray());
+    // 6. Process the batch sets.
+    drush_backend_batch_process();
   }
 
 }

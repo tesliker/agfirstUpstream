@@ -21,7 +21,7 @@
         "php": ">=7.1",
         "drupal/core": ">=9.1",
         "drupal/migrate_source_csv": "^3.5",
-        "drupal/migrate_tools": "^5.0"
+        "drupal/migrate_tools": "^5.0 || ^6.0"
     },
     "require-dev": {
         "drupal/migrate_plus": ">=5.0"

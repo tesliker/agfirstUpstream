@@ -16,6 +16,8 @@ use Drupal\Core\Entity\EntityStorageInterface;
 class ConfigPagesTypeListBuilder extends ConfigEntityListBuilder {
 
   /**
+   * Context manager.
+   *
    * @var ConfigPagesContextManagerInterface
    */
   private $context;
@@ -84,7 +86,7 @@ class ConfigPagesTypeListBuilder extends ConfigEntityListBuilder {
       }
     }
     $row['context'] = implode(', ', $contextData);
-    $row['token'] =  !empty($entity->token)
+    $row['token'] = !empty($entity->token)
       ? 'Exposed'
       : 'Hidden';
 

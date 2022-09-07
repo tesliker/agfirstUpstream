@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\Tests\migrate_tools\Functional;
 
 use Drupal\Core\StreamWrapper\PublicStream;
@@ -12,7 +14,7 @@ use Drush\TestTraits\DrushTestTrait;
  *
  * @group migrate_tools
  */
-class DrushCommandsGeneratorTest extends BrowserTestBase {
+final class DrushCommandsGeneratorTest extends BrowserTestBase {
   use DrushTestTrait;
 
   /**
@@ -20,7 +22,7 @@ class DrushCommandsGeneratorTest extends BrowserTestBase {
    *
    * @var string
    */
-  protected $sourceData;
+  private string $sourceData;
 
   /**
    * {@inheritdoc}

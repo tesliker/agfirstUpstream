@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\config_pages\tests\Functional;
+namespace Drupal\Tests\config_pages\Functional;
 
 use Drupal\config_pages\Entity\ConfigPagesType;
 use Drupal\field\Entity\FieldConfig;
@@ -12,8 +12,7 @@ use Drupal\Tests\BrowserTestBase;
  *
  * @group config_pages
  */
-class CreateConfigPageTypeTest extends BrowserTestBase
-{
+class CreateConfigPageTypeTest extends BrowserTestBase {
 
   /**
    * Modules to enable.
@@ -30,7 +29,7 @@ class CreateConfigPageTypeTest extends BrowserTestBase
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $configPageType = ConfigPagesType::create([
@@ -124,4 +123,5 @@ class CreateConfigPageTypeTest extends BrowserTestBase
     $this->clickLink('Edit');
     $this->assertSession()->statusCodeEquals(200);
   }
+
 }

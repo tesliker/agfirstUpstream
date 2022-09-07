@@ -37,15 +37,20 @@ class ConfigPagesStorage extends SqlContentEntityStorage {
   public function loadMultiple(array $ids = NULL) {
     $entities = [];
 
+    // Return all entities if $ids is NULL.
+    if (empty($ids)) {
+      return parent::loadMultiple();
+    }
+
     // Use module load method to get ConfigPage loaded by id.
-    foreach ($ids as $id){
+    foreach ($ids as $id) {
       $entity = $this->load($id);
       if (!empty($entity)) {
         $entities[$entity->id()] = $entity;
       }
     }
 
-    return !empty($entities) ? $entities : NULL;
+    return $entities;
   }
 
 }

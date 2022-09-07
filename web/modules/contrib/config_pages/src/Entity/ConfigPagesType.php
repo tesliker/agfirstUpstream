@@ -84,7 +84,8 @@ class ConfigPagesType extends ConfigEntityBundleBase implements ConfigPagesTypeI
     $config_page_ids = $query->condition('type', $type->id())->execute();
     $cp_storage = \Drupal::service('entity_type.manager')->getStorage('config_pages');
     if ($cp_storage && $config_page_ids) {
-      // ConfigPage could possibly never submitted, so no entities exists for this CP type.
+      // ConfigPage could possibly never submitted,
+      // so no entities exists for this CP type.
       // Delete them only if we have some ID's for that.
       $cp_entities = $cp_storage->loadMultiple($config_page_ids);
       $cp_storage->delete($cp_entities);
@@ -135,6 +136,7 @@ class ConfigPagesType extends ConfigEntityBundleBase implements ConfigPagesTypeI
    *
    * @return string
    *   Return context label.
+   *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
@@ -158,6 +160,7 @@ class ConfigPagesType extends ConfigEntityBundleBase implements ConfigPagesTypeI
    *
    * @return array
    *   Get context links.
+   *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   public function getContextLinks() {

@@ -9,7 +9,7 @@ dependencies:
   - migrate_tools:migrate_tools
   - redirect:redirect
 
-# Information added by Drupal.org packaging script on 2022-04-07
-version: '2.0.0'
+# Information added by Drupal.org packaging script on 2022-08-04
+version: '2.0.5'
 project: 'path_redirect_import'
-datestamp: 1649313279
+datestamp: 1659629558

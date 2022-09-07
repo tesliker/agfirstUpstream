@@ -43,7 +43,7 @@ function config_pages_context_get($type) {
  * @param string $context
  *   Context which should be used to load entity.
  *
- * @return \Drupal\config_pages\Entity\ConfigPages
+ * @return \Drupal\config_pages\Entity\ConfigPages|null
  *   Returns config page entity.
  */
 function config_pages_config($type, $context = NULL) {
@@ -65,7 +65,8 @@ function config_pages_help($route_name, RouteMatchInterface $route_match) {
       $filter = $filter_manager->createInstance('markdown', $markdown_settings);
 
       return $filter->process($readme_content, 'en');
-    } else {
+    }
+    else {
       return '<pre>' . $readme_content . '</pre>';
     }
   }
@@ -144,6 +145,9 @@ function config_pages_menu_links_discovered_alter(&$links) {
   $config_pages_types = \Drupal::entityTypeManager()->getStorage('config_pages_type')->loadMultiple();
 
   foreach ($config_pages_types as $page_type) {
+    if (!isset($page_type->menu)) {
+      continue;
+    }
     $bundle = $page_type->getOriginalId();
     $menu_path = $page_type->menu['path'];
     $title = $page_type->label();
@@ -160,6 +164,20 @@ function config_pages_menu_links_discovered_alter(&$links) {
       'weight' => $weight,
     ];
   }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function config_pages_theme_suggestions_block(array $variables) {
+  $suggestions = [];
+
+  if ($variables['elements']['#plugin_id'] === 'config_pages_block') {
+    $suggestions[] = $variables['theme_hook_original'] . '__config_pages__' . $variables['elements']['#configuration']['config_page_type'];
+    $suggestions[] = $variables['theme_hook_original'] . '__config_pages__' . $variables['elements']['#configuration']['config_page_type'] . '__' . $variables['elements']['#configuration']['config_page_view_mode'];
+  }
+
+  return $suggestions;
 }
 
 /**

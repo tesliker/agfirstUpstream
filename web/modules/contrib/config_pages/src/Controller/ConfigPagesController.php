@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
- * Class ConfigPagesController.
+ * Class controller for ConfigPage entity..
  *
  * @package Drupal\config_pages
  */
@@ -66,6 +66,7 @@ class ConfigPagesController extends ControllerBase {
    * @param \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler
    *   The theme handler.
    * @param EntityTypeManagerInterface $entity_type_manager
+   *   Entity Type manager.
    */
   public function __construct(EntityStorageInterface $config_pages_storage,
                               EntityStorageInterface $config_pages_type_storage,
@@ -119,6 +120,7 @@ class ConfigPagesController extends ControllerBase {
    *
    * @return array
    *   A form array as expected by drupal_render().
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
@@ -156,6 +158,8 @@ class ConfigPagesController extends ControllerBase {
    * Presents the config page confirmation form.
    *
    * @param $config_pages
+   *   Config Page.
+   * 
    * @return array
    *   A form array as expected by drupal_render().
    */

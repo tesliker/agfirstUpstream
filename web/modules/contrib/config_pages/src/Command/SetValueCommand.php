@@ -11,9 +11,8 @@ use Drupal\Console\Core\Command\Command;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Console\Annotations\DrupalCommand;
 
-
 /**
- * Class SetValueCommand.
+ * Class Drupal command.
  *
  * @DrupalCommand (
  *     extension="config_pages",
@@ -23,13 +22,17 @@ use Drupal\Console\Annotations\DrupalCommand;
 class SetValueCommand extends Command {
 
   /**
+   * Logger interface.
+   *
    * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
   protected $logger;
 
   /**
    * Constructs a new SetValueCommand object.
-   * @param LoggerChannelFactoryInterface $logger_factory
+   *
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
+   *   Logger factory.
    */
   public function __construct(LoggerChannelFactoryInterface $logger_factory) {
     $this->logger = $logger_factory->get('config_pages');

@@ -5,6 +5,7 @@ namespace Drupal\config_pages\Form;
 use Drupal\config_pages\Entity\ConfigPages;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\ConfirmFormBase;
+use Drupal\Core\Url;
 use Drupal\field\FieldConfigInterface;
 
 /**
@@ -83,7 +84,7 @@ class ConfigPagesClearConfirmationForm extends ConfirmFormBase {
     }
     $entity->save();
 
-    $form_state->setRedirectUrl($entity->toUrl());
+    $form_state->setRedirectUrl(Url::fromRoute('config_pages.' . $entity->bundle()));
   }
 
 }

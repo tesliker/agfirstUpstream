@@ -25,6 +25,7 @@ class ConfigPagesPermissions implements ContainerInjectionInterface {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
@@ -43,6 +44,7 @@ class ConfigPagesPermissions implements ContainerInjectionInterface {
    * Returns an array of Config pages permissions.
    *
    * @return array
+   *   Permissions.
    */
   public function permissions() {
     $permissions = [];

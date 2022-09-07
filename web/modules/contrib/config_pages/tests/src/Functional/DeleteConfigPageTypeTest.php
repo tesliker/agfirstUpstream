@@ -1,10 +1,8 @@
 <?php
 
-namespace Drupal\config_pages\tests\Functional;
+namespace Drupal\Tests\config_pages\Functional;
 
 use Drupal\config_pages\Entity\ConfigPagesType;
-use Drupal\field\Entity\FieldConfig;
-use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Tests\BrowserTestBase;
 
 /**
@@ -12,8 +10,7 @@ use Drupal\Tests\BrowserTestBase;
  *
  * @group config_pages
  */
-class DeleteConfigPageTypeTest extends BrowserTestBase
-{
+class DeleteConfigPageTypeTest extends BrowserTestBase {
 
   /**
    * Modules to enable.
@@ -30,7 +27,7 @@ class DeleteConfigPageTypeTest extends BrowserTestBase
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $configPageType = ConfigPagesType::create([

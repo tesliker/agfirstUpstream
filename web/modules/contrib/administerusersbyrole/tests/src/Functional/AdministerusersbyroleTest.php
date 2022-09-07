@@ -16,7 +16,7 @@ class AdministerusersbyroleTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = ['administerusersbyrole', 'user'];
+  protected static $modules = ['administerusersbyrole', 'user'];
 
   /**
    * {@inheritdoc}
@@ -41,7 +41,7 @@ class AdministerusersbyroleTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->accessManager = \Drupal::service('administerusersbyrole.access');
     $this->config = \Drupal::service('config.factory')->getEditable('administerusersbyrole.settings');
@@ -257,10 +257,10 @@ class AdministerusersbyroleTest extends BrowserTestBase {
           $this->drupalGet("admin/people/create");
           $expectedResult = $v;
           if ($expectedResult) {
-            $this->assertRaw('<h1 class="page-title">Add user</h1>');
+            $assert->responseContains('<h1 class="page-title">Add user</h1>');
           }
           else {
-            $this->assertRaw('You are not authorized to access this page.');
+            $assert->responseContains('You are not authorized to access this page.');
           }
         }
         else {

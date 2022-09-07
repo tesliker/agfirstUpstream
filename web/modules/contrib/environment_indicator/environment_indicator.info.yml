@@ -2,9 +2,7 @@ name: Environment indicator
 type: module
 description: Adds a color indicator for the different environments.
 package: Development
-core_version_requirement: ^8.8 || ^9
-dependencies:
-  - drupal:color
+core_version_requirement: ^9.2 || ^10
 
 scripts:
   - js/environment_indicator.js
@@ -16,7 +14,7 @@ stylesheets:
 
 configure: environment_indicator.settings
 
-# Information added by Drupal.org packaging script on 2022-03-07
-version: '4.0.5'
+# Information added by Drupal.org packaging script on 2022-09-05
+version: '4.0.8'
 project: 'environment_indicator'
-datestamp: 1646688934
+datestamp: 1662365815

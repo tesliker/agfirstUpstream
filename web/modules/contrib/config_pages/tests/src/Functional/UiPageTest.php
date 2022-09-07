@@ -1,14 +1,14 @@
 <?php
 
-namespace Drupal\config_pages\tests\Functional;
+namespace Drupal\Tests\config_pages\Functional;
 
 use Drupal\Tests\BrowserTestBase;
 
 /**
-* Tests that the ConfigPages UI pages are reachable.
-*
-* @group config_pages
-*/
+ * Tests that the ConfigPages UI pages are reachable.
+ *
+ * @group config_pages
+ */
 class UiPageTest extends BrowserTestBase {
 
   /**

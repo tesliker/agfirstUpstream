@@ -69,7 +69,8 @@ class ConfigPagesForm extends ContentEntityForm {
   /**
    * Constructs a ConfigPagesForm object.
    *
-   * @param EntityRepositoryInterface $entity_repository
+   * @param \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository
+   *   Entity repository.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity manager.
    * @param \Drupal\Core\Entity\EntityStorageInterface $config_pages_storage
@@ -250,11 +251,12 @@ class ConfigPagesForm extends ContentEntityForm {
   }
 
   /**
-   * Form submit.
-   *
    * Clear field values submit callback.
+   *
    * @param array $form
-   * @param FormStateInterface $form_state
+   *   Form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
    */
   public function configPagesClearValues(array $form, FormStateInterface $form_state) {
 
@@ -311,16 +313,15 @@ class ConfigPagesForm extends ContentEntityForm {
     $config_pages->save();
     $context = ['@type' => $config_pages->bundle(), '%info' => $config_pages->label()];
     $logger = $this->logger('config_pages');
-    $config_pages_type = $this->configPagesTypeStorage->load($config_pages->bundle());
-    $t_args = ['@type' => $config_pages_type->label(), '%info' => $config_pages->label()];
+    $t_args = ['%info' => $config_pages->label()];
 
     if ($insert) {
       $logger->notice('@type: added %info.', $context);
-      $this->messenger->addStatus($this->t('@type %info has been created.', $t_args));
+      $this->messenger->addStatus($this->t('%info has been created.', $t_args));
     }
     else {
       $logger->notice('@type: updated %info.', $context);
-      $this->messenger->addStatus($this->t('@type %info has been updated.', $t_args));
+      $this->messenger->addStatus($this->t('%info has been updated.', $t_args));
     }
 
     if ($config_pages->id()) {
@@ -340,9 +341,14 @@ class ConfigPagesForm extends ContentEntityForm {
    *
    * @todo Consider introducing a 'preview' action here, since it is used by
    *   many entity types.
+   *
    * @param array $form
-   * @param FormStateInterface $form_state
-   * @return mixed
+   *   Form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   *
+   * @return array
+   *   Array of actions.
    */
   protected function actions(array $form, FormStateInterface $form_state) {
     $entity = $this->entity;
@@ -369,4 +375,3 @@ class ConfigPagesForm extends ContentEntityForm {
   }
 
 }
-

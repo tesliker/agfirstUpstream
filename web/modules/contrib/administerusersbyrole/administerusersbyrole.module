@@ -220,19 +220,22 @@ function administerusersbyrole_user_role_delete(RoleInterface $role) {
  */
 function administerusersbyrole_form_user_form_alter(&$form, &$form_state) {
   $user = $form_state->getFormObject()->getEntity();
-  $account = Drupal::currentUser();
+  $account = \Drupal::currentUser();
 
   // Allow empty email.
   // @todo Remove when https://www.drupal.org/node/2992848 is fixed.
-  if (isset($form['account']['mail']) && !$user->getEmail() && \Drupal::currentUser()->hasPermission('allow empty user mail')) {
+  if (isset($form['account']['mail']) && !$user->getEmail() && $account->hasPermission('allow empty user mail')) {
     $form['account']['mail']['#required'] = FALSE;
   }
 
   if (isset($form['account']['roles']) && administerusersbyrole_user_access($user, 'update', $account)->isAllowed()) {
     $allowed = \Drupal::service('administerusersbyrole.access')->listRoles('role-assign', $account);
     $options = array_intersect_key($form['account']['roles']['#options'], array_flip($allowed));
-    $form['account']['roles']['#options'] = $options;
-    $form['account']['roles']['#access'] = !empty($options);
+    if ($options) {
+      // Grant access to the allowed roles.
+      $form['account']['roles']['#options'] = $options;
+      $form['account']['roles']['#access'] = TRUE;
+    }
   }
 }
 

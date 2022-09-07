@@ -5,7 +5,7 @@ namespace Drupal\config_pages;
 use Drupal\config_pages\Entity\ConfigPages;
 
 /**
- * Class ConfigPagesLoaderService.
+ * Class used as loader for ConfigPages.
  *
  * @package Drupal\config_pages
  */
