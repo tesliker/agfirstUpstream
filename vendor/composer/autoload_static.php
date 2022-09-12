@@ -4839,6 +4839,8 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Solarium\\Core\\Client\\Adapter\\ConnectionTimeoutAwareTrait' => __DIR__ . '/..' . '/solarium/solarium/src/Core/Client/Adapter/ConnectionTimeoutAwareTrait.php',
         'Solarium\\Core\\Client\\Adapter\\Curl' => __DIR__ . '/..' . '/solarium/solarium/src/Core/Client/Adapter/Curl.php',
         'Solarium\\Core\\Client\\Adapter\\Http' => __DIR__ . '/..' . '/solarium/solarium/src/Core/Client/Adapter/Http.php',
+        'Solarium\\Core\\Client\\Adapter\\ProxyAwareInterface' => __DIR__ . '/..' . '/solarium/solarium/src/Core/Client/Adapter/ProxyAwareInterface.php',
+        'Solarium\\Core\\Client\\Adapter\\ProxyAwareTrait' => __DIR__ . '/..' . '/solarium/solarium/src/Core/Client/Adapter/ProxyAwareTrait.php',
         'Solarium\\Core\\Client\\Adapter\\Psr18Adapter' => __DIR__ . '/..' . '/solarium/solarium/src/Core/Client/Adapter/Psr18Adapter.php',
         'Solarium\\Core\\Client\\Adapter\\TimeoutAwareInterface' => __DIR__ . '/..' . '/solarium/solarium/src/Core/Client/Adapter/TimeoutAwareInterface.php',
         'Solarium\\Core\\Client\\Adapter\\TimeoutAwareTrait' => __DIR__ . '/..' . '/solarium/solarium/src/Core/Client/Adapter/TimeoutAwareTrait.php',
