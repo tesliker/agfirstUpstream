@@ -90,3 +90,9 @@ admin_toolbar_tools.settings:
   description: 'Configure the Admin Toolbar Tools module.'
   route_name: admin_toolbar_tools.settings
   parent: system.admin_config_ui
+
+admin_toobal.user.logout:
+  title: 'Logout'
+  route_name: user.logout
+  parent: admin_toolbar_tools.help
+  weight: -5
