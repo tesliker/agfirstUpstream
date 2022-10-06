@@ -40,6 +40,8 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         '2f69d3914119f042cca9e44442d5ce95' => __DIR__ . '/../..' . '/web/core/includes/bootstrap.inc',
         '6db5533840cb1ae1bc049452845aa88e' => __DIR__ . '/../..' . '/web/core/includes/guzzle_php81_shim.php',
         '9e4824c5afbdc1482b6025ce3d4dfde8' => __DIR__ . '/..' . '/league/csv/src/functions_include.php',
+        '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
+        'c9d07b32a2e02bc0fc582d4f0c1b56cc' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/autoload.php',
         '9c67151ae59aff4788964ce8eb2a0f43' => __DIR__ . '/..' . '/clue/stream-filter/src/functions_include.php',
         '952683d815ff0a7bf322b93c0be7e4e4' => __DIR__ . '/..' . '/chi-teck/drupal-code-generator/src/bootstrap.php',
         '8cff32064859f4559445b89279f3199c' => __DIR__ . '/..' . '/php-http/message/src/filters.php',
@@ -47,6 +49,10 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
     );
 
     public static $prefixLengthsPsr4 = array (
+        'm' => 
+        array (
+            'mglaman\\PHPStanDrupal\\' => 22,
+        ),
         'e' => 
         array (
             'enshrined\\svgSanitize\\' => 22,
@@ -121,6 +127,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
+            'PHPStan\\' => 8,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
         'O' => 
@@ -130,6 +137,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'M' => 
         array (
             'MyCLabs\\Enum\\' => 13,
+            'MathieuViossat\\Util\\' => 20,
             'Masterminds\\' => 12,
             'Mailchimp\\http\\' => 15,
             'Mailchimp\\' => 10,
@@ -138,7 +146,9 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         array (
             'League\\Csv\\' => 11,
             'League\\Container\\' => 17,
+            'Laminas\\Text\\' => 13,
             'Laminas\\Stdlib\\' => 15,
+            'Laminas\\ServiceManager\\' => 23,
             'Laminas\\Feed\\' => 13,
             'Laminas\\Escaper\\' => 16,
             'Laminas\\Diactoros\\' => 18,
@@ -208,6 +218,10 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
     );
 
     public static $prefixDirsPsr4 = array (
+        'mglaman\\PHPStanDrupal\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src',
+        ),
         'enshrined\\svgSanitize\\' => 
         array (
             0 => __DIR__ . '/..' . '/enshrined/svg-sanitize/src',
@@ -413,6 +427,10 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
+        'PHPStan\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src',
+        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
@@ -424,6 +442,10 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'MyCLabs\\Enum\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
+        ),
+        'MathieuViossat\\Util\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mathieuviossat/arraytotexttable/src',
         ),
         'Masterminds\\' => 
         array (
@@ -445,9 +467,17 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         array (
             0 => __DIR__ . '/..' . '/league/container/src',
         ),
+        'Laminas\\Text\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-text/src',
+        ),
         'Laminas\\Stdlib\\' => 
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-stdlib/src',
+        ),
+        'Laminas\\ServiceManager\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src',
         ),
         'Laminas\\Feed\\' => 
         array (
@@ -3902,6 +3932,36 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Laminas\\Feed\\Writer\\StandaloneExtensionManager' => __DIR__ . '/..' . '/laminas/laminas-feed/src/Writer/StandaloneExtensionManager.php',
         'Laminas\\Feed\\Writer\\Version' => __DIR__ . '/..' . '/laminas/laminas-feed/src/Writer/Version.php',
         'Laminas\\Feed\\Writer\\Writer' => __DIR__ . '/..' . '/laminas/laminas-feed/src/Writer/Writer.php',
+        'Laminas\\ServiceManager\\AbstractFactoryInterface' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/AbstractFactoryInterface.php',
+        'Laminas\\ServiceManager\\AbstractFactory\\ConfigAbstractFactory' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/AbstractFactory/ConfigAbstractFactory.php',
+        'Laminas\\ServiceManager\\AbstractFactory\\ReflectionBasedAbstractFactory' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/AbstractFactory/ReflectionBasedAbstractFactory.php',
+        'Laminas\\ServiceManager\\AbstractPluginManager' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/AbstractPluginManager.php',
+        'Laminas\\ServiceManager\\Config' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Config.php',
+        'Laminas\\ServiceManager\\ConfigInterface' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/ConfigInterface.php',
+        'Laminas\\ServiceManager\\DelegatorFactoryInterface' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/DelegatorFactoryInterface.php',
+        'Laminas\\ServiceManager\\Exception\\ContainerModificationsNotAllowedException' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Exception/ContainerModificationsNotAllowedException.php',
+        'Laminas\\ServiceManager\\Exception\\CyclicAliasException' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Exception/CyclicAliasException.php',
+        'Laminas\\ServiceManager\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Exception/ExceptionInterface.php',
+        'Laminas\\ServiceManager\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Exception/InvalidArgumentException.php',
+        'Laminas\\ServiceManager\\Exception\\InvalidServiceException' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Exception/InvalidServiceException.php',
+        'Laminas\\ServiceManager\\Exception\\ServiceNotCreatedException' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Exception/ServiceNotCreatedException.php',
+        'Laminas\\ServiceManager\\Exception\\ServiceNotFoundException' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Exception/ServiceNotFoundException.php',
+        'Laminas\\ServiceManager\\FactoryInterface' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/FactoryInterface.php',
+        'Laminas\\ServiceManager\\Factory\\AbstractFactoryInterface' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Factory/AbstractFactoryInterface.php',
+        'Laminas\\ServiceManager\\Factory\\DelegatorFactoryInterface' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Factory/DelegatorFactoryInterface.php',
+        'Laminas\\ServiceManager\\Factory\\FactoryInterface' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Factory/FactoryInterface.php',
+        'Laminas\\ServiceManager\\Factory\\InvokableFactory' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Factory/InvokableFactory.php',
+        'Laminas\\ServiceManager\\InitializerInterface' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/InitializerInterface.php',
+        'Laminas\\ServiceManager\\Initializer\\InitializerInterface' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Initializer/InitializerInterface.php',
+        'Laminas\\ServiceManager\\PluginManagerInterface' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/PluginManagerInterface.php',
+        'Laminas\\ServiceManager\\Proxy\\LazyServiceFactory' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Proxy/LazyServiceFactory.php',
+        'Laminas\\ServiceManager\\ServiceLocatorInterface' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/ServiceLocatorInterface.php',
+        'Laminas\\ServiceManager\\ServiceManager' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/ServiceManager.php',
+        'Laminas\\ServiceManager\\Test\\CommonPluginManagerTrait' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Test/CommonPluginManagerTrait.php',
+        'Laminas\\ServiceManager\\Tool\\ConfigDumper' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Tool/ConfigDumper.php',
+        'Laminas\\ServiceManager\\Tool\\ConfigDumperCommand' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Tool/ConfigDumperCommand.php',
+        'Laminas\\ServiceManager\\Tool\\FactoryCreator' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Tool/FactoryCreator.php',
+        'Laminas\\ServiceManager\\Tool\\FactoryCreatorCommand' => __DIR__ . '/..' . '/laminas/laminas-servicemanager/src/Tool/FactoryCreatorCommand.php',
         'Laminas\\Stdlib\\AbstractOptions' => __DIR__ . '/..' . '/laminas/laminas-stdlib/src/AbstractOptions.php',
         'Laminas\\Stdlib\\ArrayObject' => __DIR__ . '/..' . '/laminas/laminas-stdlib/src/ArrayObject.php',
         'Laminas\\Stdlib\\ArraySerializableInterface' => __DIR__ . '/..' . '/laminas/laminas-stdlib/src/ArraySerializableInterface.php',
@@ -3949,6 +4009,32 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Laminas\\Stdlib\\StringWrapper\\MbString' => __DIR__ . '/..' . '/laminas/laminas-stdlib/src/StringWrapper/MbString.php',
         'Laminas\\Stdlib\\StringWrapper\\Native' => __DIR__ . '/..' . '/laminas/laminas-stdlib/src/StringWrapper/Native.php',
         'Laminas\\Stdlib\\StringWrapper\\StringWrapperInterface' => __DIR__ . '/..' . '/laminas/laminas-stdlib/src/StringWrapper/StringWrapperInterface.php',
+        'Laminas\\Text\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/laminas/laminas-text/src/Exception/ExceptionInterface.php',
+        'Laminas\\Text\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/laminas/laminas-text/src/Exception/InvalidArgumentException.php',
+        'Laminas\\Text\\Exception\\OutOfBoundsException' => __DIR__ . '/..' . '/laminas/laminas-text/src/Exception/OutOfBoundsException.php',
+        'Laminas\\Text\\Exception\\OverflowException' => __DIR__ . '/..' . '/laminas/laminas-text/src/Exception/OverflowException.php',
+        'Laminas\\Text\\Exception\\RuntimeException' => __DIR__ . '/..' . '/laminas/laminas-text/src/Exception/RuntimeException.php',
+        'Laminas\\Text\\Exception\\UnexpectedValueException' => __DIR__ . '/..' . '/laminas/laminas-text/src/Exception/UnexpectedValueException.php',
+        'Laminas\\Text\\Figlet\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/laminas/laminas-text/src/Figlet/Exception/ExceptionInterface.php',
+        'Laminas\\Text\\Figlet\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/laminas/laminas-text/src/Figlet/Exception/InvalidArgumentException.php',
+        'Laminas\\Text\\Figlet\\Exception\\RuntimeException' => __DIR__ . '/..' . '/laminas/laminas-text/src/Figlet/Exception/RuntimeException.php',
+        'Laminas\\Text\\Figlet\\Exception\\UnexpectedValueException' => __DIR__ . '/..' . '/laminas/laminas-text/src/Figlet/Exception/UnexpectedValueException.php',
+        'Laminas\\Text\\Figlet\\Figlet' => __DIR__ . '/..' . '/laminas/laminas-text/src/Figlet/Figlet.php',
+        'Laminas\\Text\\MultiByte' => __DIR__ . '/..' . '/laminas/laminas-text/src/MultiByte.php',
+        'Laminas\\Text\\Table\\Column' => __DIR__ . '/..' . '/laminas/laminas-text/src/Table/Column.php',
+        'Laminas\\Text\\Table\\DecoratorManager' => __DIR__ . '/..' . '/laminas/laminas-text/src/Table/DecoratorManager.php',
+        'Laminas\\Text\\Table\\Decorator\\Ascii' => __DIR__ . '/..' . '/laminas/laminas-text/src/Table/Decorator/Ascii.php',
+        'Laminas\\Text\\Table\\Decorator\\Blank' => __DIR__ . '/..' . '/laminas/laminas-text/src/Table/Decorator/Blank.php',
+        'Laminas\\Text\\Table\\Decorator\\DecoratorInterface' => __DIR__ . '/..' . '/laminas/laminas-text/src/Table/Decorator/DecoratorInterface.php',
+        'Laminas\\Text\\Table\\Decorator\\Unicode' => __DIR__ . '/..' . '/laminas/laminas-text/src/Table/Decorator/Unicode.php',
+        'Laminas\\Text\\Table\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/laminas/laminas-text/src/Table/Exception/ExceptionInterface.php',
+        'Laminas\\Text\\Table\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/laminas/laminas-text/src/Table/Exception/InvalidArgumentException.php',
+        'Laminas\\Text\\Table\\Exception\\InvalidDecoratorException' => __DIR__ . '/..' . '/laminas/laminas-text/src/Table/Exception/InvalidDecoratorException.php',
+        'Laminas\\Text\\Table\\Exception\\OutOfBoundsException' => __DIR__ . '/..' . '/laminas/laminas-text/src/Table/Exception/OutOfBoundsException.php',
+        'Laminas\\Text\\Table\\Exception\\OverflowException' => __DIR__ . '/..' . '/laminas/laminas-text/src/Table/Exception/OverflowException.php',
+        'Laminas\\Text\\Table\\Exception\\UnexpectedValueException' => __DIR__ . '/..' . '/laminas/laminas-text/src/Table/Exception/UnexpectedValueException.php',
+        'Laminas\\Text\\Table\\Row' => __DIR__ . '/..' . '/laminas/laminas-text/src/Table/Row.php',
+        'Laminas\\Text\\Table\\Table' => __DIR__ . '/..' . '/laminas/laminas-text/src/Table/Table.php',
         'League\\Container\\Argument\\ArgumentResolverInterface' => __DIR__ . '/..' . '/league/container/src/Argument/ArgumentResolverInterface.php',
         'League\\Container\\Argument\\ArgumentResolverTrait' => __DIR__ . '/..' . '/league/container/src/Argument/ArgumentResolverTrait.php',
         'League\\Container\\Argument\\ClassName' => __DIR__ . '/..' . '/league/container/src/Argument/ClassName.php',
@@ -4031,6 +4117,7 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Masterminds\\HTML5\\Serializer\\OutputRules' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/OutputRules.php',
         'Masterminds\\HTML5\\Serializer\\RulesInterface' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/RulesInterface.php',
         'Masterminds\\HTML5\\Serializer\\Traverser' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/Traverser.php',
+        'MathieuViossat\\Util\\ArrayToTextTable' => __DIR__ . '/..' . '/mathieuviossat/arraytotexttable/src/ArrayToTextTable.php',
         'MyCLabs\\Enum\\Enum' => __DIR__ . '/..' . '/myclabs/php-enum/src/Enum.php',
         'MyCLabs\\Enum\\PHPUnit\\Comparator' => __DIR__ . '/..' . '/myclabs/php-enum/src/PHPUnit/Comparator.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
@@ -4047,6 +4134,24 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'PHPMailer\\PHPMailer\\PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/PHPMailer.php',
         'PHPMailer\\PHPMailer\\POP3' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/POP3.php',
         'PHPMailer\\PHPMailer\\SMTP' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/SMTP.php',
+        'PHPStan\\Rules\\Deprecations\\AccessDeprecatedPropertyRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/AccessDeprecatedPropertyRule.php',
+        'PHPStan\\Rules\\Deprecations\\AccessDeprecatedStaticPropertyRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/AccessDeprecatedStaticPropertyRule.php',
+        'PHPStan\\Rules\\Deprecations\\CallToDeprecatedFunctionRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/CallToDeprecatedFunctionRule.php',
+        'PHPStan\\Rules\\Deprecations\\CallToDeprecatedMethodRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/CallToDeprecatedMethodRule.php',
+        'PHPStan\\Rules\\Deprecations\\CallToDeprecatedStaticMethodRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php',
+        'PHPStan\\Rules\\Deprecations\\DeprecatedClassHelper' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/DeprecatedClassHelper.php',
+        'PHPStan\\Rules\\Deprecations\\DeprecatedScopeHelper' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/DeprecatedScopeHelper.php',
+        'PHPStan\\Rules\\Deprecations\\FetchingClassConstOfDeprecatedClassRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php',
+        'PHPStan\\Rules\\Deprecations\\FetchingDeprecatedConstRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/FetchingDeprecatedConstRule.php',
+        'PHPStan\\Rules\\Deprecations\\ImplementationOfDeprecatedInterfaceRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/ImplementationOfDeprecatedInterfaceRule.php',
+        'PHPStan\\Rules\\Deprecations\\InheritanceOfDeprecatedClassRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/InheritanceOfDeprecatedClassRule.php',
+        'PHPStan\\Rules\\Deprecations\\InheritanceOfDeprecatedInterfaceRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/InheritanceOfDeprecatedInterfaceRule.php',
+        'PHPStan\\Rules\\Deprecations\\InstantiationOfDeprecatedClassRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/InstantiationOfDeprecatedClassRule.php',
+        'PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php',
+        'PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php',
+        'PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php',
+        'PHPStan\\Rules\\Deprecations\\UsageOfDeprecatedCastRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/UsageOfDeprecatedCastRule.php',
+        'PHPStan\\Rules\\Deprecations\\UsageOfDeprecatedTraitRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/UsageOfDeprecatedTraitRule.php',
         'Parsedown' => __DIR__ . '/..' . '/erusev/parsedown/Parsedown.php',
         'PhpParser\\Builder' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Builder.php',
         'PhpParser\\BuilderFactory' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/BuilderFactory.php',
@@ -6735,6 +6840,67 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'enshrined\\svgSanitize\\data\\TagInterface' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/TagInterface.php',
         'enshrined\\svgSanitize\\data\\XPath' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/XPath.php',
         'geoPHP' => __DIR__ . '/..' . '/itamair/geophp/geoPHP.inc',
+        'mglaman\\PHPStanDrupal\\Drupal\\DrupalAutoloader' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Drupal/DrupalAutoloader.php',
+        'mglaman\\PHPStanDrupal\\Drupal\\DrupalServiceDefinition' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Drupal/DrupalServiceDefinition.php',
+        'mglaman\\PHPStanDrupal\\Drupal\\DrupalStubFilesExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Drupal/DrupalStubFilesExtension.php',
+        'mglaman\\PHPStanDrupal\\Drupal\\EntityData' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Drupal/EntityData.php',
+        'mglaman\\PHPStanDrupal\\Drupal\\EntityDataRepository' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Drupal/EntityDataRepository.php',
+        'mglaman\\PHPStanDrupal\\Drupal\\Extension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Drupal/Extension.php',
+        'mglaman\\PHPStanDrupal\\Drupal\\ExtensionDiscovery' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Drupal/ExtensionDiscovery.php',
+        'mglaman\\PHPStanDrupal\\Drupal\\ExtensionMap' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Drupal/ExtensionMap.php',
+        'mglaman\\PHPStanDrupal\\Drupal\\RecursiveExtensionFilterIterator' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Drupal/RecursiveExtensionFilterIterator.php',
+        'mglaman\\PHPStanDrupal\\Drupal\\ServiceMap' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Drupal/ServiceMap.php',
+        'mglaman\\PHPStanDrupal\\Internal\\DeprecatedScopeCheck' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Internal/DeprecatedScopeCheck.php',
+        'mglaman\\PHPStanDrupal\\Internal\\NamespaceCheck' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Internal/NamespaceCheck.php',
+        'mglaman\\PHPStanDrupal\\Reflection\\EntityFieldMethodsViaMagicReflectionExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Reflection/EntityFieldMethodsViaMagicReflectionExtension.php',
+        'mglaman\\PHPStanDrupal\\Reflection\\EntityFieldReflection' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Reflection/EntityFieldReflection.php',
+        'mglaman\\PHPStanDrupal\\Reflection\\EntityFieldsViaMagicReflectionExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Reflection/EntityFieldsViaMagicReflectionExtension.php',
+        'mglaman\\PHPStanDrupal\\Reflection\\FieldItemListMethodReflection' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Reflection/FieldItemListMethodReflection.php',
+        'mglaman\\PHPStanDrupal\\Reflection\\FieldItemListPropertyReflection' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Reflection/FieldItemListPropertyReflection.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Classes\\ClassExtendsInternalClassRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Classes/ClassExtendsInternalClassRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Classes\\PluginManagerInspectionRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Classes/PluginManagerInspectionRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Deprecations\\AccessDeprecatedConstant' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Deprecations/AccessDeprecatedConstant.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Deprecations\\ConditionManagerCreateInstanceContextConfigurationRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Deprecations/ConditionManagerCreateInstanceContextConfigurationRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Deprecations\\ConfigEntityConfigExportRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Deprecations/ConfigEntityConfigExportRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Deprecations\\DeprecatedAnnotationsRuleBase' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Deprecations/DeprecatedAnnotationsRuleBase.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Deprecations\\GetDeprecatedServiceRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Deprecations/GetDeprecatedServiceRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Deprecations\\PluginAnnotationContextDefinitionsRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Deprecations/PluginAnnotationContextDefinitionsRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Deprecations\\StaticServiceDeprecatedServiceRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Deprecations/StaticServiceDeprecatedServiceRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Deprecations\\SymfonyCmfRouteObjectInterfaceConstantsRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Deprecations/SymfonyCmfRouteObjectInterfaceConstantsRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Deprecations\\SymfonyCmfRoutingInClassMethodSignatureRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Deprecations/SymfonyCmfRoutingInClassMethodSignatureRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Drupal\\Coder\\DiscouragedFunctionsRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Drupal/Coder/DiscouragedFunctionsRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Drupal\\EntityQuery\\EntityQueryHasAccessCheckRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Drupal/EntityQuery/EntityQueryHasAccessCheckRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Drupal\\GlobalDrupalDependencyInjectionRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Drupal/GlobalDrupalDependencyInjectionRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Drupal\\LoadIncludeBase' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Drupal/LoadIncludeBase.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Drupal\\LoadIncludes' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Drupal/LoadIncludes.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Drupal\\ModuleLoadInclude' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Drupal/ModuleLoadInclude.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Drupal\\PluginManager\\AbstractPluginManagerRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Drupal/PluginManager/AbstractPluginManagerRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Drupal\\PluginManager\\PluginManagerSetsCacheBackendRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Drupal/PluginManager/PluginManagerSetsCacheBackendRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Drupal\\RenderCallbackRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Drupal/RenderCallbackRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Drupal\\RequestStackGetMainRequestRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Drupal/RequestStackGetMainRequestRule.php',
+        'mglaman\\PHPStanDrupal\\Rules\\Drupal\\Tests\\BrowserTestBaseDefaultThemeRule' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Rules/Drupal/Tests/BrowserTestBaseDefaultThemeRule.php',
+        'mglaman\\PHPStanDrupal\\Type\\ContainerDynamicReturnTypeExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/ContainerDynamicReturnTypeExtension.php',
+        'mglaman\\PHPStanDrupal\\Type\\DrupalClassResolverDynamicReturnTypeExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/DrupalClassResolverDynamicReturnTypeExtension.php',
+        'mglaman\\PHPStanDrupal\\Type\\DrupalClassResolverDynamicStaticReturnTypeExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/DrupalClassResolverDynamicStaticReturnTypeExtension.php',
+        'mglaman\\PHPStanDrupal\\Type\\DrupalClassResolverReturnType' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/DrupalClassResolverReturnType.php',
+        'mglaman\\PHPStanDrupal\\Type\\DrupalServiceDynamicReturnTypeExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/DrupalServiceDynamicReturnTypeExtension.php',
+        'mglaman\\PHPStanDrupal\\Type\\DrupalStaticEntityQueryDynamicReturnTypeExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/DrupalStaticEntityQueryDynamicReturnTypeExtension.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityAccessControlHandlerReturnTypeExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityAccessControlHandlerReturnTypeExtension.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityQuery\\ConfigEntityQueryType' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityQuery/ConfigEntityQueryType.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityQuery\\ContentEntityQueryType' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityQuery/ContentEntityQueryType.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityQuery\\EntityQueryAccessCheckDynamicReturnTypeExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityQuery/EntityQueryAccessCheckDynamicReturnTypeExtension.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityQuery\\EntityQueryCountType' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityQuery/EntityQueryCountType.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityQuery\\EntityQueryDynamicReturnTypeExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityQuery/EntityQueryDynamicReturnTypeExtension.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityQuery\\EntityQueryExecuteWithoutAccessCheckCountType' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityQuery/EntityQueryExecuteWithoutAccessCheckCountType.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityQuery\\EntityQueryExecuteWithoutAccessCheckType' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityQuery/EntityQueryExecuteWithoutAccessCheckType.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityQuery\\EntityQueryType' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityQuery/EntityQueryType.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityStorage\\ConfigEntityStorageType' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityStorage/ConfigEntityStorageType.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityStorage\\ContentEntityStorageType' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityStorage/ContentEntityStorageType.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityStorage\\EntityStorageDynamicReturnTypeExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityStorage/EntityStorageDynamicReturnTypeExtension.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityStorage\\EntityStorageType' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityStorage/EntityStorageType.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityStorage\\GetQueryReturnTypeExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityStorage/GetQueryReturnTypeExtension.php',
+        'mglaman\\PHPStanDrupal\\Type\\EntityTypeManagerGetStorageDynamicReturnTypeExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/EntityTypeManagerGetStorageDynamicReturnTypeExtension.php',
+        'mglaman\\PHPStanDrupal\\Type\\UrlToStringDynamicReturnTypeExtension' => __DIR__ . '/..' . '/mglaman/phpstan-drupal/src/Type/UrlToStringDynamicReturnTypeExtension.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
