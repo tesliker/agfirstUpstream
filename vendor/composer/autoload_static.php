@@ -620,9 +620,9 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Doctrine\\Common\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
-            1 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
-            2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
-            3 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
+            1 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
+            2 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
+            3 => __DIR__ . '/..' . '/doctrine/event-manager/src',
         ),
         'Consolidation\\SiteProcess\\' => 
         array (
@@ -1215,9 +1215,9 @@ class ComposerStaticInitad66eed3d898a50e569f929fdc98f390
         'Doctrine\\Common\\Collections\\Selectable' => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections/Selectable.php',
         'Doctrine\\Common\\CommonException' => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common/CommonException.php',
         'Doctrine\\Common\\Comparable' => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common/Comparable.php',
-        'Doctrine\\Common\\EventArgs' => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common/EventArgs.php',
-        'Doctrine\\Common\\EventManager' => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common/EventManager.php',
-        'Doctrine\\Common\\EventSubscriber' => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common/EventSubscriber.php',
+        'Doctrine\\Common\\EventArgs' => __DIR__ . '/..' . '/doctrine/event-manager/src/EventArgs.php',
+        'Doctrine\\Common\\EventManager' => __DIR__ . '/..' . '/doctrine/event-manager/src/EventManager.php',
+        'Doctrine\\Common\\EventSubscriber' => __DIR__ . '/..' . '/doctrine/event-manager/src/EventSubscriber.php',
         'Doctrine\\Common\\Inflector\\Inflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector/Inflector.php',
         'Doctrine\\Common\\Lexer' => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common/Lexer.php',
         'Doctrine\\Common\\Lexer\\AbstractLexer' => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer/AbstractLexer.php',
