@@ -2,12 +2,14 @@
 
 namespace Drupal\taxonomy_import\Form;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Database;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\taxonomy\Entity\Vocabulary;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -23,18 +25,28 @@ class ImportForm extends FormBase {
   protected $config;
 
   /**
+   * The vocabulary storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $vocabularyStorage;
+
+  /**
    * {@inheritdoc}
    */
-  public function __construct(ConfigFactoryInterface $config_factory) {
-    $this->config = $config_factory->get('import_taxonomy.config');
+  public function __construct(ConfigFactoryInterface $config_factory, EntityStorageInterface $vocabulary_storage) {
+    $this->config = $config_factory->get('taxonomy_import.config');
+    $this->vocabularyStorage = $vocabulary_storage;
   }
 
   /**
    * {@inheritdoc}
    */
-
   public static function create(ContainerInterface $container) {
-    return new static($container->get('config.factory'));
+    return new static(
+      $container->get('config.factory'),
+      $container->get('entity_type.manager')->getStorage('taxonomy_vocabulary'),
+    );
   }
 
   /**
@@ -44,11 +56,13 @@ class ImportForm extends FormBase {
     return 'import_taxonomy_form';
   }
 
+  use StringTranslationTrait;
+
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $vocabularies = Vocabulary::loadMultiple();
+    $vocabularies = $this->vocabularyStorage->loadMultiple();
     $vocabulariesList = [];
     foreach ($vocabularies as $vid => $vocablary) {
       $vocabulariesList[$vid] = $vocablary->get('name');
@@ -60,7 +74,7 @@ class ImportForm extends FormBase {
       '#attributes' => [
         'class' => ['vocab-name-select'],
       ],
-      '#description' => t('Select vocabulary!'),
+      '#description' => $this->t('Select vocabulary!'),
     ];
     $form['taxonomy_file'] = [
       '#type' => 'managed_file',
@@ -108,7 +122,7 @@ class ImportForm extends FormBase {
  */
 function create_taxonomy($voc_name) {
   global $base_url;
-  $loc = Database::getConnection()->query('SELECT file_managed.uri FROM file_managed ORDER BY file_managed.fid DESC limit 1', []);
+  $loc = Database::getConnection()->query('SELECT f.uri FROM {file_managed} f ORDER BY f.fid DESC limit 1', []);
   foreach ($loc as $val) {
     // Get location of the file.
     $location = $val->uri;
@@ -136,15 +150,16 @@ function create_taxonomy($voc_name) {
     $vocabulary->save();
   }
   // Code for fetch and save csv file.
-  if ($mimetype == "text/plain") {
+  if ($mimetype == "text/plain" || $mimetype == 'application/csv') {
     if (($handle = fopen($location, "r")) !== FALSE) {
       // Read all data including title.
       $data1 = fgetcsv($handle);
       while (($data = fgetcsv($handle)) !== FALSE) {
         $termid = 0;
         $term_id = 0;
-        // Get tid of term with same name
-        $termid = Database::getConnection()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid', [':uid' => $data[0], ':vid' => $vid]);
+        // Get tid of term with same name.
+        $termid = Database::getConnection()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid',
+                  [':uid' => $data[0], ':vid' => $vid]);
         foreach ($termid as $val) {
           // Get tid.
           $term_id = $val->tid;
@@ -152,7 +167,8 @@ function create_taxonomy($voc_name) {
         // Finding parent of new item.
         $parent = 0;
         if (!empty($data[1])) {
-          $parent_id = Database::getConnection()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid', [':uid' => $data[1], ':vid' => $vid]);
+          $parent_id = Database::getConnection()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid',
+                       [':uid' => $data[1], ':vid' => $vid]);
 
           foreach ($parent_id as $val) {
             if (!empty($val)) {
@@ -164,7 +180,7 @@ function create_taxonomy($voc_name) {
             }
           }
         }
-        $target_term = null;
+        $target_term = NULL;
         // Check whether term already exists or not.
         if (empty($term_id)) {
           // Create  new term.
@@ -195,23 +211,24 @@ function create_taxonomy($voc_name) {
         }
         if (count($data1) > 2 && !empty($target_term)) {
           $i = 2;
-          $update = false;
-          while($i < count($data1)) {
-           if(!empty($data[$i]) && !empty($data1[$i])) {
-               $target_term->set($data1[$i],$data[$i]);
-              $update = true;
+          $update = FALSE;
+          while ($i < count($data1)) {
+            if (!empty($data[$i]) && !empty($data1[$i])) {
+              $target_term->set($data1[$i], $data[$i]);
+              $update = TRUE;
             }
             $i++;
           }
-          if($update) {
-             $target_term->save();
+          if ($update) {
+            $target_term->save();
           }
         }
       }
       fclose($handle);
       // Redirecting to taxonomy term overview page.
       $url = $base_url . "/admin/structure/taxonomy/manage/" . $vid . "/overview";
-      header('Location:' . $url);exit;
+      header('Location:' . $url);
+      exit;
     }
     else {
       \Drupal::messenger()->addStatus('File contains no data');
@@ -250,7 +267,8 @@ function create_taxonomy($voc_name) {
           // Checks if parent tag exists.
           if (isset($parents) && !empty($parents)) {
             $data = $parents;
-            $parent_id = Database::getConnection()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid', [':uid' => $data, ':vid' => $vid]);
+            $parent_id = Database::getConnection()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid',
+                         [':uid' => $data, ':vid' => $vid]);
             foreach ($parent_id as $val) {
               if (!empty($val)) {
                 // Get tid.
@@ -261,7 +279,8 @@ function create_taxonomy($voc_name) {
               }
             }
           }
-          $termid = Database::getConnection()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid', [':uid' => $terms, ':vid' => $vid]);
+          $termid = Database::getConnection()->query('SELECT n.tid FROM {taxonomy_term_field_data} n WHERE n.name  = :uid AND n.vid  = :vid',
+                    [':uid' => $terms, ':vid' => $vid]);
           foreach ($termid as $val) {
             // Get tid.
             $term_id = $val->tid;
@@ -285,7 +304,8 @@ function create_taxonomy($voc_name) {
         }
         // Redirecting to taxonomy term overview page.
         $url = $base_url . "/admin/structure/taxonomy/manage/" . $vid . "/overview";
-        header('Location:' . $url);exit;
+        header('Location:' . $url);
+        exit;
       }
       else {
         \Drupal::messenger()->addStatus('File contains no data');

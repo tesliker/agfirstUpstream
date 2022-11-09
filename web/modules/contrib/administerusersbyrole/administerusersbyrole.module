@@ -14,6 +14,7 @@ use Drupal\user\UserInterface;
 use Drupal\user\RoleInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Database\Query\AlterableInterface;
 
 /**
@@ -218,7 +219,7 @@ function administerusersbyrole_user_role_delete(RoleInterface $role) {
  *
  * Enable roles if required.
  */
-function administerusersbyrole_form_user_form_alter(&$form, &$form_state) {
+function administerusersbyrole_form_user_form_alter(&$form, FormStateInterface $form_state) {
   $user = $form_state->getFormObject()->getEntity();
   $account = \Drupal::currentUser();
 
@@ -235,8 +236,18 @@ function administerusersbyrole_form_user_form_alter(&$form, &$form_state) {
       // Grant access to the allowed roles.
       $form['account']['roles']['#options'] = $options;
       $form['account']['roles']['#access'] = TRUE;
+      array_unshift($form['actions']['submit']['#submit'], 'administerusersbyrole_form_user_form_submit');
     }
   }
+}
+
+/**
+ * Submit callback for the user form.
+ */
+function administerusersbyrole_form_user_form_submit(array $form, FormStateInterface $form_state) {
+  // Preserve the setting for any roles that were not visible in the form.
+  $roles = $form_state->getValue('roles') + $form['account']['roles']['#default_value'];
+  $form_state->setValue('roles', $roles);
 }
 
 /**

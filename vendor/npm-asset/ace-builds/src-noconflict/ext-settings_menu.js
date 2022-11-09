@@ -105,6 +105,7 @@ var supportedModes = {
     Assembly_x86: ["asm|a"],
     AutoHotKey: ["ahk"],
     BatchFile: ["bat|cmd"],
+    BibTeX: ["bib"],
     C_Cpp: ["cpp|c|cc|cxx|h|hh|hpp|ino"],
     C9Search: ["c9search_results"],
     Cirru: ["cirru|cr"],
@@ -176,6 +177,7 @@ var supportedModes = {
     LiveScript: ["ls"],
     Log: ["log"],
     LogiQL: ["logic|lql"],
+    Logtalk: ["lgt"],
     LSL: ["lsl"],
     Lua: ["lua"],
     LuaPage: ["lp"],
@@ -239,6 +241,7 @@ var supportedModes = {
     snippets: ["snippets"],
     Soy_Template: ["soy"],
     Space: ["space"],
+    SPARQL: ["rq"],
     SQL: ["sql"],
     SQLServer: ["sqlserver"],
     Stylus: ["styl|stylus"],
@@ -251,6 +254,7 @@ var supportedModes = {
     Textile: ["textile"],
     Toml: ["toml"],
     TSX: ["tsx"],
+    Turtle: ["ttl"],
     Twig: ["twig|swig"],
     Typescript: ["ts|typescript|str"],
     Vala: ["vala"],
@@ -549,6 +553,9 @@ var optionGroups = {
         },
         "Live Autocompletion": {
             path: "enableLiveAutocompletion"
+        },
+        "Custom scrollbar": {
+            path: "customScrollbar"
         }
     }
 };
