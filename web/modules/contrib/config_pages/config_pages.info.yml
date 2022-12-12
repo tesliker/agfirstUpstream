@@ -5,10 +5,9 @@ package: Entity
 dependencies:
   - drupal:text
 configure: entity.config_pages.collection
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 
-# Information added by Drupal.org packaging script on 2022-07-08
-version: '8.x-2.10'
+# Information added by Drupal.org packaging script on 2022-12-09
+version: '8.x-2.11'
 project: 'config_pages'
-datestamp: 1657293897
+datestamp: 1670580712

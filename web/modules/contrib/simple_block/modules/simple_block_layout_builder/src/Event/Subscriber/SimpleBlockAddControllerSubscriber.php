@@ -2,6 +2,7 @@
 
 namespace Drupal\simple_block_layout_builder\Event\Subscriber;
 
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Ajax\AjaxHelperTrait;
 use Drupal\Core\Routing\ResettableStackedRouteMatchInterface;
@@ -10,7 +11,6 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\layout_builder\SectionStorageInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -69,10 +69,10 @@ class SimpleBlockAddControllerSubscriber implements EventSubscriberInterface {
   /**
    * Alters the build produced by ChooseBlockController::build().
    *
-   * @param \Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent $event
+   * @param \Symfony\Component\HttpKernel\Event\ViewEvent $event
    *   The kernel view event.
    */
-  public function alterBuild(GetResponseForControllerResultEvent $event): void {
+  public function alterBuild(ViewEvent $event): void {
     $route_name = $event->getRequest()->attributes->get('_route');
     if ($route_name !== 'layout_builder.choose_block') {
       return;

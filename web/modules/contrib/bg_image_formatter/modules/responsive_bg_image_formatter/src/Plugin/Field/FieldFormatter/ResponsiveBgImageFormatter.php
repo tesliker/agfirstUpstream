@@ -93,6 +93,7 @@ class ResponsiveBgImageFormatter extends BgImageFormatter {
     // Need an empty element so views renderer will see something to render.
     $elements[0] = [];
 
+    /** @var \Drupal\file\FileInterface $file */
     foreach ($files as $delta => $file) {
       // Use specified selectors in round-robin order.
       $selector = $selectors[$index % \count($selectors)];

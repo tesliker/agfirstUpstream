@@ -4,19 +4,19 @@ declare(strict_types = 1);
 
 namespace Drupal\bg_image_formatter\Plugin\Field\FieldFormatter;
 
-use Drupal;
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Ajax\AjaxHelperTrait;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Drupal\image\Plugin\Field\FieldFormatter\ImageFormatter;
-use Laminas\Stdlib\ArrayUtils;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -67,6 +67,8 @@ class BgImageFormatter extends ImageFormatter {
    *   The current user.
    * @param \Drupal\Core\Entity\EntityStorageInterface $image_style_storage
    *   The image style storage.
+   * @param \Drupal\Core\File\FileUrlGeneratorInterface $file_url_generator
+   *   The file URL generator service.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer service.
    * @param \Symfony\Component\HttpFoundation\Request $request
@@ -82,6 +84,7 @@ class BgImageFormatter extends ImageFormatter {
     array $third_party_settings,
     AccountInterface $current_user,
     EntityStorageInterface $image_style_storage,
+    FileUrlGeneratorInterface $file_url_generator,
     RendererInterface $renderer,
     Request $request
   ) {
@@ -94,7 +97,8 @@ class BgImageFormatter extends ImageFormatter {
       $view_mode,
       $third_party_settings,
       $current_user,
-      $image_style_storage
+      $image_style_storage,
+      $file_url_generator
     );
     $this->renderer = $renderer;
     $this->request = $request;
@@ -114,6 +118,7 @@ class BgImageFormatter extends ImageFormatter {
         $configuration['third_party_settings'],
         $container->get('current_user'),
         $container->get('entity_type.manager')->getStorage('image_style'),
+        $container->get('file_url_generator'),
         $container->get('renderer'),
         $container->get('request_stack')->getCurrentRequest()
     );
@@ -554,17 +559,18 @@ class BgImageFormatter extends ImageFormatter {
 
     // Prepare token data in bg image css selector.
     $token_data = [
-      'user' => Drupal::currentUser(),
+      'user' => $this->currentUser,
       $items->getEntity()->getEntityTypeId() => $items->getEntity(),
     ];
 
     foreach ($selectors as &$selector) {
-      $selector = Drupal::token()->replace($selector, $token_data);
+      $selector = \Drupal::token()->replace($selector, $token_data);
     }
 
     // Need an empty element so views renderer will see something to render.
     $elements[0] = [];
 
+    /** @var \Drupal\file\FileInterface $file */
     foreach ($files as $delta => $file) {
       $css_settings['bg_image_selector'] = $selectors[$delta % \count($selectors)];
 
@@ -574,13 +580,17 @@ class BgImageFormatter extends ImageFormatter {
 
       if ($image_style) {
         $style = $this->imageStyleStorage->load($image_style);
+
+        /** @var \Drupal\image\ImageStyleInterface $style */
         $file_url = $style->buildUrl($file->getFileUri());
       }
       else {
-        $file_url = file_create_url($file->getFileUri());
+        $file_url = $this->fileUrlGenerator->generateAbsoluteString(
+          $file->getFileUri()
+        );
       }
 
-      $image_url = $path_format === 'absolute' ? $file_url : file_url_transform_relative($file_url);
+      $image_url = $path_format === 'absolute' ? $file_url : $this->fileUrlGenerator->transformRelative($file_url);
 
       $css = $this->getBackgroundImageCss($image_url, $css_settings);
 
@@ -620,7 +630,7 @@ class BgImageFormatter extends ImageFormatter {
    * Merges default settings values into $settings.
    */
   protected function mergeDefaults() {
-    $this->settings = ArrayUtils::merge(self::defaultSettings(), $this->settings);
+    $this->settings = NestedArray::mergeDeep(self::defaultSettings(), $this->settings);
     $this->defaultSettingsMerged = TRUE;
   }
 

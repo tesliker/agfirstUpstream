@@ -105,7 +105,7 @@
         "drupal/webform": "^6.0",
         "drupal/xmlsitemap": "^1.0@alpha",
         "drush-ops/behat-drush-endpoint": "^0.0.5",
-        "drush/drush": "^10.0",
+        "drush/drush": "^11.0",
         "erusev/parsedown": "^1.8",
         "geocoder-php/google-maps-provider": "^4.6",
         "pantheon-systems/quicksilver-pushback": "~1",
