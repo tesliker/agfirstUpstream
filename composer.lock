@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a6745ea5325d521920c46e0b58b4229",
+    "content-hash": "02d1471331908fad8ef39939fd56c2aa",
     "packages": [
         {
             "name": "algolia/places",
@@ -16243,5 +16243,5 @@
     "platform-overrides": {
         "php": "8.0"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.1.0"
 }
