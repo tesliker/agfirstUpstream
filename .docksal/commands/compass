@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+#: exec_target = cli
+
+##
+## Usage: fin compass [arguments]
+##
+
+# Abort if anything fails
+set -e

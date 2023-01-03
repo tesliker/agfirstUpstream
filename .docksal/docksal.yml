@@ -1,0 +1,31 @@
+# Basic LAMP stack
+
+version: "2.1"
+
+services:
+  web:
+    environment:
+      - APACHE_FILE_PROXY
+  # CLI
+  cli:
+    environment:
+      - PANTHEON_SITE
+      - PANTHEON_ENV
+      - DRUSH_OPTIONS_URI=${VIRTUAL_HOST}
+
+  phpmyadmin:
+    hostname: pma
+    image: phpmyadmin/phpmyadmin
+    expose:
+      - "80"
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}
+    labels:
+      - io.docksal.virtual-host=pma.${VIRTUAL_HOST}
+    dns:
+      - ${DOCKSAL_DNS1}
+      - ${DOCKSAL_DNS2}
+

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+## Refresh database, files, and import configuration
+##
+## Usage: fin refresh
+##        fin refresh -d all <-- pulls db and files.
+##        fin refresh -e live <-- pulls live environment (db only).
+##        fin refresh -d files -e test <-- pulls the files from the test env.
+
+# Abort if anything fails
+set -e
+
+ELEMENTS='db'
+
+while [ $# -gt 0 ]
+do
+    case $1 in
+    -e|--env) hostingenv="$2"; shift ;;
+    -d|--data) ELEMENTS="$2"; shift;;
+    esac
+    shift
+done
+
+ENV=${hostingenv:-live};
+SITE=${hostingsite:-agfirst-upstream};
+ELEMENTS=${ELEMENTS:-db};
+
+if [ $ELEMENTS = 'all' ] || [ $ELEMENTS = 'db' ]; then
+    echo "Pulling databse from ${SITE}.${ENV}"
+    fin pull db --hosting-env=${ENV} -y
+fi
+
+if [ $ELEMENTS = 'all' ] || [ $ELEMENTS = 'files' ]; then
+    FILES_DIRECTORY=sites/default/files
+    echo "Downloading latest set of files from ${SITE}.${ENV} to ${FILES_DIRECTORY}."
+    fin pull files --hosting-env=${ENV} --files-dir=${FILES_DIRECTORY} -y
+fi
+
+# Clear cache!
+echo "Clearing Caches"
+fin drush cr
+
+cd ${DOCROOT_PATH}
+echo "Done!"
