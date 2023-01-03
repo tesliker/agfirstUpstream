@@ -10,6 +10,8 @@ use Drupal\Tests\migrate\Kernel\MigrateTestBase;
  * @coversDefaultClass \Drupal\path_redirect_import\Plugin\migrate\source\CSVRedirect
  *
  * @group path_redirect_import
+ *
+ * @requires module redirect
  */
 class CSVRedirectTest extends MigrateTestBase {
 
@@ -19,6 +21,7 @@ class CSVRedirectTest extends MigrateTestBase {
   protected static $modules = [
     'system',
     'field',
+    'file',
     'link',
     'user',
     'menu_link_content',

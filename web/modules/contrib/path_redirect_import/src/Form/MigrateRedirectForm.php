@@ -10,6 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\file\FileInterface;
+use Drupal\file\FileRepositoryInterface;
 use Drupal\migrate\MigrateMessage;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Plugin\MigrationPluginManagerInterface;
@@ -51,6 +52,13 @@ class MigrateRedirectForm extends FormBase {
   protected $entityTypeManager;
 
   /**
+   * The file repository.
+   *
+   * @var \Drupal\file\FileRepositoryInterface
+   */
+  protected $fileRepository;
+
+  /**
    * Constructs a MigrateRedirectForm object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -61,12 +69,21 @@ class MigrateRedirectForm extends FormBase {
    *   The tempstore factory.
    * @param \Drupal\Core\Session\AccountInterface $current_user
    *   Current user.
+   * @param \Drupal\file\FileRepositoryInterface $file_repository
+   *   The file repository.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, MigrationPluginManagerInterface $migration_plugin_manager, PrivateTempStoreFactory $temp_store_factory, AccountInterface $current_user) {
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    MigrationPluginManagerInterface $migration_plugin_manager,
+    PrivateTempStoreFactory $temp_store_factory,
+    AccountInterface $current_user,
+    FileRepositoryInterface $file_repository
+  ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->migrationPluginManager = $migration_plugin_manager;
     $this->privateTempStore = $temp_store_factory->get('redirect_multiple_delete_confirm');
     $this->currentUser = $current_user;
+    $this->fileRepository = $file_repository;
   }
 
   /**
@@ -77,7 +94,8 @@ class MigrateRedirectForm extends FormBase {
       $container->get('entity_type.manager'),
       $container->get('plugin.manager.migration'),
       $container->get('tempstore.private'),
-      $container->get('current_user')
+      $container->get('current_user'),
+      $container->get('file.repository')
     );
   }
 
@@ -272,7 +290,7 @@ my-source-path,https://example.com,und,302',
   protected function processSpreadsheet(int $fid) {
     /** @var \Drupal\file\Entity\File $file */
     $file = $this->entityTypeManager->getStorage('file')->load($fid);
-    return file_move($file, self::MIGRATE_FILE_PATH, FileSystemInterface::EXISTS_REPLACE);
+    return $this->fileRepository->move($file, self::MIGRATE_FILE_PATH, FileSystemInterface::EXISTS_REPLACE);
   }
 
   /**

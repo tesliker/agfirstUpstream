@@ -5,7 +5,7 @@ description: This module allow you to export configuration after changes
 type: module
 package: Deployment
 
-# Information added by Drupal.org packaging script on 2020-06-09
-version: '8.x-1.2'
+# Information added by Drupal.org packaging script on 2021-04-17
+version: '8.x-2.1'
 project: 'config_direct_save'
-datestamp: 1591743070
+datestamp: 1618700638
