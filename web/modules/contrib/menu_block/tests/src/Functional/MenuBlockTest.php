@@ -15,7 +15,7 @@ class MenuBlockTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected static $modules = [
+  public static $modules = [
     'block',
     'menu_block',
     'menu_block_test',
@@ -78,7 +78,7 @@ class MenuBlockTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp(): void {
+  public function setUp() {
     parent::setUp();
 
     $this->menuLinkManager = \Drupal::service('plugin.manager.menu.link');
@@ -132,7 +132,6 @@ class MenuBlockTest extends BrowserTestBase {
       'link' => ['uri' => 'internal:/menu-block-test/hierarchy/parent/child-1'],
       'parent' => $links['parent'],
     ];
-    /** @var \Drupal\menu_link_content\Entity\MenuLinkContent $link */
     $link = $this->menuLinkContentStorage->create($child_1);
     $link->save();
     $links['child-1'] = $link->getPluginId();
@@ -142,7 +141,6 @@ class MenuBlockTest extends BrowserTestBase {
       'link' => ['uri' => 'internal:/menu-block-test/hierarchy/parent/child-1/child-1-1'],
       'parent' => $links['child-1'],
     ];
-    /** @var \Drupal\menu_link_content\Entity\MenuLinkContent $link */
     $link = $this->menuLinkContentStorage->create($child_1_1);
     $link->save();
     $links['child-1-1'] = $link->getPluginId();
@@ -152,7 +150,6 @@ class MenuBlockTest extends BrowserTestBase {
       'link' => ['uri' => 'internal:/menu-block-test/hierarchy/parent/child-1/child-1-2'],
       'parent' => $links['child-1'],
     ];
-    /** @var \Drupal\menu_link_content\Entity\MenuLinkContent $link */
     $link = $this->menuLinkContentStorage->create($child_1_2);
     $link->save();
     $links['child-1-2'] = $link->getPluginId();
@@ -162,7 +159,6 @@ class MenuBlockTest extends BrowserTestBase {
       'link' => ['uri' => 'internal:/menu-block-test/hierarchy/parent/child-2'],
       'parent' => $links['parent'],
     ];
-    /** @var \Drupal\menu_link_content\Entity\MenuLinkContent $link */
     $link = $this->menuLinkContentStorage->create($child_2);
     $link->save();
     $links['child-2'] = $link->getPluginId();
@@ -177,7 +173,7 @@ class MenuBlockTest extends BrowserTestBase {
     $this->drupalGet('admin/structure/block/add/menu_block:main');
     $this->assertSession()->pageTextContains('Initial visibility level');
     $this->assertSession()->pageTextContains('Number of levels to display');
-    $this->assertSession()->pageTextContains('Expand all menu links');
+    $this->assertSession()->pageTextContains('Expand all menu items');
     $this->assertSession()->pageTextContains('Fixed parent item');
     $this->assertSession()
       ->pageTextContains('Make the initial visibility level follow the active menu item.');
@@ -203,7 +199,7 @@ class MenuBlockTest extends BrowserTestBase {
       'settings[suggestion]' => 'main',
       'region' => 'primary_menu',
     ], 'Save block');
-    /** @var \Drupal\block\Entity\Block $block */
+
     $block = $this->blockStorage->load($block_id);
     $block_settings = $block->get('settings');
     $this->assertSame(2, $block_settings['level']);
